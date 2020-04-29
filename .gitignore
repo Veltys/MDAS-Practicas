@@ -1,2 +1,3 @@
 ﻿# Archivos de copia de seguridad de Visual Paradigm
 *.vpp.bak_*
+/bin/
