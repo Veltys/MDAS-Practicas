@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			30/04/2020
- * @version			1.0.2
+ * @version			1.0.3
  */
 
 public abstract class Usuario {
@@ -17,6 +17,7 @@ public abstract class Usuario {
 	private String _nombre;
 	private String _alias;
 	private LocalDate _fNacimiento;
+
 
 	/**
 	 * Constructor de clase
@@ -46,7 +47,7 @@ public abstract class Usuario {
 	 * 
 	 * @param		dni								String							DNI (con letra)
 	 * @param		nombre							String							Nombre
-	 * @param		fNacimiento						Date							Fecha de nacimiento
+	 * @param		fNacimiento						LocalDate						Fecha de nacimiento
 	 * 
 	 * @exception									RuntimeException				Cuando el DNI no cumple los criterios de validación
 	 */
