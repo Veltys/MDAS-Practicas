@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			30/04/2020
- * @version			1.0.3
+ * @version			1.0.4
  */
 
 public abstract class Usuario {
@@ -257,7 +257,7 @@ public abstract class Usuario {
 
 		salida = "[";
 		salida += String.format("%08d", this._dni) + ", ";
-		salida += this._nombre + " ";
+		salida += this._nombre + ", ";
 		salida += this._alias + ", ";
 		salida += this._fNacimiento;
 		salida += "]";
