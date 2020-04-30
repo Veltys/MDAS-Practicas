@@ -9,14 +9,14 @@ import java.time.LocalDate;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			30/04/2020
- * @version			1.0.0
+ * @version			1.0.1
  */
 
 public abstract class Usuario {
 	private int _dni;
 	private String _nombre;
 	private String _alias;
-	private LocalDate _f_nacimiento;
+	private LocalDate _fNacimiento;
 
 	/**
 	 * Constructor de clase
@@ -32,7 +32,7 @@ public abstract class Usuario {
 		if(this.dni(dni)) {
 			this._nombre		= nombre;
 			this._alias			= Usuario.generateAlias(nombre);
-			this._f_nacimiento	= LocalDate.MIN;
+			this._fNacimiento	= LocalDate.MIN;
 		}
 		else {
 			throw new RuntimeException("El DNI no es válido");
@@ -46,16 +46,16 @@ public abstract class Usuario {
 	 * 
 	 * @param		dni								String							DNI (con letra)
 	 * @param		nombre							String							Nombre
-	 * @param		f_nacimiento					Date							Fecha de nacimiento
+	 * @param		fNacimiento						Date							Fecha de nacimiento
 	 * 
 	 * @exception									RuntimeException				Cuando el DNI no cumple los criterios de validación
 	 */
 
-	public Usuario(String dni, String nombre, LocalDate f_nacimiento) {
+	public Usuario(String dni, String nombre, LocalDate fNacimiento) {
 		if(this.dni(dni)) {
 			this._nombre		= nombre;
 			this._alias			= "";
-			this._f_nacimiento	= f_nacimiento;
+			this._fNacimiento	= fNacimiento;
 		}
 		else {
 			throw new RuntimeException("El DNI no es válido");
@@ -83,7 +83,7 @@ public abstract class Usuario {
 	 */
 
 	public boolean dni(String dni) {
-		if(Usuario.validar_dni(dni)) {
+		if(Usuario.validarDni(dni)) {
 			this._dni = Integer.parseInt(dni.substring(0, 8));
 
 			return true;
@@ -139,24 +139,24 @@ public abstract class Usuario {
 
 
 	/**
-	 * Observador de la variable privada _f_nacimiento
+	 * Observador de la variable privada _fNacimiento
 	 * 
 	 * @return										LocalDate						Fecha de nacimiento
 	 */
 
-	public LocalDate f_nacimiento() {
-		return this._f_nacimiento;
+	public LocalDate fNacimiento() {
+		return this._fNacimiento;
 	}
 
 
 	/**
-	 * Modificador de la variable privada _f_nacimiento
+	 * Modificador de la variable privada _fNacimiento
 	 * 
-	 * @param		f_nacimiento					LocalDate						Fecha de nacimiento
+	 * @param		fNacimiento						LocalDate						Fecha de nacimiento
 	 */
 
-	public void f_nacimiento(LocalDate f_nacimiento) {
-		this._f_nacimiento = f_nacimiento;
+	public void fNacimiento(LocalDate fNacimiento) {
+		this._fNacimiento = fNacimiento;
 	}
 
 
@@ -189,14 +189,14 @@ public abstract class Usuario {
 	 * @return										boolean							Si el DNI es válido o no
 	 */
 
-	public static boolean validar_dni(String dni) {
+	public static boolean validarDni(String dni) {
 		boolean res;
 
 		int i;
 
 		char[] letras = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
 
-		if(dni.length() == 9 && Character.isLetter(dni.charAt(8)) == true) {
+		if(dni.length() == 9 && Character.isLetter(dni.charAt(8))) {
 			res = true;
 
 			for(i = 0; i < 8; i++) {
@@ -258,7 +258,7 @@ public abstract class Usuario {
 		salida += String.format("%08d", this._dni) + ", ";
 		salida += this._nombre + " ";
 		salida += this._alias + ", ";
-		salida += this._f_nacimiento;
+		salida += this._fNacimiento;
 		salida += "]";
 
 		return salida;
