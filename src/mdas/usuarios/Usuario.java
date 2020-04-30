@@ -7,9 +7,9 @@ import java.time.LocalDate;
  * Clase Usuario
  * ...
  * 
- * @author	Rafael Carlos Méndez Rodríguez (i82meror)
- * @date	29/04/2020
- * @version	0.1.0
+ * @author			Rafael Carlos Méndez Rodríguez (i82meror)
+ * @date			30/04/2020
+ * @version			1.0.0
  */
 
 public abstract class Usuario {
@@ -22,15 +22,21 @@ public abstract class Usuario {
 	 * Constructor de clase
 	 * Crea un usuario a partir de su DNI y nombre
 	 * 
-	 * @param	dni								int								DNI
-	 * @param	nombre							String							Nombre
+	 * @param		dni								String							DNI (con letra)
+	 * @param		nombre							String							Nombre
+	 * 
+	 * @exception									RuntimeException				Cuando el DNI no cumple los criterios de validación
 	 */
 
-	public Usuario(int dni, String nombre) {
-		this._dni			= dni;
-		this._nombre		= nombre;
-		this._alias			= "";
-		this._f_nacimiento	= LocalDate.MIN;
+	public Usuario(String dni, String nombre) {
+		if(this.dni(dni)) {
+			this._nombre		= nombre;
+			this._alias			= Usuario.generateAlias(nombre);
+			this._f_nacimiento	= LocalDate.MIN;
+		}
+		else {
+			throw new RuntimeException("El DNI no es válido");
+		}
 	}
 
 
@@ -38,23 +44,29 @@ public abstract class Usuario {
 	 * Constructor de clase
 	 * Crea un usuario a partir de su DNI, nombre y fecha de nacimiento
 	 * 
-	 * @param	dni								int								DNI
-	 * @param	nombre							String							Nombre
-	 * @param	f_nacimiento					Date							Fecha de nacimiento
+	 * @param		dni								String							DNI (con letra)
+	 * @param		nombre							String							Nombre
+	 * @param		f_nacimiento					Date							Fecha de nacimiento
+	 * 
+	 * @exception									RuntimeException				Cuando el DNI no cumple los criterios de validación
 	 */
 
-	public Usuario(int dni, String nombre, LocalDate f_nacimiento) {
-		this._dni			= dni;
-		this._nombre		= nombre;
-		this._alias			= "";
-		this._f_nacimiento	= f_nacimiento;
+	public Usuario(String dni, String nombre, LocalDate f_nacimiento) {
+		if(this.dni(dni)) {
+			this._nombre		= nombre;
+			this._alias			= "";
+			this._f_nacimiento	= f_nacimiento;
+		}
+		else {
+			throw new RuntimeException("El DNI no es válido");
+		}
 	}
 
 
 	/**
 	 * Observador de la variable privada _dni
 	 * 
-	 * @return									int								DNI
+	 * @return										int								DNI
 	 */
 
 	public int dni() {
@@ -65,20 +77,27 @@ public abstract class Usuario {
 	/**
 	 * Modificador de la variable privada _dni
 	 * 
-	 * @param	dni								int								DNI
+	 * @param		dni								int								DNI
+	 * 
+	 * @return										bool							Si el DNI es válido y, por tanto, se ha guardado
 	 */
 
-	public void dni(int dni) {
-		// FIXME: Comprobar DNI
+	public boolean dni(String dni) {
+		if(Usuario.validar_dni(dni)) {
+			this._dni = Integer.parseInt(dni.substring(0, 8));
 
-		this._dni = dni;
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 
 	/**
 	 * Observador de la variable privada _nombre
 	 * 
-	 * @return									String							Nombre
+	 * @return										String							Nombre
 	 */
 
 	public String nombre() {
@@ -89,7 +108,7 @@ public abstract class Usuario {
 	/**
 	 * Modificador de la variable privada _nombre
 	 * 
-	 * @param	nombre							String							Nombre
+	 * @param		nombre							String							Nombre
 	 */
 
 	public void nombre(String nombre) {
@@ -100,7 +119,7 @@ public abstract class Usuario {
 	/**
 	 * Observador de la variable privada _alias
 	 * 
-	 * @return									String							Alias
+	 * @return										String							Alias
 	 */
 
 	public String alias() {
@@ -111,12 +130,10 @@ public abstract class Usuario {
 	/**
 	 * Modificador de la variable privada _alias
 	 * 
-	 * @param	alias							String							Alias
+	 * @param	alias								String							Alias
 	 */
 
 	public void alias(String alias) {
-		// FIXME: Generar alias
-
 		this._alias = alias;
 	}
 
@@ -124,7 +141,7 @@ public abstract class Usuario {
 	/**
 	 * Observador de la variable privada _f_nacimiento
 	 * 
-	 * @return									LocalDate						Fecha de nacimiento
+	 * @return										LocalDate						Fecha de nacimiento
 	 */
 
 	public LocalDate f_nacimiento() {
@@ -135,7 +152,7 @@ public abstract class Usuario {
 	/**
 	 * Modificador de la variable privada _f_nacimiento
 	 * 
-	 * @param	f_nacimiento					LocalDate						Fecha de nacimiento
+	 * @param		f_nacimiento					LocalDate						Fecha de nacimiento
 	 */
 
 	public void f_nacimiento(LocalDate f_nacimiento) {
@@ -144,11 +161,66 @@ public abstract class Usuario {
 
 
 	/**
+	 * Generador de un alias a partir de un nombre
+	 * 
+	 * @param		nombre							String							Nombre
+	 * 
+	 * @return										String							Alias
+	 */
+
+	public static String generateAlias(String nombre) {
+		String alias = "";
+
+		String[] nombre_y_apellidos = nombre.split(" ");
+
+		for(String palabra : nombre_y_apellidos) {
+			alias += (palabra.substring(0, 2)).toLowerCase();
+		}
+
+		return alias;
+	}
+
+
+	/**
+	 * Validador de DNI
+	 * 
+	 * @param		dni								String							DNI a validar
+	 * 
+	 * @return										boolean							Si el DNI es válido o no
+	 */
+
+	public static boolean validar_dni(String dni) {
+		boolean res;
+
+		int i;
+
+		char[] letras = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
+
+		if(dni.length() == 9 && Character.isLetter(dni.charAt(8)) == true) {
+			res = true;
+
+			for(i = 0; i < 8; i++) {
+				if(!(Character.isDigit(dni.charAt(i)))) {
+					res = false;
+
+					break;
+				}
+			}
+
+			return res && (letras[(Integer.parseInt(dni.substring(0, 8)) % 23)] == Character.toUpperCase(dni.charAt(8)));
+		}
+		else {
+			return false;
+		}
+	}
+
+
+	/**
 	 * Método de comprobación de usuarios duplicados
 	 * 
-	 * @param	otro							Usuario							Usuario a comprobar
+	 * @param		otro							Usuario							Usuario a comprobar
 	 * 
-	 * @return									boolean							Si son o no duplicados
+	 * @return										boolean							Si son o no duplicados
 	 */
 
 	@Override
@@ -175,7 +247,7 @@ public abstract class Usuario {
 	/**
 	 * Método "mágico" cuando una clase es usada como String
 	 * 
-	 * @return									String							Representación en texto de los datos del usuario
+	 * @return										String							Representación en texto de los datos del usuario
 	 */
 
 	@Override
