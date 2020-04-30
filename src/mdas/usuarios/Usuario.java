@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			30/04/2020
- * @version			1.0.1
+ * @version			1.0.2
  */
 
 public abstract class Usuario {
@@ -54,7 +54,7 @@ public abstract class Usuario {
 	public Usuario(String dni, String nombre, LocalDate fNacimiento) {
 		if(this.dni(dni)) {
 			this._nombre		= nombre;
-			this._alias			= "";
+			this._alias			= Usuario.generateAlias(nombre);
 			this._fNacimiento	= fNacimiento;
 		}
 		else {
