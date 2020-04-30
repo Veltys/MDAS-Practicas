@@ -5,11 +5,11 @@ import java.time.LocalDate;
 
 /**
  * Clase Usuario
- * ...
+ * Almacena datos de un usuario del sistema
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			30/04/2020
- * @version			1.0.4
+ * @version			1.0.5
  */
 
 public abstract class Usuario {

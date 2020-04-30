@@ -5,11 +5,11 @@ import java.time.LocalDate;
 
 /**
  * Clase Alumno
- * ...
+ * Extiende a la clase Usuario para almacenar datos concretos de un alumno
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			30/04/2020
- * @version			1.0.0
+ * @version			1.0.1
  */
 
 public class Alumno extends Usuario {
@@ -33,7 +33,6 @@ public class Alumno extends Usuario {
 		super(dni, nombre);
 
 		this._titulacion = titulacion;
-
 		this._curso = curso;
 	}
 
@@ -55,7 +54,6 @@ public class Alumno extends Usuario {
 		super(dni, nombre, fNacimiento);
 
 		this._titulacion = titulacion;
-
 		this._curso = curso;
 	}
 
