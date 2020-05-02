@@ -25,7 +25,7 @@ public interface IBuscadorUsuarios {
 	 * @return										int								Su posición en la lista (-1 si no encontrado)
 	 */
 
-	abstract public int BuscadorSeqUsuarios(List<Usuario> usuarios, Usuario buscado);
+	abstract public int buscadorSeqUsuarios(List<Usuario> usuarios, Usuario buscado);
 
 
 	/**
@@ -38,5 +38,5 @@ public interface IBuscadorUsuarios {
 	 * @return										int								Su posición en la lista (-1 si no encontrado)
 	 */
 
-	abstract public int BuscadorDicUsuarios(List<Usuario> usuarios, Usuario buscado);
+	abstract public int buscadorDicUsuarios(List<Usuario> usuarios, Usuario buscado);
 }
