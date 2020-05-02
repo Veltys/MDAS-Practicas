@@ -40,7 +40,7 @@ public class GestorUsuarios {
 	 * Método para añadir un usuario a la lista correspondiente
 	 */
 
-	void addUsuario() {
+	public void addUsuario() {
 		char		tipo;
 		String		dni;
 		String		nombre;
@@ -61,7 +61,7 @@ public class GestorUsuarios {
 		System.out.println("Introduzca la fecha de nacimiento en formato DD/MM/AAAA (opcional, dejar en blanco para continuar): ");
 		str_fNacimiento = entrada.next();
 
-		if(str_fNacimiento != "") {
+		if(!str_fNacimiento.equals("")) {
 			fNacimiento = LocalDate.parse(str_fNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		}
 
