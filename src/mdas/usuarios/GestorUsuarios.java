@@ -22,8 +22,7 @@ import mdas.usuarios.Categorias;
  */
 
 public class GestorUsuarios {
-	private List<Alumno> _alumnos;
-	private List<Profesor> _profesores;
+	private List<Usuario> _usuarios;
 
 	/**
 	 * Constructor de clase
@@ -31,8 +30,7 @@ public class GestorUsuarios {
 	 */
 
 	GestorUsuarios() {
-		this._alumnos = new ArrayList<Alumno>();
-		this._profesores = new ArrayList<Profesor>();
+		this._usuarios = new ArrayList<Usuario>();
 	}
 
 
@@ -89,14 +87,14 @@ public class GestorUsuarios {
 					nuevo = new Alumno(dni, nombre, titulacion, curso);
 				}
 
-				tamVector = this._alumnos.size();										// 		Este cálculo se realia ahora porque el acceso al vector de alumnos no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
+				tamVector = this._usuarios.size();										// 		Este cálculo se realia ahora porque el acceso al vector de alumnos no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
 				do {
-					insertar = this._alumnos.get(i).compareTo(nuevo);					// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
+					insertar = this._usuarios.get(i).compareTo(nuevo);					// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
 
 					i++;
 				} while(insertar < 0 || i + 1 == tamVector);							// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
 
-				this._alumnos.add(insertar, nuevo);										// 		Por fin, la insercción
+				this._usuarios.add(insertar, nuevo);									// 		Por fin, la insercción
 
 				System.out.println("El alumno ha sido agregado correctamente");			// 		Se informa del éxito de la operación
 			}
@@ -145,14 +143,14 @@ public class GestorUsuarios {
 					nuevo = new Profesor(dni, nombre, creditos, categoria);
 				}
 
-				tamVector = this._profesores.size();									// 		Este cálculo se realia ahora porque el acceso al vectore de profesores no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
+				tamVector = this._usuarios.size();										// 		Este cálculo se realia ahora porque el acceso al vectore de profesores no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
 				do {
-					insertar = this._profesores.get(i).compareTo(nuevo);				// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
+					insertar = this._usuarios.get(i).compareTo(nuevo);					// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
 
 					i++;
 				} while(insertar < 0 || i + 1 == tamVector);							// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
 
-				this._profesores.add(insertar, nuevo);									// 		Por fin, la insercción
+				this._usuarios.add(insertar, nuevo);									// 		Por fin, la insercción
 
 				System.out.println("El profesor ha sido agregado correctamente");		// 		Se informa del éxito de la operación
 			}
@@ -164,20 +162,11 @@ public class GestorUsuarios {
 
 
 	public int searchUsuario(IBuscadorUsuarios buscador, int dni) {
-		int alumnos;
-		int profesores;
+		int usuarios;
 
-		// FIXME: WTF!?
-		alumnos = buscador.buscarUsuario(this._alumnos);
+		// FIXME: Continuar aquí
+		usuarios = buscador.buscarUsuario(this._usuarios);
 
-		// FIXME: WTF!?
-		profesores = buscador.buscarUsuario(this._profesores);
-
-		if(alumnos > -1) {
-			return alumnos;
-		}
-		else {
-			return profesores;
-		}
+		return usuarios;
 	}
 }
