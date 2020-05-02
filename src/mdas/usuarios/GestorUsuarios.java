@@ -17,8 +17,8 @@ import mdas.usuarios.Categorias;
  * Componente de gestión de usuarios del sistema
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			01/05/2020
- * @version			0.1.0
+ * @date			02/05/2020
+ * @version			0.1.1
  */
 
 public class GestorUsuarios {
@@ -41,16 +41,19 @@ public class GestorUsuarios {
 	 */
 
 	public void addUsuario() {
-		char		tipo;
-		String		dni;
-		String		nombre;
-		String		str_fNacimiento;
-		LocalDate	fNacimiento = null;
+		char		tipo;																// Tipo de usuario a insertar
+		int			i					= 0;
+		int			insertar;															// Posición de insercción
+		int			tamVector;															// Tamaño del vector en el que se insertará
+		String		dni;																// DNI del usuario a insertar
+		String		nombre;																// Nombre del usuario a insertar
+		String		str_fNacimiento;													// Fecha de nacimiento del usuario a insertar antes de ser convertida al tipo LocalDate
+		LocalDate	fNacimiento			= null;											// Fecha de nacimiento del usuario a insertar ya convertida al tipo LocalDate
 
-		Scanner entrada = new Scanner(System.in);
+		Scanner entrada = new Scanner(System.in);										// Apertura del scanner para lectura por teclado de datos
 
 		System.out.println("¿Qué tipo de usuario se cargará? [A]lumno/[p]rofesor: ");
-		tipo = entrada.next().charAt(0);
+		tipo = entrada.next().charAt(0);												// Con recuperar el primer caracter vale
 
 		System.out.println("Introduzca el DNI: ");
 		dni = entrada.next();
@@ -65,10 +68,10 @@ public class GestorUsuarios {
 			fNacimiento = LocalDate.parse(str_fNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		}
 
-		if(tipo != 'p') {
-			int		curso;
-			String	titulacion;
-			Alumno	nuevo;
+		if(Character.toUpperCase(tipo) != 'P') {										// Cualquier cosa que no sea una "P" será tratada como un alumno (el tipo por defecto)
+			int		curso;																// 	Curso del alumno a insertar
+			String	titulacion;															// 	Titulación del alumno a insertar
+			Alumno	nuevo;																// 	Alumno a insertar
 
 			System.out.println("Introduzca la titulación: ");
 			titulacion = entrada.next();
@@ -76,70 +79,86 @@ public class GestorUsuarios {
 			System.out.println("Introduzca el curso: ");
 			curso = entrada.nextInt();
 
-			try {
-				if(fNacimiento != null) {
+			entrada.close();															// 	Se cierra el scanner, al no necesitarse más
+
+			try {																		// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
+				if(fNacimiento != null) {												// 		Como la fecha de nacimiento es opcional, se llama al constructor adecuado en función de si se tiene el dato o no
 					nuevo = new Alumno(dni, nombre, fNacimiento, titulacion, curso);
 				}
 				else {
 					nuevo = new Alumno(dni, nombre, titulacion, curso);
 				}
 
-				this._alumnos.add(nuevo);
+				tamVector = this._alumnos.size();										// 		Este cálculo se realia ahora porque el acceso al vector de alumnos no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
+				do {
+					insertar = this._alumnos.get(i).compareTo(nuevo);					// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
 
-				System.out.println("El alumno ha sido agregado correctamente");
+					i++;
+				} while(insertar < 0 || i + 1 == tamVector);							// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
+
+				this._alumnos.add(insertar, nuevo);										// 		Por fin, la insercción
+
+				System.out.println("El alumno ha sido agregado correctamente");			// 		Se informa del éxito de la operación
 			}
-			catch(RuntimeException e) {
-				System.out.println("Error: " + e.getMessage());
+			catch(RuntimeException e) {													// 	En caso de problemas...
+				System.out.println("Error: " + e.getMessage());							// 		... también se informa
 			}
 		}
-		else {
-			boolean		categoriaOk = false;
-			int			creditos;
-			String		str_categoria;
-			Categorias	categoria = null;
-			Profesor	nuevo;
+		else {																			// Operaciones equivalentes para la insercción de un profesor
+			boolean		categoriaOk = false;											// 	Validador de la categoría profesional
+			int			creditos;														// 	Créditos impartidos del profsor a insertar
+			String		str_categoria;													// 	Categoría profesional del profsor a insertar antes de ser convertida al tipo Categorias
+			Categorias	categoria = null;												// 	Categoría profesional del profsor a insertar ya convertida al tipo Categorias
+			Profesor	nuevo;															// 	Profesor a insertar
 
 			System.out.println("Introduzca los créditos impartidos: ");
 			creditos = entrada.nextInt();
 
-			do {
+			do {																		// 	Validador de categorías profesionales
 				System.out.println("La lista de categorías profesionales disponible es la siguiente:");
 				System.out.println(java.util.Arrays.asList(Categorias.values()));
 				System.out.println("Introduzca la categoría profesional: ");
 				str_categoria = entrada.next();
 
-				for(Categorias c : Categorias.values()) {
-					if(str_categoria.toUpperCase() == c.name()) {
-						categoriaOk = true;
+				for(Categorias c : Categorias.values()) {								// 		Se recorre el enum de categorías para encontrar la proporcionada
+					if(str_categoria.toUpperCase() == c.name()) {						// 			En caso de encontrarla
+						categoriaOk = true;												// 				Se da por válida
 
-						categoria = c;
+						categoria = c;													// 				Se almacena
 
-						break;
+						break;															// 				El bucle de búsqueda termina
 					}
 				}
 
-				if(!categoriaOk) {
+				if(!categoriaOk) {														// 		En caso de no ser válida se ha de informar
 					System.out.println("Error: La categoría profesional seleccionada es incorrecta");
 				}
-			} while(!categoriaOk);
+			} while(!categoriaOk);														// 	El bucle validador sólo acabará cuando se introduzca una categoría válida
 
-			try {
-				if(fNacimiento != null) {
+			entrada.close();															// 	Se cierra el scanner, al no necesitarse más
+
+			try {																		// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
+				if(fNacimiento != null) {												// 		Como la fecha de nacimiento es opcional, se llama al constructor adecuado en función de si se tiene el dato o no
 					nuevo = new Profesor(dni, nombre, fNacimiento, creditos, categoria);
 				}
 				else {
 					nuevo = new Profesor(dni, nombre, creditos, categoria);
 				}
 
-				this._profesores.add(nuevo);
+				tamVector = this._profesores.size();									// 		Este cálculo se realia ahora porque el acceso al vectore de profesores no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
+				do {
+					insertar = this._profesores.get(i).compareTo(nuevo);				// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
 
-				System.out.println("El profesor ha sido agregado correctamente");
+					i++;
+				} while(insertar < 0 || i + 1 == tamVector);							// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
+
+				this._profesores.add(insertar, nuevo);									// 		Por fin, la insercción
+
+				System.out.println("El profesor ha sido agregado correctamente");		// 		Se informa del éxito de la operación
 			}
-			catch(RuntimeException e) {
-				System.out.println("Error: " + e.getMessage());
+			catch(RuntimeException e) {													// 	En caso de problemas...
+				System.out.println("Error: " + e.getMessage());							// 		... también se informa
 			}
 		}
-
-		entrada.close();
 	}
 }
