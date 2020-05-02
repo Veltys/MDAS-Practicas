@@ -162,7 +162,22 @@ public class GestorUsuarios {
 		}
 	}
 
+
 	public int searchUsuario(IBuscadorUsuarios buscador, int dni) {
-		return 0;
+		int alumnos;
+		int profesores;
+
+		// FIXME: WTF!?
+		alumnos = buscador.buscarUsuario(this._alumnos);
+
+		// FIXME: WTF!?
+		profesores = buscador.buscarUsuario(this._profesores);
+
+		if(alumnos > -1) {
+			return alumnos;
+		}
+		else {
+			return profesores;
+		}
 	}
 }

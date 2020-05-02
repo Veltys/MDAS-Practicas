@@ -16,27 +16,13 @@ import mdas.usuarios.Usuario;
 
 public interface IBuscadorUsuarios {
 	/**
-	 * Método de búsqueda sencuencial de usuarios
-	 * Busca secuencialmente en la lista dada el usuario recibido
+	 * Método de búsqueda de usuarios
+	 * Busca en la lista dada el usuario recibido
 	 * 
 	 * @param		usuarios						List<Usuario>					Lista de usuarios
-	 * @param		buscado							Usuario							Usuario buscado
 	 * 
 	 * @return										int								Su posición en la lista (-1 si no encontrado)
 	 */
 
-	abstract public int buscadorSeqUsuarios(List<Usuario> usuarios, Usuario buscado);
-
-
-	/**
-	 * Método de búsqueda dicotómica de usuarios
-	 * Busca dicotómicamente en la lista dada el usuario recibido
-	 * 
-	 * @param		usuarios						List<Usuario>					Lista de usuarios
-	 * @param		buscado							Usuario							Usuario buscado
-	 * 
-	 * @return										int								Su posición en la lista (-1 si no encontrado)
-	 */
-
-	abstract public int buscadorDicUsuarios(List<Usuario> usuarios, Usuario buscado);
+	abstract public int buscarUsuario(List<Usuario> usuarios);
 }
