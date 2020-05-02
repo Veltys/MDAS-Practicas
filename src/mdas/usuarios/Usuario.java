@@ -9,11 +9,11 @@ import java.time.LocalDate;
  * Almacena datos de un usuario del sistema
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			30/04/2020
- * @version			1.0.5
+ * @date			01/05/2020
+ * @version			2.0.0
  */
 
-public abstract class Usuario {
+public abstract class Usuario implements Comparable<Usuario> {
 	private int _dni;
 	private String _nombre;
 	private String _alias;
@@ -23,6 +23,7 @@ public abstract class Usuario {
 	/**
 	 * Constructor de clase
 	 * Crea un usuario a partir de su DNI y nombre
+	 * Implementa la interfaz comparable, para facilitar su ordenación
 	 * 
 	 * @param		dni								String							DNI (con letra)
 	 * @param		nombre							String							Nombre
@@ -214,6 +215,20 @@ public abstract class Usuario {
 		else {
 			return false;
 		}
+	}
+
+
+	/**
+	 * Método de comparación de usuarios
+	 * 
+	 * @param	otro								Usuario							Usuario a comparar
+	 * 
+	 * @return										int								El resultado de la comparación
+	 */
+
+	@Override
+	public int compareTo(Usuario otro) {
+		return this._dni - otro.dni();
 	}
 
 
