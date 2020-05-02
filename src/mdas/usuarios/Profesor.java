@@ -4,6 +4,7 @@ package mdas.usuarios;
 import java.time.LocalDate;
 
 import mdas.usuarios.Categorias;
+import mdas.usuarios.Usuario;
 
 
 /**
@@ -11,8 +12,8 @@ import mdas.usuarios.Categorias;
  * Extiende a la clase Usuario para almacenar datos concretos de un profesor
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			30/04/2020
- * @version			1.0.0
+ * @date			02/05/2020
+ * @version			1.0.1
  */
 
 public class Profesor extends Usuario {

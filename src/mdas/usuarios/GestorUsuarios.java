@@ -18,7 +18,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			02/05/2020
- * @version			0.1.1
+ * @version			0.1.2
  */
 
 public class GestorUsuarios {
@@ -160,5 +160,9 @@ public class GestorUsuarios {
 				System.out.println("Error: " + e.getMessage());							// 		... también se informa
 			}
 		}
+	}
+
+	public int searchUsuario(IBuscadorUsuarios buscador, int dni) {
+		return 0;
 	}
 }
