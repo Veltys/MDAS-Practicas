@@ -17,7 +17,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			03/05/2020
- * @version			0.3.0
+ * @version			0.4.0
  */
 
 public class GestorUsuarios {
@@ -159,6 +159,17 @@ public class GestorUsuarios {
 		}
 	}
 
+
+	/**
+	 * Método de muestra por pantalla de usuarios
+	 * Muestra por pantalla el usuario de la posición dada
+	 * 
+	 * @param		posicion						int								Posición a mostrar
+	 */
+
+	public void printUsuario(int posicion) {
+		System.out.println(this._usuarios.get(posicion));
+	}
 
 	/**
 	 * Método de búsqueda de usuarios
