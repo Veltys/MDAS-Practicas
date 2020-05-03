@@ -17,7 +17,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			03/05/2020
- * @version			0.5.1
+ * @version			0.6.0
  */
 
 public class GestorUsuarios {
@@ -117,6 +117,41 @@ public class GestorUsuarios {
 
 
 	/**
+	 * Método privado para procesar la categoría profesional de un profesor
+	 * 
+	 * @param		entrada							Scanner							Scanner desde el que se leerán los datos
+	 * 
+	 * @return										Categorias						La categoría ya procesada
+	 */
+
+	private Categorias procesarCategoriaProfesional(Scanner entrada) {
+		String		str_categoria;														// 	Categoría profesional del profsor a insertar antes de ser convertida al tipo Categorias
+		Categorias	categoria		= null;												// 	Categoría profesional del profsor a insertar ya convertida al tipo Categorias
+
+		do {																			// 	Validador de categorías profesionales
+			System.out.println("La lista de categorías profesionales disponible es la siguiente:");
+			System.out.println(java.util.Arrays.asList(Categorias.values()));
+			System.out.println("Introduzca la categoría profesional: ");
+			str_categoria = entrada.next();
+
+			for(Categorias c : Categorias.values()) {									// 		Se itera el enum de categorías para encontrar la proporcionada
+				if(str_categoria.toUpperCase() == c.name()) {							// 			En caso de encontrarla
+					categoria = c;														// 				Se almacena
+
+					break;																// 				El bucle de búsqueda termina
+				}
+			}
+
+			if(categoria == null) {															// 		En caso de no ser válida se ha de informar
+				System.out.println("Error: La categoría profesional seleccionada es incorrecta");
+			}
+		} while(categoria == null);														// 	El bucle validador sólo acabará cuando se introduzca una categoría válida
+
+		return categoria;
+	}
+
+
+	/**
 	 * Método para añadir un usuario a la lista
 	 */
 
@@ -160,34 +195,13 @@ public class GestorUsuarios {
 			addAlumno(dni, nombre, fNacimiento, titulacion, curso);
 		}
 		else {																			// Operaciones equivalentes para la insercción de un profesor
-			boolean		categoriaOk = false;											// 	Validador de la categoría profesional
 			int			creditos;														// 	Créditos impartidos del profsor a insertar
-			String		str_categoria;													// 	Categoría profesional del profsor a insertar antes de ser convertida al tipo Categorias
-			Categorias	categoria = null;												// 	Categoría profesional del profsor a insertar ya convertida al tipo Categorias
+			Categorias	categoria;														// 	Categoría profesional del profsor a insertar ya convertida al tipo Categorias
 
 			System.out.println("Introduzca los créditos impartidos: ");
 			creditos = entrada.nextInt();
 
-			do {																		// 	Validador de categorías profesionales
-				System.out.println("La lista de categorías profesionales disponible es la siguiente:");
-				System.out.println(java.util.Arrays.asList(Categorias.values()));
-				System.out.println("Introduzca la categoría profesional: ");
-				str_categoria = entrada.next();
-
-				for(Categorias c : Categorias.values()) {								// 		Se recorre el enum de categorías para encontrar la proporcionada
-					if(str_categoria.toUpperCase() == c.name()) {						// 			En caso de encontrarla
-						categoriaOk = true;												// 				Se da por válida
-
-						categoria = c;													// 				Se almacena
-
-						break;															// 				El bucle de búsqueda termina
-					}
-				}
-
-				if(!categoriaOk) {														// 		En caso de no ser válida se ha de informar
-					System.out.println("Error: La categoría profesional seleccionada es incorrecta");
-				}
-			} while(!categoriaOk);														// 	El bucle validador sólo acabará cuando se introduzca una categoría válida
+			categoria = procesarCategoriaProfesional(entrada);
 
 			entrada.close();															// 	Se cierra el scanner, al no necesitarse más
 
