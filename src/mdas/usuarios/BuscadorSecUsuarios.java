@@ -10,29 +10,40 @@ import mdas.usuarios.Usuario;
  * Realiza una búsqueda secuencial en una lista de usuarios
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			01/05/2020
- * @version			0.1.0
+ * @date			03/05/2020
+ * @version			1.0.0
  */
 
 public class BuscadorSecUsuarios implements IBuscadorUsuarios {
-	private int _buscado;
-
-
 	/**
-	 * Constructor de clase
-	 * Inicia el sistema de búsqueda
+	 * Método de búsqueda de secuencial de usuarios
+	 * Busca secuencialmente en la lista dada el usuario recibido
 	 * 
-	 * @param		buscado							int								DNI del usuario a buscar
+	 * @param		usuarios						List<Usuario>					Lista de usuarios
+	 * @param		dni_buscado						int								DNI del usuario buscado
+	 * 
+	 * @return										int								Su posición en la lista (-1 si no se ha encontrado)
 	 */
 
-	public BuscadorSecUsuarios(int buscado) {
-		this._buscado = buscado;
-	}
-
-
 	@Override
-	public int buscarUsuario(List<Usuario> usuarios) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int buscarUsuario(List<Usuario> usuarios, int dni_buscado) {
+		boolean	encontrado	= false;													// "Bandera" que indica si ha sido encontrado el usuario
+		int		i;
+		int		tam_lista	= usuarios.size();											// Tamaño de la lista recibida (se calcula aquí para no obligar a su recálculo en cada ejecución del bucle
+
+		for(i = 0; i < tam_lista; i++) {												// Iteración de la lista de manera secuencial
+			if(usuarios.get(i).dni() == dni_buscado) {									// 	Comprobación de DNI
+				encontrado = true;														//		Activación de la "bandera" en caso positivo
+
+				break;																	//		Al haber sido encontrado no es necesario seguir iterando
+			}
+		}
+
+		if(encontrado) {																// Si ha sido encontrado el usuario
+			return i;																	// 	Se devuelve su posición
+		}
+		else {																			// Si no
+			return -1;																	// 	-1 significa que no
+		}
 	}
 }

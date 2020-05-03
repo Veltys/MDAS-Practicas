@@ -16,8 +16,8 @@ import mdas.usuarios.Categorias;
  * Componente de gestión de usuarios del sistema
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			02/05/2020
- * @version			0.1.2
+ * @date			03/05/2020
+ * @version			0.2.0
  */
 
 public class GestorUsuarios {
@@ -160,12 +160,19 @@ public class GestorUsuarios {
 	}
 
 
+	/**
+	 * Método de búsqueda de usuarios
+	 * Utiliza el buscador de usuarios para, en la lista de la clase, encontrar el usuario recibido
+	 * 
+	 * @param		buscador						IBuscadorUsuarios				Buscador de usuarios
+	 * @param		dni								int								DNI a buscar
+	 * 
+	 * @return										int								Su posición en la lista (-1 si no se ha encontrado)
+	 */
+
 	public int searchUsuario(IBuscadorUsuarios buscador, int dni) {
-		int usuarios;
-
-		// FIXME: Continuar aquí
-		usuarios = buscador.buscarUsuario(this._usuarios);
-
-		return usuarios;
+		return buscador.buscarUsuario(this._usuarios, dni);
 	}
+
+
 }
