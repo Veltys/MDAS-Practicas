@@ -17,7 +17,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			03/05/2020
- * @version			0.6.1
+ * @version			0.6.2
  */
 
 public class GestorUsuarios {
@@ -117,6 +117,28 @@ public class GestorUsuarios {
 
 
 	/**
+	 * Método privado para buscar la categoría profesional de un profesor
+	 * 
+	 * @param		str_categoria					String							Categoría profesional del profesor a insertar antes de ser convertida al tipo Categorias
+	 * 
+	 * @return										Categorias						La categoría encontrada
+	 */
+
+	private Categorias buscarCategoriaProfesional(String str_categoria) {
+		Categorias	categoria		= null;												// Categoría profesional del profesor a insertar ya convertida al tipo Categorias
+
+		for(Categorias c : Categorias.values()) {										// Se itera el enum de categorías para encontrar la proporcionada
+			if(str_categoria.toUpperCase() == c.name()) {								// 	En caso de encontrarla
+				categoria = c;															// 		Se almacena
+
+				break;																	// 		El bucle de búsqueda termina
+			}
+		}
+
+		return categoria;
+	}
+
+	/**
 	 * Método privado para procesar la categoría profesional de un profesor
 	 * 
 	 * @param		entrada							Scanner							Scanner desde el que se leerán los datos
@@ -125,8 +147,8 @@ public class GestorUsuarios {
 	 */
 
 	private Categorias procesarCategoriaProfesional(Scanner entrada) {
-		String		str_categoria;														// 	Categoría profesional del profsor a insertar antes de ser convertida al tipo Categorias
-		Categorias	categoria		= null;												// 	Categoría profesional del profsor a insertar ya convertida al tipo Categorias
+		String		str_categoria;														// 	Categoría profesional del profesor a insertar antes de ser convertida al tipo Categorias
+		Categorias	categoria		= null;												// 	Categoría profesional del profesor a insertar ya convertida al tipo Categorias
 
 		do {																			// 	Validador de categorías profesionales
 			System.out.println("La lista de categorías profesionales disponible es la siguiente:");
@@ -134,13 +156,7 @@ public class GestorUsuarios {
 			System.out.println("Introduzca la categoría profesional: ");
 			str_categoria = entrada.next();
 
-			for(Categorias c : Categorias.values()) {									// 		Se itera el enum de categorías para encontrar la proporcionada
-				if(str_categoria.toUpperCase() == c.name()) {							// 			En caso de encontrarla
-					categoria = c;														// 				Se almacena
-
-					break;																// 				El bucle de búsqueda termina
-				}
-			}
+			categoria = buscarCategoriaProfesional(str_categoria);
 
 			if(categoria == null) {															// 		En caso de no ser válida se ha de informar
 				System.out.println("Error: La categoría profesional seleccionada es incorrecta");
@@ -195,8 +211,8 @@ public class GestorUsuarios {
 			addAlumno(dni, nombre, fNacimiento, titulacion, curso);
 		}
 		else {																			// Operaciones equivalentes para la insercción de un profesor
-			int			creditos;														// 	Créditos impartidos del profsor a insertar
-			Categorias	categoria;														// 	Categoría profesional del profsor a insertar ya convertida al tipo Categorias
+			int			creditos;														// 	Créditos impartidos del profesor a insertar
+			Categorias	categoria;														// 	Categoría profesional del profesor a insertar ya convertida al tipo Categorias
 
 			System.out.println("Introduzca los créditos impartidos: ");
 			creditos = entrada.nextInt();
@@ -211,7 +227,7 @@ public class GestorUsuarios {
 
 
 	/**
-	 * Método para mostrar por pantalla de usuarios
+	 * Método para mostrar por pantalla usuarios
 	 * Muestra por pantalla el usuario de la posición dada
 	 * 
 	 * @param		posicion						int								Posición a mostrar
