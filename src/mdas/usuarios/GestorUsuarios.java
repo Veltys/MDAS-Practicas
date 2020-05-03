@@ -17,7 +17,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			03/05/2020
- * @version			0.2.0
+ * @version			0.3.0
  */
 
 public class GestorUsuarios {
@@ -175,4 +175,14 @@ public class GestorUsuarios {
 	}
 
 
+	/**
+	 * Método de eliminación de usuarios
+	 * Elimina el usuario de la posición dada
+	 * 
+	 * @param		posicion						int								Posición a eliminar
+	 */
+
+	public void removeUsuario(int posicion) {
+		this._usuarios.remove(posicion);
+	}
 }
