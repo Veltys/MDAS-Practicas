@@ -17,7 +17,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			03/05/2020
- * @version			0.4.0
+ * @version			0.5.0
  */
 
 public class GestorUsuarios {
@@ -34,14 +34,11 @@ public class GestorUsuarios {
 
 
 	/**
-	 * Método para añadir un usuario a la lista correspondiente
+	 * Método para añadir un usuario a la lista
 	 */
 
 	public void addUsuario() {
 		char		tipo;																// Tipo de usuario a insertar
-		int			i					= 0;
-		int			insertar;															// Posición de insercción
-		int			tamVector;															// Tamaño del vector en el que se insertará
 		String		dni;																// DNI del usuario a insertar
 		String		nombre;																// Nombre del usuario a insertar
 		String		str_fNacimiento;													// Fecha de nacimiento del usuario a insertar antes de ser convertida al tipo LocalDate
@@ -68,7 +65,6 @@ public class GestorUsuarios {
 		if(Character.toUpperCase(tipo) != 'P') {										// Cualquier cosa que no sea una "P" será tratada como un alumno (el tipo por defecto)
 			int		curso;																// 	Curso del alumno a insertar
 			String	titulacion;															// 	Titulación del alumno a insertar
-			Alumno	nuevo;																// 	Alumno a insertar
 
 			System.out.println("Introduzca la titulación: ");
 			titulacion = entrada.next();
@@ -78,35 +74,13 @@ public class GestorUsuarios {
 
 			entrada.close();															// 	Se cierra el scanner, al no necesitarse más
 
-			try {																		// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
-				if(fNacimiento != null) {												// 		Como la fecha de nacimiento es opcional, se llama al constructor adecuado en función de si se tiene el dato o no
-					nuevo = new Alumno(dni, nombre, fNacimiento, titulacion, curso);
-				}
-				else {
-					nuevo = new Alumno(dni, nombre, titulacion, curso);
-				}
-
-				tamVector = this._usuarios.size();										// 		Este cálculo se realia ahora porque el acceso al vector de alumnos no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
-				do {
-					insertar = this._usuarios.get(i).compareTo(nuevo);					// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
-
-					i++;
-				} while(insertar < 0 || i + 1 == tamVector);							// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
-
-				this._usuarios.add(insertar, nuevo);									// 		Por fin, la insercción
-
-				System.out.println("El alumno ha sido agregado correctamente");			// 		Se informa del éxito de la operación
-			}
-			catch(RuntimeException e) {													// 	En caso de problemas...
-				System.out.println("Error: " + e.getMessage());							// 		... también se informa
-			}
+			addAlumno(dni, nombre, fNacimiento, titulacion, curso);
 		}
 		else {																			// Operaciones equivalentes para la insercción de un profesor
 			boolean		categoriaOk = false;											// 	Validador de la categoría profesional
 			int			creditos;														// 	Créditos impartidos del profsor a insertar
 			String		str_categoria;													// 	Categoría profesional del profsor a insertar antes de ser convertida al tipo Categorias
 			Categorias	categoria = null;												// 	Categoría profesional del profsor a insertar ya convertida al tipo Categorias
-			Profesor	nuevo;															// 	Profesor a insertar
 
 			System.out.println("Introduzca los créditos impartidos: ");
 			creditos = entrada.nextInt();
@@ -134,28 +108,90 @@ public class GestorUsuarios {
 
 			entrada.close();															// 	Se cierra el scanner, al no necesitarse más
 
-			try {																		// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
-				if(fNacimiento != null) {												// 		Como la fecha de nacimiento es opcional, se llama al constructor adecuado en función de si se tiene el dato o no
-					nuevo = new Profesor(dni, nombre, fNacimiento, creditos, categoria);
-				}
-				else {
-					nuevo = new Profesor(dni, nombre, creditos, categoria);
-				}
+			addProfesor(dni, nombre, fNacimiento, creditos, categoria);
+		}
+	}
 
-				tamVector = this._usuarios.size();										// 		Este cálculo se realia ahora porque el acceso al vectore de profesores no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
-				do {
-					insertar = this._usuarios.get(i).compareTo(nuevo);					// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
 
-					i++;
-				} while(insertar < 0 || i + 1 == tamVector);							// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
+	/**
+	 * Método privado para añadir un alumno a la lista
+	 * 
+	 * @param		dni								String							DNI del alumno
+	 * @param		nombre							String							Nombre del alumno
+	 * @param		fNacimiento						LocalDate						Fecha de nacimiento del alumno
+	 * @param		titulacion						String							Titulación del alumno
+	 * @param		curso							int								Curso del alumno
+	 */
 
-				this._usuarios.add(insertar, nuevo);									// 		Por fin, la insercción
+	private void addAlumno(String dni, String nombre, LocalDate fNacimiento, String titulacion, int curso) {
+		int		tamVector;																// Tamaño del vector en el que se insertará
+		int		i			= 0;
+		int		insertar;																// Posición de insercción
+		Alumno	nuevo;																	// 	Alumno a insertar
 
-				System.out.println("El profesor ha sido agregado correctamente");		// 		Se informa del éxito de la operación
+		try {																			// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
+			if(fNacimiento != null) {													// 		Como la fecha de nacimiento es opcional, se llama al constructor adecuado en función de si se tiene el dato o no
+				nuevo = new Alumno(dni, nombre, fNacimiento, titulacion, curso);
 			}
-			catch(RuntimeException e) {													// 	En caso de problemas...
-				System.out.println("Error: " + e.getMessage());							// 		... también se informa
+			else {
+				nuevo = new Alumno(dni, nombre, titulacion, curso);
 			}
+	
+			tamVector = this._usuarios.size();											// 		Este cálculo se realia ahora porque el acceso al vector de alumnos no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
+			do {
+				insertar = this._usuarios.get(i).compareTo(nuevo);						// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
+	
+				i++;
+			} while(insertar < 0 || i + 1 == tamVector);								// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
+	
+			this._usuarios.add(insertar, nuevo);										// 		Por fin, la insercción
+	
+			System.out.println("El alumno ha sido agregado correctamente");				// 		Se informa del éxito de la operación
+		}
+		catch(RuntimeException e) {														// 	En caso de problemas...
+			System.out.println("Error: " + e.getMessage());								// 		... también se informa
+		}
+
+	}
+
+
+	/**
+	 * Método privado para añadir un profesor a la lista
+	 * 
+	 * @param		dni								String							DNI del profesor
+	 * @param		nombre							String							Nombre del profesor
+	 * @param		fNacimiento						LocalDate						Fecha de profesor del alumno
+	 * @param		creditos						int								Créditos impartidos del profesor
+	 * @param		categoria						Categorias						Categoría profesional del profesor
+	 */
+
+	private void addProfesor(String dni, String nombre, LocalDate fNacimiento, int creditos, Categorias categoria) {
+		int			tamVector;															// Tamaño del vector en el que se insertará
+		int			i			= 0;
+		int			insertar;															// Posición de insercción
+		Profesor	nuevo;																// 	Profesor a insertar
+
+		try {																			// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
+			if(fNacimiento != null) {													// 		Como la fecha de nacimiento es opcional, se llama al constructor adecuado en función de si se tiene el dato o no
+				nuevo = new Profesor(dni, nombre, fNacimiento, creditos, categoria);
+			}
+			else {
+				nuevo = new Profesor(dni, nombre, creditos, categoria);
+			}
+
+			tamVector = this._usuarios.size();											// 		Este cálculo se realia ahora porque el acceso al vectore de profesores no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
+			do {
+				insertar = this._usuarios.get(i).compareTo(nuevo);						// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
+
+				i++;
+			} while(insertar < 0 || i + 1 == tamVector);								// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
+
+			this._usuarios.add(insertar, nuevo);										// 		Por fin, la insercción
+
+			System.out.println("El profesor ha sido agregado correctamente");			// 		Se informa del éxito de la operación
+		}
+		catch(RuntimeException e) {														// 	En caso de problemas...
+			System.out.println("Error: " + e.getMessage());								// 		... también se informa
 		}
 	}
 
@@ -170,6 +206,7 @@ public class GestorUsuarios {
 	public void printUsuario(int posicion) {
 		System.out.println(this._usuarios.get(posicion));
 	}
+
 
 	/**
 	 * Método de búsqueda de usuarios
