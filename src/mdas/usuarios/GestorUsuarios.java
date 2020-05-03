@@ -17,7 +17,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			03/05/2020
- * @version			0.6.0
+ * @version			0.6.1
  */
 
 public class GestorUsuarios {
@@ -211,7 +211,7 @@ public class GestorUsuarios {
 
 
 	/**
-	 * Método de mostrado por pantalla de usuarios
+	 * Método para mostrar por pantalla de usuarios
 	 * Muestra por pantalla el usuario de la posición dada
 	 * 
 	 * @param		posicion						int								Posición a mostrar
@@ -223,7 +223,7 @@ public class GestorUsuarios {
 
 
 	/**
-	 * Método de búsqueda de usuarios
+	 * Método para buscar usuarios
 	 * Utiliza el buscador de usuarios para, en la lista de la clase, encontrar el usuario recibido
 	 * 
 	 * @param		buscador						IBuscadorUsuarios				Buscador de usuarios
@@ -238,7 +238,7 @@ public class GestorUsuarios {
 
 
 	/**
-	 * Método de eliminación de usuarios
+	 * Método para eliminar usuarios
 	 * Elimina el usuario de la posición dada
 	 * 
 	 * @param		posicion						int								Posición a eliminar
