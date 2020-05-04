@@ -1,11 +1,17 @@
 package mdas.usuarios;
 
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import mdas.usuarios.Usuario;
 import mdas.usuarios.Categorias;
@@ -17,7 +23,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			03/05/2020
- * @version			0.6.2
+ * @version			0.7.0
  */
 
 public class GestorUsuarios {
@@ -44,32 +50,32 @@ public class GestorUsuarios {
 	 */
 
 	private void addAlumno(String dni, String nombre, LocalDate fNacimiento, String titulacion, int curso) {
-		int		tamVector;																// Tamaño del vector en el que se insertará
+		int		tamVector;																	// Tamaño del vector en el que se insertará
 		int		i			= 0;
-		int		insertar;																// Posición de insercción
-		Alumno	nuevo;																	// 	Alumno a insertar
+		int		insertar;																	// Posición de insercción
+		Alumno	nuevo;																		// 	Alumno a insertar
 
-		try {																			// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
-			if(fNacimiento != null) {													// 		Como la fecha de nacimiento es opcional, se llama al constructor adecuado en función de si se tiene el dato o no
+		try {																				// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
+			if(fNacimiento != null) {														// 		Como la fecha de nacimiento es opcional, se llama al constructor adecuado en función de si se tiene el dato o no
 				nuevo = new Alumno(dni, nombre, fNacimiento, titulacion, curso);
 			}
 			else {
 				nuevo = new Alumno(dni, nombre, titulacion, curso);
 			}
 	
-			tamVector = this._usuarios.size();											// 		Este cálculo se realia ahora porque el acceso al vector de alumnos no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
+			tamVector = this._usuarios.size();												// 		Este cálculo se realia ahora porque el acceso al vector de alumnos no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
 			do {
-				insertar = this._usuarios.get(i).compareTo(nuevo);						// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
+				insertar = this._usuarios.get(i).compareTo(nuevo);							// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
 	
 				i++;
-			} while(insertar < 0 || i + 1 == tamVector);								// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
+			} while(insertar < 0 || i + 1 == tamVector);									// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
 	
-			this._usuarios.add(insertar, nuevo);										// 		Por fin, la insercción
+			this._usuarios.add(insertar, nuevo);											// 		Por fin, la insercción
 	
-			System.out.println("El alumno ha sido agregado correctamente");				// 		Se informa del éxito de la operación
+			System.out.println("El alumno ha sido agregado correctamente");					// 		Se informa del éxito de la operación
 		}
-		catch(RuntimeException e) {														// 	En caso de problemas...
-			System.out.println("Error: " + e.getMessage());								// 		... también se informa
+		catch(RuntimeException e) {															// 	En caso de problemas...
+			System.out.println("Error: " + e.getMessage());									// 		... también se informa
 		}
 
 	}
@@ -86,32 +92,32 @@ public class GestorUsuarios {
 	 */
 
 	private void addProfesor(String dni, String nombre, LocalDate fNacimiento, int creditos, Categorias categoria) {
-		int			tamVector;															// Tamaño del vector en el que se insertará
+		int			tamVector;																// Tamaño del vector en el que se insertará
 		int			i			= 0;
-		int			insertar;															// Posición de insercción
-		Profesor	nuevo;																// 	Profesor a insertar
+		int			insertar;																// Posición de insercción
+		Profesor	nuevo;																	// 	Profesor a insertar
 
-		try {																			// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
-			if(fNacimiento != null) {													// 		Como la fecha de nacimiento es opcional, se llama al constructor adecuado en función de si se tiene el dato o no
+		try {																				// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
+			if(fNacimiento != null) {														// 		Como la fecha de nacimiento es opcional, se llama al constructor adecuado en función de si se tiene el dato o no
 				nuevo = new Profesor(dni, nombre, fNacimiento, creditos, categoria);
 			}
 			else {
 				nuevo = new Profesor(dni, nombre, creditos, categoria);
 			}
 
-			tamVector = this._usuarios.size();											// 		Este cálculo se realia ahora porque el acceso al vectore de profesores no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
+			tamVector = this._usuarios.size();												// 		Este cálculo se realia ahora porque el acceso al vectore de profesores no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
 			do {
-				insertar = this._usuarios.get(i).compareTo(nuevo);						// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
+				insertar = this._usuarios.get(i).compareTo(nuevo);							// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
 
 				i++;
-			} while(insertar < 0 || i + 1 == tamVector);								// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
+			} while(insertar < 0 || i + 1 == tamVector);									// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
 
-			this._usuarios.add(insertar, nuevo);										// 		Por fin, la insercción
+			this._usuarios.add(insertar, nuevo);											// 		Por fin, la insercción
 
-			System.out.println("El profesor ha sido agregado correctamente");			// 		Se informa del éxito de la operación
+			System.out.println("El profesor ha sido agregado correctamente");				// 		Se informa del éxito de la operación
 		}
-		catch(RuntimeException e) {														// 	En caso de problemas...
-			System.out.println("Error: " + e.getMessage());								// 		... también se informa
+		catch(RuntimeException e) {															// 	En caso de problemas...
+			System.out.println("Error: " + e.getMessage());									// 		... también se informa
 		}
 	}
 
@@ -125,13 +131,13 @@ public class GestorUsuarios {
 	 */
 
 	private Categorias buscarCategoriaProfesional(String str_categoria) {
-		Categorias	categoria		= null;												// Categoría profesional del profesor a insertar ya convertida al tipo Categorias
+		Categorias	categoria		= null;													// Categoría profesional del profesor a insertar ya convertida al tipo Categorias
 
-		for(Categorias c : Categorias.values()) {										// Se itera el enum de categorías para encontrar la proporcionada
-			if(str_categoria.toUpperCase() == c.name()) {								// 	En caso de encontrarla
-				categoria = c;															// 		Se almacena
+		for(Categorias c : Categorias.values()) {											// Se itera el enum de categorías para encontrar la proporcionada
+			if(str_categoria.toUpperCase() == c.name()) {									// 	En caso de encontrarla
+				categoria = c;																// 		Se almacena
 
-				break;																	// 		El bucle de búsqueda termina
+				break;																		// 		El bucle de búsqueda termina
 			}
 		}
 
@@ -147,10 +153,10 @@ public class GestorUsuarios {
 	 */
 
 	private Categorias procesarCategoriaProfesional(Scanner entrada) {
-		String		str_categoria;														// 	Categoría profesional del profesor a insertar antes de ser convertida al tipo Categorias
-		Categorias	categoria		= null;												// 	Categoría profesional del profesor a insertar ya convertida al tipo Categorias
+		String		str_categoria;															// 	Categoría profesional del profesor a insertar antes de ser convertida al tipo Categorias
+		Categorias	categoria		= null;													// 	Categoría profesional del profesor a insertar ya convertida al tipo Categorias
 
-		do {																			// 	Validador de categorías profesionales
+		do {																				// 	Validador de categorías profesionales
 			System.out.println("La lista de categorías profesionales disponible es la siguiente:");
 			System.out.println(java.util.Arrays.asList(Categorias.values()));
 			System.out.println("Introduzca la categoría profesional: ");
@@ -161,7 +167,7 @@ public class GestorUsuarios {
 			if(categoria == null) {															// 		En caso de no ser válida se ha de informar
 				System.out.println("Error: La categoría profesional seleccionada es incorrecta");
 			}
-		} while(categoria == null);														// 	El bucle validador sólo acabará cuando se introduzca una categoría válida
+		} while(categoria == null);															// 	El bucle validador sólo acabará cuando se introduzca una categoría válida
 
 		return categoria;
 	}
@@ -172,16 +178,16 @@ public class GestorUsuarios {
 	 */
 
 	public void addUsuario() {
-		char		tipo;																// Tipo de usuario a insertar
-		String		dni;																// DNI del usuario a insertar
-		String		nombre;																// Nombre del usuario a insertar
-		String		str_fNacimiento;													// Fecha de nacimiento del usuario a insertar antes de ser convertida al tipo LocalDate
-		LocalDate	fNacimiento			= null;											// Fecha de nacimiento del usuario a insertar ya convertida al tipo LocalDate
+		char		tipo;																	// Tipo de usuario a insertar
+		String		dni;																	// DNI del usuario a insertar
+		String		nombre;																	// Nombre del usuario a insertar
+		String		str_fNacimiento;														// Fecha de nacimiento del usuario a insertar antes de ser convertida al tipo LocalDate
+		LocalDate	fNacimiento			= null;												// Fecha de nacimiento del usuario a insertar ya convertida al tipo LocalDate
 
-		Scanner entrada = new Scanner(System.in);										// Apertura del scanner para lectura por teclado de datos
+		Scanner entrada = new Scanner(System.in);											// Apertura del scanner para lectura por teclado de datos
 
 		System.out.println("¿Qué tipo de usuario se cargará? [A]lumno/[p]rofesor: ");
-		tipo = entrada.next().charAt(0);												// Con recuperar el primer caracter vale
+		tipo = entrada.next().charAt(0);													// Con recuperar el primer caracter vale
 
 		System.out.println("Introduzca el DNI: ");
 		dni = entrada.next();
@@ -196,9 +202,9 @@ public class GestorUsuarios {
 			fNacimiento = LocalDate.parse(str_fNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		}
 
-		if(Character.toUpperCase(tipo) != 'P') {										// Cualquier cosa que no sea una "P" será tratada como un alumno (el tipo por defecto)
-			int		curso;																// 	Curso del alumno a insertar
-			String	titulacion;															// 	Titulación del alumno a insertar
+		if(Character.toUpperCase(tipo) != 'P') {											// Cualquier cosa que no sea una "P" será tratada como un alumno (el tipo por defecto)
+			int		curso;																	// 	Curso del alumno a insertar
+			String	titulacion;																// 	Titulación del alumno a insertar
 
 			System.out.println("Introduzca la titulación: ");
 			titulacion = entrada.next();
@@ -206,22 +212,82 @@ public class GestorUsuarios {
 			System.out.println("Introduzca el curso: ");
 			curso = entrada.nextInt();
 
-			entrada.close();															// 	Se cierra el scanner, al no necesitarse más
+			entrada.close();																// 	Se cierra el scanner, al no necesitarse más
 
 			addAlumno(dni, nombre, fNacimiento, titulacion, curso);
 		}
-		else {																			// Operaciones equivalentes para la insercción de un profesor
-			int			creditos;														// 	Créditos impartidos del profesor a insertar
-			Categorias	categoria;														// 	Categoría profesional del profesor a insertar ya convertida al tipo Categorias
+		else {																				// Operaciones equivalentes para la insercción de un profesor
+			int			creditos;															// 	Créditos impartidos del profesor a insertar
+			Categorias	categoria;															// 	Categoría profesional del profesor a insertar ya convertida al tipo Categorias
 
 			System.out.println("Introduzca los créditos impartidos: ");
 			creditos = entrada.nextInt();
 
 			categoria = procesarCategoriaProfesional(entrada);
 
-			entrada.close();															// 	Se cierra el scanner, al no necesitarse más
+			entrada.close();																// 	Se cierra el scanner, al no necesitarse más
 
 			addProfesor(dni, nombre, fNacimiento, creditos, categoria);
+		}
+	}
+
+
+	/**
+	 * Método para cargar usuarios de archivos
+	 * Carga alumnos y profesores en la lista desde sendos archivos CSV
+	 * 
+	 * @param		archivo_alumnos					String							Ruta del archivo de alumnos
+	 * @param		archivo_profesores				String							Ruta del archivo de profesores
+	 */
+
+	public void loadUsuarios(String archivo_alumnos, String archivo_profesores) {
+		int i;
+		BufferedReader	buffer;																// Buffer de lectura
+		Categorias		categoria;															// Categoría profesional del profesor a insertar ya convertida al tipo Categorias
+		File			archivo;															// Archivo del que se va a leer
+		List<String>	campos;																// Campos de la línea leída
+		LocalDate		fNacimiento	= null;													// Fecha de nacimiento del usuario a insertar ya convertida al tipo LocalDate
+		String			linea;																// Línea leída
+		String			str_fNacimiento;													// Fecha de nacimiento del usuario a insertar antes de ser convertida al tipo LocalDate
+		StringTokenizer	st_linea;															// Particionador de línea
+
+		for(i = 0; i < 2; i++) {															// Es necesario realizar el proceso dos veces, para las dos listas: alumnos y profesores
+			try {																			// 	En caso de haber problemas con los archivos será necesario capturar las excepciones que lancen
+				archivo = new File((i == 0) ? (archivo_alumnos) : (archivo_profesores));	// 		En función de la iteración en que se encuentre el bucle, se abrirá un archivo u otro
+
+				buffer = new BufferedReader(new FileReader(archivo));						// 		Se inicializa un buffer de lectura (más eficiente)
+
+				campos = new ArrayList<String>();											// 		También se inicializa un ArrayList para contener posteriormente cada campo del archivo
+
+				while((linea = buffer.readLine()) != null) {								// 		Mientras que haya más líneas que leer
+					st_linea = new StringTokenizer(linea, ",");								// 			Se inicializa el "troceador" de ésta
+
+					while(st_linea.hasMoreTokens()) {										// 			Mientras haya más campos que leer
+						campos.add(st_linea.nextToken());									// 				Se van almacenando
+					}
+
+					if(!("".equals(str_fNacimiento = campos.get(2)))) {						// 				Procesamiento de la fecha de nacimiento, de no estar vacía
+						fNacimiento = LocalDate.parse(str_fNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+					}
+
+					if(i == 0) {															// 				En la primera iteración se añaden alumnos
+						this.addAlumno(campos.get(0), campos.get(1), fNacimiento, campos.get(3), Integer.parseInt(campos.get(4)));
+					}
+					else {																	// 				En la segunda, profesores
+						categoria = buscarCategoriaProfesional(campos.get(4));
+
+						this.addProfesor(campos.get(0), campos.get(1), fNacimiento, Integer.parseInt(campos.get(3)), categoria);
+					}
+				}
+
+				buffer.close();																// 		Una vez acabada la lectura del buffer, es necesario cerrarlo
+			}
+			catch(FileNotFoundException e) {												// 	Si se produce una excepción
+				System.out.println("Error: " + e.getMessage());								// 		Se habrá de informar al usuario
+			}
+			catch(IOException e) {															// 	Si se produce una excepción
+				System.out.println("Error: " + e.getMessage());								// 		Se habrá de informar al usuario
+			}
 		}
 	}
 
