@@ -36,14 +36,14 @@ public class MenuPrincipal {
 		System.out.println("El menú de operaciones es el siguiente:");
 
 		do {
-			System.out.println("Presione 'a' para añadir un usuario");
-			System.out.println("Presione 'b' para borrar un usuario");
-			System.out.println("Presione 'c' para cargar dos archivos de usuarios (alumnos y profesores)");
-			System.out.println("Presione 'd' para ver los detalles de un usuario");
-			System.out.println("Presione 'e' para visualizar estadísticas");
-			System.out.println("Presione 'f' para buscar un usuario por su DNI");
-			System.out.println("Presione 'g' para guardar dos archivos de usuarios (alumnos y profesores)");
-			System.out.println("Presione 's' para salir");
+			System.out.println("Introduzca 'a' para añadir un usuario");
+			System.out.println("Introduzca 'b' para borrar un usuario");
+			System.out.println("Introduzca 'c' para cargar dos archivos de usuarios (alumnos y profesores)");
+			System.out.println("Introduzca 'd' para ver los detalles de un usuario");
+			System.out.println("Introduzca 'e' para visualizar estadísticas");
+			System.out.println("Introduzca 'f' para buscar un usuario por su DNI");
+			System.out.println("Introduzca 'g' para guardar dos archivos de usuarios (alumnos y profesores)");
+			System.out.println("Introduzca 's' para salir");
 
 			System.out.print("Por favor, seleccione una operación para continuar [abcdefgs]: ");
 
