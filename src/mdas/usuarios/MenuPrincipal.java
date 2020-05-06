@@ -13,7 +13,7 @@ import java.util.Scanner;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			06/05/2020
- * @version			0.2.0
+ * @version			0.2.1
  */
 
 public class MenuPrincipal {
@@ -28,7 +28,9 @@ public class MenuPrincipal {
 		boolean			salir			= false;
 		char			operacion;
 		GestorUsuarios	gestorUsuarios	= new GestorUsuarios();
-		Scanner			entrada			= new Scanner(System.in);							// Apertura del scanner para lectura por teclado de datos
+
+		@SuppressWarnings("resource")														// Eliminación del warning de Eclipse por no cerrar el Scanner
+		Scanner			entrada			= new Scanner(System.in);							// Apertura del Scanner para lectura por teclado de datos 
 
 		System.out.println("Bienvenido al Gestor de usuarios");
 		System.out.println("El menú de operaciones es el siguiente:");
@@ -90,6 +92,6 @@ public class MenuPrincipal {
 			}
 		} while(!salir);
 
-		entrada.close();
+		// entrada.close();																	// 	No se debe cerrar un Scanner(System.in) o se cerrará el propio System.in 🤷🏼‍♂️
 	}
 }
