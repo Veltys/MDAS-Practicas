@@ -25,7 +25,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			06/05/2020
- * @version			1.0.1
+ * @version			1.0.2
  */
 
 public class GestorUsuarios {
@@ -161,7 +161,9 @@ public class GestorUsuarios {
 		do {																				// 	Validador de categorías profesionales
 			System.out.println("La lista de categorías profesionales disponible es la siguiente:");
 			System.out.println(java.util.Arrays.asList(Categorias.values()));
-			System.out.println("Introduzca la categoría profesional: ");
+
+			System.out.print("Introduzca la categoría profesional: ");
+
 			str_categoria = entrada.next();
 
 			categoria = buscarCategoriaProfesional(str_categoria);
@@ -187,16 +189,16 @@ public class GestorUsuarios {
 		LocalDate	fNacimiento			= null;												// Fecha de nacimiento del usuario a insertar ya convertida al tipo LocalDate
 		Scanner		entrada				= new Scanner(System.in);							// Scanner para lectura por teclado de datos
 
-		System.out.println("¿Qué tipo de usuario se cargará? [A]lumno/[p]rofesor: ");
+		System.out.print("¿Qué tipo de usuario se cargará? [A]lumno/[p]rofesor: ");
 		tipo = entrada.next().charAt(0);													// Con recuperar el primer caracter vale
 
-		System.out.println("Introduzca el DNI: ");
+		System.out.print("Introduzca el DNI: ");
 		dni = entrada.next();
 
-		System.out.println("Introduzca el nombre: ");
+		System.out.print("Introduzca el nombre: ");
 		nombre = entrada.next();
 
-		System.out.println("Introduzca la fecha de nacimiento en formato DD/MM/AAAA (opcional, dejar en blanco para continuar): ");
+		System.out.print("Introduzca la fecha de nacimiento en formato DD/MM/AAAA (opcional, dejar en blanco para continuar): ");
 		str_fNacimiento = entrada.next();
 
 		if(!("".equals(str_fNacimiento))) {
@@ -207,10 +209,10 @@ public class GestorUsuarios {
 			int		curso;																	// 	Curso del alumno a insertar
 			String	titulacion;																// 	Titulación del alumno a insertar
 
-			System.out.println("Introduzca la titulación: ");
+			System.out.print("Introduzca la titulación: ");
 			titulacion = entrada.next();
 
-			System.out.println("Introduzca el curso: ");
+			System.out.print("Introduzca el curso: ");
 			curso = entrada.nextInt();
 
 			addAlumno(dni, nombre, fNacimiento, titulacion, curso);
@@ -219,7 +221,7 @@ public class GestorUsuarios {
 			int			creditos;															// 	Créditos impartidos del profesor a insertar
 			Categorias	categoria;															// 	Categoría profesional del profesor a insertar ya convertida al tipo Categorias
 
-			System.out.println("Introduzca los créditos impartidos: ");
+			System.out.print("Introduzca los créditos impartidos: ");
 			creditos = entrada.nextInt();
 
 			categoria = procesarCategoriaProfesional(entrada);
