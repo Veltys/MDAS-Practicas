@@ -2,9 +2,11 @@ package mdas.usuarios;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +25,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			06/05/2020
- * @version			0.7.1
+ * @version			0.8.0
  */
 
 public class GestorUsuarios {
@@ -304,6 +306,50 @@ public class GestorUsuarios {
 
 	public void printUsuario(int posicion) {
 		System.out.println(this._usuarios.get(posicion));
+	}
+
+
+	/**
+	 * Método para guardar usuarios en archivos
+	 * Guarda alumnos y profesores de la lista en sendos archivos CSV
+	 * 
+	 * @param		archivo_alumnos					String							Ruta del archivo de alumnos
+	 * @param		archivo_profesores				String							Ruta del archivo de profesores
+	 */
+
+	public void saveUsuarios(String archivo_alumnos, String archivo_profesores) {
+		int						i;
+		int						tam_lista		= this._usuarios.size();					// Tamaño de la lista de usuarios
+		List<BufferedWriter>	buffer			= new ArrayList<BufferedWriter>();			// Búferes de escritura
+		Alumno					aux_alumno;													// Auxiliar que contendrá alumnos para su posterior escritura
+		Profesor				aux_profesor;												// Auxiliar que contendrá profesores para su posterior escritura
+
+		try {																				// En caso de haber problemas con los archivos será necesario capturar las excepciones que lancen
+			buffer.add(new BufferedWriter(new FileWriter(new File(archivo_alumnos))));		// 	Inicialización del buffer de escritura del archivo de alumnos
+			buffer.add(new BufferedWriter(new FileWriter(new File(archivo_profesores))));	// 	Inicialización del buffer de escritura del archivo de profesores
+
+			for(i = 0; i < tam_lista; i++) {												// 	Iteración de la lista de usuarios
+				if(this._usuarios.get(i) instanceof Alumno) {								// 		Si se trata de un alumno  FIXME: Me da que esto va a fallar
+					aux_alumno = (Alumno) this._usuarios.get(i);							// 			Se almacena para su posterior escritura
+
+					buffer.get(0).write(aux_alumno.dni() + ',' + aux_alumno.nombre() + ',' + aux_alumno.alias() + ',' + aux_alumno.fNacimiento() + ',' + aux_alumno.curso() + ',' + aux_alumno.titulacion());
+				}
+				else {																		// 		En caso contrario, será un profesor
+					aux_profesor = (Profesor) this._usuarios.get(i);						// 			Se almacena para su posterior escritura
+
+					buffer.get(1).write(aux_profesor.dni() + ',' + aux_profesor.nombre() + ',' + aux_profesor.alias() + ',' + aux_profesor.fNacimiento() + ',' + aux_profesor.creditos() + ',' + aux_profesor.categoria());
+				}
+			}
+
+			buffer.get(0).close();															// Cierre de los búferes de escritura
+			buffer.get(1).close();
+		}
+		catch(FileNotFoundException e) {													// 	Si se produce una excepción
+			System.out.println("Error: " + e.getMessage());									// 		Se habrá de informar al usuario
+		}
+		catch(IOException e) {																// 	Si se produce una excepción
+			System.out.println("Error: " + e.getMessage());									// 		Se habrá de informar al usuario
+		}
 	}
 
 
