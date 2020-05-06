@@ -3,7 +3,7 @@ package mdas.usuarios;
 
 import java.util.Scanner;
 
-import mdas.usuarios.GestorUsuarios;
+//Comentada por no usarse aún // import mdas.usuarios.GestorUsuarios;
 
 
 /**
@@ -13,7 +13,7 @@ import mdas.usuarios.GestorUsuarios;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			06/05/2020
- * @version			0.1.0
+ * @version			0.1.1
  */
 
 public class MenuPrincipal {
@@ -27,7 +27,7 @@ public class MenuPrincipal {
 	public static void main(String[] args) {
 		boolean			salir			= false;
 		char			operacion;
-		GestorUsuarios	_gestorUsuarios	= new GestorUsuarios();
+		// Comentada por no usarse aún // GestorUsuarios	_gestorUsuarios	= new GestorUsuarios();
 		Scanner			entrada			= new Scanner(System.in);							// Apertura del scanner para lectura por teclado de datos
 
 		System.out.println("Bienvenido al Gestor de usuarios");
@@ -87,7 +87,7 @@ public class MenuPrincipal {
 					System.out.println("Por favor, seleccione una válida de entre las siguientes:");
 				break;
 			}
-		} while(salir != true);
+		} while(salir);
 
 		entrada.close();
 	}
