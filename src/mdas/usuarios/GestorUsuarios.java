@@ -25,7 +25,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			06/05/2020
- * @version			0.8.0
+ * @version			1.0.0
  */
 
 public class GestorUsuarios {
@@ -295,6 +295,78 @@ public class GestorUsuarios {
 			}
 		}
 	}
+
+
+	/**
+	 * Método para sacar por pantalla estadísticas de los usuarios
+	 * Recopila y saca por pantalla estadísticas de los usuarios
+	 */
+
+	public void printEstadisticas() {
+		int						i;
+		int						tam_lista;													// Tamaño de una lista
+		int						aux_creditos;												// Auxiliar que contendrá los créditos de un profesor
+		int						aux_posicion;												// Auxiliar que contendrá una posición en un ArrayList
+		int						max_creditos		= 0;									// Número máximo de créditos
+		int						max_titulacion		= 0;									// Titulación con mayor frecuencia
+		int						suma_creditos		= 0;									// Suma total de créditos (para luego hacer la media)
+		int						total_profesores	= 0;									// Total de profesores existentes  (para luego hacer la media)
+		Alumno					aux_alumno;													// Auxiliar que contendrá alumnos para su posterior escritura
+		Profesor				aux_profesor;												// Auxiliar que contendrá profesores para su posterior escritura
+		String					aux_titulacion		= "";									// Auxiliar que contendrá la titulación
+		String					nombre_profesor		= "";									// Nombre del profesor con más créditos
+		List<String>			titulaciones		= new ArrayList<String>();				// Lista de titulaciones que se irán recuperando
+		List<Integer>			frec_titulaciones	= new ArrayList<Integer>();				// Frecuencia de aparición de cada titulación
+
+		tam_lista			= this._usuarios.size();
+
+		for(i = 0; i < tam_lista; i++) {													// 	Iteración de la lista de usuarios
+			if(this._usuarios.get(i) instanceof Alumno) {									// 		Si se trata de un alumno  FIXME: Me da que esto va a fallar
+				aux_alumno = (Alumno) this._usuarios.get(i);								// 			Se almacena para su posterior escritura
+
+				aux_titulacion = aux_alumno.titulacion();
+
+				if(!titulaciones.contains(aux_titulacion)) {
+					titulaciones.add(aux_titulacion);
+
+					frec_titulaciones.add(1);
+				}
+				else {
+					aux_posicion = titulaciones.indexOf(aux_titulacion);
+					frec_titulaciones.set(aux_posicion, frec_titulaciones.get(aux_posicion) + 1);
+				}
+			}
+			else {
+				aux_profesor	= (Profesor) this._usuarios.get(i);							// 			Se almacena para su posterior escritura
+				aux_creditos	= aux_profesor.creditos();
+
+				if(max_creditos < aux_creditos) {
+					max_creditos = aux_creditos;
+
+					nombre_profesor = aux_profesor.nombre();
+				}
+
+				suma_creditos += aux_creditos;
+
+				total_profesores++;
+			}
+		}
+
+		tam_lista			= titulaciones.size();											// Tamaño de la lista de titulaciones
+
+		for(i = 0; i < tam_lista; i++) {
+			if(max_titulacion < frec_titulaciones.get(i)) {
+				max_titulacion = frec_titulaciones.get(i);
+
+				aux_titulacion = titulaciones.get(i);
+			}
+		}
+
+		System.out.println("Estadísticas de los usuarios:");
+		System.out.println("\tTitulación más cursada por los alumnos: " + aux_titulacion + ", con " + max_titulacion + " alumnos matriculados");
+		System.out.println("\tProfesor con más créditos: " + nombre_profesor + ", con" + max_creditos + " créditos impartidos");
+		System.out.println("\tNúmero medio de créditos por profesor: " + (suma_creditos / total_profesores) + " créditos");
+}
 
 
 	/**
