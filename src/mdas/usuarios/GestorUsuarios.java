@@ -25,7 +25,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			06/05/2020
- * @version			1.0.3
+ * @version			1.0.4
  */
 
 public class GestorUsuarios {
@@ -64,15 +64,21 @@ public class GestorUsuarios {
 			else {
 				nuevo = new Alumno(dni, nombre, titulacion, curso);
 			}
-	
+
 			tamVector = this._usuarios.size();												// 		Este cálculo se realia ahora porque el acceso al vector de alumnos no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
-			do {
-				insertar = this._usuarios.get(i).compareTo(nuevo);							// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
-	
-				i++;
-			} while(insertar < 0 || i + 1 == tamVector);									// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
-	
-			this._usuarios.add(insertar, nuevo);											// 		Por fin, la insercción
+
+			if(tamVector > 0) {																// 		Si el vector no está vacío es necesario insertarlo ordenadamente
+				do {
+					insertar = this._usuarios.get(i).compareTo(nuevo);						// 				Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
+		
+					i++;
+				} while(insertar < 0 || i + 1 == tamVector);								// 			Con la segunda parte de la comprobación se evita salirse del mismo por el final
+		
+				this._usuarios.add(insertar, nuevo);										// 			Por fin, la insercción
+			}
+			else {																			// 		Si está vacío, simplemente se inserta
+				this._usuarios.add(nuevo);													// 			Por fin, la insercción
+			}
 	
 			System.out.println("El alumno ha sido agregado correctamente");					// 		Se informa del éxito de la operación
 		}
@@ -108,13 +114,19 @@ public class GestorUsuarios {
 			}
 
 			tamVector = this._usuarios.size();												// 		Este cálculo se realia ahora porque el acceso al vectore de profesores no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
-			do {
-				insertar = this._usuarios.get(i).compareTo(nuevo);							// 			Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
 
-				i++;
-			} while(insertar < 0 || i + 1 == tamVector);									// 		Con la segunda parte de la comprobación se evita salirse del mismo por el final
-
-			this._usuarios.add(insertar, nuevo);											// 		Por fin, la insercción
+			if(tamVector > 0) {																// 		Si el vector no está vacío es necesario insertarlo ordenadamente
+				do {
+					insertar = this._usuarios.get(i).compareTo(nuevo);						// 				Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
+	
+					i++;
+				} while(insertar < 0 || i + 1 == tamVector);								// 			Con la segunda parte de la comprobación se evita salirse del mismo por el final
+	
+				this._usuarios.add(insertar, nuevo);										// 			Por fin, la insercción
+			}
+			else {																			// 		Si está vacío, simplemente se inserta
+				this._usuarios.add(nuevo);													// 			Por fin, la insercción
+			}
 
 			System.out.println("El profesor ha sido agregado correctamente");				// 		Se informa del éxito de la operación
 		}
@@ -233,7 +245,7 @@ public class GestorUsuarios {
 			addProfesor(dni, nombre, fNacimiento, creditos, categoria);
 		}
 
-		entrada.close();																// 	Se cierra el scanner, al no necesitarse más
+		entrada.close();																	// 	Se cierra el scanner, al no necesitarse más
 	}
 
 
