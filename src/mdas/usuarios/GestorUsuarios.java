@@ -25,7 +25,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			06/05/2020
- * @version			1.0.0
+ * @version			1.0.1
  */
 
 public class GestorUsuarios {
@@ -185,8 +185,7 @@ public class GestorUsuarios {
 		String		nombre;																	// Nombre del usuario a insertar
 		String		str_fNacimiento;														// Fecha de nacimiento del usuario a insertar antes de ser convertida al tipo LocalDate
 		LocalDate	fNacimiento			= null;												// Fecha de nacimiento del usuario a insertar ya convertida al tipo LocalDate
-
-		Scanner entrada = new Scanner(System.in);											// Apertura del scanner para lectura por teclado de datos
+		Scanner		entrada				= new Scanner(System.in);							// Scanner para lectura por teclado de datos
 
 		System.out.println("¿Qué tipo de usuario se cargará? [A]lumno/[p]rofesor: ");
 		tipo = entrada.next().charAt(0);													// Con recuperar el primer caracter vale
@@ -214,8 +213,6 @@ public class GestorUsuarios {
 			System.out.println("Introduzca el curso: ");
 			curso = entrada.nextInt();
 
-			entrada.close();																// 	Se cierra el scanner, al no necesitarse más
-
 			addAlumno(dni, nombre, fNacimiento, titulacion, curso);
 		}
 		else {																				// Operaciones equivalentes para la insercción de un profesor
@@ -227,10 +224,10 @@ public class GestorUsuarios {
 
 			categoria = procesarCategoriaProfesional(entrada);
 
-			entrada.close();																// 	Se cierra el scanner, al no necesitarse más
-
 			addProfesor(dni, nombre, fNacimiento, creditos, categoria);
 		}
+
+		entrada.close();																// 	Se cierra el scanner, al no necesitarse más
 	}
 
 
