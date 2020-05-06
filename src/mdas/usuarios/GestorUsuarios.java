@@ -22,8 +22,8 @@ import mdas.usuarios.Categorias;
  * Componente de gestión de usuarios del sistema
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			03/05/2020
- * @version			0.7.0
+ * @date			06/05/2020
+ * @version			0.7.1
  */
 
 public class GestorUsuarios {
@@ -244,7 +244,6 @@ public class GestorUsuarios {
 		int i;
 		BufferedReader	buffer;																// Buffer de lectura
 		Categorias		categoria;															// Categoría profesional del profesor a insertar ya convertida al tipo Categorias
-		File			archivo;															// Archivo del que se va a leer
 		List<String>	campos;																// Campos de la línea leída
 		LocalDate		fNacimiento	= null;													// Fecha de nacimiento del usuario a insertar ya convertida al tipo LocalDate
 		String			linea;																// Línea leída
@@ -253,9 +252,13 @@ public class GestorUsuarios {
 
 		for(i = 0; i < 2; i++) {															// Es necesario realizar el proceso dos veces, para las dos listas: alumnos y profesores
 			try {																			// 	En caso de haber problemas con los archivos será necesario capturar las excepciones que lancen
-				archivo = new File((i == 0) ? (archivo_alumnos) : (archivo_profesores));	// 		En función de la iteración en que se encuentre el bucle, se abrirá un archivo u otro
-
-				buffer = new BufferedReader(new FileReader(archivo));						// 		Se inicializa un buffer de lectura (más eficiente)
+				buffer = new BufferedReader(												// 		Se inicializa un buffer de lectura (más eficiente)...
+							new FileReader(													// 		... de un lector de archivos en el cual...
+								new File(													// 		... se abrirá un archivo u otro...
+									(i == 0) ? (archivo_alumnos) : (archivo_profesores)		// 		... en función de la iteración en que se encuentre el bucle
+								)
+							)
+						 );
 
 				campos = new ArrayList<String>();											// 		También se inicializa un ArrayList para contener posteriormente cada campo del archivo
 
