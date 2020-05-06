@@ -13,7 +13,7 @@ import java.util.Scanner;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			06/05/2020
- * @version			0.1.3
+ * @version			0.2.0
  */
 
 public class MenuPrincipal {
@@ -27,7 +27,7 @@ public class MenuPrincipal {
 	public static void main(String[] args) {
 		boolean			salir			= false;
 		char			operacion;
-		// Comentada por no usarse aún // GestorUsuarios	_gestorUsuarios	= new GestorUsuarios();
+		GestorUsuarios	gestorUsuarios	= new GestorUsuarios();
 		Scanner			entrada			= new Scanner(System.in);							// Apertura del scanner para lectura por teclado de datos
 
 		System.out.println("Bienvenido al Gestor de usuarios");
@@ -49,7 +49,7 @@ public class MenuPrincipal {
 
 			switch(operacion) {
 				case 'A':
-					// TODO: Implementar
+					gestorUsuarios.addUsuario();
 				break;
 
 				case 'B':
