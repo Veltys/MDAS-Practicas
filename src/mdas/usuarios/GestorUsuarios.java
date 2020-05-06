@@ -25,7 +25,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			06/05/2020
- * @version			1.0.4
+ * @version			1.0.5
  */
 
 public class GestorUsuarios {
@@ -199,6 +199,8 @@ public class GestorUsuarios {
 		String		nombre;																	// Nombre del usuario a insertar
 		String		str_fNacimiento;														// Fecha de nacimiento del usuario a insertar antes de ser convertida al tipo LocalDate
 		LocalDate	fNacimiento			= null;												// Fecha de nacimiento del usuario a insertar ya convertida al tipo LocalDate
+
+		@SuppressWarnings("resource")														// Eliminación del warning de Eclipse por no cerrar el Scanner
 		Scanner		entrada				= new Scanner(System.in);							// Scanner para lectura por teclado de datos
 
 		System.out.print("¿Qué tipo de usuario se cargará? [A]lumno/[p]rofesor: ");
@@ -245,7 +247,7 @@ public class GestorUsuarios {
 			addProfesor(dni, nombre, fNacimiento, creditos, categoria);
 		}
 
-		entrada.close();																	// 	Se cierra el scanner, al no necesitarse más
+		// entrada.close();																	// 	No se debe cerrar un Scanner(System.in) o se cerrará el propio System.in 🤷🏼‍♂️
 	}
 
 
