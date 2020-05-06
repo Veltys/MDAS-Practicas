@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -194,6 +195,7 @@ public class GestorUsuarios {
 	 */
 
 	public void addUsuario() {
+		boolean		ok_fNacimiento;															// "Bandera" de validación de la fecha de nacimiento
 		char		tipo;																	// Tipo de usuario a insertar
 		String		dni;																	// DNI del usuario a insertar
 		String		nombre;																	// Nombre del usuario a insertar
@@ -214,14 +216,30 @@ public class GestorUsuarios {
 		System.out.print("Introduzca el nombre: ");
 		nombre = entrada.nextLine();
 
-		System.out.print("Introduzca la fecha de nacimiento en formato DD/MM/AAAA (opcional, dejar en blanco para continuar): ");
-		str_fNacimiento = entrada.next();
-
-		entrada.nextLine();																	// Avance del Scanner para evitar leer ""
-
-		if(!("".equals(str_fNacimiento))) {
-			fNacimiento = LocalDate.parse(str_fNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		}
+		do {
+			System.out.print("Introduzca la fecha de nacimiento en formato DD/MM/AAAA (opcional, dejar en blanco para continuar): ");
+			str_fNacimiento = entrada.nextLine();
+	
+			if(!("".equals(str_fNacimiento))) {
+				try {
+					fNacimiento = LocalDate.parse(str_fNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+	
+					ok_fNacimiento = true;
+				}
+				catch(DateTimeParseException e) {
+					System.out.println("La fecha de nacimiento introducida (" + str_fNacimiento + ") no es válida");
+	
+					System.out.print("¿Desea volver a intentarlo? [s/N]: ");
+	
+					str_fNacimiento = entrada.next();
+	
+					ok_fNacimiento = (Character.toUpperCase(str_fNacimiento.charAt(0)) == 'S') ? (false) : (true);
+				}
+			}
+			else {
+				ok_fNacimiento = true;
+			}
+		} while(!ok_fNacimiento);
 
 		if(Character.toUpperCase(tipo) != 'P') {											// Cualquier cosa que no sea una "P" será tratada como un alumno (el tipo por defecto)
 			int		curso;																	// 	Curso del alumno a insertar
