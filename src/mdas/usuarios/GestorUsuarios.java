@@ -189,19 +189,21 @@ public class GestorUsuarios {
 		LocalDate	fNacimiento			= null;												// Fecha de nacimiento del usuario a insertar ya convertida al tipo LocalDate
 		Scanner		entrada				= new Scanner(System.in);							// Scanner para lectura por teclado de datos
 
-		entrada.useDelimiter("\n");															// Es necesario cambiar el delimitador o habrá problemas con Strings con espacios, tales como el nombre
-
 		System.out.print("¿Qué tipo de usuario se cargará? [A]lumno/[p]rofesor: ");
 		tipo = entrada.next().charAt(0);													// Con recuperar el primer caracter vale
 
 		System.out.print("Introduzca el DNI: ");
 		dni = entrada.next();
 
+		entrada.nextLine();																	// Avance del Scanner para evitar leer ""
+
 		System.out.print("Introduzca el nombre: ");
-		nombre = entrada.next();
+		nombre = entrada.nextLine();
 
 		System.out.print("Introduzca la fecha de nacimiento en formato DD/MM/AAAA (opcional, dejar en blanco para continuar): ");
 		str_fNacimiento = entrada.next();
+
+		entrada.nextLine();																	// Avance del Scanner para evitar leer ""
 
 		if(!("".equals(str_fNacimiento))) {
 			fNacimiento = LocalDate.parse(str_fNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -212,7 +214,7 @@ public class GestorUsuarios {
 			String	titulacion;																// 	Titulación del alumno a insertar
 
 			System.out.print("Introduzca la titulación: ");
-			titulacion = entrada.next();
+			titulacion = entrada.nextLine();
 
 			System.out.print("Introduzca el curso: ");
 			curso = entrada.nextInt();
