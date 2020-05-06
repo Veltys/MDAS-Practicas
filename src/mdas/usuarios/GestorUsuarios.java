@@ -25,8 +25,8 @@ import mdas.usuarios.Categorias;
  * Componente de gestión de usuarios del sistema
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			06/05/2020
- * @version			1.0.5
+ * @date			07/05/2020
+ * @version			1.0.6
  */
 
 public class GestorUsuarios {
@@ -232,7 +232,9 @@ public class GestorUsuarios {
 					System.out.print("¿Desea volver a intentarlo? [s/N]: ");
 	
 					str_fNacimiento = entrada.next();
-	
+
+					entrada.nextLine();														// Avance del Scanner para evitar leer ""
+
 					ok_fNacimiento = (Character.toUpperCase(str_fNacimiento.charAt(0)) == 'S') ? (false) : (true);
 				}
 			}
