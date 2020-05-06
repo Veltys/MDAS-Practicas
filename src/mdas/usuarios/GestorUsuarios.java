@@ -25,7 +25,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			06/05/2020
- * @version			1.0.2
+ * @version			1.0.3
  */
 
 public class GestorUsuarios {
@@ -188,6 +188,8 @@ public class GestorUsuarios {
 		String		str_fNacimiento;														// Fecha de nacimiento del usuario a insertar antes de ser convertida al tipo LocalDate
 		LocalDate	fNacimiento			= null;												// Fecha de nacimiento del usuario a insertar ya convertida al tipo LocalDate
 		Scanner		entrada				= new Scanner(System.in);							// Scanner para lectura por teclado de datos
+
+		entrada.useDelimiter("\n");															// Es necesario cambiar el delimitador o habrá problemas con Strings con espacios, tales como el nombre
 
 		System.out.print("¿Qué tipo de usuario se cargará? [A]lumno/[p]rofesor: ");
 		tipo = entrada.next().charAt(0);													// Con recuperar el primer caracter vale
