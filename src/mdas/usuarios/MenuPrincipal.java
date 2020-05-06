@@ -13,7 +13,7 @@ import java.util.Scanner;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			06/05/2020
- * @version			0.1.2
+ * @version			0.1.3
  */
 
 public class MenuPrincipal {
@@ -42,7 +42,8 @@ public class MenuPrincipal {
 			System.out.println("Presione 'f' para buscar un usuario por su DNI");
 			System.out.println("Presione 'g' para guardar dos archivos de usuarios (alumnos y profesores)");
 			System.out.println("Presione 's' para salir");
-			System.out.println("Por favor, seleccione una operación para continuar [abcdefgs]:");
+
+			System.out.print("Por favor, seleccione una operación para continuar [abcdefgs]: ");
 
 			operacion = Character.toUpperCase(entrada.next().charAt(0));					// Con recuperar el primer caracter vale
 
