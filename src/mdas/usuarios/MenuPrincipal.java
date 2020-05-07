@@ -19,7 +19,7 @@ import mdas.usuarios.BuscadorSecUsuarios;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			0.5.2
+ * @version			0.6.0
  */
 
 public class MenuPrincipal {
@@ -143,7 +143,7 @@ public class MenuPrincipal {
 						break;
 
 					case 'E':
-						// TODO: Implementar
+						gestorUsuarios.printEstadisticas();
 
 						break;
 
