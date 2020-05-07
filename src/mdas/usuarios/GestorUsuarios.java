@@ -53,7 +53,8 @@ public class GestorUsuarios {
 	 * @param		curso							int								Curso del alumno
 	 */
 
-	private boolean addAlumno(String dni, String nombre, LocalDate fNacimiento, String titulacion, int curso) {
+	// FIXME: Método publico solamente para propósitos de depuración
+	public boolean addAlumno(String dni, String nombre, LocalDate fNacimiento, String titulacion, int curso) {
 		Alumno	nuevo;																		// 	Alumno a insertar
 
 		try {																				// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
@@ -89,7 +90,8 @@ public class GestorUsuarios {
 	 * @param		categoria						Categorias						Categoría profesional del profesor
 	 */
 
-	private boolean addProfesor(String dni, String nombre, LocalDate fNacimiento, int creditos, Categorias categoria) {
+	// FIXME: Método publico solamente para propósitos de depuración
+	public boolean addProfesor(String dni, String nombre, LocalDate fNacimiento, int creditos, Categorias categoria) {
 		Profesor	nuevo;																	// 	Profesor a insertar
 
 		try {																				// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
@@ -219,18 +221,18 @@ public class GestorUsuarios {
 		do {
 			System.out.print("Introduzca la fecha de nacimiento en formato DD/MM/AAAA (opcional, dejar en blanco para continuar): ");
 			str_fNacimiento = entrada.nextLine();
-	
+
 			if(!("".equals(str_fNacimiento))) {
 				try {
 					fNacimiento = LocalDate.parse(str_fNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-	
+
 					ok_fNacimiento = true;
 				}
 				catch(DateTimeParseException e) {
 					System.out.println("La fecha de nacimiento introducida (" + str_fNacimiento + ") no es válida");
-	
+
 					System.out.print("¿Desea volver a intentarlo? [s/N]: ");
-	
+
 					str_fNacimiento = entrada.next();
 
 					entrada.nextLine();														// Avance del Scanner para evitar leer ""
