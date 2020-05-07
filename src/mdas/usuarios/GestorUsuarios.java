@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.1.3
+ * @version			1.2.0
  */
 
 public class GestorUsuarios {
@@ -54,9 +54,6 @@ public class GestorUsuarios {
 	 */
 
 	private boolean addAlumno(String dni, String nombre, LocalDate fNacimiento, String titulacion, int curso) {
-		int		tamVector;																	// Tamaño del vector en el que se insertará
-		int		i			= 0;
-		int		insertar;																	// Posición de insercción
 		Alumno	nuevo;																		// 	Alumno a insertar
 
 		try {																				// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
@@ -67,20 +64,7 @@ public class GestorUsuarios {
 				nuevo = new Alumno(dni, nombre, titulacion, curso);
 			}
 
-			tamVector = this._usuarios.size();												// 		Este cálculo se realia ahora porque el acceso al vector de alumnos no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
-
-			if(tamVector > 0) {																// 		Si el vector no está vacío es necesario insertarlo ordenadamente
-				do {
-					insertar = this._usuarios.get(i).compareTo(nuevo);						// 				Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
-		
-					i++;
-				} while(insertar < 0 || i + 1 == tamVector);								// 			Con la segunda parte de la comprobación se evita salirse del mismo por el final
-		
-				this._usuarios.add(insertar, nuevo);										// 			Por fin, la insercción
-			}
-			else {																			// 		Si está vacío, simplemente se inserta
-				this._usuarios.add(nuevo);													// 			Por fin, la insercción
-			}
+			this.ordredInsertUser(nuevo);
 	
 			System.out.println("El alumno ha sido agregado correctamente");					// 		Se informa del éxito de la operación
 
@@ -106,9 +90,6 @@ public class GestorUsuarios {
 	 */
 
 	private boolean addProfesor(String dni, String nombre, LocalDate fNacimiento, int creditos, Categorias categoria) {
-		int			tamVector;																// Tamaño del vector en el que se insertará
-		int			i			= 0;
-		int			insertar;																// Posición de insercción
 		Profesor	nuevo;																	// 	Profesor a insertar
 
 		try {																				// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
@@ -119,20 +100,7 @@ public class GestorUsuarios {
 				nuevo = new Profesor(dni, nombre, creditos, categoria);
 			}
 
-			tamVector = this._usuarios.size();												// 		Este cálculo se realia ahora porque el acceso al vectore de profesores no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
-
-			if(tamVector > 0) {																// 		Si el vector no está vacío es necesario insertarlo ordenadamente
-				do {
-					insertar = this._usuarios.get(i).compareTo(nuevo);						// 				Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
-	
-					i++;
-				} while(insertar < 0 || i + 1 == tamVector);								// 			Con la segunda parte de la comprobación se evita salirse del mismo por el final
-	
-				this._usuarios.add(insertar, nuevo);										// 			Por fin, la insercción
-			}
-			else {																			// 		Si está vacío, simplemente se inserta
-				this._usuarios.add(nuevo);													// 			Por fin, la insercción
-			}
+			this.ordredInsertUser(nuevo);
 
 			System.out.println("El profesor ha sido agregado correctamente");				// 		Se informa del éxito de la operación
 
@@ -167,6 +135,36 @@ public class GestorUsuarios {
 
 		return categoria;
 	}
+
+
+	/**
+	 * Método privado para realizar la insercción ordenada de cualquier usuario (sea éste alumno o profesor)
+	 * Busca en la lista de usuarios la posición adecuada para insertar el nuevo y, una vez encontrada, lleva a cabo dicha insercción, garantizando así el orden de la lista
+	 * 
+	 * @param		nuevo							Usuario							Usuario nuevo a insertar
+	 */
+
+	private void ordredInsertUser(Usuario nuevo) {
+		int			tamVector;																// Tamaño del vector en el que se insertará
+		int			i			= -1;
+		int			insertar;																// Posición de insercción
+
+		tamVector = this._usuarios.size();													// 		Este cálculo se realia ahora porque el acceso al vectore de profesores no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
+
+		if(tamVector > 0) {																	// 		Si el vector no está vacío es necesario insertarlo ordenadamente
+			do {
+				i++;
+
+				insertar = nuevo.compareTo(this._usuarios.get(i));							// 				Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
+			} while(insertar > 0 && i < tamVector);											// 			Con la segunda parte de la comprobación se evita salirse del mismo por el final
+
+			this._usuarios.add(i, nuevo);													// 			Por fin, la insercción
+		}
+		else {																				// 		Si está vacío, simplemente se inserta
+			this._usuarios.add(nuevo);														// 			Por fin, la insercción
+		}
+	}
+
 
 	/**
 	 * Método privado para procesar la categoría profesional de un profesor
