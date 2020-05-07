@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.2.1
+ * @version			1.2.2
  */
 
 public class GestorUsuarios {
@@ -473,12 +473,12 @@ public class GestorUsuarios {
 				if(this._usuarios.get(i) instanceof Alumno) {								// 		Si se trata de un alumno  FIXME: Me da que esto va a fallar
 					aux_alumno = (Alumno) this._usuarios.get(i);							// 			Se almacena para su posterior escritura
 
-					buffer.get(0).write(aux_alumno.dni() + ',' + aux_alumno.nombre() + ',' + aux_alumno.alias() + ',' + aux_alumno.fNacimiento() + ',' + aux_alumno.curso() + ',' + aux_alumno.titulacion());
+					buffer.get(0).write(String.format("%08d",aux_alumno.dni()) + ',' + aux_alumno.nombre() + ',' + aux_alumno.alias() + ',' + aux_alumno.fNacimiento().toString() + ',' + Integer.toString(aux_alumno.curso()) + ',' + aux_alumno.titulacion());
 				}
 				else {																		// 		En caso contrario, será un profesor
 					aux_profesor = (Profesor) this._usuarios.get(i);						// 			Se almacena para su posterior escritura
 
-					buffer.get(1).write(aux_profesor.dni() + ',' + aux_profesor.nombre() + ',' + aux_profesor.alias() + ',' + aux_profesor.fNacimiento() + ',' + aux_profesor.creditos() + ',' + aux_profesor.categoria());
+					buffer.get(1).write(String.format("%08d", aux_profesor.dni()) + ',' + aux_profesor.nombre() + ',' + aux_profesor.alias() + ',' + aux_profesor.fNacimiento().toString() + ',' + Integer.toString(aux_profesor.creditos()) + ',' + aux_profesor.categoria().toString());
 				}
 			}
 
