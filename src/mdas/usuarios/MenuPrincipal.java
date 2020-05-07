@@ -19,7 +19,7 @@ import mdas.usuarios.BuscadorSecUsuarios;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			0.6.2
+ * @version			1.0.0
  */
 
 public class MenuPrincipal {
@@ -34,10 +34,10 @@ public class MenuPrincipal {
 	 */
 
 	public static void main(String[] args) {
+		boolean					ok_cargar;														// Confirmación de cargado de usuarios
 		boolean					salir				= false;									// "Bandera" que indica si se ha activado el evento de salida
 		char					operacion;														// Operación a realizar
 		int						borrado;														// Posición del usuario a borrar
-		int						usuarios			= 0;										// Contador de usuarios cargados
 		String					archivo_alumnos		= null;										// Ruta al archivo de alumnos
 		String					archivo_profesores	= null;										// Ruta al archivo de profesores
 		String					ok_borrar;														// Confirmación de borrado de usuario
@@ -53,13 +53,13 @@ public class MenuPrincipal {
 		do {
 			System.out.println("Introduzca 'a' para añadir un usuario");
 
-			if(usuarios > 0) {
+			if(gestorUsuarios.numUsuarios() > 0) {
 				System.out.println("Introduzca 'b' para borrar un usuario");
 			}
 
 			System.out.println("Introduzca 'c' para cargar dos archivos de usuarios (alumnos y profesores)");
 
-			if(usuarios > 0) {
+			if(gestorUsuarios.numUsuarios() > 0) {
 				System.out.println("Introduzca 'd' para ver los detalles de un usuario");
 				System.out.println("Introduzca 'e' para visualizar estadísticas");
 				System.out.println("Introduzca 'f' para buscar un usuario por su DNI");
@@ -70,7 +70,7 @@ public class MenuPrincipal {
 
 			System.out.print("Por favor, seleccione una operación para continuar [");
 
-			if(usuarios > 0) {
+			if(gestorUsuarios.numUsuarios() > 0) {
 				System.out.print("abcdefgs]: ");
 			}
 			else {
@@ -83,12 +83,45 @@ public class MenuPrincipal {
 			case 'A':
 				gestorUsuarios.addUsuario();
 
-				usuarios++;
-
 				break;
 
 			case 'C':
-				// TODO: Implementar
+				System.out.println("Para cargar la lista de usuarios es necesario proporcionar dos nombres de archivo");
+
+				MenuPrincipal.entrada.nextLine();											// Avance del Scanner para permitir otra lectura
+
+				if(gestorUsuarios.numUsuarios() > 0) {
+					System.out.print("La lista de usuarios actualmente cargada será borrada. ¿Está seguro? [s/N]: ");
+
+					ok_borrar = MenuPrincipal.entrada.next();
+
+					if(Character.toUpperCase(ok_borrar.charAt(0)) == 'S') {
+						ok_cargar = true;
+					}
+					else {
+						ok_cargar = false;
+					}
+				}
+				else {
+					ok_cargar = true;
+				}
+
+				if(ok_cargar &&
+						!(
+								("".equals(
+										archivo_alumnos = MenuPrincipal.obtenerNombreArchivo("alumnos")
+										))
+								||
+								("".equals(
+										archivo_profesores = MenuPrincipal.obtenerNombreArchivo("profesores")
+										))
+								)
+						) {
+					gestorUsuarios.loadUsuarios(archivo_alumnos, archivo_profesores);
+				}
+				else {
+					System.out.println("Operación cancelada");
+				}
 
 				break;
 
@@ -101,7 +134,7 @@ public class MenuPrincipal {
 				break;
 
 			default:
-				if(usuarios > 0) {
+				if(gestorUsuarios.numUsuarios() > 0) {
 					switch(operacion) {
 					case 'B':
 						borrado = MenuPrincipal.buscarUsuario(gestorUsuarios);
@@ -115,8 +148,6 @@ public class MenuPrincipal {
 
 							if(Character.toUpperCase(ok_borrar.charAt(0)) == 'S') {
 								gestorUsuarios.removeUsuario(borrado);
-
-								usuarios--;
 							}
 							else {
 								System.out.print("no ");
