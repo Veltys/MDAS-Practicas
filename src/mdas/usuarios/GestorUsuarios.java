@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.2.7
+ * @version			1.3.0
  */
 
 public class GestorUsuarios {
@@ -311,6 +311,18 @@ public class GestorUsuarios {
 		}
 
 		System.out.println("Operación realizada con éxito");
+	}
+
+
+	/**
+	 * Método para consultar cuántos usuarios hay cargados en el gestor
+	 * Devuelve el número de usuarios cargados en el gestor
+	 *
+	 * @return										int								Número de usuarios cargados en el gestor
+	 */
+
+	public int numUsuarios() {
+		return this._usuarios.size();
 	}
 
 
