@@ -11,7 +11,7 @@ import java.time.LocalDate;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			2.0.3
+ * @version			2.0.4
  */
 
 public abstract class Usuario implements Comparable<Usuario> {
@@ -19,6 +19,21 @@ public abstract class Usuario implements Comparable<Usuario> {
 	private String		_nombre;
 	private String		_alias;
 	private LocalDate	_fNacimiento;
+
+
+	/**
+	 * Calculadora de letra del DNI
+	 *
+	 * @param		dni								int								DNI sin letra a calcular
+	 *
+	 * @return										char							Letra calculada
+	 */
+
+	public static char calcularLetraDni(int dni) {
+		char[] letras = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
+
+		return letras[dni % 23];
+	}
 
 
 	/**
@@ -38,6 +53,8 @@ public abstract class Usuario implements Comparable<Usuario> {
 
 		return (nombre_y_apellidos[tam_vector - 2].substring(0, 2)).toLowerCase() + (nombre_y_apellidos[tam_vector - 1].substring(0, 2)).toLowerCase() + (nombre_y_apellidos[0].substring(0, 1)).toLowerCase();
 	}
+
+
 	/**
 	 * Validador de DNI
 	 *
@@ -51,8 +68,6 @@ public abstract class Usuario implements Comparable<Usuario> {
 
 		int i;
 
-		char[] letras = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
-
 		if((dni.length() == 9) && Character.isLetter(dni.charAt(8))) {
 			res = true;
 
@@ -64,7 +79,7 @@ public abstract class Usuario implements Comparable<Usuario> {
 				}
 			}
 
-			return res && (letras[(Integer.parseInt(dni.substring(0, 8)) % 23)] == Character.toUpperCase(dni.charAt(8)));
+			return res && (Usuario.calcularLetraDni(Integer.parseInt(dni.substring(0, 8))) == Character.toUpperCase(dni.charAt(8)));
 		}
 		else {
 			return false;
