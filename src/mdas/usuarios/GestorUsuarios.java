@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.2.5
+ * @version			1.2.6
  */
 
 public class GestorUsuarios {
@@ -270,9 +270,9 @@ public class GestorUsuarios {
 		for(i = 0; i < 2; i++) {															// Es necesario realizar el proceso dos veces, para las dos listas: alumnos y profesores
 			try {																			// 	En caso de haber problemas con los archivos será necesario capturar las excepciones que lancen
 				buffer = new BufferedReader(												// 		Se inicializa un buffer de lectura (más eficiente)...
-						new FileReader(													// 		... de un lector de archivos en el cual...
+						new FileReader(														// 		... de un lector de archivos en el cual...
 								new File(													// 		... se abrirá un archivo u otro...
-										(i == 0) ? (archivo_alumnos) : (archivo_profesores)		// 		... en función de la iteración en que se encuentre el bucle
+										(i == 0) ? (archivo_alumnos) : (archivo_profesores)	// 		... en función de la iteración en que se encuentre el bucle
 										)
 								)
 						);
@@ -286,7 +286,7 @@ public class GestorUsuarios {
 						campos.add(st_linea.nextToken());									// 				Se van almacenando
 					}
 
-					if(!("".equals(str_fNacimiento = campos.get(2)))) {						// 				Procesamiento de la fecha de nacimiento, de no estar vacía
+					if(!("-999999999-01-01".equals(str_fNacimiento = campos.get(3)))) {		// 				Procesamiento de la fecha de nacimiento, de no estar vacía
 						fNacimiento = LocalDate.parse(str_fNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 					}
 
@@ -296,11 +296,13 @@ public class GestorUsuarios {
 					else {																	// 				En la segunda, profesores
 						categoria = this.buscarCategoriaProfesional(campos.get(4));
 
-						this.addProfesor(campos.get(0), campos.get(1), fNacimiento, Integer.parseInt(campos.get(3)), categoria);
+						this.addProfesor(campos.get(0), campos.get(1), fNacimiento, Integer.parseInt(campos.get(4)), categoria);
 					}
 				}
 
 				buffer.close();																// 		Una vez acabada la lectura del buffer, es necesario cerrarlo
+
+				System.out.println("Operación realizada con éxito");
 			}
 			catch(FileNotFoundException e) {												// 	Si se produce una excepción
 				System.out.println("Error: " + e.getMessage());								// 		Se habrá de informar al usuario
