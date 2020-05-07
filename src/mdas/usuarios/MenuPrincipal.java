@@ -19,7 +19,7 @@ import mdas.usuarios.BuscadorSecUsuarios;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.0.0
+ * @version			1.0.1
  */
 
 public class MenuPrincipal {
@@ -41,7 +41,7 @@ public class MenuPrincipal {
 		String					archivo_alumnos		= null;										// Ruta al archivo de alumnos
 		String					archivo_profesores	= null;										// Ruta al archivo de profesores
 		String					ok_borrar;														// Confirmación de borrado de usuario
-		List<IBuscadorUsuarios>	buscadores		= new ArrayList<IBuscadorUsuarios>(); 			// Buscadores de usuarios
+		List<IBuscadorUsuarios>	buscadores			= new ArrayList<IBuscadorUsuarios>(); 		// Buscadores de usuarios
 		GestorUsuarios			gestorUsuarios		= new GestorUsuarios();						// Gestor de usuarios
 
 		buscadores.add(new BuscadorDicUsuarios());												// Buscador dicotómico de usuarios
@@ -95,8 +95,12 @@ public class MenuPrincipal {
 
 					ok_borrar = MenuPrincipal.entrada.next();
 
+					MenuPrincipal.entrada.nextLine();										// Avance del Scanner para permitir otra lectura
+
 					if(Character.toUpperCase(ok_borrar.charAt(0)) == 'S') {
 						ok_cargar = true;
+
+						gestorUsuarios = new GestorUsuarios();
 					}
 					else {
 						ok_cargar = false;
