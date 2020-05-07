@@ -40,10 +40,12 @@ public class MenuPrincipal {
 		boolean					ok_archivo			= false;									// "Bandera" de validación del archivo de alumnos / profesores
 		boolean					salir				= false;									// "Bandera" que indica si se ha activado el evento de salida
 		char					operacion;														// Operación a realizar
+		int						borrado;														// Posición del usuario a borrar
 		int						i;
 		int						usuarios			= 0;										// Contador de usuarios cargados
 		String					archivo_alumnos		= null;										// Ruta al archivo de alumnos
 		String					archivo_profesores	= null;										// Ruta al archivo de profesores
+		String					ok_borrar;														// Confirmación de borrado de usuario
 		List<IBuscadorUsuarios>	buscadores		= new ArrayList<IBuscadorUsuarios>(); 			// Buscadores de usuarios
 		GestorUsuarios			gestorUsuarios		= new GestorUsuarios();						// Gestor de usuarios
 
@@ -117,9 +119,26 @@ public class MenuPrincipal {
 				if(usuarios > 0) {
 					switch(operacion) {
 					case 'B':
-						// TODO: Implementar
+						borrado = MenuPrincipal.buscarUsuario(gestorUsuarios);
 
-						usuarios--;
+						if(borrado > -1) {
+							System.out.print("El usuario anteriormente mostrado será borrado. ¿Está seguro? [s/N]: ");
+
+							ok_borrar = MenuPrincipal.entrada.next();
+
+							System.out.print("El usuario ");
+
+							if(Character.toUpperCase(ok_borrar.charAt(0)) == 'S') {
+								gestorUsuarios.removeUsuario(borrado);
+
+								usuarios--;
+							}
+							else {
+								System.out.print("no ");
+							}
+
+							System.out.println("ha sido borrado del sistema");
+						}
 
 						break;
 
@@ -128,10 +147,10 @@ public class MenuPrincipal {
 
 						break;
 
-					case 'D':																	// Alterado el orden alfabético a conciencia
+					case 'D':																		// Alterado el orden alfabético a propósito
 						System.out.println("Para visualizar los detalles de un usuario es necesario buscarlo");
 
-						// break;																// Comentado a conciencia
+						// break;																	// Comentado a propósito
 
 					case 'F':
 						MenuPrincipal.buscarUsuario(gestorUsuarios);
