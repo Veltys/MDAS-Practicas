@@ -19,13 +19,11 @@ import mdas.usuarios.BuscadorSecUsuarios;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			0.6.0
+ * @version			0.6.1
  */
 
 public class MenuPrincipal {
 	private final static	boolean		DEBUG				= true;								// Constante de depuración
-
-	@SuppressWarnings("resource")																// Eliminación del warning de Eclipse por no cerrar el Scanner
 	private static			Scanner		entrada				= new Scanner(System.in);			// Apertura del Scanner para lectura por teclado de datos
 
 
