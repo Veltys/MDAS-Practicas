@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.3.2
+ * @version			1.3.3
  */
 
 public class GestorUsuarios {
@@ -275,10 +275,10 @@ public class GestorUsuarios {
 								)
 						);
 
-				campos = new ArrayList<String>();											// 		También se inicializa un ArrayList para contener posteriormente cada campo del archivo
-
 				while((linea = buffer.readLine()) != null) {								// 		Mientras que haya más líneas que leer
 					st_linea = new StringTokenizer(linea, ",");								// 			Se inicializa el "troceador" de ésta
+
+					campos = new ArrayList<String>();											// 		También se inicializa un ArrayList para contener posteriormente cada campo del archivo
 
 					while(st_linea.hasMoreTokens()) {										// 			Mientras haya más campos que leer
 						campos.add(st_linea.nextToken());									// 				Se van almacenando
