@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.3.0
+ * @version			1.3.1
  */
 
 public class GestorUsuarios {
@@ -291,10 +291,10 @@ public class GestorUsuarios {
 					}
 
 					if(i == 0) {															// 				En la primera iteración se añaden alumnos
-						this.addAlumno(campos.get(0) + Usuario.calcularLetraDni(Integer.parseInt(campos.get(0))), campos.get(1), fNacimiento, campos.get(3), Integer.parseInt(campos.get(4)));
+						this.addAlumno(campos.get(0) + Usuario.calcularLetraDni(Integer.parseInt(campos.get(0))), campos.get(1), fNacimiento, campos.get(4), Integer.parseInt(campos.get(5)));
 					}
 					else {																	// 				En la segunda, profesores
-						categoria = this.buscarCategoriaProfesional(campos.get(4));
+						categoria = this.buscarCategoriaProfesional(campos.get(5));
 
 						this.addProfesor(campos.get(0) + Usuario.calcularLetraDni(Integer.parseInt(campos.get(0))), campos.get(1), fNacimiento, Integer.parseInt(campos.get(4)), categoria);
 					}
@@ -498,7 +498,7 @@ public class GestorUsuarios {
 				if(this._usuarios.get(i) instanceof Alumno) {								// 		Si se trata de un alumno
 					aux_alumno = (Alumno) this._usuarios.get(i);							// 			Se almacena para su posterior escritura
 
-					buffer.get(0).write(String.format("%08d",aux_alumno.dni()) + ',' + aux_alumno.nombre() + ',' + aux_alumno.alias() + ',' + aux_alumno.fNacimiento().toString() + ',' + Integer.toString(aux_alumno.curso()) + ',' + aux_alumno.titulacion() + System.getProperty("line.separator"));
+					buffer.get(0).write(String.format("%08d",aux_alumno.dni()) + ',' + aux_alumno.nombre() + ',' + aux_alumno.alias() + ',' + aux_alumno.fNacimiento().toString() + ',' + aux_alumno.titulacion() + ',' + Integer.toString(aux_alumno.curso()) + System.getProperty("line.separator"));
 				}
 				else {																		// 		En caso contrario, será un profesor
 					aux_profesor = (Profesor) this._usuarios.get(i);						// 			Se almacena para su posterior escritura
