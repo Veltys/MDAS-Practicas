@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			2.0.1
+ * @version			2.0.2
  */
 
 public abstract class Usuario implements Comparable<Usuario> {
@@ -173,9 +173,12 @@ public abstract class Usuario implements Comparable<Usuario> {
 	 */
 
 	public static String generateAlias(String nombre) {
+		int			tam_vector;
 		String[]	nombre_y_apellidos	= nombre.split(" ");
 
-		return (nombre_y_apellidos[0].substring(0, 2)).toLowerCase() + (nombre_y_apellidos[-2].substring(0, 2)).toLowerCase() + (nombre_y_apellidos[-1].substring(0, 2)).toLowerCase();
+		tam_vector = nombre_y_apellidos.length;
+
+		return (nombre_y_apellidos[0].substring(0, 2)).toLowerCase() + (nombre_y_apellidos[tam_vector - 2].substring(0, 2)).toLowerCase() + (nombre_y_apellidos[tam_vector - 1].substring(0, 2)).toLowerCase();
 	}
 
 
