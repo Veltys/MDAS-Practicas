@@ -55,8 +55,7 @@ public class GestorUsuarios {
 	 * @param		curso							int								Curso del alumno
 	 */
 
-	// FIXME: Método publico solamente para propósitos de depuración
-	public boolean addAlumno(String dni, String nombre, LocalDate fNacimiento, String titulacion, int curso) {
+	private boolean addAlumno(String dni, String nombre, LocalDate fNacimiento, String titulacion, int curso) {
 		Alumno	nuevo;																		// 	Alumno a insertar
 
 		try {																				// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
@@ -92,8 +91,7 @@ public class GestorUsuarios {
 	 * @param		categoria						Categorias						Categoría profesional del profesor
 	 */
 
-	// FIXME: Método publico solamente para propósitos de depuración
-	public boolean addProfesor(String dni, String nombre, LocalDate fNacimiento, int creditos, Categorias categoria) {
+	private boolean addProfesor(String dni, String nombre, LocalDate fNacimiento, int creditos, Categorias categoria) {
 		Profesor	nuevo;																	// 	Profesor a insertar
 
 		try {																				// 	Si el DNI no es válido, habrá una excepción... que se debe capturar
