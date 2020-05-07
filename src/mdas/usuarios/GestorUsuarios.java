@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.1.0
+ * @version			1.1.1
  */
 
 public class GestorUsuarios {
@@ -274,7 +274,7 @@ public class GestorUsuarios {
 			} while(curso == -1);
 
 			while(!addAlumno(dni, nombre, fNacimiento, titulacion, curso)) {
-				System.out.print("El DNI debe estar en el formato 00000000A, siendo A la letra de control y siendo ésta correcta");
+				System.out.println("El DNI debe estar en el formato 00000000A, siendo A la letra de control y siendo ésta correcta");
 				System.out.print("Introduzca el DNI: ");
 				dni = entrada.next();
 			}
@@ -300,7 +300,7 @@ public class GestorUsuarios {
 			categoria = procesarCategoriaProfesional(entrada);
 
 			while(!addProfesor(dni, nombre, fNacimiento, creditos, categoria)) {
-				System.out.print("El DNI debe estar en el formato 00000000A, siendo A la letra de control y siendo ésta correcta");
+				System.out.println("El DNI debe estar en el formato 00000000A, siendo A la letra de control y siendo ésta correcta");
 				System.out.print("Introduzca el DNI: ");
 				dni = entrada.next();
 			}
