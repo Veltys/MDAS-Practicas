@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.1.1
+ * @version			1.1.2
  */
 
 public class GestorUsuarios {
@@ -158,7 +158,7 @@ public class GestorUsuarios {
 		Categorias	categoria		= null;													// Categoría profesional del profesor a insertar ya convertida al tipo Categorias
 
 		for(Categorias c : Categorias.values()) {											// Se itera el enum de categorías para encontrar la proporcionada
-			if(str_categoria.toUpperCase() == c.name()) {									// 	En caso de encontrarla
+			if(str_categoria.toUpperCase().equals(c.name().toString())) {					// 	En caso de encontrarla
 				categoria = c;																// 		Se almacena
 
 				break;																		// 		El bucle de búsqueda termina
