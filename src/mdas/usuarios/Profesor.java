@@ -12,8 +12,8 @@ import mdas.usuarios.Usuario;
  * Extiende a la clase Usuario para almacenar datos concretos de un profesor
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			02/05/2020
- * @version			1.0.1
+ * @date			07/05/2020
+ * @version			1.0.2
  */
 
 public class Profesor extends Usuario {
@@ -115,12 +115,12 @@ public class Profesor extends Usuario {
 	@Override
 	public String toString() {
 		String salida = super.toString();
-	
-		salida = salida.substring(0,-2) + ", ";
+
+		salida = salida.substring(0, salida.length() - 3) + ", ";				// Es necesario recortar los dos caracteres finales para añadir más contenido
 		salida += this._creditos + ", ";
 		salida += this._categoria;
 		salida += "]";
-	
+
 		return salida;
 	}
 }

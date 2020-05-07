@@ -10,8 +10,8 @@ import mdas.usuarios.Usuario;
  * Extiende a la clase Usuario para almacenar datos concretos de un alumno
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			01/05/2020
- * @version			1.0.2
+ * @date			07/05/2020
+ * @version			1.0.3
  */
 
 public class Alumno extends Usuario {
@@ -113,12 +113,12 @@ public class Alumno extends Usuario {
 	@Override
 	public String toString() {
 		String salida = super.toString();
-	
-		salida = salida.substring(0,-2) + ", ";
+
+		salida = salida.substring(0, salida.length() - 3) + ", ";				// Es necesario recortar los dos caracteres finales para añadir más contenido
 		salida += this._titulacion + ", ";
 		salida += this._curso + "º";
 		salida += "]";
-	
+
 		return salida;
 	}
 }
