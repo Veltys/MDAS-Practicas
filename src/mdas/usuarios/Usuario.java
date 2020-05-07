@@ -11,7 +11,7 @@ import java.time.LocalDate;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			2.0.5
+ * @version			2.0.6
  */
 
 public abstract class Usuario implements Comparable<Usuario> {
@@ -100,7 +100,7 @@ public abstract class Usuario implements Comparable<Usuario> {
 		if(this.dni(dni)) {
 			this._nombre		= nombre;
 			this._alias			= Usuario.generateAlias(nombre);
-			this._fNacimiento	= LocalDate.MIN;
+			this._fNacimiento	= null;
 		}
 		else {
 			throw new RuntimeException("El DNI no es válido");
