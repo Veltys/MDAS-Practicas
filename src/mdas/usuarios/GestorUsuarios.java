@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.2.3
+ * @version			1.2.4
  */
 
 public class GestorUsuarios {
@@ -402,7 +402,7 @@ public class GestorUsuarios {
 
 		System.out.println("Estadísticas de los usuarios:");
 		System.out.println("\tTitulación más cursada por los alumnos: " + aux_titulacion + ", con " + max_titulacion + " alumnos matriculados");
-		System.out.println("\tProfesor con más créditos: " + nombre_profesor + ", con" + max_creditos + " créditos impartidos");
+		System.out.println("\tProfesor con más créditos: " + nombre_profesor + ", con " + max_creditos + " créditos impartidos");
 		System.out.println("\tNúmero medio de créditos por profesor: " + (suma_creditos / total_profesores) + " créditos");
 	}
 
