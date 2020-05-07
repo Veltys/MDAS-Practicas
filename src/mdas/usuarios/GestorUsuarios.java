@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.0.7
+ * @version			1.1.0
  */
 
 public class GestorUsuarios {
@@ -53,7 +53,7 @@ public class GestorUsuarios {
 	 * @param		curso							int								Curso del alumno
 	 */
 
-	private void addAlumno(String dni, String nombre, LocalDate fNacimiento, String titulacion, int curso) {
+	private boolean addAlumno(String dni, String nombre, LocalDate fNacimiento, String titulacion, int curso) {
 		int		tamVector;																	// Tamaño del vector en el que se insertará
 		int		i			= 0;
 		int		insertar;																	// Posición de insercción
@@ -83,9 +83,13 @@ public class GestorUsuarios {
 			}
 	
 			System.out.println("El alumno ha sido agregado correctamente");					// 		Se informa del éxito de la operación
+
+			return true;
 		}
 		catch(RuntimeException e) {															// 	En caso de problemas...
 			System.out.println("Error: " + e.getMessage());									// 		... también se informa
+
+			return false;
 		}
 
 	}
@@ -101,7 +105,7 @@ public class GestorUsuarios {
 	 * @param		categoria						Categorias						Categoría profesional del profesor
 	 */
 
-	private void addProfesor(String dni, String nombre, LocalDate fNacimiento, int creditos, Categorias categoria) {
+	private boolean addProfesor(String dni, String nombre, LocalDate fNacimiento, int creditos, Categorias categoria) {
 		int			tamVector;																// Tamaño del vector en el que se insertará
 		int			i			= 0;
 		int			insertar;																// Posición de insercción
@@ -131,9 +135,13 @@ public class GestorUsuarios {
 			}
 
 			System.out.println("El profesor ha sido agregado correctamente");				// 		Se informa del éxito de la operación
+
+			return true;
 		}
 		catch(RuntimeException e) {															// 	En caso de problemas...
 			System.out.println("Error: " + e.getMessage());									// 		... también se informa
+
+			return false;
 		}
 	}
 
@@ -264,6 +272,12 @@ public class GestorUsuarios {
 					System.out.println("Por favor, inténtelo de nuevo e introduzca un número");
 				}
 			} while(curso == -1);
+
+			while(!addAlumno(dni, nombre, fNacimiento, titulacion, curso)) {
+				System.out.print("El DNI debe estar en el formato 00000000A, siendo A la letra de control y siendo ésta correcta");
+				System.out.print("Introduzca el DNI: ");
+				dni = entrada.next();
+			}
 		}
 		else {																				// Operaciones equivalentes para la insercción de un profesor
 			int			creditos	= -1;													// 	Créditos impartidos del profesor a insertar
@@ -282,9 +296,14 @@ public class GestorUsuarios {
 					System.out.println("Por favor, inténtelo de nuevo e introduzca un número");
 				}
 			} while(creditos == -1);
+
 			categoria = procesarCategoriaProfesional(entrada);
 
-			addProfesor(dni, nombre, fNacimiento, creditos, categoria);
+			while(!addProfesor(dni, nombre, fNacimiento, creditos, categoria)) {
+				System.out.print("El DNI debe estar en el formato 00000000A, siendo A la letra de control y siendo ésta correcta");
+				System.out.print("Introduzca el DNI: ");
+				dni = entrada.next();
+			}
 		}
 
 		// entrada.close();																	// 	No se debe cerrar un Scanner(System.in) o se cerrará el propio System.in 🤷🏼‍♂️
