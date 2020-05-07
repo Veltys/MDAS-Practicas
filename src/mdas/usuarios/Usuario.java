@@ -11,7 +11,7 @@ import java.time.LocalDate;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			2.0.4
+ * @version			2.0.5
  */
 
 public abstract class Usuario implements Comparable<Usuario> {
@@ -284,8 +284,11 @@ public abstract class Usuario implements Comparable<Usuario> {
 		salida = "[";
 		salida += String.format("%08d", this._dni) + ", ";
 		salida += this._nombre + ", ";
-		salida += this._alias + ", ";
-		salida += this._fNacimiento;
+		salida += this._alias;
+
+		if(this._fNacimiento != null) {
+			salida +=  ", " + this._fNacimiento;
+		}
 		salida += "]";
 
 		return salida;
