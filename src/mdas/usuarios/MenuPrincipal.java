@@ -19,10 +19,16 @@ import mdas.usuarios.BuscadorSecUsuarios;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			0.5.0
+ * @version			0.5.1
  */
 
 public class MenuPrincipal {
+	final static boolean		DEBUG				= true;										// Constante de depuración
+
+	@SuppressWarnings("resource")																// Eliminación del warning de Eclipse por no cerrar el Scanner
+	static Scanner				entrada				= new Scanner(System.in);					// Apertura del Scanner para lectura por teclado de datos
+
+
 	/**
 	 * Método main
 	 * Método principal de la clase
@@ -31,29 +37,20 @@ public class MenuPrincipal {
 	 */
 
 	public static void main(String[] args) {
-		final boolean			DEBUG				= true;										// Constante de depuración
-
 		boolean					ok_archivo			= false;									// "Bandera" de validación del archivo de alumnos / profesores
 		boolean					salir				= false;									// "Bandera" que indica si se ha activado el evento de salida
 		char					operacion;														// Operación a realizar
 		int						i;
-		int						dni					= -1;										// DNI (sin letra) del usuario a buscar
-		int						encontrado;														// Posición del usuario buscado en la lista (-1 si no se ha encontrado)
 		int						usuarios			= 0;										// Contador de usuarios cargados
-		Random					aleatorio			= new Random();								// Generador de números aleatorios
 		String					archivo_alumnos		= null;										// Ruta al archivo de alumnos
 		String					archivo_profesores	= null;										// Ruta al archivo de profesores
-
-		@SuppressWarnings("resource")															// Eliminación del warning de Eclipse por no cerrar el Scanner
-		Scanner					entrada				= new Scanner(System.in);					// Apertura del Scanner para lectura por teclado de datos
-
 		List<IBuscadorUsuarios>	buscadores		= new ArrayList<IBuscadorUsuarios>(); 			// Buscadores de usuarios
 		GestorUsuarios			gestorUsuarios		= new GestorUsuarios();						// Gestor de usuarios
 
 		buscadores.add(new BuscadorDicUsuarios());												// Buscador dicotómico de usuarios
 		buscadores.add(new BuscadorSecUsuarios());												// Buscador secuencial de usuarios
 
-		if(DEBUG) {
+		if(MenuPrincipal.DEBUG) {
 			gestorUsuarios.addAlumno("45746293Y", "Rafael Carlos Méndez Rodíguez", null, "G. I. I. (S.)", 4);
 			gestorUsuarios.addAlumno("00000001R", "Perico el de los Palotes Duros", null, "Vendedor de chuches", 1);
 			gestorUsuarios.addAlumno("00000003A", "Naruto es Sinónimo de Relleno", null, "Anime malo", 3);
@@ -93,17 +90,19 @@ public class MenuPrincipal {
 				System.out.print("acs]: ");
 			}
 
-			operacion = Character.toUpperCase(entrada.next().charAt(0));						// Con recuperar el primer caracter vale
+			operacion = Character.toUpperCase(MenuPrincipal.entrada.next().charAt(0));						// Con recuperar el primer caracter vale
 
 			switch(operacion) {
 			case 'A':
 				gestorUsuarios.addUsuario();
 
 				usuarios++;
+
 				break;
 
 			case 'C':
 				// TODO: Implementar
+
 				break;
 
 			case 'S':
@@ -111,6 +110,7 @@ public class MenuPrincipal {
 
 				System.out.println("¡Gracias por utilizar nuestro sistema!");
 				System.out.println("Saliendo...");
+
 				break;
 
 			default:
@@ -120,46 +120,21 @@ public class MenuPrincipal {
 						// TODO: Implementar
 
 						usuarios--;
-						break;
 
-					case 'D':
-						// TODO: Implementar
 						break;
 
 					case 'E':
 						// TODO: Implementar
+
 						break;
 
+					case 'D':																	// Alterado el orden alfabético a conciencia
+						System.out.println("Para visualizar los detalles de un usuario es necesario buscarlo");
+
+						// break;																// Comentado a conciencia
+
 					case 'F':
-						do {
-							System.out.print("Introduzca el DNI (sin letra) del usuario a buscar: ");
-
-							try {
-								dni = entrada.nextInt();
-							}
-							catch(InputMismatchException e) {
-								entrada.nextLine();												// Avance del Scanner para permitir otra lectura
-
-								System.out.println("El DNI introducido no es válido");
-								System.out.println("Por favor, inténtelo de nuevo y recuerde introducir un DNI sin su letra");
-							}
-						} while(dni == -1);
-
-						if(!DEBUG) {
-							encontrado = gestorUsuarios.searchUsuario(buscadores.get(aleatorio.nextInt(1)), dni);
-						}
-						else {																	// Para depuración se elegirá siempre el buscador dicotómico, al se el más complejo de implementar
-							encontrado = gestorUsuarios.searchUsuario(buscadores.get(0), dni);
-						}
-
-						if(encontrado > -1) {
-							System.out.print("Encontrado: ");
-
-							gestorUsuarios.printUsuario(encontrado);
-						}
-						else {
-							System.out.println("El usuario con DNI " + String.format("%08d", dni) + " no ha sido hallado en el gestor de usuarios");
-						}
+						MenuPrincipal.buscarUsuario(gestorUsuarios);
 
 						break;
 
@@ -172,12 +147,12 @@ public class MenuPrincipal {
 									System.out.print("Introduzca la ruta del archivo de " + ((i == 0) ? ("alumnos") : ("profesores")) + ": ");
 
 									if(i == 0) {
-										entrada.nextLine();							// Avance del Scanner para evitar leer ""
+										MenuPrincipal.entrada.nextLine();							// Avance del Scanner para evitar leer ""
 
-										archivo_alumnos = entrada.nextLine();
+										archivo_alumnos = MenuPrincipal.entrada.nextLine();
 									}
 									else {
-										archivo_profesores = entrada.nextLine();
+										archivo_profesores = MenuPrincipal.entrada.nextLine();
 									}
 
 									if("".equals((i == 0) ? (archivo_alumnos) : (archivo_profesores))) {
@@ -186,13 +161,13 @@ public class MenuPrincipal {
 										System.out.print("¿Desea volver a intentarlo? [s/N]: ");
 
 										if(i == 0) {
-											archivo_alumnos = entrada.next();
+											archivo_alumnos = MenuPrincipal.entrada.next();
 										}
 										else {
-											archivo_profesores = entrada.next();
+											archivo_profesores = MenuPrincipal.entrada.next();
 										}
 
-										entrada.nextLine();							// Avance del Scanner para evitar leer ""
+										MenuPrincipal.entrada.nextLine();							// Avance del Scanner para evitar leer ""
 
 										if(Character.toUpperCase(((i == 0) ? (archivo_alumnos) : (archivo_profesores)).charAt(0)) == 'S') {
 											ok_archivo = false;
@@ -216,11 +191,13 @@ public class MenuPrincipal {
 						else {
 							System.out.println("Operación cancelada");
 						}
+
 						break;
 
 					default:
 						System.out.println("La operación seleccionada (" + operacion + ") es incorrecta");
 						System.out.println("Por favor, seleccione una válida de entre las siguientes opciones:");
+
 						break;
 					}
 				}
@@ -228,6 +205,7 @@ public class MenuPrincipal {
 					System.out.println("La operación seleccionada (" + operacion + ") es incorrecta o no está disponible en este momento");
 					System.out.println("Por favor, seleccione una válida de entre las siguientes opciones:");
 				}
+
 				break;
 			}
 
@@ -235,5 +213,57 @@ public class MenuPrincipal {
 		} while(!salir);
 
 		// entrada.close();																	// 	No se debe cerrar un Scanner(System.in) o se cerrará el propio System.in 🤷🏼‍♂️
+	}
+
+
+	/**
+	 * Buscador de usuarios
+	 * Busca un usuario en el gestor dado
+	 *
+	 * @param		gestorUsuarios					GestorUsuarios					Gestor de usuarios en el que buscar
+	 *
+	 * @return										int								Posición en la que se halla en la lista interna del gestor
+	 */
+
+	private static int buscarUsuario(GestorUsuarios gestorUsuarios) {
+		int						dni					= -1;										// DNI (sin letra) del usuario a buscar
+		int						encontrado;														// Posición del usuario buscado en la lista (-1 si no se ha encontrado)
+		List<IBuscadorUsuarios>	buscadores		= new ArrayList<IBuscadorUsuarios>(); 			// Buscadores de usuarios
+		Random					aleatorio			= new Random();								// Generador de números aleatorios
+
+		buscadores.add(new BuscadorDicUsuarios());												// Buscador dicotómico de usuarios
+		buscadores.add(new BuscadorSecUsuarios());												// Buscador secuencial de usuarios
+
+		do {
+			System.out.print("Introduzca el DNI (sin letra) del usuario a buscar: ");
+
+			try {
+				dni = MenuPrincipal.entrada.nextInt();
+			}
+			catch(InputMismatchException e) {
+				MenuPrincipal.entrada.nextLine();												// Avance del Scanner para permitir otra lectura
+
+				System.out.println("El DNI introducido no es válido");
+				System.out.println("Por favor, inténtelo de nuevo y recuerde introducir un DNI sin su letra");
+			}
+		} while(dni == -1);
+
+		if(!MenuPrincipal.DEBUG) {
+			encontrado = gestorUsuarios.searchUsuario(buscadores.get(aleatorio.nextInt(1)), dni);
+		}
+		else {																	// Para depuración se elegirá siempre el buscador dicotómico, al se el más complejo de implementar
+			encontrado = gestorUsuarios.searchUsuario(buscadores.get(0), dni);
+		}
+
+		if(encontrado > -1) {
+			System.out.print("Encontrado: ");
+
+			gestorUsuarios.printUsuario(encontrado);
+		}
+		else {
+			System.out.println("El usuario con DNI " + String.format("%08d", dni) + " no ha sido hallado en el gestor de usuarios");
+		}
+
+		return encontrado;
 	}
 }
