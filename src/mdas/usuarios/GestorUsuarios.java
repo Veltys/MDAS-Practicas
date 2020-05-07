@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.2.0
+ * @version			1.2.1
  */
 
 public class GestorUsuarios {
@@ -145,24 +145,17 @@ public class GestorUsuarios {
 	 */
 
 	private void ordredInsertUser(Usuario nuevo) {
-		int			tamVector;																// Tamaño del vector en el que se insertará
-		int			i			= -1;
+		int			tamVector	= this._usuarios.size();									// Tamaño del vector en el que se insertará
+		int			i			= 0;
 		int			insertar;																// Posición de insercción
-
-		tamVector = this._usuarios.size();													// 		Este cálculo se realia ahora porque el acceso al vectore de profesores no se hace con sistemas que garanticen la exclusión mutua; haciendo el cálculo lo más tarde posible se asegurará la certeza de lo datos
 
 		if(tamVector > 0) {																	// 		Si el vector no está vacío es necesario insertarlo ordenadamente
 			do {
-				i++;
-
 				insertar = nuevo.compareTo(this._usuarios.get(i));							// 				Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
-			} while(insertar > 0 && i < tamVector);											// 			Con la segunda parte de la comprobación se evita salirse del mismo por el final
+			} while(insertar > 0 && ++i < tamVector);										// 			Con la segunda parte de la comprobación se evita salirse del mismo por el final
+		}
 
-			this._usuarios.add(i, nuevo);													// 			Por fin, la insercción
-		}
-		else {																				// 		Si está vacío, simplemente se inserta
-			this._usuarios.add(nuevo);														// 			Por fin, la insercción
-		}
+		this._usuarios.add(i, nuevo);														// 			Por fin, la insercción
 	}
 
 
