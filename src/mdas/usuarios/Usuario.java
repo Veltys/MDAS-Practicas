@@ -15,6 +15,12 @@ import java.time.LocalDate;
  */
 
 public abstract class Usuario implements Comparable<Usuario> {
+	private int			_dni;
+	private String		_nombre;
+	private String		_alias;
+	private LocalDate	_fNacimiento;
+
+
 	/**
 	 * Generador de un alias a partir de un nombre
 	 * TODO: Eliminar caracteres no ASCII del alias
@@ -64,13 +70,6 @@ public abstract class Usuario implements Comparable<Usuario> {
 			return false;
 		}
 	}
-
-
-	private int			_dni;
-	private String		_nombre;
-	private String		_alias;
-	private LocalDate	_fNacimiento;
-
 
 	/**
 	 * Constructor de clase
