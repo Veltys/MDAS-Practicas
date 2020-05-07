@@ -1,9 +1,15 @@
 package mdas.usuarios;
 
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import mdas.usuarios.GestorUsuarios;
+import mdas.usuarios.BuscadorDicUsuarios;
+import mdas.usuarios.BuscadorSecUsuarios;
 
 
 /**
@@ -13,7 +19,7 @@ import mdas.usuarios.GestorUsuarios;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			0.4.1
+ * @version			0.5.0
  */
 
 public class MenuPrincipal {
@@ -25,26 +31,34 @@ public class MenuPrincipal {
 	 */
 
 	public static void main(String[] args) {
-		final boolean	DEBUG				= true;											// Constante de depuración
+		final boolean			DEBUG				= true;										// Constante de depuración
 
-		boolean				ok_archivo			= false;									// "Bandera" de validación del archivo de alumnos / profesores
-		boolean				salir				= false;									// "Bandera" que indica si se ha activado el evento de salida
-		char				operacion;														// Operación a realizar
-		int					i;
-		int					usuarios			= 0;										// Contador de usuarios cargados
-		String				archivo_alumnos		= null;										// Ruta al archivo de alumnos
-		String				archivo_profesores	= null;										// Ruta al archivo de profesores
+		boolean					ok_archivo			= false;									// "Bandera" de validación del archivo de alumnos / profesores
+		boolean					salir				= false;									// "Bandera" que indica si se ha activado el evento de salida
+		char					operacion;														// Operación a realizar
+		int						i;
+		int						dni					= -1;										// DNI (sin letra) del usuario a buscar
+		int						encontrado;														// Posición del usuario buscado en la lista (-1 si no se ha encontrado)
+		int						usuarios			= 0;										// Contador de usuarios cargados
+		Random					aleatorio			= new Random();								// Generador de números aleatorios
+		String					archivo_alumnos		= null;										// Ruta al archivo de alumnos
+		String					archivo_profesores	= null;										// Ruta al archivo de profesores
 
-		@SuppressWarnings("resource")														// Eliminación del warning de Eclipse por no cerrar el Scanner
-		Scanner				entrada				= new Scanner(System.in);					// Apertura del Scanner para lectura por teclado de datos
+		@SuppressWarnings("resource")															// Eliminación del warning de Eclipse por no cerrar el Scanner
+		Scanner					entrada				= new Scanner(System.in);					// Apertura del Scanner para lectura por teclado de datos
 
-		GestorUsuarios		gestorUsuarios		= new GestorUsuarios();						// Gestor de usuarios
+		List<IBuscadorUsuarios>	buscadores		= new ArrayList<IBuscadorUsuarios>(); 			// Buscadores de usuarios
+		GestorUsuarios			gestorUsuarios		= new GestorUsuarios();						// Gestor de usuarios
+
+		buscadores.add(new BuscadorDicUsuarios());												// Buscador dicotómico de usuarios
+		buscadores.add(new BuscadorSecUsuarios());												// Buscador secuencial de usuarios
 
 		if(DEBUG) {
 			gestorUsuarios.addAlumno("45746293Y", "Rafael Carlos Méndez Rodíguez", null, "G. I. I. (S.)", 4);
-			gestorUsuarios.addAlumno("00000000T", "Rafael Barbudo Lunar", null, "G. I. I. (S.)", 4);
+			gestorUsuarios.addAlumno("00000001R", "Perico el de los Palotes Duros", null, "Vendedor de chuches", 1);
+			gestorUsuarios.addAlumno("00000003A", "Naruto es Sinónimo de Relleno", null, "Anime malo", 3);
 			gestorUsuarios.addProfesor("00000000T", "Rafael Barbudo Lunar", null, 30, Categorias.values()[3]);
-			gestorUsuarios.addProfesor("45746293Y", "Rafael Carlos Méndez Rodíguez", null,30, Categorias.values()[3]);
+			gestorUsuarios.addProfesor("00000002W", "Alguien Más de Relleno", null, 30, Categorias.values()[0]);
 
 			usuarios = 2;
 		}
@@ -79,7 +93,7 @@ public class MenuPrincipal {
 				System.out.print("acs]: ");
 			}
 
-			operacion = Character.toUpperCase(entrada.next().charAt(0));					// Con recuperar el primer caracter vale
+			operacion = Character.toUpperCase(entrada.next().charAt(0));						// Con recuperar el primer caracter vale
 
 			switch(operacion) {
 			case 'A':
@@ -117,7 +131,36 @@ public class MenuPrincipal {
 						break;
 
 					case 'F':
-						// TODO: Implementar
+						do {
+							System.out.print("Introduzca el DNI (sin letra) del usuario a buscar: ");
+
+							try {
+								dni = entrada.nextInt();
+							}
+							catch(InputMismatchException e) {
+								entrada.nextLine();												// Avance del Scanner para permitir otra lectura
+
+								System.out.println("El DNI introducido no es válido");
+								System.out.println("Por favor, inténtelo de nuevo y recuerde introducir un DNI sin su letra");
+							}
+						} while(dni == -1);
+
+						if(!DEBUG) {
+							encontrado = gestorUsuarios.searchUsuario(buscadores.get(aleatorio.nextInt(1)), dni);
+						}
+						else {																	// Para depuración se elegirá siempre el buscador dicotómico, al se el más complejo de implementar
+							encontrado = gestorUsuarios.searchUsuario(buscadores.get(0), dni);
+						}
+
+						if(encontrado > -1) {
+							System.out.print("Encontrado: ");
+
+							gestorUsuarios.printUsuario(encontrado);
+						}
+						else {
+							System.out.println("El usuario con DNI " + String.format("%08d", dni) + " no ha sido hallado en el gestor de usuarios");
+						}
+
 						break;
 
 					case 'G':
