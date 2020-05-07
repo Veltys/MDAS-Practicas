@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.2.6
+ * @version			1.2.7
  */
 
 public class GestorUsuarios {
@@ -291,12 +291,12 @@ public class GestorUsuarios {
 					}
 
 					if(i == 0) {															// 				En la primera iteración se añaden alumnos
-						this.addAlumno(campos.get(0), campos.get(1), fNacimiento, campos.get(3), Integer.parseInt(campos.get(4)));
+						this.addAlumno(campos.get(0) + Usuario.calcularLetraDni(Integer.parseInt(campos.get(0))), campos.get(1), fNacimiento, campos.get(3), Integer.parseInt(campos.get(4)));
 					}
 					else {																	// 				En la segunda, profesores
 						categoria = this.buscarCategoriaProfesional(campos.get(4));
 
-						this.addProfesor(campos.get(0), campos.get(1), fNacimiento, Integer.parseInt(campos.get(4)), categoria);
+						this.addProfesor(campos.get(0) + Usuario.calcularLetraDni(Integer.parseInt(campos.get(0))), campos.get(1), fNacimiento, Integer.parseInt(campos.get(4)), categoria);
 					}
 				}
 
