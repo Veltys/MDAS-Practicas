@@ -27,7 +27,7 @@ import mdas.usuarios.Categorias;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.3.1
+ * @version			1.3.2
  */
 
 public class GestorUsuarios {
@@ -364,7 +364,7 @@ public class GestorUsuarios {
 		int						total_profesores	= 0;									// Total de profesores existentes  (para luego hacer la media)
 		Alumno					aux_alumno;													// Auxiliar que contendrá alumnos para su posterior escritura
 		Profesor				aux_profesor;												// Auxiliar que contendrá profesores para su posterior escritura
-		String					aux_titulacion		= "";									// Auxiliar que contendrá la titulación
+		String					nombre_titulacion	= "";									// Nombre de la titulación con más alumnos matriculados
 		String					nombre_profesor		= "";									// Nombre del profesor con más créditos
 		List<String>			titulaciones		= new ArrayList<String>();				// Lista de titulaciones que se irán recuperando
 		List<Integer>			frec_titulaciones	= new ArrayList<Integer>();				// Frecuencia de aparición de cada titulación
@@ -375,15 +375,15 @@ public class GestorUsuarios {
 			if(this._usuarios.get(i) instanceof Alumno) {									// 		Si se trata de un alumno
 				aux_alumno = (Alumno) this._usuarios.get(i);								// 			Se almacena para su posterior escritura
 
-				aux_titulacion = aux_alumno.titulacion();
+				nombre_titulacion = aux_alumno.titulacion();
 
-				if(!titulaciones.contains(aux_titulacion)) {
-					titulaciones.add(aux_titulacion);
+				if(!titulaciones.contains(nombre_titulacion)) {
+					titulaciones.add(nombre_titulacion);
 
 					frec_titulaciones.add(1);
 				}
 				else {
-					aux_posicion = titulaciones.indexOf(aux_titulacion);
+					aux_posicion = titulaciones.indexOf(nombre_titulacion);
 					frec_titulaciones.set(aux_posicion, frec_titulaciones.get(aux_posicion) + 1);
 				}
 			}
@@ -409,12 +409,12 @@ public class GestorUsuarios {
 			if(max_titulacion < frec_titulaciones.get(i)) {
 				max_titulacion = frec_titulaciones.get(i);
 
-				aux_titulacion = titulaciones.get(i);
+				nombre_titulacion = titulaciones.get(i);
 			}
 		}
 
 		System.out.println("Estadísticas de los usuarios:");
-		System.out.println("\tTitulación más cursada por los alumnos: " + aux_titulacion + ", con " + max_titulacion + " alumnos matriculados");
+		System.out.println("\tTitulación más cursada por los alumnos: " + nombre_titulacion + ", con " + max_titulacion + " alumnos matriculados");
 		System.out.println("\tProfesor con más créditos: " + nombre_profesor + ", con " + max_creditos + " créditos impartidos");
 		System.out.println("\tNúmero medio de créditos por profesor: " + (suma_creditos / total_profesores) + " créditos");
 	}
