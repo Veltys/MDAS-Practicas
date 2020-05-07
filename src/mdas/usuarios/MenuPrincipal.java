@@ -23,7 +23,6 @@ import mdas.usuarios.BuscadorSecUsuarios;
  */
 
 public class MenuPrincipal {
-	private final static	boolean		DEBUG				= true;								// Constante de depuración
 	private static			Scanner		entrada				= new Scanner(System.in);			// Apertura del Scanner para lectura por teclado de datos
 
 
@@ -47,16 +46,6 @@ public class MenuPrincipal {
 
 		buscadores.add(new BuscadorDicUsuarios());												// Buscador dicotómico de usuarios
 		buscadores.add(new BuscadorSecUsuarios());												// Buscador secuencial de usuarios
-
-		if(MenuPrincipal.DEBUG) {
-			gestorUsuarios.addAlumno("45746293Y", "Rafael Carlos Méndez Rodíguez", null, "G. I. I. (S.)", 4);
-			gestorUsuarios.addAlumno("00000001R", "Perico el de los Palotes Duros", null, "Vendedor de chuches", 1);
-			gestorUsuarios.addAlumno("00000003A", "Naruto es Sinónimo de Relleno", null, "Anime malo", 3);
-			gestorUsuarios.addProfesor("00000000T", "Rafael Barbudo Lunar", null, 30, Categorias.values()[3]);
-			gestorUsuarios.addProfesor("00000002W", "Alguien Más de Relleno", null, 30, Categorias.values()[0]);
-
-			usuarios = 2;
-		}
 
 		System.out.println("Bienvenido al Gestor de usuarios");
 		System.out.println("El menú de operaciones es el siguiente:");
@@ -233,12 +222,7 @@ public class MenuPrincipal {
 			}
 		} while(dni == -1);
 
-		if(!MenuPrincipal.DEBUG) {
-			encontrado = gestorUsuarios.searchUsuario(buscadores.get(aleatorio.nextInt(1)), dni);
-		}
-		else {																	// Para depuración se elegirá siempre el buscador dicotómico, al se el más complejo de implementar
-			encontrado = gestorUsuarios.searchUsuario(buscadores.get(0), dni);
-		}
+		encontrado = gestorUsuarios.searchUsuario(buscadores.get(aleatorio.nextInt(1)), dni);
 
 		if(encontrado > -1) {
 			System.out.print("Encontrado: ");
