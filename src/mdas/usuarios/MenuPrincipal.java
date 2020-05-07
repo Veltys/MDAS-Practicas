@@ -13,7 +13,7 @@ import java.util.Scanner;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			0.3.0
+ * @version			0.4.0
  */
 
 public class MenuPrincipal {
@@ -25,10 +25,14 @@ public class MenuPrincipal {
 	 */
 
 	public static void main(String[] args) {
-		boolean			salir			= false;											// "Bandera" que indica si se ha activado el evento de salida
+		boolean			ok_archivo;															// "Bandera" de validación del archivo de alumnos / profesores
+		boolean			salir				= false;										// "Bandera" que indica si se ha activado el evento de salida
 		char			operacion;															// Operación a realizar
-		int				usuarios		= 0;												// Contador de usuarios cargados
-		GestorUsuarios	gestorUsuarios	= new GestorUsuarios();								// Gestor de usuarios
+		int				i;
+		int				usuarios			= 0;											// Contador de usuarios cargados
+		String			archivo_alumnos		= null;											// Ruta al archivo de alumnos
+		String			archivo_profesores	= null;											// Ruta al archivo de profesores
+		GestorUsuarios	gestorUsuarios		= new GestorUsuarios();							// Gestor de usuarios
 
 		@SuppressWarnings("resource")														// Eliminación del warning de Eclipse por no cerrar el Scanner
 		Scanner			entrada			= new Scanner(System.in);							// Apertura del Scanner para lectura por teclado de datos 
@@ -105,7 +109,56 @@ public class MenuPrincipal {
 							break;
 
 							case 'G':
-								// TODO: Implementar
+								System.out.println("Para guardar la lista de usuarios es necesario proporcionar dos archivos");
+
+								for(i = 0; i < 2; i++) {
+									System.out.print("Introduzca la ruta del archivo de " + ((i == 0) ? ("alumnos") : ("profesores")) + ": ");
+	
+									entrada.nextLine();														// Avance del Scanner para evitar leer ""
+	
+									do {
+										if(i == 0) {
+											archivo_alumnos = entrada.nextLine();
+										}
+										else {
+											archivo_profesores = entrada.nextLine();
+										}
+	
+										if("".equals((i == 0) ? (archivo_alumnos) : (archivo_profesores))) {
+											System.out.println("Es necesario que proporcione un nombre de archivo");
+	
+											System.out.print("¿Desea volver a intentarlo? [s/N]: ");
+	
+											if(i == 0) {
+												archivo_alumnos = entrada.next();
+											}
+											else {
+												archivo_profesores = entrada.next();
+											}
+	
+											entrada.nextLine();												// Avance del Scanner para evitar leer ""
+	
+											if(Character.toUpperCase(((i == 0) ? (archivo_alumnos) : (archivo_profesores)).charAt(0)) == 'S') {
+												ok_archivo = false;
+											}
+											else {
+												ok_archivo = true;
+
+												break;
+											}
+										}
+										else {
+											ok_archivo = true;
+										}
+									} while(!ok_archivo);
+								}
+
+								if(!("".equals(archivo_alumnos) || "".equals(archivo_profesores))) {
+									gestorUsuarios.saveUsuarios(archivo_alumnos, archivo_profesores);
+								}
+								else {
+									System.out.println("Operación cancelada");
+								}
 							break;
 
 							default:
