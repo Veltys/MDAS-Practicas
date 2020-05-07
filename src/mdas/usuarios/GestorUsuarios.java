@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -26,7 +27,7 @@ import mdas.usuarios.Categorias;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.0.6
+ * @version			1.0.7
  */
 
 public class GestorUsuarios {
@@ -244,24 +245,43 @@ public class GestorUsuarios {
 		} while(!ok_fNacimiento);
 
 		if(Character.toUpperCase(tipo) != 'P') {											// Cualquier cosa que no sea una "P" será tratada como un alumno (el tipo por defecto)
-			int		curso;																	// 	Curso del alumno a insertar
+			int		curso		= -1;														// 	Curso del alumno a insertar
 			String	titulacion;																// 	Titulación del alumno a insertar
 
 			System.out.print("Introduzca la titulación: ");
 			titulacion = entrada.nextLine();
 
-			System.out.print("Introduzca el curso: ");
-			curso = entrada.nextInt();
+			do {
+				System.out.print("Introduzca el curso: ");
 
-			addAlumno(dni, nombre, fNacimiento, titulacion, curso);
+				try {
+					curso = entrada.nextInt();
+				}
+				catch(InputMismatchException e) {
+					entrada.nextLine();														// Avance del Scanner para permitir otra lectura
+
+					System.out.println("El curso introducido no es válido");
+					System.out.println("Por favor, inténtelo de nuevo e introduzca un número");
+				}
+			} while(curso == -1);
 		}
 		else {																				// Operaciones equivalentes para la insercción de un profesor
-			int			creditos;															// 	Créditos impartidos del profesor a insertar
+			int			creditos	= -1;													// 	Créditos impartidos del profesor a insertar
 			Categorias	categoria;															// 	Categoría profesional del profesor a insertar ya convertida al tipo Categorias
 
-			System.out.print("Introduzca los créditos impartidos: ");
-			creditos = entrada.nextInt();
+			do {
+				System.out.print("Introduzca los créditos impartidos: ");
 
+				try {
+					creditos = entrada.nextInt();
+				}
+				catch(InputMismatchException e) {
+					entrada.nextLine();														// Avance del Scanner para permitir otra lectura
+
+					System.out.println("Los créditos introducidos no son");
+					System.out.println("Por favor, inténtelo de nuevo e introduzca un número");
+				}
+			} while(creditos == -1);
 			categoria = procesarCategoriaProfesional(entrada);
 
 			addProfesor(dni, nombre, fNacimiento, creditos, categoria);
