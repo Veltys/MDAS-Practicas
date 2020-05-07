@@ -19,7 +19,7 @@ import mdas.usuarios.BuscadorSecUsuarios;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			0.6.1
+ * @version			0.6.2
  */
 
 public class MenuPrincipal {
@@ -35,11 +35,9 @@ public class MenuPrincipal {
 	 */
 
 	public static void main(String[] args) {
-		boolean					ok_archivo			= false;									// "Bandera" de validación del archivo de alumnos / profesores
 		boolean					salir				= false;									// "Bandera" que indica si se ha activado el evento de salida
 		char					operacion;														// Operación a realizar
 		int						borrado;														// Posición del usuario a borrar
-		int						i;
 		int						usuarios			= 0;										// Contador de usuarios cargados
 		String					archivo_alumnos		= null;										// Ruta al archivo de alumnos
 		String					archivo_profesores	= null;										// Ruta al archivo de profesores
@@ -158,52 +156,22 @@ public class MenuPrincipal {
 					case 'G':
 						System.out.println("Para guardar la lista de usuarios es necesario proporcionar dos nombres de archivo");
 
-						for(i = 0; i < 2; i++) {
-							if((i == 0) || ((i == 1) && ok_archivo)) {
-								do {
-									System.out.print("Introduzca la ruta del archivo de " + ((i == 0) ? ("alumnos") : ("profesores")) + ": ");
+						MenuPrincipal.entrada.nextLine();											// Avance del Scanner para permitir otra lectura
 
-									if(i == 0) {
-										MenuPrincipal.entrada.nextLine();							// Avance del Scanner para evitar leer ""
-
-										archivo_alumnos = MenuPrincipal.entrada.nextLine();
-									}
-									else {
-										archivo_profesores = MenuPrincipal.entrada.nextLine();
-									}
-
-									if("".equals((i == 0) ? (archivo_alumnos) : (archivo_profesores))) {
-										System.out.println("Es necesario que proporcione un nombre de archivo");
-
-										System.out.print("¿Desea volver a intentarlo? [s/N]: ");
-
-										if(i == 0) {
-											archivo_alumnos = MenuPrincipal.entrada.next();
-										}
-										else {
-											archivo_profesores = MenuPrincipal.entrada.next();
-										}
-
-										MenuPrincipal.entrada.nextLine();							// Avance del Scanner para evitar leer ""
-
-										if(Character.toUpperCase(((i == 0) ? (archivo_alumnos) : (archivo_profesores)).charAt(0)) == 'S') {
-											ok_archivo = false;
-										}
-										else {
-											ok_archivo = false;
-
-											break;
-										}
-									}
-									else {
-										ok_archivo = true;
-									}
-								} while(!ok_archivo);
-							}
-						}
-
-						if(ok_archivo) {
+						if(
+								!(
+										("".equals(
+												archivo_alumnos = MenuPrincipal.obtenerNombreArchivo("alumnos")
+												))
+										||
+										("".equals(
+												archivo_profesores = MenuPrincipal.obtenerNombreArchivo("profesores")
+												))
+										)
+								) {
 							gestorUsuarios.saveUsuarios(archivo_alumnos, archivo_profesores);
+
+							System.out.println("Operación realizada con éxito");
 						}
 						else {
 							System.out.println("Operación cancelada");
@@ -282,5 +250,55 @@ public class MenuPrincipal {
 		}
 
 		return encontrado;
+	}
+
+
+	/**
+	 * Obtenedor de un nombre de archivo
+	 * Obtiene un nombre de archivo para el tipo configurado
+	 *
+	 * @param		tipo							String							Tipo de archivo a obtener
+	 *
+	 * @return										String							Ruta obtenida (o "" si se canceló el proceso)
+	 */
+
+	private static String obtenerNombreArchivo(String tipo) {
+		boolean					ok_archivo			= false;									// "Bandera" de validación del archivo de alumnos / profesores
+		String					archivo				= null;										// Ruta al archivo
+
+		do {
+			System.out.print("Introduzca la ruta del archivo de " + tipo + ": ");
+
+			archivo = MenuPrincipal.entrada.nextLine();
+
+			if("".equals(archivo)) {
+				System.out.println("Es necesario que proporcione un nombre de archivo");
+
+				System.out.print("¿Desea volver a intentarlo? [s/N]: ");
+
+				archivo = MenuPrincipal.entrada.next();
+
+				MenuPrincipal.entrada.nextLine();												// Avance del Scanner para evitar leer ""
+
+				if(Character.toUpperCase((archivo).charAt(0)) == 'S') {
+					ok_archivo = false;
+				}
+				else {
+					ok_archivo = false;
+
+					break;
+				}
+			}
+			else {
+				ok_archivo = true;
+			}
+		} while(!ok_archivo);
+
+		if(ok_archivo) {
+			return archivo;
+		}
+		else {
+			return "";
+		}
 	}
 }
