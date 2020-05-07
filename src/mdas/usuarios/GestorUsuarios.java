@@ -27,11 +27,13 @@ import mdas.usuarios.Categorias;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			1.2.4
+ * @version			1.2.5
  */
 
 public class GestorUsuarios {
-	private List<Usuario> _usuarios;
+	private			List<Usuario>		_usuarios;											// Lista de usuarios a gestionar
+	private static	Scanner				entrada		= new Scanner(System.in);				// Scanner para lectura por teclado de datos
+
 
 	/**
 	 * Constructor de clase
@@ -128,23 +130,20 @@ public class GestorUsuarios {
 		String		str_fNacimiento;														// Fecha de nacimiento del usuario a insertar antes de ser convertida al tipo LocalDate
 		LocalDate	fNacimiento			= null;												// Fecha de nacimiento del usuario a insertar ya convertida al tipo LocalDate
 
-		@SuppressWarnings("resource")														// Eliminación del warning de Eclipse por no cerrar el Scanner
-		Scanner		entrada				= new Scanner(System.in);							// Scanner para lectura por teclado de datos
-
 		System.out.print("¿Qué tipo de usuario se cargará? [A]lumno/[p]rofesor: ");
-		tipo = entrada.next().charAt(0);													// Con recuperar el primer caracter vale
+		tipo = GestorUsuarios.entrada.next().charAt(0);													// Con recuperar el primer caracter vale
 
 		System.out.print("Introduzca el DNI: ");
-		dni = entrada.next();
+		dni = GestorUsuarios.entrada.next();
 
-		entrada.nextLine();																	// Avance del Scanner para evitar leer ""
+		GestorUsuarios.entrada.nextLine();																	// Avance del Scanner para evitar leer ""
 
 		System.out.print("Introduzca el nombre: ");
-		nombre = entrada.nextLine();
+		nombre = GestorUsuarios.entrada.nextLine();
 
 		do {
 			System.out.print("Introduzca la fecha de nacimiento en formato DD/MM/AAAA (opcional, dejar en blanco para continuar): ");
-			str_fNacimiento = entrada.nextLine();
+			str_fNacimiento = GestorUsuarios.entrada.nextLine();
 
 			if(!("".equals(str_fNacimiento))) {
 				try {
@@ -157,9 +156,9 @@ public class GestorUsuarios {
 
 					System.out.print("¿Desea volver a intentarlo? [s/N]: ");
 
-					str_fNacimiento = entrada.next();
+					str_fNacimiento = GestorUsuarios.entrada.next();
 
-					entrada.nextLine();														// Avance del Scanner para evitar leer ""
+					GestorUsuarios.entrada.nextLine();														// Avance del Scanner para evitar leer ""
 
 					ok_fNacimiento = (Character.toUpperCase(str_fNacimiento.charAt(0)) == 'S') ? (false) : (true);
 				}
@@ -174,16 +173,16 @@ public class GestorUsuarios {
 			String	titulacion;																// 	Titulación del alumno a insertar
 
 			System.out.print("Introduzca la titulación: ");
-			titulacion = entrada.nextLine();
+			titulacion = GestorUsuarios.entrada.nextLine();
 
 			do {
 				System.out.print("Introduzca el curso: ");
 
 				try {
-					curso = entrada.nextInt();
+					curso = GestorUsuarios.entrada.nextInt();
 				}
 				catch(InputMismatchException e) {
-					entrada.nextLine();														// Avance del Scanner para permitir otra lectura
+					GestorUsuarios.entrada.nextLine();														// Avance del Scanner para permitir otra lectura
 
 					System.out.println("El curso introducido no es válido");
 					System.out.println("Por favor, inténtelo de nuevo e introduzca un número");
@@ -193,7 +192,7 @@ public class GestorUsuarios {
 			while(!this.addAlumno(dni, nombre, fNacimiento, titulacion, curso)) {
 				System.out.println("El DNI debe estar en el formato 00000000A, siendo A la letra de control y siendo ésta correcta");
 				System.out.print("Introduzca el DNI: ");
-				dni = entrada.next();
+				dni = GestorUsuarios.entrada.next();
 			}
 		}
 		else {																				// Operaciones equivalentes para la insercción de un profesor
@@ -204,22 +203,22 @@ public class GestorUsuarios {
 				System.out.print("Introduzca los créditos impartidos: ");
 
 				try {
-					creditos = entrada.nextInt();
+					creditos = GestorUsuarios.entrada.nextInt();
 				}
 				catch(InputMismatchException e) {
-					entrada.nextLine();														// Avance del Scanner para permitir otra lectura
+					GestorUsuarios.entrada.nextLine();														// Avance del Scanner para permitir otra lectura
 
 					System.out.println("Los créditos introducidos no son");
 					System.out.println("Por favor, inténtelo de nuevo e introduzca un número");
 				}
 			} while(creditos == -1);
 
-			categoria = this.procesarCategoriaProfesional(entrada);
+			categoria = this.procesarCategoriaProfesional(GestorUsuarios.entrada);
 
 			while(!this.addProfesor(dni, nombre, fNacimiento, creditos, categoria)) {
 				System.out.println("El DNI debe estar en el formato 00000000A, siendo A la letra de control y siendo ésta correcta");
 				System.out.print("Introduzca el DNI: ");
-				dni = entrada.next();
+				dni = GestorUsuarios.entrada.next();
 			}
 		}
 
