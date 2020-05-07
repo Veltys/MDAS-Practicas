@@ -10,8 +10,8 @@ import mdas.usuarios.Usuario;
  * Realiza una búsqueda dicotómica en una lista de usuarios
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			06/05/2020
- * @version			1.0.1
+ * @date			07/05/2020
+ * @version			1.0.2
  */
 
 public class BuscadorDicUsuarios implements IBuscadorUsuarios {
@@ -36,20 +36,19 @@ public class BuscadorDicUsuarios implements IBuscadorUsuarios {
 			return mitad;																					// 	Se devuelve su posición en la lista
 		}
 		else if(tam_lista == 1) {																			// Si el tamaño de la lista recibida es 1
-			return -1;																						// 	No está el elemento buscado
+			return -1;																						// 	-1 significa que no está el elemento buscado
 		}
 		else if(dni_buscado < dni_usuario_mitad) {															// Si no y el usuario buscado debe estar antes de la mitad
-			return this.buscarUsuario(usuarios.subList(0, mitad - 1), dni_buscado);							// 	Se busca en la primera mitad de la lista
+			return this.buscarUsuario(usuarios.subList(0, mitad), dni_buscado);								// 	Se busca en la primera mitad de la lista
 		}
 		else /* if(dni_buscado > dni_usuario_mitad) */ {													// Si no y el usuario buscado debe estar después de la mitad
-			res = mitad + this.buscarUsuario(usuarios.subList(mitad + 1, tam_lista - 1), dni_buscado);		// 	Se busca en la segunda mitad de la lista
+			res = this.buscarUsuario(usuarios.subList(mitad + 1, tam_lista), dni_buscado);					// 	Se busca en la segunda mitad de la lista
 
 			if(res != -1) {																					// Si finalmente se ha encontrado al usuario
-				return mitad + res;																			// 	Se retorna su posición en la segunda mitad de la lista más la mitad de la misma
+				res = res + 1 + mitad;																		// 	El resultado es su posición en la segunda mitad de la lista más la mitad de la misma
 			}
-			else {																							// Si no
-				return -1;																					// 	-1 significa que no
-			}
+
+			return res;																						// Y éste es devuelto
 		}
 	}
 }
