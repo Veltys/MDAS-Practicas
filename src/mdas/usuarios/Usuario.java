@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
- * @version			2.0.2
+ * @version			2.0.3
  */
 
 public abstract class Usuario implements Comparable<Usuario> {
@@ -178,7 +178,7 @@ public abstract class Usuario implements Comparable<Usuario> {
 
 		tam_vector = nombre_y_apellidos.length;
 
-		return (nombre_y_apellidos[0].substring(0, 2)).toLowerCase() + (nombre_y_apellidos[tam_vector - 2].substring(0, 2)).toLowerCase() + (nombre_y_apellidos[tam_vector - 1].substring(0, 2)).toLowerCase();
+		return (nombre_y_apellidos[tam_vector - 2].substring(0, 2)).toLowerCase() + (nombre_y_apellidos[tam_vector - 1].substring(0, 2)).toLowerCase() + (nombre_y_apellidos[0].substring(0, 1)).toLowerCase();
 	}
 
 
