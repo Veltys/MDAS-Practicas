@@ -301,8 +301,6 @@ public class GestorUsuarios {
 				}
 
 				buffer.close();																// 		Una vez acabada la lectura del buffer, es necesario cerrarlo
-
-				System.out.println("Operación realizada con éxito");
 			}
 			catch(FileNotFoundException e) {												// 	Si se produce una excepción
 				System.out.println("Error: " + e.getMessage());								// 		Se habrá de informar al usuario
@@ -311,6 +309,8 @@ public class GestorUsuarios {
 				System.out.println("Error: " + e.getMessage());								// 		Se habrá de informar al usuario
 			}
 		}
+
+		System.out.println("Operación realizada con éxito");
 	}
 
 
