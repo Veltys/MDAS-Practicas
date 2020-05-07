@@ -8,7 +8,7 @@ import mdas.usuarios.Usuario;
 /**
  * Clase BuscadorSecUsuario
  * Realiza una búsqueda secuencial en una lista de usuarios
- * 
+ *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			06/05/2020
  * @version			1.0.1
@@ -18,10 +18,10 @@ public class BuscadorSecUsuarios implements IBuscadorUsuarios {
 	/**
 	 * Método de búsqueda de secuencial de usuarios
 	 * Busca secuencialmente en la lista dada el usuario recibido
-	 * 
+	 *
 	 * @param		usuarios						List&lt;Usuario&gt;				Lista de usuarios
 	 * @param		dni_buscado						int								DNI del usuario buscado
-	 * 
+	 *
 	 * @return										int								Su posición en la lista (-1 si no se ha encontrado)
 	 */
 

@@ -24,7 +24,7 @@ import mdas.usuarios.Categorias;
 /**
  * Clase GestorUsuarios
  * Componente de gestión de usuarios del sistema
- * 
+ *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
  * @version			1.2.3
@@ -45,7 +45,7 @@ public class GestorUsuarios {
 
 	/**
 	 * Método privado para añadir un alumno a la lista
-	 * 
+	 *
 	 * @param		dni								String							DNI del alumno
 	 * @param		nombre							String							Nombre del alumno
 	 * @param		fNacimiento						LocalDate						Fecha de nacimiento del alumno
@@ -66,7 +66,7 @@ public class GestorUsuarios {
 			}
 
 			this.ordredInsertUser(nuevo);
-	
+
 			System.out.println("El alumno ha sido agregado correctamente");					// 		Se informa del éxito de la operación
 
 			return true;
@@ -82,7 +82,7 @@ public class GestorUsuarios {
 
 	/**
 	 * Método privado para añadir un profesor a la lista
-	 * 
+	 *
 	 * @param		dni								String							DNI del profesor
 	 * @param		nombre							String							Nombre del profesor
 	 * @param		fNacimiento						LocalDate						Fecha de profesor del alumno
@@ -113,82 +113,6 @@ public class GestorUsuarios {
 
 			return false;
 		}
-	}
-
-
-	/**
-	 * Método privado para buscar la categoría profesional de un profesor
-	 * 
-	 * @param		str_categoria					String							Categoría profesional del profesor a insertar antes de ser convertida al tipo Categorias
-	 * 
-	 * @return										Categorias						La categoría encontrada
-	 */
-
-	private Categorias buscarCategoriaProfesional(String str_categoria) {
-		Categorias	categoria		= null;													// Categoría profesional del profesor a insertar ya convertida al tipo Categorias
-
-		for(Categorias c : Categorias.values()) {											// Se itera el enum de categorías para encontrar la proporcionada
-			if(str_categoria.equalsIgnoreCase(c.name().toString())) {						// 	En caso de encontrarla
-				categoria = c;																// 		Se almacena
-
-				break;																		// 		El bucle de búsqueda termina
-			}
-		}
-
-		return categoria;
-	}
-
-
-	/**
-	 * Método privado para realizar la insercción ordenada de cualquier usuario (sea éste alumno o profesor)
-	 * Busca en la lista de usuarios la posición adecuada para insertar el nuevo y, una vez encontrada, lleva a cabo dicha insercción, garantizando así el orden de la lista
-	 * 
-	 * @param		nuevo							Usuario							Usuario nuevo a insertar
-	 */
-
-	private void ordredInsertUser(Usuario nuevo) {
-		int			tamVector	= this._usuarios.size();									// Tamaño del vector en el que se insertará
-		int			i			= 0;
-		int			insertar;																// Posición de insercción
-
-		if(tamVector > 0) {																	// 		Si el vector no está vacío es necesario insertarlo ordenadamente
-			do {
-				insertar = nuevo.compareTo(this._usuarios.get(i));							// 				Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
-			} while(insertar > 0 && ++i < tamVector);										// 			Con la segunda parte de la comprobación se evita salirse del mismo por el final
-		}
-
-		this._usuarios.add(i, nuevo);														// 			Por fin, la insercción
-	}
-
-
-	/**
-	 * Método privado para procesar la categoría profesional de un profesor
-	 * 
-	 * @param		entrada							Scanner							Scanner desde el que se leerán los datos
-	 * 
-	 * @return										Categorias						La categoría ya procesada
-	 */
-
-	private Categorias procesarCategoriaProfesional(Scanner entrada) {
-		String		str_categoria;															// 	Categoría profesional del profesor a insertar antes de ser convertida al tipo Categorias
-		Categorias	categoria		= null;													// 	Categoría profesional del profesor a insertar ya convertida al tipo Categorias
-
-		do {																				// 	Validador de categorías profesionales
-			System.out.println("La lista de categorías profesionales disponible es la siguiente:");
-			System.out.println(java.util.Arrays.asList(Categorias.values()));
-
-			System.out.print("Introduzca la categoría profesional: ");
-
-			str_categoria = entrada.next();
-
-			categoria = buscarCategoriaProfesional(str_categoria);
-
-			if(categoria == null) {															// 		En caso de no ser válida se ha de informar
-				System.out.println("Error: La categoría profesional seleccionada es incorrecta");
-			}
-		} while(categoria == null);															// 	El bucle validador sólo acabará cuando se introduzca una categoría válida
-
-		return categoria;
 	}
 
 
@@ -266,7 +190,7 @@ public class GestorUsuarios {
 				}
 			} while(curso == -1);
 
-			while(!addAlumno(dni, nombre, fNacimiento, titulacion, curso)) {
+			while(!this.addAlumno(dni, nombre, fNacimiento, titulacion, curso)) {
 				System.out.println("El DNI debe estar en el formato 00000000A, siendo A la letra de control y siendo ésta correcta");
 				System.out.print("Introduzca el DNI: ");
 				dni = entrada.next();
@@ -290,9 +214,9 @@ public class GestorUsuarios {
 				}
 			} while(creditos == -1);
 
-			categoria = procesarCategoriaProfesional(entrada);
+			categoria = this.procesarCategoriaProfesional(entrada);
 
-			while(!addProfesor(dni, nombre, fNacimiento, creditos, categoria)) {
+			while(!this.addProfesor(dni, nombre, fNacimiento, creditos, categoria)) {
 				System.out.println("El DNI debe estar en el formato 00000000A, siendo A la letra de control y siendo ésta correcta");
 				System.out.print("Introduzca el DNI: ");
 				dni = entrada.next();
@@ -304,9 +228,32 @@ public class GestorUsuarios {
 
 
 	/**
+	 * Método privado para buscar la categoría profesional de un profesor
+	 *
+	 * @param		str_categoria					String							Categoría profesional del profesor a insertar antes de ser convertida al tipo Categorias
+	 *
+	 * @return										Categorias						La categoría encontrada
+	 */
+
+	private Categorias buscarCategoriaProfesional(String str_categoria) {
+		Categorias	categoria		= null;													// Categoría profesional del profesor a insertar ya convertida al tipo Categorias
+
+		for(Categorias c : Categorias.values()) {											// Se itera el enum de categorías para encontrar la proporcionada
+			if(str_categoria.equalsIgnoreCase(c.name().toString())) {						// 	En caso de encontrarla
+				categoria = c;																// 		Se almacena
+
+				break;																		// 		El bucle de búsqueda termina
+			}
+		}
+
+		return categoria;
+	}
+
+
+	/**
 	 * Método para cargar usuarios de archivos
 	 * Carga alumnos y profesores en la lista desde sendos archivos CSV
-	 * 
+	 *
 	 * @param		archivo_alumnos					String							Ruta del archivo de alumnos
 	 * @param		archivo_profesores				String							Ruta del archivo de profesores
 	 */
@@ -324,12 +271,12 @@ public class GestorUsuarios {
 		for(i = 0; i < 2; i++) {															// Es necesario realizar el proceso dos veces, para las dos listas: alumnos y profesores
 			try {																			// 	En caso de haber problemas con los archivos será necesario capturar las excepciones que lancen
 				buffer = new BufferedReader(												// 		Se inicializa un buffer de lectura (más eficiente)...
-							new FileReader(													// 		... de un lector de archivos en el cual...
+						new FileReader(													// 		... de un lector de archivos en el cual...
 								new File(													// 		... se abrirá un archivo u otro...
-									(i == 0) ? (archivo_alumnos) : (archivo_profesores)		// 		... en función de la iteración en que se encuentre el bucle
+										(i == 0) ? (archivo_alumnos) : (archivo_profesores)		// 		... en función de la iteración en que se encuentre el bucle
+										)
 								)
-							)
-						 );
+						);
 
 				campos = new ArrayList<String>();											// 		También se inicializa un ArrayList para contener posteriormente cada campo del archivo
 
@@ -348,7 +295,7 @@ public class GestorUsuarios {
 						this.addAlumno(campos.get(0), campos.get(1), fNacimiento, campos.get(3), Integer.parseInt(campos.get(4)));
 					}
 					else {																	// 				En la segunda, profesores
-						categoria = buscarCategoriaProfesional(campos.get(4));
+						categoria = this.buscarCategoriaProfesional(campos.get(4));
 
 						this.addProfesor(campos.get(0), campos.get(1), fNacimiento, Integer.parseInt(campos.get(3)), categoria);
 					}
@@ -363,6 +310,28 @@ public class GestorUsuarios {
 				System.out.println("Error: " + e.getMessage());								// 		Se habrá de informar al usuario
 			}
 		}
+	}
+
+
+	/**
+	 * Método privado para realizar la insercción ordenada de cualquier usuario (sea éste alumno o profesor)
+	 * Busca en la lista de usuarios la posición adecuada para insertar el nuevo y, una vez encontrada, lleva a cabo dicha insercción, garantizando así el orden de la lista
+	 *
+	 * @param		nuevo							Usuario							Usuario nuevo a insertar
+	 */
+
+	private void ordredInsertUser(Usuario nuevo) {
+		int			tamVector	= this._usuarios.size();									// Tamaño del vector en el que se insertará
+		int			i			= 0;
+		int			insertar;																// Posición de insercción
+
+		if(tamVector > 0) {																	// 		Si el vector no está vacío es necesario insertarlo ordenadamente
+			do {
+				insertar = nuevo.compareTo(this._usuarios.get(i));							// 				Es necesario buscar la posición de insercción, en aras de que el vector esté ordenado
+			} while((insertar > 0) && (++i < tamVector));										// 			Con la segunda parte de la comprobación se evita salirse del mismo por el final
+		}
+
+		this._usuarios.add(i, nuevo);														// 			Por fin, la insercción
 	}
 
 
@@ -435,13 +404,13 @@ public class GestorUsuarios {
 		System.out.println("\tTitulación más cursada por los alumnos: " + aux_titulacion + ", con " + max_titulacion + " alumnos matriculados");
 		System.out.println("\tProfesor con más créditos: " + nombre_profesor + ", con" + max_creditos + " créditos impartidos");
 		System.out.println("\tNúmero medio de créditos por profesor: " + (suma_creditos / total_profesores) + " créditos");
-}
+	}
 
 
 	/**
 	 * Método para mostrar por pantalla usuarios
 	 * Muestra por pantalla el usuario de la posición dada
-	 * 
+	 *
 	 * @param		posicion						int								Posición a mostrar
 	 */
 
@@ -451,9 +420,52 @@ public class GestorUsuarios {
 
 
 	/**
+	 * Método privado para procesar la categoría profesional de un profesor
+	 *
+	 * @param		entrada							Scanner							Scanner desde el que se leerán los datos
+	 *
+	 * @return										Categorias						La categoría ya procesada
+	 */
+
+	private Categorias procesarCategoriaProfesional(Scanner entrada) {
+		String		str_categoria;															// 	Categoría profesional del profesor a insertar antes de ser convertida al tipo Categorias
+		Categorias	categoria		= null;													// 	Categoría profesional del profesor a insertar ya convertida al tipo Categorias
+
+		do {																				// 	Validador de categorías profesionales
+			System.out.println("La lista de categorías profesionales disponible es la siguiente:");
+			System.out.println(java.util.Arrays.asList(Categorias.values()));
+
+			System.out.print("Introduzca la categoría profesional: ");
+
+			str_categoria = entrada.next();
+
+			categoria = this.buscarCategoriaProfesional(str_categoria);
+
+			if(categoria == null) {															// 		En caso de no ser válida se ha de informar
+				System.out.println("Error: La categoría profesional seleccionada es incorrecta");
+			}
+		} while(categoria == null);															// 	El bucle validador sólo acabará cuando se introduzca una categoría válida
+
+		return categoria;
+	}
+
+
+	/**
+	 * Método para eliminar usuarios
+	 * Elimina el usuario de la posición dada
+	 *
+	 * @param		posicion						int								Posición a eliminar
+	 */
+
+	public void removeUsuario(int posicion) {
+		this._usuarios.remove(posicion);
+	}
+
+
+	/**
 	 * Método para guardar usuarios en archivos
 	 * Guarda alumnos y profesores de la lista en sendos archivos CSV
-	 * 
+	 *
 	 * @param		archivo_alumnos					String							Ruta del archivo de alumnos
 	 * @param		archivo_profesores				String							Ruta del archivo de profesores
 	 */
@@ -497,26 +509,14 @@ public class GestorUsuarios {
 	/**
 	 * Método para buscar usuarios
 	 * Utiliza el buscador de usuarios para, en la lista de la clase, encontrar el usuario recibido
-	 * 
+	 *
 	 * @param		buscador						IBuscadorUsuarios				Buscador de usuarios
 	 * @param		dni								int								DNI a buscar
-	 * 
+	 *
 	 * @return										int								Su posición en la lista (-1 si no se ha encontrado)
 	 */
 
 	public int searchUsuario(IBuscadorUsuarios buscador, int dni) {
 		return buscador.buscarUsuario(this._usuarios, dni);
-	}
-
-
-	/**
-	 * Método para eliminar usuarios
-	 * Elimina el usuario de la posición dada
-	 * 
-	 * @param		posicion						int								Posición a eliminar
-	 */
-
-	public void removeUsuario(int posicion) {
-		this._usuarios.remove(posicion);
 	}
 }

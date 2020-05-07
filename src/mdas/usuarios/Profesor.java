@@ -10,7 +10,7 @@ import mdas.usuarios.Usuario;
 /**
  * Clase Profesor
  * Extiende a la clase Usuario para almacenar datos concretos de un profesor
- * 
+ *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
  * @version			1.0.2
@@ -24,12 +24,12 @@ public class Profesor extends Usuario {
 	/**
 	 * Constructor de clase
 	 * Crea un profesor a partir de su DNI, nombre, créditos impartidos y categoría profesional
-	 * 
+	 *
 	 * @param		dni								String							DNI (con letra)
 	 * @param		nombre							String							Nombre
 	 * @param		creditos						int								Créditos impartidos
 	 * @param		categoria						Categoria						Categoría profesional
-	 * 
+	 *
 	 * @exception									RuntimeException				Cuando el DNI no cumple los criterios de validación
 	 */
 
@@ -44,13 +44,13 @@ public class Profesor extends Usuario {
 	/**
 	 * Constructor de clase
 	 * Crea un profesor a partir de su DNI, nombre, fecha de nacimiento, créditos impartidos y categoría profesional
-	 * 
+	 *
 	 * @param		dni								String							DNI (con letra)
 	 * @param		nombre							String							Nombre
 	 * @param		fNacimiento						LocalDate						Fecha de nacimiento
 	 * @param		creditos						int								Créditos impartidos
 	 * @param		categoria						Categoria						Categoría profesional
-	 * 
+	 *
 	 * @exception									RuntimeException				Cuando el DNI no cumple los criterios de validación
 	 */
 
@@ -63,30 +63,8 @@ public class Profesor extends Usuario {
 
 
 	/**
-	 * Observador de la variable privada _creditos
-	 * 
-	 * @return										int								Créditos impartidos
-	 */
-
-	public int creditos() {
-		return this._creditos;
-	}
-
-
-	/**
-	 * Modificador de la variable privada _creditos
-	 * 
-	 * @param		creditos						int								Créditos impartidos
-	 */
-
-	public void creditos(int creditos) {
-		this._creditos = creditos;
-	}
-
-
-	/**
 	 * Observador de la variable privada _categoria
-	 * 
+	 *
 	 * @return										Categorias						Categoría profesional
 	 */
 
@@ -97,7 +75,7 @@ public class Profesor extends Usuario {
 
 	/**
 	 * Modificador de la variable privada _categoria
-	 * 
+	 *
 	 * @param		categoria						Categorias						Categoría profesional
 	 */
 
@@ -107,8 +85,30 @@ public class Profesor extends Usuario {
 
 
 	/**
+	 * Observador de la variable privada _creditos
+	 *
+	 * @return										int								Créditos impartidos
+	 */
+
+	public int creditos() {
+		return this._creditos;
+	}
+
+
+	/**
+	 * Modificador de la variable privada _creditos
+	 *
+	 * @param		creditos						int								Créditos impartidos
+	 */
+
+	public void creditos(int creditos) {
+		this._creditos = creditos;
+	}
+
+
+	/**
 	 * Método "mágico" cuando una clase es usada como String
-	 * 
+	 *
 	 * @return										String							Representación en texto de los datos del usuario
 	 */
 

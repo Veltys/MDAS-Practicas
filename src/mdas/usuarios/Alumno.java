@@ -8,7 +8,7 @@ import mdas.usuarios.Usuario;
 /**
  * Clase Alumno
  * Extiende a la clase Usuario para almacenar datos concretos de un alumno
- * 
+ *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			07/05/2020
  * @version			1.0.3
@@ -22,18 +22,18 @@ public class Alumno extends Usuario {
 	/**
 	 * Constructor de clase
 	 * Crea un alumno a partir de su DNI, nombre, titulación y curso
-	 * 
+	 *
 	 * @param		dni								String							DNI (con letra)
 	 * @param		nombre							String							Nombre
 	 * @param		titulacion						String							Titulación
 	 * @param		curso							int								Curso
-	 * 
+	 *
 	 * @exception									RuntimeException				Cuando el DNI no cumple los criterios de validación
 	 */
-
+	
 	public Alumno(String dni, String nombre, String titulacion, int curso) {
 		super(dni, nombre);
-
+	
 		this._titulacion = titulacion;
 		this._curso = curso;
 	}
@@ -42,13 +42,13 @@ public class Alumno extends Usuario {
 	/**
 	 * Constructor de clase
 	 * Crea un alumno a partir de su DNI, nombre, fecha de nacimiento, titulación y curso
-	 * 
+	 *
 	 * @param		dni								String							DNI (con letra)
 	 * @param		nombre							String							Nombre
 	 * @param		fNacimiento						LocalDate						Fecha de nacimiento
 	 * @param		titulacion						String							Titulación
 	 * @param		curso							int								Curso
-	 * 
+	 *
 	 * @exception									RuntimeException				Cuando el DNI no cumple los criterios de validación
 	 */
 
@@ -62,7 +62,7 @@ public class Alumno extends Usuario {
 
 	/**
 	 * Observador de la variable privada _curso
-	 * 
+	 *
 	 * @return										int								Curso
 	 */
 
@@ -73,7 +73,7 @@ public class Alumno extends Usuario {
 
 	/**
 	 * Modificador de la variable privada _curso
-	 * 
+	 *
 	 * @param		curso							int								Curso
 	 */
 
@@ -84,7 +84,7 @@ public class Alumno extends Usuario {
 
 	/**
 	 * Observador de la variable privada _titulacion
-	 * 
+	 *
 	 * @return										String							Titulación
 	 */
 
@@ -95,7 +95,7 @@ public class Alumno extends Usuario {
 
 	/**
 	 * Modificador de la variable privada _titulacion
-	 * 
+	 *
 	 * @param		titulacion						String							Titulación
 	 */
 
@@ -104,11 +104,11 @@ public class Alumno extends Usuario {
 	}
 
 
-/**
- * Método "mágico" cuando una clase es usada como String
- * 
- * @return										String							Representación en texto de los datos del usuario
- */
+	/**
+	 * Método "mágico" cuando una clase es usada como String
+	 *
+	 * @return										String							Representación en texto de los datos del usuario
+	 */
 
 	@Override
 	public String toString() {
