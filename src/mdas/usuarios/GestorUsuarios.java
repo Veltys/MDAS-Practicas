@@ -359,7 +359,7 @@ public class GestorUsuarios {
 		tam_lista			= this._usuarios.size();
 
 		for(i = 0; i < tam_lista; i++) {													// 	Iteración de la lista de usuarios
-			if(this._usuarios.get(i) instanceof Alumno) {									// 		Si se trata de un alumno  FIXME: Me da que esto va a fallar
+			if(this._usuarios.get(i) instanceof Alumno) {									// 		Si se trata de un alumno
 				aux_alumno = (Alumno) this._usuarios.get(i);								// 			Se almacena para su posterior escritura
 
 				aux_titulacion = aux_alumno.titulacion();
@@ -482,7 +482,7 @@ public class GestorUsuarios {
 			buffer.add(new BufferedWriter(new FileWriter(new File(archivo_profesores))));	// 	Inicialización del buffer de escritura del archivo de profesores
 
 			for(i = 0; i < tam_lista; i++) {												// 	Iteración de la lista de usuarios
-				if(this._usuarios.get(i) instanceof Alumno) {								// 		Si se trata de un alumno  FIXME: Me da que esto va a fallar
+				if(this._usuarios.get(i) instanceof Alumno) {								// 		Si se trata de un alumno
 					aux_alumno = (Alumno) this._usuarios.get(i);							// 			Se almacena para su posterior escritura
 
 					buffer.get(0).write(String.format("%08d",aux_alumno.dni()) + ',' + aux_alumno.nombre() + ',' + aux_alumno.alias() + ',' + aux_alumno.fNacimiento().toString() + ',' + Integer.toString(aux_alumno.curso()) + ',' + aux_alumno.titulacion() + System.getProperty("line.separator"));
