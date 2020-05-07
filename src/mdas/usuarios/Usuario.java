@@ -10,8 +10,8 @@ import java.time.LocalDate;
  * Implementa la interfaz comparable, para facilitar su ordenación
  * 
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			01/05/2020
- * @version			2.0.0
+ * @date			07/05/2020
+ * @version			2.0.1
  */
 
 public abstract class Usuario implements Comparable<Usuario> {
@@ -165,6 +165,7 @@ public abstract class Usuario implements Comparable<Usuario> {
 
 	/**
 	 * Generador de un alias a partir de un nombre
+	 * TODO: Eliminar caracteres no ASCII del alias
 	 * 
 	 * @param		nombre							String							Nombre
 	 * 
@@ -172,15 +173,9 @@ public abstract class Usuario implements Comparable<Usuario> {
 	 */
 
 	public static String generateAlias(String nombre) {
-		String alias = "";
+		String[]	nombre_y_apellidos	= nombre.split(" ");
 
-		String[] nombre_y_apellidos = nombre.split(" ");
-
-		for(String palabra : nombre_y_apellidos) {
-			alias += (palabra.substring(0, 2)).toLowerCase();
-		}
-
-		return alias;
+		return (nombre_y_apellidos[0].substring(0, 2)).toLowerCase() + (nombre_y_apellidos[-2].substring(0, 2)).toLowerCase() + (nombre_y_apellidos[-1].substring(0, 2)).toLowerCase();
 	}
 
 
