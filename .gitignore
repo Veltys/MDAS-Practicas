@@ -61,3 +61,6 @@ local.properties
 
 # Javadoc documentation
 doc/
+
+# Other internal Eclipse project files
+.classpath
