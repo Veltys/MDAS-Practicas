@@ -41,7 +41,9 @@ public class MenuPrincipal {
 
 		if(DEBUG) {
 			gestorUsuarios.addAlumno("45746293Y", "Rafael Carlos Méndez Rodíguez", null, "G. I. I. (S.)", 4);
+			gestorUsuarios.addAlumno("00000000T", "Rafael Barbudo Lunar", null, "G. I. I. (S.)", 4);
 			gestorUsuarios.addProfesor("00000000T", "Rafael Barbudo Lunar", null, 30, Categorias.values()[3]);
+			gestorUsuarios.addProfesor("45746293Y", "Rafael Carlos Méndez Rodíguez", null,30, Categorias.values()[3]);
 
 			usuarios = 2;
 		}
