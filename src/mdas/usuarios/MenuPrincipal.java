@@ -25,6 +25,8 @@ public class MenuPrincipal {
 	 */
 
 	public static void main(String[] args) {
+		final boolean	DEBUG				= true;											// Constante de depuración
+
 		boolean			ok_archivo;															// "Bandera" de validación del archivo de alumnos / profesores
 		boolean			salir				= false;										// "Bandera" que indica si se ha activado el evento de salida
 		char			operacion;															// Operación a realizar
@@ -36,6 +38,13 @@ public class MenuPrincipal {
 
 		@SuppressWarnings("resource")														// Eliminación del warning de Eclipse por no cerrar el Scanner
 		Scanner			entrada			= new Scanner(System.in);							// Apertura del Scanner para lectura por teclado de datos 
+
+		if(DEBUG) {
+			gestorUsuarios.addAlumno("45746293Y", "Rafael Carlos Méndez Rodíguez", null, "G. I. I. (S.)", 4);
+			gestorUsuarios.addProfesor("00000000T", "Rafael Barbudo Lunar", null, 30, Categorias.values()[3]);
+
+			usuarios = 2;
+		}
 
 		System.out.println("Bienvenido al Gestor de usuarios");
 		System.out.println("El menú de operaciones es el siguiente:");
@@ -109,7 +118,7 @@ public class MenuPrincipal {
 							break;
 
 							case 'G':
-								System.out.println("Para guardar la lista de usuarios es necesario proporcionar dos archivos");
+								System.out.println("Para guardar la lista de usuarios es necesario proporcionar dos nombres de archivo");
 
 								for(i = 0; i < 2; i++) {
 									System.out.print("Introduzca la ruta del archivo de " + ((i == 0) ? ("alumnos") : ("profesores")) + ": ");
