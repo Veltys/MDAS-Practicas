@@ -1,7 +1,7 @@
-package mdas.p2;
+package mdas.p2.GestorUsuarioMgr;
 
 
-import mdas.p2.Usuario;
+import mdas.p2.GestorUsuarioMgr.Usuario;
 
 
 /**
