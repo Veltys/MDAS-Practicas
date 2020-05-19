@@ -9,13 +9,13 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
 // TODO: Comentar clase
 
 public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion {
-	ReservaMgr _gestorReservas;
+	private ReservaMgr _gestorReservas;
 
 
 	// TODO: Comentar método
 
 	@Override
-	public void MostrarMensaje(String mensaje) {
+	public void mostrarMensaje(String mensaje) {
 		System.out.println(mensaje);
 	}
 
@@ -23,7 +23,7 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 	// TODO: Comentar método
 
 	@Override
-	public int ComprobarSancion(int idAlumno) {
+	public int comprobarSancion(int idAlumno) {
 		int					sancion		= -1;
 		ArrayList<Integer>	reservas;
 		ArrayList<Integer>	incidencias;

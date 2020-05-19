@@ -4,11 +4,11 @@ package mdas.p2.administradoralumnos;
 // TODO: Comentar interfaz
 
 public interface IComprobarSancion {
-	abstract public int ComprobarSancion(int id_alumno);
+	abstract public int comprobarSancion(int id_alumno);
 
 	// TODO: Comentar método
 
-	static public String DescribirSancion(int codigo_sancion) {
+	static public String describirSancion(int codigo_sancion) {
 		String mensaje;
 
 		switch (codigo_sancion) {

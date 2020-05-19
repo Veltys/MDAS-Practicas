@@ -15,7 +15,7 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  */
 
 public class GestorSalas implements IReserva, ISala{
-	ReservaMgr _reservaMgr;
+	private ReservaMgr _reservaMgr;
 
 
 	public GestorSalas() {
@@ -30,31 +30,31 @@ public class GestorSalas implements IReserva, ISala{
 
 
 	@Override
-	public Boolean confirmarReserva(int id_reserva) {
-		return this._reservaMgr.confirmarReserva(id_reserva);
+	public Boolean confirmarReserva(int idReserva) {
+		return this._reservaMgr.confirmarReserva(idReserva);
 	}
 
 	@Override
-	public Boolean eliminarReserva(int id_reserva) {
-		return this._reservaMgr.eliminarReserva(id_reserva);
+	public Boolean eliminarReserva(int idReserva) {
+		return this._reservaMgr.eliminarReserva(idReserva);
 	}
 
 	//ISala
 
 	@Override
-	public ArrayList<Integer> BuscarSala(int aforo, ArrayList<Integer> idsRecursos) {
+	public ArrayList<Integer> buscarSala(int aforo, ArrayList<Integer> idsRecursos) {
 		return this._reservaMgr.buscarSala(aforo, idsRecursos);
 	}
 
 
 	@Override
-	public Boolean ConfirmarRegistro(int id_sala) {
-		return this._reservaMgr.confirmarRegistro(id_sala);
+	public Boolean confirmarRegistro(int idSala) {
+		return this._reservaMgr.confirmarRegistro(idSala);
 	}
 
 
 	@Override
-	public int ElegirSala(int aforo, ArrayList<Integer> idSalas) {
+	public int elegirSala(int aforo, ArrayList<Integer> idSalas) {
 		// FIXME: Refinar la búsqueda
 
 		for(int sala : idSalas) {
@@ -68,7 +68,7 @@ public class GestorSalas implements IReserva, ISala{
 
 
 	@Override
-	public Boolean ValidarDatos(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos) {
+	public Boolean validarDatos(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos) {
 		if(aforo < 1) {
 			return false;
 		}
