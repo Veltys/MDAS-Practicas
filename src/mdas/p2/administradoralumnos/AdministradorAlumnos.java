@@ -1,16 +1,26 @@
 package mdas.p2.administradoralumnos;
 
+
 import java.util.ArrayList;
 
 import mdas.p2.gestorreservamgr.GestorReservaMgr;
 
+
+// TODO: Comentar clase
+
 public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion {
 	GestorReservaMgr _gestorReservas;
+
+
+	// TODO: Comentar método
 
 	@Override
 	public void MostrarMensaje(String mensaje) {
 		System.out.println(mensaje);
 	}
+
+
+	// TODO: Comentar método
 
 	@Override
 	public int ComprobarSancion(int idAlumno) {
