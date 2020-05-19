@@ -14,7 +14,7 @@ import mdas.p2.GestorReservaMgr.Sala;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			18/05/2020
- * @version			0.1.0
+ * @version			0.2.0
  */
 
 
@@ -23,7 +23,15 @@ public class GestorReservaMgr implements IReservaMgt {
 	ArrayList<Reserva>		_reservas;
 
 
-	// TODO: Constructor
+	/**
+	 * Constructor de clase
+	 * Inicializa las listas
+	 */
+
+	GestorReservaMgr() {
+		this._incidencias	= new ArrayList<Incidencia>();
+		this._reservas		= new ArrayList<Reserva>();
+	}
 
 
 	/**
@@ -53,12 +61,30 @@ public class GestorReservaMgr implements IReservaMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Buscador de reservas
+	 * Busca una reserva a través de la ID del alumno que la ha reservado
+	 *
+	 * @param		id_alumno						int								ID del alumno
+	 *
+	 * @return										int[]							Vector de reservas asociadas al alumno (null si ninguna)
+	 */
 
 	@Override
 	public ArrayList<Integer> BuscarReservas(int id_alumno) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Integer> res = new ArrayList<Integer>();
+
+		for(Reserva r : this._reservas) {
+			if(r.id_alumno() == id_alumno) {
+				res.add(r.id());
+			}
+		}
+
+		if(res.size() == 0) {
+			res = null;
+		}
+
+		return res;
 	}
 
 
