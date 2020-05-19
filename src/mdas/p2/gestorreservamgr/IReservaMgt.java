@@ -20,7 +20,7 @@ public interface IReservaMgt {
 	public abstract ArrayList<Integer>	buscarIncidencias(int idReserva);
 	public abstract ArrayList<Integer>	buscarReservas(int idAlumno);
 	public abstract ArrayList<Integer>	buscarSala(int aforo, ArrayList<Integer> idsRecursos);
-	public abstract ArrayList<Integer>	buscarSancion(int idIncidencia);
+	public abstract int					buscarSancion(int idIncidencia);
 	public abstract boolean				confirmarRegistro(int idReserva);
 	public abstract boolean				confirmarReserva(int idReserva);
 	public abstract String				describirSancion(int codigo);

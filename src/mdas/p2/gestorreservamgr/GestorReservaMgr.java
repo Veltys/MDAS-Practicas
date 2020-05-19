@@ -100,9 +100,9 @@ public class GestorReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public ArrayList<Integer> buscarSancion(int idIncidencia) {
+	public int buscarSancion(int idIncidencia) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 
