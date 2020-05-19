@@ -1,11 +1,11 @@
-package mdas.p2.GestorReservaMgr;
+package mdas.p2.gestorreservamgr;
 
 
 import java.util.ArrayList;
 
-import mdas.p2.GestorReservaMgr.Incidencia;
-import mdas.p2.GestorReservaMgr.Reserva;
-import mdas.p2.GestorReservaMgr.Sala;
+import mdas.p2.gestorreservamgr.Incidencia;
+import mdas.p2.gestorreservamgr.Reserva;
+import mdas.p2.gestorreservamgr.Sala;
 
 
 /**
@@ -38,17 +38,17 @@ public class GestorReservaMgr implements IReservaMgt {
 	 * Buscador de incidencias
 	 * Busca una incidencia a través de un ID de reserva
 	 *
-	 * @param		id_reserva						int								ID de la reserva para buscar sus incidencias
+	 * @param		idReserva						int								ID de la reserva para buscar sus incidencias
 	 *
 	 * @return										int[]							Vector de incidencias asociadas a la reserva (null si ninguna)
 	 */
 
 	@Override
-	public ArrayList<Integer> BuscarIncidencias(int id_reserva) {
+	public ArrayList<Integer> buscarIncidencias(int idReserva) {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 
 		for(Incidencia i : this._incidencias) {
-			if(i.id_reserva() == id_reserva) {
+			if(i.idReserva() == idReserva) {
 				res.add(i.id());
 			}
 		}
@@ -65,17 +65,17 @@ public class GestorReservaMgr implements IReservaMgt {
 	 * Buscador de reservas
 	 * Busca una reserva a través de la ID del alumno que la ha reservado
 	 *
-	 * @param		id_alumno						int								ID del alumno
+	 * @param		idAlumno						int								ID del alumno
 	 *
 	 * @return										int[]							Vector de reservas asociadas al alumno (null si ninguna)
 	 */
 
 	@Override
-	public ArrayList<Integer> BuscarReservas(int id_alumno) {
+	public ArrayList<Integer> buscarReservas(int idAlumno) {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 
 		for(Reserva r : this._reservas) {
-			if(r.id_alumno() == id_alumno) {
+			if(r.id_alumno() == idAlumno) {
 				res.add(r.id());
 			}
 		}
@@ -91,7 +91,7 @@ public class GestorReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public ArrayList<Integer> BuscarSala(int aforo, int ids_recursos) {
+	public ArrayList<Integer> buscarSala(int aforo, ArrayList<Integer> idsRecursos) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -100,7 +100,7 @@ public class GestorReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public ArrayList<Integer> BuscarSancion(int id_incidencia) {
+	public ArrayList<Integer> buscarSancion(int idIncidencia) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -109,7 +109,7 @@ public class GestorReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public boolean ConfirmarRegistro(int id_reserva) {
+	public boolean confirmarRegistro(int idReserva) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -118,7 +118,7 @@ public class GestorReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public boolean ConfirmarReserva(int id_reserva) {
+	public boolean confirmarReserva(int idReserva) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -127,7 +127,7 @@ public class GestorReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public String DescribirSancion(int codigo) {
+	public String describirSancion(int codigo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -136,7 +136,7 @@ public class GestorReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public Reserva ObtenerReserva(int id_reserva) {
+	public Reserva obtenerReserva(int idReserva) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -145,7 +145,7 @@ public class GestorReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public Sala ObtenerSala(int id_sala) {
+	public Sala obtenerSala(int id_sala) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -154,7 +154,7 @@ public class GestorReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public ArrayList<Integer> ObtenerTipos() {
+	public ArrayList<Integer> obtenerTipos() {
 		// TODO Auto-generated method stub
 		return null;
 	}

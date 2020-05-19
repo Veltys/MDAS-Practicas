@@ -1,4 +1,4 @@
-package mdas.p2.GestorUsuarioMgr;
+package mdas.p2.gestorusuariomgr;
 
 
 /**

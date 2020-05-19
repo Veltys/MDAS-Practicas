@@ -1,7 +1,7 @@
-package mdas.p2.GestorReservaMgr;
+package mdas.p2.gestorreservamgr;
 
 
-import mdas.p2.GestorReservaMgr.TipoIncidencia;
+import mdas.p2.gestorreservamgr.TipoIncidencia;
 
 
 /**
@@ -15,7 +15,7 @@ import mdas.p2.GestorReservaMgr.TipoIncidencia;
 
 public class Incidencia {
 	private int				_id;
-	private int				_id_reserva;
+	private int				_idReserva;
 	private String			_descripcion;
 	private TipoIncidencia	_tipo;
 
@@ -25,14 +25,14 @@ public class Incidencia {
 	 * Crea una incidencia a partir de su ID, descripción y tipo
 	 *
 	 * @param		id								int								ID de la incidencia
-	 * @param		id_reserva						int								ID de la reserva asociada a la incidencia
+	 * @param		idReserva						int								ID de la reserva asociada a la incidencia
 	 * @param		descripcion						String							Descripción de la incidencia
 	 * @param		tipo							TipoIncidencia					Tipo de incidencia
 	 */
 
-	public Incidencia(int id, int id_reserva, String descripcion, TipoIncidencia tipo) {
+	public Incidencia(int id, int idReserva, String descripcion, TipoIncidencia tipo) {
 		this._id			= id;
-		this._id_reserva	= id_reserva;
+		this._idReserva		= idReserva;
 		this._descripcion	= descripcion;
 		this._tipo			= tipo;
 	}
@@ -50,12 +50,34 @@ public class Incidencia {
 
 
 	/**
-	 * Observador de la variable privada _id_reserva
+	 * Observador de la variable privada _idReserva
 	 *
 	 * @return										int								ID de la reserva asociada a la incidencia
 	 */
 
-	public int id_reserva() {
-		return this._id_reserva;
+	public int idReserva() {
+		return this._idReserva;
+	}
+
+
+	/**
+	 * Observador de la variable privada _descripcion
+	 *
+	 * @return										String							Descripción de la incidencia
+	 */
+
+	public String descripcion() {
+		return this._descripcion;
+	}
+
+
+	/**
+	 * Observador de la variable privada _tipo
+	 *
+	 * @return										TipoIncidencia					Tipo de incidencia
+	 */
+
+	public TipoIncidencia tipo() {
+		return this._tipo;
 	}
 }

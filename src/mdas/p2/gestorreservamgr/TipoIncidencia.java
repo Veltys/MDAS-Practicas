@@ -1,4 +1,4 @@
-package mdas.p2.GestorReservaMgr;
+package mdas.p2.gestorreservamgr;
 
 
 /**
