@@ -17,14 +17,16 @@ import mdas.p2.gestorreservamgr.Sala;
  */
 
 public interface IReservaMgt {
-	public abstract ArrayList<Integer>	buscarIncidencias(int idReserva);
-	public abstract ArrayList<Integer>	buscarReservas(int idAlumno);
-	public abstract ArrayList<Integer>	buscarSala(int aforo, ArrayList<Integer> idsRecursos);
-	public abstract int					buscarSancion(int idIncidencia);
-	public abstract boolean				confirmarRegistro(int idReserva);
-	public abstract boolean				confirmarReserva(int idReserva);
-	public abstract String				describirSancion(int codigo);
-	public abstract Reserva				obtenerReserva(int idReserva);
-	public abstract Sala				obtenerSala(int idSala);
-	public abstract ArrayList<Integer>	obtenerTipos();
+	abstract public ArrayList<Integer>	buscarIncidencias(int idReserva);
+	abstract public ArrayList<Integer>	buscarReservas(int idAlumno);
+	abstract public ArrayList<Integer>	buscarSala(int aforo, ArrayList<Integer> idsRecursos);
+	abstract public int					buscarSancion(int idIncidencia);
+	abstract public boolean				confirmarRegistro(int idReserva);
+	abstract public boolean				confirmarReserva(int idReserva);
+	abstract public boolean				eliminarReserva(int id_reserva);
+	abstract public String				describirSancion(int codigo);
+	abstract public int					obtenerAforoSala(int sala);
+	abstract public Reserva				obtenerReserva(int idReserva);
+	abstract public Sala				obtenerSala(int idSala);
+	abstract public ArrayList<Integer>	obtenerTipos();
 }

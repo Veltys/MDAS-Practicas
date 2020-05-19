@@ -18,7 +18,7 @@ import mdas.p2.gestorreservamgr.Sala;
  */
 
 
-public class GestorReservaMgr implements IReservaMgt {
+public class ReservaMgr implements IReservaMgt {
 	private ArrayList<Incidencia>	_incidencias;
 	private ArrayList<Reserva>		_reservas;
 
@@ -28,7 +28,7 @@ public class GestorReservaMgr implements IReservaMgt {
 	 * Inicializa las listas
 	 */
 
-	GestorReservaMgr() {
+	public ReservaMgr() {
 		this._incidencias	= new ArrayList<Incidencia>();
 		this._reservas		= new ArrayList<Reserva>();
 	}
@@ -130,6 +130,23 @@ public class GestorReservaMgr implements IReservaMgt {
 	public String describirSancion(int codigo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	// TODO: Comentar
+
+	@Override
+	public boolean eliminarReserva(int id_reserva) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+	//TODO: Comentar
+
+	public int obtenerAforoSala(int sala) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

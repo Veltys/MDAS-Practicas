@@ -3,13 +3,13 @@ package mdas.p2.administradoralumnos;
 
 import java.util.ArrayList;
 
-import mdas.p2.gestorreservamgr.GestorReservaMgr;
+import mdas.p2.gestorreservamgr.ReservaMgr;
 
 
 // TODO: Comentar clase
 
 public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion {
-	GestorReservaMgr _gestorReservas;
+	ReservaMgr _gestorReservas;
 
 
 	// TODO: Comentar método
