@@ -1,4 +1,4 @@
-package mdas.p2.AdministradorAlumnos;
+package mdas.p2.administradoralumnos;
 
 public interface IComprobarSancion {
 	public int ComprobarSancion(int id_alumno);

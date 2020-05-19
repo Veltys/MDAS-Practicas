@@ -1,4 +1,4 @@
-package mdas.p2.AdministradorAlumnos;
+package mdas.p2.administradoralumnos;
 
 import java.util.List;
 
