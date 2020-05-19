@@ -3,8 +3,7 @@ package mdas.p2.GestorSalas;
 import java.util.ArrayList;
 import java.util.List;
 
-import mdas.p2.gestorreservamgr.Reserva;
-import mdas.p2.gestorusuariomgr.Usuario;
+import mdas.p2.gestorreservamgr.ReservaMgr;
 
 /**
  * Clase GestorSalas
@@ -19,13 +18,13 @@ public class GestorSalas implements IReserva, ISala{
 	
 	//IReserva
 
-	public List<Integer> BuscarReservas(int id_alumno) {
+	public ArrayList<Integer> BuscarReservas(int id_alumno) {
 		
-		List<Integer> reservas=new ArrayList<Integer>();
-		reservas=Reserva.ObtenerReservas();
-		List<Integer> reservas_alumno=new ArrayList<Integer>();
+		ArrayList<Integer> reservas=new ArrayList<Integer>();
+		reservas=ReservaMgr.ObtenerReservas();
+		ArrayList<Integer> reservas_alumno=new ArrayList<Integer>();
 		for(int i=0;i<reservas.size();i++) {
-			if(id_alumno==Reserva.ObtenerAlumnoPorReserva(reservas.get(i))) {
+			if(id_alumno==ReservaMgr.ObtenerAlumnoPorReserva(reservas.get(i))) {
 				reservas_alumno.add(reservas.get(i));
 			}
 		}		
@@ -34,27 +33,27 @@ public class GestorSalas implements IReserva, ISala{
 	
 	public Boolean ConfirmarReserva(int id_reserva) {
 		
-		return Reserva.ConfirmarReserva(id_reserva);
+		return ReservaMgr.confirmarReserva(id_reserva);
 	}	
 	
 	public Boolean EliminarReserva(int id_reserva) {
 		
-		return Reserva.EliminarReserva(id_reserva);
+		return ReservaMgr.eliminarReserva(id_reserva);
 	
 	}
 	
 	//ISala
 	
-	public List<Integer> BuscarSala(int aforo, List<Integer> id_recursos) {
+	public ArrayList<Integer> BuscarSala(int aforo, ArrayList<Integer> id_recursos) {
 		
 		
-		List<Integer> salas=new ArrayList<Integer>();
-		List<Integer> salas_disponibles=new ArrayList<Integer>();
-		salas=Reserva.ObtenerSalas();
+		ArrayList<Integer> salas=new ArrayList<Integer>();
+		ArrayList<Integer> salas_disponibles=new ArrayList<Integer>();
+		salas=ReservaMgr.obtenerSalas();
 		for(int i=0;i<salas.size();i++) {
-			if(aforo<=Reserva.ObtenerAforoSala(salas.get(i))) {
-				List<Integer> recursos_sala=new ArrayList<Integer>();
-				recursos_sala=Reserva.ObtenerRecursosSala(salas.get(i));
+			if(aforo<=ReservaMgr.obtenerAforoSala(salas.get(i))) {
+				ArrayList<Integer> recursos_sala=new ArrayList<Integer>();
+				recursos_sala=ReservaMgr.obtenerRecursosSala(salas.get(i));
 				for(int j=0;j<recursos_sala.size();j++) {
 					int recursos_encontrados=0;
 					for(int k=0;k<id_recursos.size();k++) {
@@ -75,14 +74,14 @@ public class GestorSalas implements IReserva, ISala{
 	
 	public Boolean ConfirmarRegistro(int id_sala) {
 		
-		return Reserva.ConfirmarRegistro(id_sala);
+		return Reserva.confirmarRegistro(id_sala);
 
 	}
 	
-	public int ElegirSala(int aforo, List<Integer> id_salas) {
+	public int ElegirSala(int aforo, ArrayList<Integer> id_salas) {
 		
 		for(int i=0;i<id_salas.size();i++) {
-			if(aforo==Reserva.ObtenerAforoSala(id_salas.get(i))) {
+			if(aforo==ReservaMgr.obtenerAforoSala(id_salas.get(i))) {
 				return id_salas.get(i);
 			}
 		}
@@ -90,7 +89,7 @@ public class GestorSalas implements IReserva, ISala{
 		return 0;
 	}
 	
-	public Boolean ValidarDatos(String nombre, int aforo, int tipo, String ubicacion, List<Integer> recursos) {
+	public Boolean ValidarDatos(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos) {
 		
 		if(aforo<1) {
 			return false;

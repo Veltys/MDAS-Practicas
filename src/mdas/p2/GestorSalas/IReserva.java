@@ -1,6 +1,6 @@
 package mdas.p2.GestorSalas;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Interfaz IReserva
@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface IReserva {
 
-	public abstract List<Integer> BuscarReservas(int id_alumno);
+	public abstract ArrayList<Integer> BuscarReservas(int id_alumno);
 	
 	public abstract Boolean ConfirmarReserva(int id_reserva);
 	

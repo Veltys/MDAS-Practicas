@@ -1,6 +1,6 @@
 package mdas.p2.GestorSalas;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Interfaz IReserva
@@ -14,12 +14,12 @@ import java.util.List;
 
 public interface ISala {
 	
-	public abstract List<Integer> BuscarSala(int aforo, List<Integer> id_recursos);
+	public abstract ArrayList<Integer> BuscarSala(int aforo, ArrayList<Integer> id_recursos);
 	
 	public abstract Boolean ConfirmarRegistro(int id_reserva);
 	
-	public abstract int ElegirSala(int aforo, List<Integer> id_salas);
+	public abstract int ElegirSala(int aforo, ArrayList<Integer> id_salas);
 	
-	public abstract Boolean ValidarDatos(String nombre, int aforo, int tipo, String ubicacion, List<Integer> recursos);	
+	public abstract Boolean ValidarDatos(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos);	
 
 }
