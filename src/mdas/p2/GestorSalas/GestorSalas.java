@@ -15,13 +15,19 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
 
 public class GestorSalas implements IReserva, ISala{
 	
+	ReservaMgr _reservaMgr;
+	
+	public GestorSalas() {
+		_reservaMgr=new ReservaMgr();
+	}
+	
 	
 	//IReserva
 
 	public ArrayList<Integer> BuscarReservas(int id_alumno) {
 		
 		ArrayList<Integer> reservas=new ArrayList<Integer>();
-		reservas=ReservaMgr.ObtenerReservas();
+		reservas=_reservaMgr.ObtenerReservas();
 		ArrayList<Integer> reservas_alumno=new ArrayList<Integer>();
 		for(int i=0;i<reservas.size();i++) {
 			if(id_alumno==ReservaMgr.ObtenerAlumnoPorReserva(reservas.get(i))) {
@@ -33,12 +39,12 @@ public class GestorSalas implements IReserva, ISala{
 	
 	public Boolean ConfirmarReserva(int id_reserva) {
 		
-		return ReservaMgr.confirmarReserva(id_reserva);
+		return _reservaMgr.confirmarReserva(id_reserva);
 	}	
 	
 	public Boolean EliminarReserva(int id_reserva) {
 		
-		return ReservaMgr.eliminarReserva(id_reserva);
+		return _reservaMgr.eliminarReserva(id_reserva);
 	
 	}
 	
@@ -49,11 +55,11 @@ public class GestorSalas implements IReserva, ISala{
 		
 		ArrayList<Integer> salas=new ArrayList<Integer>();
 		ArrayList<Integer> salas_disponibles=new ArrayList<Integer>();
-		salas=ReservaMgr.obtenerSalas();
+		salas=_reservaMgr.obtenerSalas();
 		for(int i=0;i<salas.size();i++) {
-			if(aforo<=ReservaMgr.obtenerAforoSala(salas.get(i))) {
+			if(aforo<=_reservaMgr.obtenerAforoSala(salas.get(i))) {
 				ArrayList<Integer> recursos_sala=new ArrayList<Integer>();
-				recursos_sala=ReservaMgr.obtenerRecursosSala(salas.get(i));
+				recursos_sala=_reservaMgr.obtenerRecursosSala(salas.get(i));
 				for(int j=0;j<recursos_sala.size();j++) {
 					int recursos_encontrados=0;
 					for(int k=0;k<id_recursos.size();k++) {
@@ -74,14 +80,14 @@ public class GestorSalas implements IReserva, ISala{
 	
 	public Boolean ConfirmarRegistro(int id_sala) {
 		
-		return Reserva.confirmarRegistro(id_sala);
+		return _reservaMgr.confirmarRegistro(id_sala);
 
 	}
 	
 	public int ElegirSala(int aforo, ArrayList<Integer> id_salas) {
 		
 		for(int i=0;i<id_salas.size();i++) {
-			if(aforo==ReservaMgr.obtenerAforoSala(id_salas.get(i))) {
+			if(aforo==_reservaMgr.obtenerAforoSala(id_salas.get(i))) {
 				return id_salas.get(i);
 			}
 		}
