@@ -17,7 +17,7 @@ public class Reserva {
 		return null;
 	}
 
-	public int id_alumno() {
+	public int idAlumno() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -19,8 +19,8 @@ import mdas.p2.gestorreservamgr.Sala;
 
 
 public class GestorReservaMgr implements IReservaMgt {
-	ArrayList<Incidencia>	_incidencias;
-	ArrayList<Reserva>		_reservas;
+	private ArrayList<Incidencia>	_incidencias;
+	private ArrayList<Reserva>		_reservas;
 
 
 	/**
@@ -75,7 +75,7 @@ public class GestorReservaMgr implements IReservaMgt {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 
 		for(Reserva r : this._reservas) {
-			if(r.id_alumno() == idAlumno) {
+			if(r.idAlumno() == idAlumno) {
 				res.add(r.id());
 			}
 		}
