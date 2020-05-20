@@ -11,28 +11,44 @@ import mdas.p2.gestorreservamgr.Sala;
 /**
  * Clase GestorReservaMgr
  * Componente de gestión de reservas del sistema
+ * Es implementado por medio del patrón Singleton, con el fin de prevenir la existencia de más de un gestor
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			18/05/2020
- * @version			0.2.0
+ * @version			0.3.0
  */
 
 
 public class ReservaMgr implements IReservaMgt {
+	static private ReservaMgr		_instance		= null;							// Única instancia
 	private ArrayList<Incidencia>	_incidencias;
 	private ArrayList<Reserva>		_reservas;
 
 
 	/**
 	 * Constructor de clase
+	 * Privado, requisito del patrón Singleton
 	 * Inicializa las listas
 	 */
 
-	public ReservaMgr() {
-		// FIXME: Implementar singleton
-
+	private ReservaMgr() {
 		this._incidencias	= new ArrayList<Incidencia>();
 		this._reservas		= new ArrayList<Reserva>();
+	}
+
+
+	/**
+	 * Método estático para obtener la única instancia válida (o crearla si no existe) del gestor
+	 *
+	 * @return										ReservaMgr						Instancia del gestor
+	 */
+
+	public static ReservaMgr getInstance() {
+		if(ReservaMgr._instance == null) {
+			ReservaMgr._instance = new ReservaMgr();
+		}
+
+		return ReservaMgr._instance;
 	}
 
 
