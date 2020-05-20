@@ -25,7 +25,7 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			20/05/2020
- * @version			0.5.0
+ * @version			0.5.1
  */
 
 
@@ -263,15 +263,20 @@ public class ReservaMgr implements IReservaMgt {
 						this._sanciones.add(new Sancion(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), Integer.parseInt(campos.get(3)), LocalDate.parse(campos.get(6), DateTimeFormatter.ISO_LOCAL_DATE)));
 
 						break;
+					default:
+						break;														// Nunca se llegará aquí
 					}
 				}
-
 			}
 			catch(FileNotFoundException e) {
 				System.out.println("Error: " + e.getMessage());
+
+				return false;
 			}
 			catch(IOException e) {
 				System.out.println("Error: " + e.getMessage());
+
+				return false;
 			}
 		}
 
