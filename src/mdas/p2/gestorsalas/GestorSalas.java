@@ -10,7 +10,7 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  * Clase GestorSalas
  *
  * @author			Javier Ortiz Aragones
- * @date			19/05/2020
+ * @date			20/05/2020
  * @version			1.0.2
  */
 

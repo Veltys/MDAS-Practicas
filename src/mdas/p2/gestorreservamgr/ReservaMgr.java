@@ -14,8 +14,8 @@ import mdas.p2.gestorreservamgr.Sala;
  * Es implementado por medio del patrón Singleton, con el fin de prevenir la existencia de más de un gestor
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			18/05/2020
- * @version			0.3.0
+ * @date			20/05/2020
+ * @version			0.4.0
  */
 
 
@@ -23,6 +23,7 @@ public class ReservaMgr implements IReservaMgt {
 	static private ReservaMgr		_instance		= null;							// Única instancia
 	private ArrayList<Incidencia>	_incidencias;
 	private ArrayList<Reserva>		_reservas;
+	private ArrayList<Sala>			_salas;
 
 
 	/**
@@ -85,7 +86,7 @@ public class ReservaMgr implements IReservaMgt {
 	 *
 	 * @param		idAlumno						int								ID del alumno
 	 *
-	 * @return										int[]							Vector de reservas asociadas al alumno (null si ninguna)
+	 * @return										ArrayList<Integer>				ArrayList de IDs de reservas asociadas al alumno (null si ninguna)
 	 */
 
 	@Override
@@ -106,21 +107,56 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Buscador de salas
+	 * Busca una sala adecuada al aforo y a los recursos proporcionados
+	 *
+	 * @param		aforo							int								Aforo mínimo requerido
+	 * @param		idsRecursos						ArrayList<Integer>				IDs de los recursos mínimos requeridos
+	 *
+	 * @return										ArrayList<Integer>				ArrayList de IDs de salas que cumplen los requisitos (null si ninguno)
+	 */
 
 	@Override
 	public ArrayList<Integer> buscarSala(int aforo, ArrayList<Integer> idsRecursos) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Integer>	res	= new ArrayList<Integer>();
+
+		for(Sala s : this._salas) {
+			if((s.aforo() >= aforo) && s.tengoRecursos(idsRecursos)) {
+				res.add(s.id());
+			}
+		}
+
+		if(res.size() == 0) {
+			res = null;
+		}
+
+		return res;
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Buscador de sanciones
+	 * Busca las sanción asociada a la incidencia dada
+	 *
+	 * @param		idIncidencia					int								ID de la incidencia
+	 *
+	 * @return										int								ID de la sanción (-1 si no la hay)
+	 */
 
 	@Override
 	public int buscarSancion(int idIncidencia) {
-		// TODO Auto-generated method stub
-		return 0;
+		int res = -1;
+
+		for(Incidencia i : this._incidencias) {
+			if(idIncidencia == i.id()) {
+				res = i.idSancion();
+
+				break;
+			}
+		}
+
+		return res;
 	}
 
 

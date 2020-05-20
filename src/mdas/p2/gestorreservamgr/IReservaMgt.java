@@ -12,8 +12,8 @@ import mdas.p2.gestorreservamgr.Sala;
  * Interfaz del componente GestorReservaMgr
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			18/05/2020
- * @version			1.0.0
+ * @date			20/05/2020
+ * @version			1.1.0
  */
 
 public interface IReservaMgt {
