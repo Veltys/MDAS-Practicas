@@ -11,56 +11,56 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  *
  * @author			Javier Ortiz Aragones
  * @date			19/05/2020
- * @version			1.0.1
+ * @version			1.0.2
  */
 
 public class GestorSalas implements IReserva, ISala{
-	private ReservaMgr _reservaMgr;
+	private ReservaMgr _gestorReservas;
 
 
 	public GestorSalas() {
-		this._reservaMgr = ReservaMgr.getInstance();
+		this._gestorReservas = ReservaMgr.getInstance();
 	}
 
 
 	@Override
 	public ArrayList<Integer> buscarReservas(int idAlumno) {
-		return this._reservaMgr.buscarReservas(idAlumno);
+		return this._gestorReservas.buscarReservas(idAlumno);
 	}
 
 
 	@Override
 	public Boolean confirmarReserva(int idReserva) {
-		return this._reservaMgr.confirmarReserva(idReserva);
+		return this._gestorReservas.confirmarReserva(idReserva);
 	}
 
 	@Override
 	public Boolean eliminarReserva(int idReserva) {
-		return this._reservaMgr.eliminarReserva(idReserva);
+		return this._gestorReservas.eliminarReserva(idReserva);
 	}
 
 	//ISala
 
 	@Override
 	public ArrayList<Integer> buscarSala(int aforo, ArrayList<Integer> idsRecursos) {
-		return this._reservaMgr.buscarSala(aforo, idsRecursos);
+		return this._gestorReservas.buscarSala(aforo, idsRecursos);
 	}
 
 
 	@Override
 	public Boolean confirmarRegistro(int idSala) {
-		return this._reservaMgr.confirmarRegistro(idSala);
+		return this._gestorReservas.confirmarRegistro(idSala);
 	}
 
 
 	@Override
 	public int elegirSala(int aforo, ArrayList<Integer> idSalas) {
 		// FIXME: Refinar la búsqueda
-		
+
 		//sala mas apropiada e ir comparandola
 
 		for(int sala : idSalas) {
-			if(aforo == this._reservaMgr.obtenerAforoSala(sala)) {
+			if(aforo == this._gestorReservas.obtenerAforoSala(sala)) {
 				return sala;
 			}
 		}
