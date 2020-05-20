@@ -18,10 +18,14 @@ public class GestorSalas implements IReserva, ISala{
 	private ReservaMgr _gestorReservas;
 
 
+	// TODO: Comentar
+
 	public GestorSalas() {
 		this._gestorReservas = ReservaMgr.getInstance();
 	}
 
+
+	// TODO: Comentar
 
 	@Override
 	public ArrayList<Integer> buscarReservas(int idAlumno) {
@@ -29,17 +33,22 @@ public class GestorSalas implements IReserva, ISala{
 	}
 
 
+	// TODO: Comentar
+
 	@Override
 	public Boolean confirmarReserva(int idReserva) {
 		return this._gestorReservas.confirmarReserva(idReserva);
 	}
+
+	// TODO: Comentar
 
 	@Override
 	public Boolean eliminarReserva(int idReserva) {
 		return this._gestorReservas.eliminarReserva(idReserva);
 	}
 
-	//ISala
+
+	// TODO: Comentar
 
 	@Override
 	public ArrayList<Integer> buscarSala(int aforo, ArrayList<Integer> idsRecursos) {
@@ -47,11 +56,15 @@ public class GestorSalas implements IReserva, ISala{
 	}
 
 
+	// TODO: Comentar
+
 	@Override
 	public Boolean confirmarRegistro(int idSala) {
 		return this._gestorReservas.confirmarRegistro(idSala);
 	}
 
+
+	// TODO: Comentar
 
 	@Override
 	public int elegirSala(int aforo, ArrayList<Integer> idSalas) {
@@ -69,6 +82,8 @@ public class GestorSalas implements IReserva, ISala{
 	}
 
 
+	// TODO: Comentar
+
 	@Override
 	public Boolean validarDatos(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos) {
 		if(aforo < 1) {
@@ -80,5 +95,4 @@ public class GestorSalas implements IReserva, ISala{
 			return true;
 		}
 	}
-
 }
