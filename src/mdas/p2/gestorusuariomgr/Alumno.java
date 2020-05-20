@@ -17,7 +17,19 @@ import mdas.p2.gestorusuariomgr.Usuario;
 public class Alumno extends Usuario {
 	private String	_correo;
 
-
+	
+	/**
+	 * Constructor por defecto de la clase
+	 * Crea un usuario sin valores
+	 * 
+	 */
+	
+	public Alumno() {
+		super();
+		
+		this._correo = null;
+	}
+	
 	/**
 	 * Constructor de clase
 	 * Crea un alumno a partir de su ID, nombre y correo
