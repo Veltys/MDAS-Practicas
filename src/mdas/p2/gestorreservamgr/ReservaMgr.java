@@ -29,6 +29,8 @@ public class ReservaMgr implements IReservaMgt {
 	 */
 
 	public ReservaMgr() {
+		// FIXME: Implementar singleton
+
 		this._incidencias	= new ArrayList<Incidencia>();
 		this._reservas		= new ArrayList<Reserva>();
 	}
@@ -109,6 +111,15 @@ public class ReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
+	public boolean cargar(String archivoIncidencias, String archivoReservas) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+	// TODO: Comentar
+
+	@Override
 	public boolean confirmarRegistro(int idReserva) {
 		// TODO Auto-generated method stub
 		return false;
@@ -142,8 +153,18 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	//TODO: Comentar
+	// TODO: Comentar
 
+	@Override
+	public boolean guardar(String archivoIncidencias, String archivoReservas) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+	// TODO: Comentar
+
+	@Override
 	public int obtenerAforoSala(int sala) {
 		// TODO Auto-generated method stub
 		return 0;
