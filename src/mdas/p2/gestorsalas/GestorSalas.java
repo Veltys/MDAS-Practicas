@@ -14,7 +14,7 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  */
 
 public class GestorSalas implements IReserva, ISala{
-	private ReservaMgr _gestorReservas;
+	private ReservaMgr _reservaMgr;
 
 
 	/**
@@ -24,7 +24,7 @@ public class GestorSalas implements IReserva, ISala{
 	
 
 	public GestorSalas() {
-		this._gestorReservas = ReservaMgr.getInstance();
+		this._reservaMgr = ReservaMgr.getInstance();
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class GestorSalas implements IReserva, ISala{
 
 	@Override
 	public ArrayList<Integer> buscarReservas(int idAlumno) {
-		return this._gestorReservas.buscarReservas(idAlumno);
+		return this._reservaMgr.buscarReservas(idAlumno);
 	}
 
 
@@ -54,7 +54,7 @@ public class GestorSalas implements IReserva, ISala{
 
 	@Override
 	public Boolean confirmarReserva(int idReserva) {
-		return this._gestorReservas.confirmarReserva(idReserva);
+		return this._reservaMgr.confirmarReserva(idReserva);
 	}
 
 	
@@ -69,7 +69,7 @@ public class GestorSalas implements IReserva, ISala{
 	
 	@Override
 	public Boolean eliminarReserva(int idReserva) {
-		return this._gestorReservas.eliminarReserva(idReserva);
+		return this._reservaMgr.eliminarReserva(idReserva);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ public class GestorSalas implements IReserva, ISala{
 	
 	@Override
 	public ArrayList<Integer> buscarSala(int aforo, ArrayList<Integer> idsRecursos) {
-		return this._gestorReservas.buscarSala(aforo, idsRecursos);
+		return this._reservaMgr.buscarSala(aforo, idsRecursos);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class GestorSalas implements IReserva, ISala{
 	
 	@Override
 	public Boolean confirmarRegistro(int idSala) {
-		return this._gestorReservas.confirmarRegistro(idSala);
+		return this._reservaMgr.confirmarRegistro(idSala);
 	}
 
 	
@@ -117,7 +117,7 @@ public class GestorSalas implements IReserva, ISala{
 
 
 		for(int sala : idSalas) {
-			if(aforo == this._gestorReservas.obtenerAforoSala(sala)) {
+			if(aforo == this._reservaMgr.obtenerAforoSala(sala)) {
 				return sala;
 			}
 					
