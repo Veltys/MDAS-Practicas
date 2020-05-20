@@ -1,11 +1,21 @@
 package mdas.p2.gestorreservamgr;
 
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import mdas.p2.gestorreservamgr.Incidencia;
 import mdas.p2.gestorreservamgr.Reserva;
 import mdas.p2.gestorreservamgr.Sala;
+import mdas.p2.gestorreservamgr.TipoIncidencia;
 
 
 /**
@@ -15,21 +25,22 @@ import mdas.p2.gestorreservamgr.Sala;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			20/05/2020
- * @version			0.4.0
+ * @version			0.5.0
  */
 
 
 public class ReservaMgr implements IReservaMgt {
-	static private ReservaMgr		_instance		= null;							// Única instancia
+	static private ReservaMgr		_instance		= null;
 	private ArrayList<Incidencia>	_incidencias;
 	private ArrayList<Reserva>		_reservas;
 	private ArrayList<Sala>			_salas;
+	private ArrayList<Sancion> 		_sanciones;
 
 
 	/**
 	 * Constructor de clase
 	 * Privado, requisito del patrón Singleton
-	 * Inicializa las listas
+	 * Inicializa las listas del gestor
 	 */
 
 	private ReservaMgr() {
@@ -148,9 +159,9 @@ public class ReservaMgr implements IReservaMgt {
 	public int buscarSancion(int idIncidencia) {
 		int res = -1;
 
-		for(Incidencia i : this._incidencias) {
-			if(idIncidencia == i.id()) {
-				res = i.idSancion();
+		for(Sancion s : this._sanciones) {
+			if(idIncidencia == s.idIncidencia()) {
+				res = s.idIncidencia();
 
 				break;
 			}
@@ -160,11 +171,110 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Método privado para buscar el tipo de incidencia
+	 *
+	 * @param		int_TipoIncidencia				int								ID de tipo de incidencia
+	 *
+	 * @return										TipoIncidencia					El tipo de incidencia encontrado
+	 */
+
+	private TipoIncidencia buscarTipoIncidencia(int int_TipoIncidencia) {
+		TipoIncidencia tipoIncidencia = null;
+
+		for(TipoIncidencia ti : TipoIncidencia.values()) {
+			if(int_TipoIncidencia == ti.id()) {
+				tipoIncidencia = ti;
+
+				break;
+			}
+		}
+
+		return tipoIncidencia;
+	}
+
+
+	/**
+	 * Método de carga de archivos
+	 * Carga los archivos CSV solicitados en la memoria del gestor
+	 *
+	 * @param		archivoIncidencias				String							Archivo de incidencias
+	 * @param		archivoReservas					String							Archivo de reservas
+	 * @param		archivoSalas					String							Archivo de salas
+	 *
+	 * @return										boolean							Resultado de la operación
+	 */
 
 	@Override
-	public boolean cargar(String archivoIncidencias, String archivoReservas) {
-		// TODO Auto-generated method stub
+	public boolean cargar(String archivoIncidencias, String archivoReservas, String archivoSalas, String archivoSanciones) {
+		int					i;
+		String				linea;
+		ArrayList<String>	campos;
+		BufferedReader		buffer;
+		StringTokenizer		stLinea;
+
+		for(i = 0; i < 4; i++) {
+			try {
+				switch(i) {
+				case 0:
+					buffer = new BufferedReader(new FileReader(new File(archivoIncidencias)));
+
+					break;
+				case 1:
+					buffer = new BufferedReader(new FileReader(new File(archivoReservas)));
+
+					break;
+				case 2:
+					buffer = new BufferedReader(new FileReader(new File(archivoSalas)));
+
+					break;
+				case 3:
+					buffer = new BufferedReader(new FileReader(new File(archivoSanciones)));
+					break;
+				default:
+					buffer = null;
+
+					break;
+				}
+
+				while((linea = buffer.readLine()) != null) {
+					stLinea = new StringTokenizer(linea, ",");
+
+					campos = new ArrayList<String>();
+
+					while(stLinea.hasMoreTokens()) {
+						campos.add(stLinea.nextToken());
+					}
+
+					switch(i) {
+					case 0:
+						this._incidencias.add(new Incidencia(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), campos.get(2), this.buscarTipoIncidencia(Integer.parseInt(campos.get(3)))));
+
+						break;
+					case 1:
+						this._reservas.add(new Reserva(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), campos.get(3), Integer.parseInt(campos.get(4)), Boolean.parseBoolean(campos.get(5)), LocalDateTime.parse(campos.get(6), DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+
+						break;
+					case 2:
+						this._salas.add(new Sala());								// FIXME: Reformar
+
+						break;
+					case 3:
+						this._sanciones.add(new Sancion(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), Integer.parseInt(campos.get(3)), LocalDate.parse(campos.get(6), DateTimeFormatter.ISO_LOCAL_DATE)));
+
+						break;
+					}
+				}
+
+			}
+			catch(FileNotFoundException e) {
+				System.out.println("Error: " + e.getMessage());
+			}
+			catch(IOException e) {
+				System.out.println("Error: " + e.getMessage());
+			}
+		}
+
 		return true;
 	}
 
@@ -208,7 +318,7 @@ public class ReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public boolean guardar(String archivoIncidencias, String archivoReservas) {
+	public boolean guardar(String archivoIncidencias, String archivoReservas, String archivoSalas, String archivoSanciones) {
 		// TODO Auto-generated method stub
 		return true;
 	}

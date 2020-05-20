@@ -18,7 +18,7 @@ import mdas.p2.gestorreservamgr.Recurso;
 public class Sala {
 	private int					_id;
 	private int					_aforo;
-	private ArrayList<Recurso>	_recursos;
+	private ArrayList<Recurso>	_recursos;											// FIXME: Reformar
 
 
 	// TODO: Constructor
