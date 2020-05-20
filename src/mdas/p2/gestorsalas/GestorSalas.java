@@ -56,6 +56,8 @@ public class GestorSalas implements IReserva, ISala{
 	@Override
 	public int ElegirSala(int aforo, ArrayList<Integer> idSalas) {
 		// FIXME: Refinar la búsqueda
+		
+		//sala mas apropiada e ir comparandola
 
 		for(int sala : idSalas) {
 			if(aforo == this._reservaMgr.obtenerAforoSala(sala)) {
