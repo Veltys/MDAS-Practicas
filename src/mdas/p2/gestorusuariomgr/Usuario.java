@@ -15,7 +15,18 @@ public class Usuario {
 	private int		_id;
 	private String	_nombre;
 
-
+/**
+ * Constructor por defecto de la clase
+ * Crea un usuario sin valores
+ * 
+ */
+	
+	
+	public Usuario() {
+		this._id = -1;
+		this._nombre = null;
+	}
+	
 	/**
 	 * Constructor de clase
 	 * Crea un usuario a partir de su id y su nombre
