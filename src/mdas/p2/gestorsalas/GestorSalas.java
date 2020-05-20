@@ -1,5 +1,6 @@
 package mdas.p2.gestorsalas;
 
+
 import java.util.ArrayList;
 
 import mdas.p2.gestorreservamgr.ReservaMgr;
@@ -10,7 +11,7 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  *
  * @author			Javier Ortiz Aragones
  * @date			20/05/2020
- * @version			1.0.2
+ * @version			1.0.3
  */
 
 public class GestorSalas implements IReserva, ISala{
@@ -21,7 +22,7 @@ public class GestorSalas implements IReserva, ISala{
 	 * Constructor de clase
 	 * Inicializa el objeto de la clase ReservaMgr
 	 */
-	
+
 
 	public GestorSalas() {
 		this._reservaMgr = ReservaMgr.getInstance();
@@ -50,14 +51,14 @@ public class GestorSalas implements IReserva, ISala{
 	 *
 	 * @return boolean True en caso de que se haya realizado con exito, false en el caso contrario
 	 */
-	
+
 
 	@Override
 	public Boolean confirmarReserva(int idReserva) {
 		return this._reservaMgr.confirmarReserva(idReserva);
 	}
 
-	
+
 	/**
 	 * Eliminar una reserva a partir de su ID
 	 *
@@ -65,22 +66,22 @@ public class GestorSalas implements IReserva, ISala{
 	 *
 	 * @return boolean True en caso de que se haya realizado con exito, false en el caso contrario
 	 */
-	
-	
+
+
 	@Override
 	public Boolean eliminarReserva(int idReserva) {
 		return this._reservaMgr.eliminarReserva(idReserva);
 	}
-	
+
 	/**
 	 * Buscador de salas posibles para los datos aportados por el alumno
-	 * 
+	 *
 	 * @param aforo int Aforo minimo que solicita el alumno
 	 * @param int[] Vector con los IDs de los recursos que necesita el alumno
 	 *
 	 * @return int[] Vector que contiene los IDs de las posibles salas
 	 */
-	
+
 	@Override
 	public ArrayList<Integer> buscarSala(int aforo, ArrayList<Integer> idsRecursos) {
 		return this._reservaMgr.buscarSala(aforo, idsRecursos);
@@ -92,17 +93,17 @@ public class GestorSalas implements IReserva, ISala{
 	 * @param idSala int ID de la nueva sala
 	 *
 	 * @return boolean True en caso de que se haya realizado con exito, false en el caso contrario
-	 */	
-	
+	 */
+
 	@Override
 	public Boolean confirmarRegistro(int idSala) {
 		return this._reservaMgr.confirmarRegistro(idSala);
 	}
 
-	
+
 	/**
 	 * Buscador de la sala optima entre las posibles
-	 * 
+	 *
 	 * @param aforo int Aforo minimo que solicita el alumno
 	 * @param int[] Vector con los IDs de las salas posibles
 	 *
@@ -112,7 +113,7 @@ public class GestorSalas implements IReserva, ISala{
 
 	@Override
 	public int elegirSala(int aforo, ArrayList<Integer> idSalas) {
-		
+
 		int	idSalaElegida = idSalas.get(0);
 
 
@@ -120,7 +121,7 @@ public class GestorSalas implements IReserva, ISala{
 			if(aforo == this._reservaMgr.obtenerAforoSala(sala)) {
 				return sala;
 			}
-					
+
 			else if (this._reservaMgr.obtenerAforoSala(sala) < this._reservaMgr.obtenerAforoSala(idSalaElegida)) {
 				idSalaElegida = sala;
 			}
@@ -139,7 +140,7 @@ public class GestorSalas implements IReserva, ISala{
 	 * @param recursos int[] ID de los recursos disponibles en la nueva sala
 	 *
 	 * @return boolean True en caso de que los datos sean correctos, false en el caso contrario
-	 */	
+	 */
 
 	@Override
 	public Boolean validarDatos(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos) {
@@ -148,7 +149,7 @@ public class GestorSalas implements IReserva, ISala{
 		}
 		else {
 			Boolean tipoEncontrado = false;
-			for(int tipoSala: this._reservaMgr.obtenerTiposSala()) {
+			for(int tipoSala: this._reservaMgr.obtenerTipos()) {
 				if(tipo==tipoSala) {
 					tipoEncontrado = true;
 				}
