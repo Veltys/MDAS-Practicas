@@ -10,11 +10,11 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  *
  * @author			Javier Ortiz Aragones
  * @date			19/05/2020
- * @version			1.0.0
+ * @version			1.0.2
  */
 
 public class GestorSalas implements IReserva, ISala{
-	private ReservaMgr _reservaMgr;
+	private ReservaMgr _gestorReservas;
 
 
 	/**
@@ -22,10 +22,10 @@ public class GestorSalas implements IReserva, ISala{
 	 * Inicializa el objeto de la clase ReservaMgr
 	 */
 	
-	public GestorSalas() {
-		this._reservaMgr = new ReservaMgr();
-	}
 
+	public GestorSalas() {
+		this._gestorReservas = ReservaMgr.getInstance();
+	}
 
 	/**
 	 * Buscador de reservas por alumno
@@ -35,10 +35,11 @@ public class GestorSalas implements IReserva, ISala{
 	 *
 	 * @return int[] Vector que contiene los IDs de las reservas del alumno
 	 */
-	
+
+
 	@Override
 	public ArrayList<Integer> buscarReservas(int idAlumno) {
-		return this._reservaMgr.buscarReservas(idAlumno);
+		return this._gestorReservas.buscarReservas(idAlumno);
 	}
 
 
@@ -50,10 +51,10 @@ public class GestorSalas implements IReserva, ISala{
 	 * @return boolean True en caso de que se haya realizado con exito, false en el caso contrario
 	 */
 	
-	
+
 	@Override
 	public Boolean confirmarReserva(int idReserva) {
-		return this._reservaMgr.confirmarReserva(idReserva);
+		return this._gestorReservas.confirmarReserva(idReserva);
 	}
 
 	
@@ -65,13 +66,11 @@ public class GestorSalas implements IReserva, ISala{
 	 * @return boolean True en caso de que se haya realizado con exito, false en el caso contrario
 	 */
 	
+	
 	@Override
 	public Boolean eliminarReserva(int idReserva) {
-		return this._reservaMgr.eliminarReserva(idReserva);
+		return this._gestorReservas.eliminarReserva(idReserva);
 	}
-
-	//ISala
-
 	
 	/**
 	 * Buscador de salas posibles para los datos aportados por el alumno
@@ -84,9 +83,8 @@ public class GestorSalas implements IReserva, ISala{
 	
 	@Override
 	public ArrayList<Integer> buscarSala(int aforo, ArrayList<Integer> idsRecursos) {
-		return this._reservaMgr.buscarSala(aforo, idsRecursos);
+		return this._gestorReservas.buscarSala(aforo, idsRecursos);
 	}
-
 
 	/**
 	 * Confirmar la nueva sala registrada por el empleado
@@ -98,7 +96,7 @@ public class GestorSalas implements IReserva, ISala{
 	
 	@Override
 	public Boolean confirmarRegistro(int idSala) {
-		return this._reservaMgr.confirmarRegistro(idSala);
+		return this._gestorReservas.confirmarRegistro(idSala);
 	}
 
 	
@@ -110,17 +108,16 @@ public class GestorSalas implements IReserva, ISala{
 	 *
 	 * @return int ID de la sala optima
 	 */
-	
+
 
 	@Override
 	public int elegirSala(int aforo, ArrayList<Integer> idSalas) {
-		// FIXME: Refinar la búsqueda
 		
 		int	idSalaElegida = idSalas.get(0);
-		
+
 
 		for(int sala : idSalas) {
-			if(aforo == this._reservaMgr.obtenerAforoSala(sala)) {
+			if(aforo == this._gestorReservas.obtenerAforoSala(sala)) {
 				return sala;
 			}
 					
@@ -131,7 +128,6 @@ public class GestorSalas implements IReserva, ISala{
 
 		return 0;
 	}
-
 
 	/**
 	 * Validador de los datos introducidos por el empleado para la nueva sala
@@ -144,7 +140,7 @@ public class GestorSalas implements IReserva, ISala{
 	 *
 	 * @return boolean True en caso de que los datos sean correctos, false en el caso contrario
 	 */	
-	
+
 	@Override
 	public Boolean validarDatos(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos) {
 		if(aforo < 1) {
@@ -160,5 +156,4 @@ public class GestorSalas implements IReserva, ISala{
 			return tipoEncontrado;
 		}
 	}
-
 }

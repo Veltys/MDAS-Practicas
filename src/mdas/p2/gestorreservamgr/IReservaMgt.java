@@ -21,10 +21,12 @@ public interface IReservaMgt {
 	abstract public ArrayList<Integer>	buscarReservas(int idAlumno);
 	abstract public ArrayList<Integer>	buscarSala(int aforo, ArrayList<Integer> idsRecursos);
 	abstract public int					buscarSancion(int idIncidencia);
+	abstract public boolean				cargar(String archivoIncidencias, String archivoReservas);
 	abstract public boolean				confirmarRegistro(int idReserva);
 	abstract public boolean				confirmarReserva(int idReserva);
 	abstract public boolean				eliminarReserva(int id_reserva);
 	abstract public String				describirSancion(int codigo);
+	abstract public boolean				guardar(String archivoIncidencias, String archivoReservas);
 	abstract public int					obtenerAforoSala(int sala);
 	abstract public Reserva				obtenerReserva(int idReserva);
 	abstract public Sala				obtenerSala(int idSala);
