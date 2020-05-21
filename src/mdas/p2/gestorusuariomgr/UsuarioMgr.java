@@ -6,41 +6,41 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UsuarioMgr implements IUsuarioMgt {
-	
+
 	private ArrayList <Alumno> _alumnos;
 
 	public UsuarioMgr() {
 		this._alumnos = new ArrayList<Alumno>();
 	}
-	
+
 	@Override
 	public int iniciarSesion() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	public ArrayList <Alumno> getAlumnos() {
-		return _alumnos;
+		return this._alumnos;
 	}
 
 	@Override
 	public Alumno buscaralumno(int id_alumno) {
-		
+
 		Alumno res = new Alumno();
-		
+
 		for(Alumno i : this._alumnos) {
 			if(i.id() == id_alumno) {
 				res = i;
 			}
 		}
-		
+
 		return res;
 	}
 
 	@Override
 	public boolean enviarnotificacion(int id_usuario, String Mensaje) {
 		// TODO Auto-generated method stub
-		//Para facilitar, a cada alumno añadir una variable mensaje.
+		//Para facilitar, a cada alumno aÃ±adir una variable mensaje.
 		return false;
 	}
 
@@ -53,7 +53,6 @@ public class UsuarioMgr implements IUsuarioMgt {
 	@Override
 	public boolean cargar(String ficherousuarios) {
 		File f1 = new File(ficherousuarios);
-		int i = 0;
 		if(f1.exists()) {
 			Scanner fich = null;
 			try {
@@ -61,7 +60,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 				while(fich.hasNext()) {
 					String[] linea = fich.nextLine().split(",");
 					if(linea.length != 2) {
-						_alumnos.add(new Alumno(Integer.parseInt(linea[0]), linea[1], linea[2]));
+						this._alumnos.add(new Alumno(Integer.parseInt(linea[0]), linea[1], linea[2]));
 					}
 				}
 			}catch(IOException e) {
@@ -70,11 +69,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 				fich.close();
 			}
 		}
-		if(_alumnos.size() != 0) {
-			return true;
-		}
-		return false;
+		return (this._alumnos.size() != 0);
 	}
-
 }
 
