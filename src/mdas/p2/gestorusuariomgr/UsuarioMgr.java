@@ -1,6 +1,9 @@
 package mdas.p2.gestorusuariomgr;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UsuarioMgr implements IUsuarioMgt {
 	
@@ -14,6 +17,10 @@ public class UsuarioMgr implements IUsuarioMgt {
 	public int iniciarSesion() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public ArrayList <Alumno> getAlumnos() {
+		return _alumnos;
 	}
 
 	@Override
@@ -41,6 +48,32 @@ public class UsuarioMgr implements IUsuarioMgt {
 	public void mostrarmensaje(String mensaje) {
 		// TODO Auto-generated method stub
 		System.out.println(mensaje);
+	}
+
+	@Override
+	public boolean cargar(String ficherousuarios) {
+		File f1 = new File(ficherousuarios);
+		int i = 0;
+		if(f1.exists()) {
+			Scanner fich = null;
+			try {
+				fich = new Scanner(f1);
+				while(fich.hasNext()) {
+					String[] linea = fich.nextLine().split(",");
+					if(linea.length != 2) {
+						_alumnos.add(new Alumno(Integer.parseInt(linea[0]), linea[1], linea[2]));
+					}
+				}
+			}catch(IOException e) {
+				System.out.println(e);
+			}finally{
+				fich.close();
+			}
+		}
+		if(_alumnos.size() != 0) {
+			return true;
+		}
+		return false;
 	}
 
 }
