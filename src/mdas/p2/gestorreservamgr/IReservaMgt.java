@@ -12,8 +12,8 @@ import mdas.p2.gestorreservamgr.Sala;
  * Interfaz del componente GestorReservaMgr
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			20/05/2020
- * @version			1.2.0
+ * @date			21/05/2020
+ * @version			1.3.0
  */
 
 public interface IReservaMgt {
@@ -30,5 +30,6 @@ public interface IReservaMgt {
 	abstract public int					obtenerAforoSala(int sala);
 	abstract public Reserva				obtenerReserva(int idReserva);
 	abstract public Sala				obtenerSala(int idSala);
-	abstract public ArrayList<Integer>	obtenerTipos();
+	abstract public ArrayList<Integer>	obtenerTiposDeIncidencia();
+	abstract public ArrayList<Integer>	obtenerTiposDeSala();
 }

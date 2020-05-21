@@ -24,8 +24,8 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  * Es implementado por medio del patrón Singleton, con el fin de prevenir la existencia de más de un gestor
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			20/05/2020
- * @version			0.5.1
+ * @date			21/05/2020
+ * @version			0.6.0
  */
 
 
@@ -359,7 +359,16 @@ public class ReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public ArrayList<Integer> obtenerTipos() {
+	public ArrayList<Integer> obtenerTiposDeIncidencia() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	// TODO: Comentar
+
+	@Override
+	public ArrayList<Integer> obtenerTiposDeSala() {
 		// TODO Auto-generated method stub
 		return null;
 	}
