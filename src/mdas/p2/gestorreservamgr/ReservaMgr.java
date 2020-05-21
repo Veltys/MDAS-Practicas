@@ -15,6 +15,7 @@ import java.util.StringTokenizer;
 import mdas.p2.gestorreservamgr.Incidencia;
 import mdas.p2.gestorreservamgr.Reserva;
 import mdas.p2.gestorreservamgr.Sala;
+import mdas.p2.gestorreservamgr.SalaYRecurso;
 import mdas.p2.gestorreservamgr.TipoIncidencia;
 
 
@@ -25,15 +26,17 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			21/05/2020
- * @version			0.6.0
+ * @version			0.7.0
  */
 
 
 public class ReservaMgr implements IReservaMgt {
-	static private ReservaMgr		_instance		= null;
+	static private ReservaMgr		_instance			= null;
 	private ArrayList<Incidencia>	_incidencias;
+	private ArrayList<Recurso>		_recursos;
 	private ArrayList<Reserva>		_reservas;
 	private ArrayList<Sala>			_salas;
+	private ArrayList<SalaYRecurso>	_salasYRecursos;
 	private ArrayList<Sancion> 		_sanciones;
 
 
@@ -206,7 +209,7 @@ public class ReservaMgr implements IReservaMgt {
 	 */
 
 	@Override
-	public boolean cargar(String archivoIncidencias, String archivoReservas, String archivoSalas, String archivoSanciones) {
+	public boolean cargar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
 		int					i;
 		String				linea;
 		ArrayList<String>	campos;
@@ -323,7 +326,7 @@ public class ReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public boolean guardar(String archivoIncidencias, String archivoReservas, String archivoSalas, String archivoSanciones) {
+	public boolean guardar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
 		// TODO Auto-generated method stub
 		return true;
 	}

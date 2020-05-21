@@ -3,7 +3,7 @@ package mdas.p2.gestorreservamgr;
 
 /**
  * Clase Recurso
- * Almacena los datos de un recurso asociado a una sala
+ * Almacena los datos de un recurso asociado
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			18/05/2020

@@ -11,14 +11,13 @@ import mdas.p2.gestorreservamgr.Recurso;
  * Almacena los datos de una sala
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			20/05/2020
- * @version			0.1.0
+ * @date			21/05/2020
+ * @version			0.2.0
  */
 
 public class Sala {
 	private int					_id;
 	private int					_aforo;
-	private ArrayList<Recurso>	_recursos;											// FIXME: Reformar
 
 
 	// TODO: Constructor
@@ -35,26 +34,6 @@ public class Sala {
 
 	public int id() {
 		return this._id;
-	}
-
-
-	// TODO: Comentar
-
-	public int numRecursos() {
-		return this._recursos.size();
-	}
-
-	// TODO: Comentar
-
-	public Recurso recurso(int posicion) {
-		return this._recursos.get(posicion);
-	}
-
-
-	// TODO: Comentar
-
-	public void recurso(Recurso r) {
-		this._recursos.add(r);
 	}
 
 
