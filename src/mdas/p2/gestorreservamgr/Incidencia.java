@@ -22,7 +22,7 @@ public class Incidencia {
 
 	/**
 	 * Constructor de clase
-	 * Crea una incidencia a partir de su ID, descripción y tipo
+	 * Crea una incidencia a partir de su ID, ID de la reserva asociada, descripción y tipo
 	 *
 	 * @param		id								int								ID de la incidencia
 	 * @param		idReserva						int								ID de la reserva asociada a la incidencia

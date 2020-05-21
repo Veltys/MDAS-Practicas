@@ -35,7 +35,6 @@ public class Reserva {
 	 * @param		fechaYHora						LocalDateTime					Fecha y hora de la reserva
 	 */
 
-
 	public Reserva(int id, int idAlumno, int alumnos, String asignatura, int duracion, LocalDateTime fechaYHora) {
 		this._id			= id;
 		this._idAlumno		= idAlumno;
@@ -60,7 +59,6 @@ public class Reserva {
 	 * @param		fechaYHora						LocalDateTime					Fecha y hora de la reserva
 	 */
 
-
 	public Reserva(int id, int idAlumno, int alumnos, String asignatura, int duracion, boolean estado, LocalDateTime fechaYHora) {
 		this._id			= id;
 		this._idAlumno		= idAlumno;
@@ -70,6 +68,7 @@ public class Reserva {
 		this._estado		= estado;
 		this._fechaYHora	= fechaYHora;
 	}
+
 
 	/**
 	 * Observador de la variable privada _alumnos

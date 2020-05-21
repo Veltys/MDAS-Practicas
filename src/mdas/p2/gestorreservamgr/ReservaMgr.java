@@ -26,7 +26,7 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			21/05/2020
- * @version			0.7.0
+ * @version			0.7.1
  */
 
 
@@ -47,8 +47,12 @@ public class ReservaMgr implements IReservaMgt {
 	 */
 
 	private ReservaMgr() {
-		this._incidencias	= new ArrayList<Incidencia>();
-		this._reservas		= new ArrayList<Reserva>();
+		this._incidencias		= new ArrayList<Incidencia>();
+		this._recursos			= new ArrayList<Recurso>();
+		this._reservas			= new ArrayList<Reserva>();
+		this._salas				= new ArrayList<Sala>();
+		this._salasYRecursos	= new ArrayList<SalaYRecurso>();
+		this._sanciones			= new ArrayList<Sancion>();
 	}
 
 
@@ -136,7 +140,7 @@ public class ReservaMgr implements IReservaMgt {
 		ArrayList<Integer>	res	= new ArrayList<Integer>();
 
 		for(Sala s : this._salas) {
-			if((s.aforo() >= aforo) && s.tengoRecursos(idsRecursos)) {
+			if((s.aforo() >= aforo)) {												// FIXME: Buscar los recursos
 				res.add(s.id());
 			}
 		}
@@ -198,12 +202,38 @@ public class ReservaMgr implements IReservaMgt {
 
 
 	/**
+	 * Método privado para buscar el tipo de sala
+	 *
+	 * @param		int_TipoSala					int								ID de tipo de sala
+	 *
+	 * @return										TipoSala						El tipo de sala encontrado
+	 */
+
+	private TipoSala buscarTipoSala(int int_TipoSala) {
+		TipoSala tipoSala = null;
+
+		for(TipoSala ts : TipoSala.values()) {
+			if(int_TipoSala == ts.id()) {
+				tipoSala = ts;
+
+				break;
+			}
+		}
+
+		return tipoSala;
+	}
+
+
+	/**
 	 * Método de carga de archivos
 	 * Carga los archivos CSV solicitados en la memoria del gestor
 	 *
 	 * @param		archivoIncidencias				String							Archivo de incidencias
+	 * @param		archivoRecursos					String							Archivo de recursos
 	 * @param		archivoReservas					String							Archivo de reservas
 	 * @param		archivoSalas					String							Archivo de salas
+	 * @param		archivoSalasYRecursos			String							Archivo de salas y recursos
+	 * @param		archivoSanciones				String							Archivo de sanciones
 	 *
 	 * @return										boolean							Resultado de la operación
 	 */
@@ -224,15 +254,24 @@ public class ReservaMgr implements IReservaMgt {
 
 					break;
 				case 1:
-					buffer = new BufferedReader(new FileReader(new File(archivoReservas)));
+					buffer = new BufferedReader(new FileReader(new File(archivoRecursos)));
 
 					break;
 				case 2:
-					buffer = new BufferedReader(new FileReader(new File(archivoSalas)));
+					buffer = new BufferedReader(new FileReader(new File(archivoReservas)));
 
 					break;
 				case 3:
+					buffer = new BufferedReader(new FileReader(new File(archivoSalas)));
+
+					break;
+				case 4:
+					buffer = new BufferedReader(new FileReader(new File(archivoSalasYRecursos)));
+
+					break;
+				case 5:
 					buffer = new BufferedReader(new FileReader(new File(archivoSanciones)));
+
 					break;
 				default:
 					buffer = null;
@@ -255,14 +294,22 @@ public class ReservaMgr implements IReservaMgt {
 
 						break;
 					case 1:
-						this._reservas.add(new Reserva(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), campos.get(3), Integer.parseInt(campos.get(4)), Boolean.parseBoolean(campos.get(5)), LocalDateTime.parse(campos.get(6), DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+						this._recursos.add(new Recurso(Integer.parseInt(campos.get(0)), campos.get(1), campos.get(1)));
 
 						break;
 					case 2:
-						this._salas.add(new Sala());								// FIXME: Reformar
+						this._reservas.add(new Reserva(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), campos.get(3), Integer.parseInt(campos.get(4)), Boolean.parseBoolean(campos.get(5)), LocalDateTime.parse(campos.get(6), DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
 
 						break;
 					case 3:
+						this._salas.add(new Sala(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Boolean.parseBoolean(campos.get(2)), campos.get(3), this.buscarTipoSala(Integer.parseInt(campos.get(4))), campos.get(5)));
+
+						break;
+					case 4:
+						this._salasYRecursos.add(new SalaYRecurso());				// FIXME: Seguir aquí
+
+						break;
+					case 5:
 						this._sanciones.add(new Sancion(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), Integer.parseInt(campos.get(3)), LocalDate.parse(campos.get(6), DateTimeFormatter.ISO_LOCAL_DATE)));
 
 						break;
