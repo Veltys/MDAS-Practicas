@@ -15,4 +15,5 @@ public interface IUsuarioMgt {
 	abstract public Alumno buscaralumno(int id_alumno);
 	abstract public boolean enviarnotificacion(int id_usuario, String Mensaje);
 	abstract public void mostrarmensaje(String mensaje);
+	abstract public boolean cargar (String ficherousuarios);
 }
