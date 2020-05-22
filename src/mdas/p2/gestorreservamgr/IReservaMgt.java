@@ -12,8 +12,8 @@ import mdas.p2.gestorreservamgr.Sala;
  * Interfaz del componente GestorReservaMgr
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			21/05/2020
- * @version			1.4.0
+ * @date			22/05/2020
+ * @version			1.4.1
  */
 
 public interface IReservaMgt {
@@ -22,7 +22,7 @@ public interface IReservaMgt {
 	abstract public ArrayList<Integer>	buscarSala(int aforo, ArrayList<Integer> idsRecursos);
 	abstract public int					buscarSancion(int idIncidencia);
 	abstract public boolean				cargar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones);
-	abstract public boolean				confirmarRegistro(int idReserva);
+	abstract public boolean				confirmarRegistro(int idSala);
 	abstract public boolean				confirmarReserva(int idReserva);
 	abstract public boolean				eliminarReserva(int id_reserva);
 	abstract public String				describirSancion(int codigo);

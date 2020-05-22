@@ -26,7 +26,7 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			22/05/2020
- * @version			0.7.2
+ * @version			0.8.0
  */
 
 
@@ -347,12 +347,35 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Método de confirmación del registro de una sala
+	 * Marca como disponible una sala prerregistrada
+	 *
+	 * @param		idSala							int								ID de la sala a confirmar
+	 *
+	 * @return										boolean							Resultado de la operación
+	 */
 
 	@Override
-	public boolean confirmarRegistro(int idReserva) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean confirmarRegistro(int idSala) {
+		Sala sala = null;
+
+		for(Sala s : this._salas) {
+			if(s.id() == idSala) {
+				sala = s;
+
+				break;
+			}
+		}
+
+		if(sala != null) {
+			sala.estado(true);
+
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 
