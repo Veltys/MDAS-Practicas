@@ -25,8 +25,8 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  * Es implementado por medio del patrón Singleton, con el fin de prevenir la existencia de más de un gestor
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			21/05/2020
- * @version			0.7.1
+ * @date			22/05/2020
+ * @version			0.7.2
  */
 
 
@@ -137,11 +137,24 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public ArrayList<Integer> buscarSala(int aforo, ArrayList<Integer> idsRecursos) {
-		ArrayList<Integer>	res	= new ArrayList<Integer>();
+		int					recursosQueTengo	= 0;
+		ArrayList<Integer>	res					= new ArrayList<Integer>();
 
 		for(Sala s : this._salas) {
-			if((s.aforo() >= aforo)) {												// FIXME: Buscar los recursos
-				res.add(s.id());
+			if((s.aforo() >= aforo)) {
+				for(SalaYRecurso syr : this._salasYRecursos) {
+					if(syr.idSala() == s.id()) {
+						if(idsRecursos.contains(syr.idRecurso())) {
+							recursosQueTengo++;
+
+							break;
+						}
+					}
+				}
+
+				if(recursosQueTengo == idsRecursos.size()) {
+					res.add(s.id());
+				}
 			}
 		}
 
@@ -306,7 +319,7 @@ public class ReservaMgr implements IReservaMgt {
 
 						break;
 					case 4:
-						this._salasYRecursos.add(new SalaYRecurso());				// FIXME: Seguir aquí
+						this._salasYRecursos.add(new SalaYRecurso(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1))));
 
 						break;
 					case 5:
