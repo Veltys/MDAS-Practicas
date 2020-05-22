@@ -2,6 +2,7 @@ package mdas.p2.gestorreservamgr;
 
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -9,8 +10,8 @@ import java.time.LocalDateTime;
  * Almacena los datos de una reserva de una sala
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			20/05/2020
- * @version			1.0.0
+ * @date			22/05/2020
+ * @version			1.1.0
  */
 
 public class Reserva {
@@ -155,5 +156,17 @@ public class Reserva {
 
 	public int idAlumno() {
 		return this._idAlumno;
+	}
+
+
+	/**
+	 * Método "mágico" cuando una clase es usada como String
+	 *
+	 * @return										String							Representación en texto de los datos de la reserva
+	 */
+
+	@Override
+	public String toString() {
+		return this._id + "," + this._idAlumno + "," + this._alumnos + "," + this._asignatura + "," + this._duracion + "," + this._estado + "," + this._fechaYHora.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 	}
 }

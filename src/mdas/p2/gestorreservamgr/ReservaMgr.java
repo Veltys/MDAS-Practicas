@@ -2,9 +2,11 @@ package mdas.p2.gestorreservamgr;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,7 +28,7 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			22/05/2020
- * @version			0.10.0
+ * @version			0.11.0
  */
 
 
@@ -257,7 +259,7 @@ public class ReservaMgr implements IReservaMgt {
 		BufferedReader		buffer;
 		StringTokenizer		stLinea;
 
-		for(i = 0; i < 4; i++) {
+		for(i = 0; i <= 5; i++) {
 			try {
 				switch(i) {
 				case 0:
@@ -324,10 +326,12 @@ public class ReservaMgr implements IReservaMgt {
 						this._sanciones.add(new Sancion(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), Integer.parseInt(campos.get(3)), LocalDate.parse(campos.get(6), DateTimeFormatter.ISO_LOCAL_DATE)));
 
 						break;
-					default:
-						break;														// Nunca se llegará aquí
+					default:														// Nunca se llegará aquí
+						break;
 					}
 				}
+
+				buffer.close();
 			}
 			catch(FileNotFoundException e) {
 				System.out.println("Error: " + e.getMessage());
@@ -440,11 +444,100 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Método de guardado de archivos
+	 * Guarda la memoria del gestor en los archivos CSV solicitados
+	 *
+	 * @param		archivoIncidencias				String							Archivo de incidencias
+	 * @param		archivoRecursos					String							Archivo de recursos
+	 * @param		archivoReservas					String							Archivo de reservas
+	 * @param		archivoSalas					String							Archivo de salas
+	 * @param		archivoSalasYRecursos			String							Archivo de salas y recursos
+	 * @param		archivoSanciones				String							Archivo de sanciones
+	 *
+	 * @return										boolean							Resultado de la operación
+	 */
+
 
 	@Override
 	public boolean guardar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
-		// TODO Auto-generated method stub
+		int					i;
+		ArrayList<String>	lineas	= new ArrayList<String>();
+		BufferedWriter		buffer	= null;
+
+		for(i = 0; i <= 5; i++) {
+			try {
+				switch(i) {
+				case 0:
+					buffer = new BufferedWriter(new FileWriter(new File(archivoIncidencias)));
+
+					for(Incidencia in: this._incidencias) {
+						lineas.add(in.toString());
+					}
+
+					break;
+				case 1:
+					buffer = new BufferedWriter(new FileWriter(new File(archivoRecursos)));
+
+					for(Recurso rec : this._recursos) {
+						lineas.add(rec.toString());
+					}
+
+					break;
+				case 2:
+					buffer = new BufferedWriter(new FileWriter(new File(archivoReservas)));
+
+					for(Reserva res : this._reservas) {
+						lineas.add(res.toString());
+					}
+
+					break;
+				case 3:
+					buffer = new BufferedWriter(new FileWriter(new File(archivoSalas)));
+
+					for(Sala sal : this._salas) {
+						lineas.add(sal.toString());
+					}
+
+					break;
+				case 4:
+					buffer = new BufferedWriter(new FileWriter(new File(archivoSalasYRecursos)));
+
+					for(SalaYRecurso syl : this._salasYRecursos) {
+						lineas.add(syl.toString());
+					}
+
+					break;
+				case 5:
+					buffer = new BufferedWriter(new FileWriter(new File(archivoSanciones)));
+
+					for(Sancion san : this._sanciones) {
+						lineas.add(san.toString());
+					}
+
+					break;
+				default:															// Nunca se llegará aquí
+					break;
+				}
+
+				for(String linea : lineas) {
+					buffer.write(linea + System.getProperty("line.separator"));
+				}
+
+				buffer.close();
+			}
+			catch(FileNotFoundException e) {
+				System.out.println("Error: " + e.getMessage());
+
+				return false;
+			}
+			catch(IOException e) {
+				System.out.println("Error: " + e.getMessage());
+
+				return false;
+			}
+		}
+
 		return true;
 	}
 

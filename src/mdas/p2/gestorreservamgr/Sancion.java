@@ -2,6 +2,7 @@ package mdas.p2.gestorreservamgr;
 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -9,8 +10,8 @@ import java.time.LocalDate;
  * Almacena los datos de una sanción asociada a una reserva y a un alumno
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			20/05/2020
- * @version			1.0.0
+ * @date			22/05/2020
+ * @version			1.1.0
  */
 
 public class Sancion {
@@ -93,5 +94,17 @@ public class Sancion {
 
 	public int idIncidencia() {
 		return this._idIncidencia;
+	}
+
+
+	/**
+	 * Método "mágico" cuando una clase es usada como String
+	 *
+	 * @return										String							Representación en texto de los datos de la sancion
+	 */
+
+	@Override
+	public String toString() {
+		return this._id + ", " + this._idIncidencia + ", " + this._codigo + ", " + this._duracion + ", " + this._fecha.format(DateTimeFormatter.ISO_LOCAL_DATE);
 	}
 }

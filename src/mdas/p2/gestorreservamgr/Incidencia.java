@@ -9,8 +9,8 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  * Contiene los datos de una incidencia
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			20/05/2020
- * @version			1.0.0
+ * @date			22/05/2020
+ * @version			1.1.0
  */
 
 public class Incidencia {
@@ -79,5 +79,17 @@ public class Incidencia {
 
 	public TipoIncidencia tipo() {
 		return this._tipo;
+	}
+
+
+	/**
+	 * Método "mágico" cuando una clase es usada como String
+	 *
+	 * @return										String							Representación en texto de los datos de la incidencia
+	 */
+
+	@Override
+	public String toString() {
+		return this._id + ", " + this._idReserva + "," + this._descripcion + "," + this._tipo.id();
 	}
 }

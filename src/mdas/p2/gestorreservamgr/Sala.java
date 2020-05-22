@@ -9,17 +9,17 @@ import mdas.p2.gestorreservamgr.TipoSala;
  * Almacena los datos de una sala
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			21/05/2020
- * @version			1.0.0
+ * @date			22/05/2020
+ * @version			1.1.0
  */
 
 public class Sala {
+	private boolean		_estado;
 	private int			_id;
 	private int			_aforo;
-	private boolean		_estado;
 	private String		_nombre;
-	private TipoSala	_tipo;
 	private String		_ubicacion;
+	private TipoSala	_tipo;
 
 
 	/**
@@ -123,4 +123,14 @@ public class Sala {
 	}
 
 
+	/**
+	 * Método "mágico" cuando una clase es usada como String
+	 *
+	 * @return										String							Representación en texto de los datos de la sala
+	 */
+
+	@Override
+	public String toString() {
+		return this._id + ", " + this._aforo + ", " + this._estado + ", " + this._nombre + ", " + this._tipo.id() + ", " + this._ubicacion;
+	}
 }
