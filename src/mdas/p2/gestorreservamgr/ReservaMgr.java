@@ -26,7 +26,7 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			22/05/2020
- * @version			0.8.1
+ * @version			0.9.0
  */
 
 
@@ -407,15 +407,6 @@ public class ReservaMgr implements IReservaMgt {
 		else {
 			return false;
 		}
-	}
-
-
-	// TODO: Comentar
-
-	@Override
-	public String describirSancion(int codigo) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 
