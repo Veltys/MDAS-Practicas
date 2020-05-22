@@ -14,7 +14,7 @@ import mdas.p2.gestorreservamgr.Sala;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			22/05/2020
- * @version			1.5.0
+ * @version			1.5.1
  */
 
 public interface IReservaMgt {
@@ -25,9 +25,9 @@ public interface IReservaMgt {
 	abstract public boolean				cargar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones);
 	abstract public boolean				confirmarRegistro(int idSala);
 	abstract public boolean				confirmarReserva(int idReserva);
-	abstract public boolean				eliminarReserva(int id_reserva);
+	abstract public boolean				eliminarReserva(int idReserva);
 	abstract public boolean				guardar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones);
-	abstract public int					obtenerAforoSala(int sala);
+	abstract public int					obtenerAforoSala(int idSala);
 	abstract public Reserva				obtenerReserva(int idReserva);
 	abstract public Sala				obtenerSala(int idSala);
 	abstract public ArrayList<Integer>	obtenerTiposDeIncidencia();

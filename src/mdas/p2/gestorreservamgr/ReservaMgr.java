@@ -26,7 +26,7 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			22/05/2020
- * @version			0.9.0
+ * @version			0.10.0
  */
 
 
@@ -410,12 +410,33 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Método de eliminación de una reserva
+	 * Elimina una reserva de sala de la lista
+	 *
+	 * @param		idReserva						int								ID de la reserva a eliminar
+	 *
+	 * @return										boolean							Resultado de la operación
+	 */
 
 	@Override
-	public boolean eliminarReserva(int id_reserva) {
-		// TODO Auto-generated method stub
-		return true;
+	public boolean eliminarReserva(int idReserva) {
+		Reserva reserva = null;
+
+		for(Reserva r : this._reservas) {
+			if(r.id() == idReserva) {
+				reserva = r;
+
+				break;
+			}
+		}
+
+		if(reserva != null) {
+			return this._reservas.remove(reserva);
+		}
+		else {
+			return false;
+		}
 	}
 
 
@@ -431,7 +452,7 @@ public class ReservaMgr implements IReservaMgt {
 	// TODO: Comentar
 
 	@Override
-	public int obtenerAforoSala(int sala) {
+	public int obtenerAforoSala(int idSala) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
