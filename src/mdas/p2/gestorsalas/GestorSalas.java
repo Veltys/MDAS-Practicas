@@ -10,8 +10,8 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  * Clase GestorSalas
  *
  * @author			Javier Ortiz Aragones
- * @date			20/05/2020
- * @version			1.0.3
+ * @date			22/05/2020
+ * @version			1.0.4
  */
 
 public class GestorSalas implements IReserva, ISala{
@@ -149,7 +149,7 @@ public class GestorSalas implements IReserva, ISala{
 		}
 		else {
 			Boolean tipoEncontrado = false;
-			for(int tipoSala: this._reservaMgr.obtenerTipos()) {
+			for(int tipoSala: this._reservaMgr.obtenerTiposDeSala()) {
 				if(tipo==tipoSala) {
 					tipoEncontrado = true;
 				}
