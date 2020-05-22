@@ -26,7 +26,7 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			22/05/2020
- * @version			0.8.0
+ * @version			0.8.1
  */
 
 
@@ -143,12 +143,10 @@ public class ReservaMgr implements IReservaMgt {
 		for(Sala s : this._salas) {
 			if((s.aforo() >= aforo)) {
 				for(SalaYRecurso syr : this._salasYRecursos) {
-					if(syr.idSala() == s.id()) {
-						if(idsRecursos.contains(syr.idRecurso())) {
-							recursosQueTengo++;
+					if((syr.idSala() == s.id()) && idsRecursos.contains(syr.idRecurso())) {
+						recursosQueTengo++;
 
-							break;
-						}
+						break;
 					}
 				}
 
