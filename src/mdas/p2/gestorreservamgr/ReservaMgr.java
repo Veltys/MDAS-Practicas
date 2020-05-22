@@ -379,12 +379,36 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Método de confirmación del registro de una reserva
+	 * Marca como reservada una reserva de sala en estado prerreservada
+	 *
+	 * @param		idReserva						int								ID de la reserva a confirmar
+	 *
+	 * @return										boolean							Resultado de la operación
+	 */
+
 
 	@Override
 	public boolean confirmarReserva(int idReserva) {
-		// TODO Auto-generated method stub
-		return false;
+		Reserva reserva = null;
+
+		for(Reserva r : this._reservas) {
+			if(r.id() == idReserva) {
+				reserva = r;
+
+				break;
+			}
+		}
+
+		if(reserva != null) {
+			reserva.estado(true);
+
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 
