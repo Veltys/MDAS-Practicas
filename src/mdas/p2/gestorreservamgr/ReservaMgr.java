@@ -28,7 +28,7 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			23/05/2020
- * @version			0.12.0
+ * @version			0.13.0
  */
 
 
@@ -568,12 +568,25 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Observador del aforo de una sala
+	 * Busca una sala por su ID y muestra su aforo
+	 *
+	 * @param		idSala							int								ID de la sala
+	 *
+	 * @return										inr								Aforo de la sala (-1 si no encontrada)
+	 */
 
 	@Override
 	public int obtenerAforoSala(int idSala) {
-		// TODO Auto-generated method stub
-		return 0;
+		int	posSala	= this.buscarSala(idSala);
+
+		if(posSala != -1) {
+			return this._salas.get(posSala).aforo();
+		}
+		else {
+			return -1;
+		}
 	}
 
 
