@@ -25,6 +25,7 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  * Clase GestorReservaMgr
  * Componente de gestión de reservas del sistema
  * Es implementado por medio del patrón Singleton, con el fin de prevenir la existencia de más de un gestor
+ * Implementa la interfaz IReservaMgt
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			23/05/2020
