@@ -28,7 +28,7 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			23/05/2020
- * @version			0.13.0
+ * @version			0.14.0
  */
 
 
@@ -408,7 +408,7 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public boolean confirmarRegistro(int idSala) {
-		int	posSala	= this.buscarSala(idSala);
+		int posSala = this.buscarSala(idSala);
 
 		if(posSala != -1) {
 			this._salas.get(posSala).estado(true);
@@ -433,7 +433,7 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public boolean confirmarReserva(int idReserva) {
-		int	posReserva = this.buscarReserva(idReserva);
+		int posReserva = this.buscarReserva(idReserva);
 
 		if(posReserva != -1) {
 			this._reservas.get(posReserva).estado(true);
@@ -457,7 +457,7 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public boolean eliminarReserva(int idReserva) {
-		int	posReserva = this.buscarReserva(idReserva);
+		int posReserva = this.buscarReserva(idReserva);
 
 		if(posReserva != -1) {
 			this._reservas.remove(posReserva);
@@ -570,16 +570,16 @@ public class ReservaMgr implements IReservaMgt {
 
 	/**
 	 * Observador del aforo de una sala
-	 * Busca una sala por su ID y muestra su aforo
+	 * Busca una sala por su ID y devuelve su aforo
 	 *
 	 * @param		idSala							int								ID de la sala
 	 *
-	 * @return										inr								Aforo de la sala (-1 si no encontrada)
+	 * @return										int								Aforo de la sala (-1 si no encontrada)
 	 */
 
 	@Override
 	public int obtenerAforoSala(int idSala) {
-		int	posSala	= this.buscarSala(idSala);
+		int posSala = this.buscarSala(idSala);
 
 		if(posSala != -1) {
 			return this._salas.get(posSala).aforo();
@@ -590,38 +590,46 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Observador de una reserva
+	 * Busca una reserva por su ID y la devuelve
+	 *
+	 * @param		idReserva						int								ID de la reserva
+	 *
+	 * @return										int								Reserva (null si no encontrada)
+	 */
 
 	@Override
 	public Reserva obtenerReserva(int idReserva) {
-		// TODO Auto-generated method stub
-		return null;
+		int posReserva = this.buscarSala(idReserva);
+
+		if(posReserva != -1) {
+			return this._reservas.get(posReserva);
+		}
+		else {
+			return null;
+		}
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Observador de una sala
+	 * Busca una sala por su ID y la devuelve
+	 *
+	 * @param		idSala							int								ID de la sala
+	 *
+	 * @return										int								Sala (null si no encontrada)
+	 */
 
 	@Override
-	public Sala obtenerSala(int id_sala) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Sala obtenerSala(int idSala) {
+		int posSala = this.buscarSala(idSala);
 
-
-	// TODO: Comentar
-
-	@Override
-	public ArrayList<Integer> obtenerTiposDeIncidencia() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	// TODO: Comentar
-
-	@Override
-	public ArrayList<Integer> obtenerTiposDeSala() {
-		// TODO Auto-generated method stub
-		return null;
+		if(posSala != -1) {
+			return this._salas.get(posSala);
+		}
+		else {
+			return null;
+		}
 	}
 }

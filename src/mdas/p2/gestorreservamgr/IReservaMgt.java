@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import mdas.p2.gestorreservamgr.Reserva;
 import mdas.p2.gestorreservamgr.Sala;
+import mdas.p2.gestorreservamgr.TipoIncidencia;
+import mdas.p2.gestorreservamgr.TipoSala;
 
 
 /**
@@ -13,8 +15,8 @@ import mdas.p2.gestorreservamgr.Sala;
  * Interfaz del componente GestorReservaMgr
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			22/05/2020
- * @version			1.5.1
+ * @date			23/05/2020
+ * @version			1.6.0
  */
 
 public interface IReservaMgt {
@@ -30,8 +32,6 @@ public interface IReservaMgt {
 	abstract public int					obtenerAforoSala(int idSala);
 	abstract public Reserva				obtenerReserva(int idReserva);
 	abstract public Sala				obtenerSala(int idSala);
-	abstract public ArrayList<Integer>	obtenerTiposDeIncidencia();
-	abstract public ArrayList<Integer>	obtenerTiposDeSala();
 
 
 	/**
@@ -62,5 +62,41 @@ public interface IReservaMgt {
 		} catch (IndexOutOfBoundsException e) {
 			return "Otro suceso no contemplado (véase descripción)";
 		}
+	}
+
+
+	/**
+	 * Observador de los tipos de incidencia
+	 * Itera los tipos de incidencia, recoge sus IDs y los devuelve
+	 *
+	 * @return										ArrayList<Integer>				Tipos de incidencias
+	 */
+
+	static public ArrayList<Integer> obtenerTiposDeIncidencia() {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+
+		for(TipoIncidencia ti : TipoIncidencia.values()) {
+			res.add(ti.id());
+		}
+
+		return res;
+	}
+
+
+	/**
+	 * Observador de los tipos de sala
+	 * Itera los tipos de sala, recoge sus IDs y los devuelve
+	 *
+	 * @return										ArrayList<Integer>				Tipos de salas
+	 */
+
+	static public ArrayList<Integer> obtenerTiposDeSala() {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+
+		for(TipoSala ts : TipoSala.values()) {
+			res.add(ts.id());
+		}
+
+		return res;
 	}
 }

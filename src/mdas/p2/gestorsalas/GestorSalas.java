@@ -3,6 +3,7 @@ package mdas.p2.gestorsalas;
 
 import java.util.ArrayList;
 
+import mdas.p2.gestorreservamgr.IReservaMgt;
 import mdas.p2.gestorreservamgr.ReservaMgr;
 
 
@@ -10,8 +11,8 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  * Clase GestorSalas
  *
  * @author			Javier Ortiz Aragones
- * @date			22/05/2020
- * @version			1.0.4
+ * @date			23/05/2020
+ * @version			1.0.5
  */
 
 public class GestorSalas implements IReserva, ISala{
@@ -149,7 +150,7 @@ public class GestorSalas implements IReserva, ISala{
 		}
 		else {
 			Boolean tipoEncontrado = false;
-			for(int tipoSala: this._reservaMgr.obtenerTiposDeSala()) {
+			for(int tipoSala: IReservaMgt.obtenerTiposDeSala()) {
 				if(tipo==tipoSala) {
 					tipoEncontrado = true;
 				}
