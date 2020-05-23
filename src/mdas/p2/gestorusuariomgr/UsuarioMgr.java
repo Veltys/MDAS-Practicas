@@ -10,7 +10,7 @@ import java.util.Scanner;
 // TODO: Comentar
 
 public class UsuarioMgr implements IUsuarioMgt {
-	final boolean DEBUG = true;
+	final private boolean		_DEBUG		= true;
 
 	static private UsuarioMgr	_instance	= null;
 	private ArrayList<Alumno>	_alumnos;
@@ -121,7 +121,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 	@Override
 	public void mostrarMensaje(String mensaje) {
-		if(this.DEBUG) {
+		if(this._DEBUG) {
 			System.out.println(mensaje);
 		}
 		else {
