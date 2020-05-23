@@ -27,8 +27,8 @@ import mdas.p2.gestorreservamgr.TipoIncidencia;
  * Es implementado por medio del patrón Singleton, con el fin de prevenir la existencia de más de un gestor
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			22/05/2020
- * @version			0.11.0
+ * @date			23/05/2020
+ * @version			0.12.0
  */
 
 
@@ -101,6 +101,30 @@ public class ReservaMgr implements IReservaMgt {
 
 
 	/**
+	 * Método privado para buscar reservas
+	 * Busca una reserva por su ID
+	 *
+	 * @param		idReserva						int								ID de la reserva a buscar
+	 *
+	 * @return										int								Posición en la lista de reservas (-1 si no encontrada)
+	 */
+
+	private int buscarReserva(int idReserva) {
+		int	i;
+		int res			= -1;
+		int	tamLista	= this._reservas.size();
+
+		for(i = 0; i < tamLista; i++) {
+			if((this._reservas.get(i).id() >= idReserva)) {
+				res = i;
+			}
+		}
+
+		return res;
+	}
+
+
+	/**
 	 * Buscador de reservas
 	 * Busca una reserva a través de la ID del alumno que la ha reservado
 	 *
@@ -121,6 +145,30 @@ public class ReservaMgr implements IReservaMgt {
 
 		if(res.size() == 0) {
 			res = null;
+		}
+
+		return res;
+	}
+
+
+	/**
+	 * Método privado para buscar salas
+	 * Busca una sala por su ID
+	 *
+	 * @param		idSala							int								ID de la sala a buscar
+	 *
+	 * @return										int								Posición en la lista de salas (-1 si no encontrada)
+	 */
+
+	private int buscarSala(int idSala) {
+		int	i;
+		int res			= -1;
+		int	tamLista	= this._salas.size();
+
+		for(i = 0; i < tamLista; i++) {
+			if((this._salas.get(i).id() >= idSala)) {
+				res = i;
+			}
 		}
 
 		return res;
@@ -360,18 +408,10 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public boolean confirmarRegistro(int idSala) {
-		Sala sala = null;
+		int	posSala	= this.buscarSala(idSala);
 
-		for(Sala s : this._salas) {
-			if(s.id() == idSala) {
-				sala = s;
-
-				break;
-			}
-		}
-
-		if(sala != null) {
-			sala.estado(true);
+		if(posSala != -1) {
+			this._salas.get(posSala).estado(true);
 
 			return true;
 		}
@@ -393,18 +433,10 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public boolean confirmarReserva(int idReserva) {
-		Reserva reserva = null;
+		int	posReserva = this.buscarReserva(idReserva);
 
-		for(Reserva r : this._reservas) {
-			if(r.id() == idReserva) {
-				reserva = r;
-
-				break;
-			}
-		}
-
-		if(reserva != null) {
-			reserva.estado(true);
+		if(posReserva != -1) {
+			this._reservas.get(posReserva).estado(true);
 
 			return true;
 		}
@@ -425,18 +457,12 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public boolean eliminarReserva(int idReserva) {
-		Reserva reserva = null;
+		int	posReserva = this.buscarReserva(idReserva);
 
-		for(Reserva r : this._reservas) {
-			if(r.id() == idReserva) {
-				reserva = r;
+		if(posReserva != -1) {
+			this._reservas.remove(posReserva);
 
-				break;
-			}
-		}
-
-		if(reserva != null) {
-			return this._reservas.remove(reserva);
+			return true;
 		}
 		else {
 			return false;
