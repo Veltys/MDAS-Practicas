@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UsuarioMgr implements IUsuarioMgt {
+	final boolean DEBUG = true;
 
 	private ArrayList <Alumno> _alumnos;
 
@@ -16,21 +17,17 @@ public class UsuarioMgr implements IUsuarioMgt {
 	@Override
 	public int iniciarSesion() {
 		// TODO Auto-generated method stub
+
 		return 0;
 	}
 
-	public ArrayList <Alumno> getAlumnos() {
-		return this._alumnos;
-	}
-
 	@Override
-	public Alumno buscaralumno(int id_alumno) {
+	public Alumno buscarAlumno(int idAlumno) {
+		Alumno res = null;
 
-		Alumno res = new Alumno();
-
-		for(Alumno i : this._alumnos) {
-			if(i.id() == id_alumno) {
-				res = i;
+		for(Alumno a : this._alumnos) {
+			if(a.id() == idAlumno) {
+				res = a;
 			}
 		}
 
@@ -38,37 +35,53 @@ public class UsuarioMgr implements IUsuarioMgt {
 	}
 
 	@Override
-	public boolean enviarnotificacion(int id_usuario, String Mensaje) {
+	public boolean enviarNotificacion(int idUsuario, String mensaje) {
 		// TODO Auto-generated method stub
-		//Para facilitar, a cada alumno añadir una variable mensaje.
+
 		return false;
 	}
 
 	@Override
-	public void mostrarmensaje(String mensaje) {
-		// TODO Auto-generated method stub
-		System.out.println(mensaje);
+	public void mostrarMensaje(String mensaje) {
+		if(this.DEBUG) {
+			System.out.println(mensaje);
+		}
+		else {
+			// TODO: Mandar correo electrónico
+		}
 	}
 
 	@Override
-	public boolean cargar(String ficherousuarios) {
-		File f1 = new File(ficherousuarios);
+	public boolean cargar(String ficheroUsuarios) {
+		// TODO: Scanner es muy lento, ¿cambiar a BufferedReader?
+
+		File f1 = new File(ficheroUsuarios);
+
 		if(f1.exists()) {
 			Scanner fich = null;
+
 			try {
 				fich = new Scanner(f1);
+
 				while(fich.hasNext()) {
 					String[] linea = fich.nextLine().split(",");
+
 					if(linea.length != 2) {
 						this._alumnos.add(new Alumno(Integer.parseInt(linea[0]), linea[1], linea[2]));
 					}
+					else {
+						// FIXME: ¿Y qué pasa cuando no es un alumno?
+					}
 				}
-			}catch(IOException e) {
+			}
+			catch(IOException e) {
 				System.out.println(e);
-			}finally{
+			}
+			finally{
 				fich.close();
 			}
 		}
+
 		return (this._alumnos.size() != 0);
 	}
 }
