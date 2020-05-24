@@ -1,7 +1,7 @@
 package mdas.p2.gestorreservamgr;
 
 
-import mdas.p2.gestorreservamgr.TipoIncidencia;
+// import mdas.p2.gestorreservamgr.TipoIncidencia;
 
 
 /**

@@ -4,10 +4,10 @@ package mdas.p2.gestorreservamgr;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import mdas.p2.gestorreservamgr.Reserva;
-import mdas.p2.gestorreservamgr.Sala;
-import mdas.p2.gestorreservamgr.TipoIncidencia;
-import mdas.p2.gestorreservamgr.TipoSala;
+// import mdas.p2.gestorreservamgr.Reserva;
+// import mdas.p2.gestorreservamgr.Sala;
+// import mdas.p2.gestorreservamgr.TipoIncidencia;
+// import mdas.p2.gestorreservamgr.TipoSala;
 
 
 /**
