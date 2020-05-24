@@ -1,44 +1,13 @@
 package mdas.p2.administradoralumnos;
 
-
-// TODO: Comentar interfaz
+/**
+ * Interfaz IComprobarSancion
+ * Interfaz del componente AdministradorAlumno
+ *
+ * @author			Herminio Rodríguez García (i72rogah)
+ * @date			19/05/2020
+ */
 
 public interface IComprobarSancion {
-	abstract public int comprobarSancion(int id_alumno);
-
-	// TODO: Comentar método
-
-	static public String describirSancion(int codigo_sancion) {
-		String mensaje;
-
-		switch (codigo_sancion) {
-		case 1:
-			mensaje = "";
-
-			break;
-
-		case 2:
-			mensaje = "";
-
-			break;
-
-		case 3:
-			mensaje = "";
-
-			break;
-
-
-		case 4:
-			mensaje = "";
-
-			break;
-
-		default:
-			mensaje = "";
-
-			break;
-		}
-
-		return mensaje;
-	}
+	abstract public int ComprobarSancion(int id_alumno);
 }
