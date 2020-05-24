@@ -19,8 +19,8 @@ import java.util.Scanner;
  */
 
 public class UsuarioMgr implements IUsuarioMgt {
-	static private UsuarioMgr	_instance	= null;
-	private ArrayList<Usuario>	_usuarios;
+	static	private	Scanner				_entrada	= new Scanner(System.in);
+	static	private	UsuarioMgr			_instance	= null;
 
 
 	/**
@@ -50,11 +50,11 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 
 	/**
-	 * Metodo estatico para obtener un Alumno de la lista de Usuarios a partir de su id
+	 * Metodo para obtener un Alumno de la lista de Usuarios a partir de su id
 	 *
-	 * @param		idAlumno						int								ID del Alumno que buscamos
+	 * @param		idAlumno						int								ID del alumno a buscar
 	 *
-	 * @return										Alumno							Objeto Alumno que buscamos
+	 * @return										Alumno							Alumno encontrado (null si no)
 	 */
 
 	@Override
@@ -71,11 +71,33 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 
 	/**
-	 * Metodo estatico para obtener un Empleado de la lista de Usuarios a partir de su id
+	 * Metodo para obtener un Alumno de la lista de usuarios a partir de su email
 	 *
-	 * @param		idAlumno						int								ID del Empleado que buscamos
+	 * @param		email							String							Email del alumno a buscar
 	 *
-	 * @return										Empleado						Objeto Empleado que buscamos
+	 * @return										Alumno							Alumno encontrado (null si no)
+	 */
+
+	private Alumno buscarAlumno(String email) {
+		Alumno res = null;
+
+		for(Usuario u : this._usuarios) {
+			res = (Alumno) u;
+			if(email.equals(res.correo())) {
+				break;
+			}
+		}
+
+		return res;
+	}
+
+
+	/**
+	 * Metodo para obtener un Empleado de la lista de Usuarios a partir de su ID
+	 *
+	 * @param		idAlumno						int								ID del empleado a buscar
+	 *
+	 * @return										Empleado						Empleado encontrado (null si no)
 	 */
 
 	@Override
@@ -92,9 +114,9 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 
 	/**
-	 * Metodo estatico para obtener un Usuario de la lista de Usuarios a partir de si id
+	 * Metodo para obtener un Usuario de la lista de Usuarios a partir de su ID
 	 *
-	 * @param		idUsuario						int								id del usuario que buscamos en la lista de usuarios
+	 * @param		idUsuario						int								ID del usuario que buscamos en la lista de usuarios
 	 *
 	 * @return										Usuario							Objeto Usuario que buscamos
 	 */
@@ -113,30 +135,9 @@ public class UsuarioMgr implements IUsuarioMgt {
 		return res;
 	}
 
-	/**
-	 * Metodo estatico para obtener un Alumno de la lista de usuarios a partir de su email
-	 *
-	 * @param		email							String							Email del Alumno que buscamos
-	 *
-	 * @return										Alumno							Objeto Alumno que buscabamos
-	 */
-
-	private Alumno buscarAlumno(String email) {
-		Alumno res = null;
-
-		for(Usuario u : this._usuarios) {
-			res = (Alumno) u;
-			if(email.equals(res.correo())) {
-				break;
-			}
-		}
-
-		return res;
-	}
-
 
 	/**
-	 * Metodo estatico que carga en la lista de usuarios los usuarios que se encuentran guardados en un fichero
+	 * Metodo que carga en la lista de usuarios los usuarios que se encuentran guardados en un fichero
 	 *
 	 * @param		ficheroUsuarios					String							Ruta del fichero donde se encuentran los usuarios
 	 *
@@ -178,7 +179,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 
 	/**
-	 * Metodo estatico que envia un mensaje a un usuario, mostando el correo del usuario y el mensaje que se le envia
+	 * Metodo que envia un mensaje a un usuario, mostando el correo del usuario y el mensaje que se le envia
 	 *
 	 * @param		idUsuario						String							Identificador del usuario al que se le quiere enviar el mensaje
 	 * @param		mensaje							String							Mensjae que se enviará al usuario
@@ -212,7 +213,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 	/**
 	 * Metodo que permite al usuario iniciar su sesión
 	 *
-	 * @return										int								Id del usuario que ha inicado sesion
+	 * @return										int								ID del usuario que ha inicado sesion
 	 */
 
 	@Override
