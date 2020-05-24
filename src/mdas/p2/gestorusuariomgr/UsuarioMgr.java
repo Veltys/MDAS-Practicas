@@ -7,7 +7,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-// TODO: Comentar
+/**
+ * Clase UsuarioMgr
+ * Componente de gestiÃ³n de usuarios del sistema
+ * Implementa la interfaz IUsuarioMgt
+ * 
+ * @author unaif
+ *
+ */
 
 public class UsuarioMgr implements IUsuarioMgt {
 	final private boolean		_DEBUG		= true;
@@ -42,8 +49,12 @@ public class UsuarioMgr implements IUsuarioMgt {
 	}
 
 
-	// TODO: Comentar
-
+/**
+ * Metodo estatico para obtener un Alumno de la lista de Usuarios a partir de su id
+ * 
+ * @param idAlumno: id del Alumno que buscamos
+ * @return Alumno 	Objeto  Alumno que buscamos
+ */
 	@Override
 	public Alumno buscarAlumno(int idAlumno) {
 		Usuario res = this.buscarUsuario(idAlumno);
@@ -57,7 +68,12 @@ public class UsuarioMgr implements IUsuarioMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Metodo estatico para obtener un Empleado de la lista de Usuarios a partir de su id
+	 * 
+	 * @param idAlumno: id del Empleado que buscamos
+	 * @return Empleado 	Objeto Empleado que buscamos
+	 */
 
 	@Override
 	public Empleado buscarEmpleado(int idEmpleado) {
@@ -72,7 +88,12 @@ public class UsuarioMgr implements IUsuarioMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Metodo estatico para obtener un Usuario de la lista de Usuarios a partir de si id
+	 * 
+	 * @param idUsuario: id del usuario que buscamos en la lista de usuarios
+	 * @return Usuario	Objeto Usuario que buscamos
+	 */
 
 	private Usuario buscarUsuario(int idUsuario) {
 		Usuario res = null;
@@ -87,9 +108,34 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 		return res;
 	}
+	
+	/**
+	 * Metodo estatico para obtener un Alumno de la lista de usuarios a partir de su email
+	 * 
+	 * @param email: Email del Alumno que buscamos
+	 * @return Alumno 	Objeto Alumno que buscabamos
+	 */
+	
+	private Alumno buscarAlumno(String email) {
+		Alumno res = null;
+
+		for(Usuario u : this._usuarios) {
+			res = (Alumno) u;
+			if(email.equals(res.correo())) {
+				break;
+			}
+		}
+
+		return res;
+	}
 
 
-	// TODO: Comentar
+	/**
+	 * Metodo estatico que carga en la lista de usuarios los usuarios que se encuentran guardados en un fichero
+	 * 
+	 * @param ficheroUsuarios: Ruta del fichero donde se encuentran los usuarios
+	 * @return Boolean 	Inidicación si la carga de usuarios ha sido exitosa o erronea
+	 */
 
 	@Override
 	public boolean cargar(String ficheroUsuarios) {
@@ -125,27 +171,78 @@ public class UsuarioMgr implements IUsuarioMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Metodo estatico que envia un mensaje a un usuario, mostando el correo del usuario y el mensaje que se le envia
+	 * 
+	 * @param idUsuario: Identificador del usuario al que se le quiere enviar el mensaje
+	 * @param mensaje: Mensjae que se enviará al usuario
+	 */
 
 	@Override
 	public boolean enviarNotificacion(int idUsuario, String mensaje) {
-		// TODO Auto-generated method stub
-
-		return false;
+		
+		Alumno aux = this.buscarAlumno(idUsuario);
+		
+		if(aux == null) {
+			System.out.println("Error en el envia del mensaje");
+			return false;
+		}
+		
+		System.out.println("Email: " + aux.correo());
+		
+		System.out.println("Mensaje: ");
+		
+		System.out.println(mensaje);
+		
+		System.out.println("Mensaje enviado con exito");
+		
+		return true;
+		
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Metodo estatico que permite al usuario iniciar su sesión
+	 * 
+	 * @return int	Id del usuario que ha inicado sesion
+	 */
 
 	@Override
 	public int iniciarSesion() {
-		// TODO Auto-generated method stub
-
-		return 0;
+		/*Scanner sc = new Scanner(System.in);
+		System.out.println("Introduzca su correo");
+		String us = sc.nextLine();
+		sc.nextLine();
+		System.out.println("Introduzca su contraseña");
+		String pass = sc.nextLine();
+		
+		System.out.println("Enviando datos al gestor de sesiones de la UCO");
+		
+		try {
+            Thread.sleep(5*1000);
+         } catch (Exception e) {
+            System.out.println(e);
+         }
+		
+		Alumno aux = this.buscarAlumno(us);
+		
+		if(aux.correo().equals(us)) {
+			System.out.println("Exito en el inicio de sesión");
+			return aux.id();
+		}
+		
+		System.out.println("Error en el inicio de sesión");
+		return -1;*/
+		return (int) Math.random();
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Metodo estatico que muestra un mensaje por pantalla 
+	 * 
+	 * @param mensaje: Mensaje que se muestra por pantalla
+	 * 
+	 */
 
 	@Override
 	public void mostrarMensaje(String mensaje) {
@@ -153,7 +250,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 			System.out.println(mensaje);
 		}
 		else {
-			// TODO: Mandar correo electrÃ³nico
+			//this.enviarNotificacion(, mensaje); A que usuario se lo envio
 		}
 	}
 
