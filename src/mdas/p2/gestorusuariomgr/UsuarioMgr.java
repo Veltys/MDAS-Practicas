@@ -1,10 +1,14 @@
 package mdas.p2.gestorusuariomgr;
 
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 
 /**
@@ -14,7 +18,7 @@ import java.util.Scanner;
  *
  * @author		Unai Friscia Pérez (unaif)
  * @date		24/05/2020
- * @version		1.0.4
+ * @version		1.1.0
  *
  */
 
@@ -140,42 +144,52 @@ public class UsuarioMgr implements IUsuarioMgt {
 	/**
 	 * Metodo que carga en la lista de usuarios los usuarios que se encuentran guardados en un fichero
 	 *
-	 * @param		ficheroUsuarios					String							Ruta del fichero donde se encuentran los usuarios
+	 * @param		archivoUsuarios					String							Ruta del archivo donde se encuentran los usuarios
 	 *
 	 * @return										Boolean							Inidicación si la carga de usuarios ha sido exitosa o erronea
 	 */
 
 	@Override
-	public boolean cargar(String ficheroUsuarios) {
-		// TODO: Scanner es muy lento, ¿cambiar a BufferedReader?
+	public boolean cargar(String archivoUsuarios) {
+		String				linea;
+		ArrayList<String>	campos;
+		BufferedReader		buffer;
+		StringTokenizer		stLinea;
 
-		File f1 = new File(ficheroUsuarios);
+		try {
+			buffer = new BufferedReader(new FileReader(new File(archivoUsuarios)));
 
-		if(f1.exists()) {
-			Scanner fich = null;
+			while((linea = buffer.readLine()) != null) {
+				stLinea = new StringTokenizer(linea, ",");
 
-			try {
-				fich = new Scanner(f1);
+				campos = new ArrayList<String>();
 
-				while(fich.hasNext()) {
-					String[] linea = fich.nextLine().split(",");
-
-					if(linea.length != 2) {
-						this._usuarios.add(new Alumno(Integer.parseInt(linea[0]), linea[1], linea[2]));
-					}
-					else {
-						this._usuarios.add(new Empleado(Integer.parseInt(linea[0]), linea[1]));
-					}
+				while(stLinea.hasMoreTokens()) {
+					campos.add(stLinea.nextToken());
 				}
 
-				fich.close();
+				if(campos.size() > 2) {
+					this._usuarios.add(new Alumno(Integer.parseInt(campos.get(0)), campos.get(1), campos.get(2)));
+				}
+				else {
+					this._usuarios.add(new Empleado(Integer.parseInt(campos.get(0)), campos.get(1)));
+				}
 			}
-			catch(IOException e) {
-				System.out.println(e);
-			}
-		}
 
-		return (this._usuarios.size() != 0);
+			buffer.close();
+
+			return (this._usuarios.size() != 0);
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("Error: " + e.getMessage());
+
+			return false;
+		}
+		catch(IOException e) {
+			System.out.println("Error: " + e.getMessage());
+
+			return false;
+		}
 	}
 
 
