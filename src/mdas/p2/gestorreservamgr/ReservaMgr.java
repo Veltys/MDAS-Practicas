@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			24/05/2020
- * @version			0.14.1
+ * @version			0.15.0
  */
 
 
@@ -49,13 +49,15 @@ public class ReservaMgr implements IReservaMgt {
 	 * Inicializa las listas del gestor
 	 */
 
-	private ReservaMgr() {
+	private ReservaMgr(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
 		this._incidencias		= new ArrayList<Incidencia>();
 		this._recursos			= new ArrayList<Recurso>();
 		this._reservas			= new ArrayList<Reserva>();
 		this._salas				= new ArrayList<Sala>();
 		this._salasYRecursos	= new ArrayList<SalaYRecurso>();
 		this._sanciones			= new ArrayList<Sancion>();
+
+		this.cargar(archivoIncidencias, archivoRecursos, archivoReservas, archivoSalas, archivoSalasYRecursos, archivoSanciones);
 	}
 
 
@@ -65,9 +67,9 @@ public class ReservaMgr implements IReservaMgt {
 	 * @return										ReservaMgr						Instancia del gestor
 	 */
 
-	public static ReservaMgr getInstance() {
+	public static ReservaMgr getInstance(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
 		if(ReservaMgr._instance == null) {
-			ReservaMgr._instance = new ReservaMgr();
+			ReservaMgr._instance = new ReservaMgr(archivoIncidencias, archivoRecursos, archivoReservas, archivoSalas, archivoSalasYRecursos, archivoSanciones);
 		}
 
 		return ReservaMgr._instance;

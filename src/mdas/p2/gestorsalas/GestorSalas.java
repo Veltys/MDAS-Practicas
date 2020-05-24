@@ -13,7 +13,7 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  *
  * @author			Javier Ortiz Aragones
  * @date			24/05/2020
- * @version			1.0.7
+ * @version			1.1.0
  */
 
 public class GestorSalas implements IReserva, ISala{
@@ -25,8 +25,8 @@ public class GestorSalas implements IReserva, ISala{
 	 * Inicializa el objeto de la clase ReservaMgr
 	 */
 
-	public GestorSalas() {
-		this._reservaMgr = ReservaMgr.getInstance();
+	public GestorSalas(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
+		this._reservaMgr = ReservaMgr.getInstance(archivoIncidencias, archivoRecursos, archivoReservas, archivoSalas, archivoSalasYRecursos, archivoSanciones);
 	}
 
 

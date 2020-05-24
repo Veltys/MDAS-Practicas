@@ -18,7 +18,7 @@ import java.util.StringTokenizer;
  *
  * @author		Unai Friscia Pérez (unaif)
  * @date		24/05/2020
- * @version		1.2.2
+ * @version		1.3.0
  *
  */
 
@@ -172,11 +172,11 @@ public class UsuarioMgr implements IUsuarioMgt {
 					campos.add(stLinea.nextToken());
 				}
 
-				if(campos.size() > 2) {
-					this._usuarios.add(new Alumno(Integer.parseInt(campos.get(0)), campos.get(1), campos.get(2)));
+				if(!(Boolean.parseBoolean(campos.get(0)))) {
+					this._usuarios.add(new Alumno(Integer.parseInt(campos.get(1)), campos.get(2), campos.get(3)));
 				}
 				else {
-					this._usuarios.add(new Empleado(Integer.parseInt(campos.get(0)), campos.get(1)));
+					this._usuarios.add(new Empleado(Integer.parseInt(campos.get(1)), campos.get(2), campos.get(3)));
 				}
 			}
 
@@ -264,6 +264,9 @@ public class UsuarioMgr implements IUsuarioMgt {
 			return -1;
 		}
 	}
+
+
+	// TODO: Método de guardado
 
 
 	/**

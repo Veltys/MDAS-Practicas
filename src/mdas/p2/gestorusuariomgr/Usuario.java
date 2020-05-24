@@ -6,12 +6,13 @@ package mdas.p2.gestorusuariomgr;
  * Almacena datos de un usuario del sistema
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			17/05/2020
- * @version			1.0.0
+ * @date			24/05/2020
+ * @version			1.1.0
  */
 
 public class Usuario {
 	private int		_id;
+	private String	_correo;
 	private String	_nombre;
 
 
@@ -21,11 +22,35 @@ public class Usuario {
 	 *
 	 * @param		id								int								Identificador del usuario
 	 * @param		nombre							String							Nombre del usuario
+	 * @param		correo							String							Correo del usuario
 	 */
 
-	public Usuario(int id, String nombre) {
+	public Usuario(int id, String nombre, String correo) {
 		this._id		= id;
 		this._nombre	= nombre;
+		this._correo	= correo;
+	}
+
+
+	/**
+	 * Observador de la variable privada _correo
+	 *
+	 * @return										String							Correo del alumno
+	 */
+
+	public String correo() {
+		return this._correo;
+	}
+
+
+	/**
+	 * Modificador de la variable privada _correo
+	 *
+	 * @param		correo							String							Correo del alumno
+	 */
+
+	public void correo(String correo) {
+		this._correo = correo;
 	}
 
 

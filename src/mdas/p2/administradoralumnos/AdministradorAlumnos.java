@@ -12,8 +12,8 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  * Contiene los métodos de AdministradorAlumnos
  *
  * @author			Herminio Rodríguez García (i72rogah)
- * @date			19/05/2020
- * @version			1.2.0
+ * @date			24/05/2020
+ * @version			1.3.0
  */
 
 public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion {
@@ -24,8 +24,8 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 	 * Inicializa el objeto de la clase ReservaMgr
 	 */
 
-	AdministradorAlumnos() {
-		this._gestorReservas = ReservaMgr.getInstance();
+	AdministradorAlumnos(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
+		this._gestorReservas = ReservaMgr.getInstance(archivoIncidencias, archivoRecursos, archivoReservas, archivoSalas, archivoSalasYRecursos, archivoSanciones);
 	}
 	/**
 	 * Método de una interfaz
