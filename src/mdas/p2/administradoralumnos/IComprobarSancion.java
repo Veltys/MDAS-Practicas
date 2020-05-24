@@ -6,8 +6,10 @@ package mdas.p2.administradoralumnos;
  *
  * @author			Herminio Rodríguez García (i72rogah)
  * @date			19/05/2020
+ * @version			1.0.0
+ *
  */
 
 public interface IComprobarSancion {
-	abstract public int ComprobarSancion(int id_alumno);
+	abstract public int comprobarSancion(int id_alumno);
 }

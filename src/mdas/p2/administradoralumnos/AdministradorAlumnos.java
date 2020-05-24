@@ -3,6 +3,7 @@ package mdas.p2.administradoralumnos;
 
 import java.util.ArrayList;
 
+import mdas.p2.gestorreservamgr.IReservaMgt;
 import mdas.p2.gestorreservamgr.ReservaMgr;
 
 
@@ -22,14 +23,14 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 	 * Constructor de clase
 	 * Inicializa el objeto de la clase ReservaMgr
 	 */
-	
+
 	AdministradorAlumnos() {
-		this._gestorReservas = new ReservaMgr();
+		this._gestorReservas = ReservaMgr.getInstance();
 	}
 	/**
 	 * Método de una interfaz
 	 * Recibe un mensaje y lo imprime por pantalla
-	 * 
+	 *
 	 *@param		mensaje						string											Mensaje
 	 */
 
@@ -67,17 +68,17 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 
 		return sancion;
 	}
-	
-	
+
+
 	/**
 	 * Método de una interfaz
 	 * Desvuelve la descripción de una sanción a traves del codigo de esta
 	 *
 	 * @param		codigo_sancion						int											Código de la sancion
 	 */
-	
+
 	public String describirSancion(int codigo_sancion) {
-		return this._gestorReservas.describirSancion(codigo_sancion);
-}
-	
+		return IReservaMgt.describirSancion(codigo_sancion);
+	}
+
 }

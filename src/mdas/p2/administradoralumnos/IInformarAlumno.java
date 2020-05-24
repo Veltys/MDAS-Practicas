@@ -7,6 +7,8 @@ package mdas.p2.administradoralumnos;
  *
  * @author			Herminio Rodríguez García (i72rogah)
  * @date			19/05/2020
+ * @version			1.0.0
+ *
  */
 
 public interface IInformarAlumno {
