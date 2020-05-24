@@ -16,7 +16,8 @@ import mdas.p2.administradorusuarios.AdministradorUsuarios;
  */
 
 public class MenuPrincipal {
-	private static Scanner		_entrada	= new Scanner(System.in);
+	final static private	String		ARCHIVOUSUARIOS	= "usuarios.csv";
+	private static			Scanner		_entrada		= new Scanner(System.in);
 
 
 	/**
@@ -29,9 +30,7 @@ public class MenuPrincipal {
 		boolean					salir		= false;
 		char					operacion;
 		int						idUsuario	= -1;
-		AdministradorUsuarios	au			= new AdministradorUsuarios();
-
-		// TODO: Carga general
+		AdministradorUsuarios	au			= new AdministradorUsuarios(MenuPrincipal.ARCHIVOUSUARIOS);
 
 		System.out.println("Bienvenido al Gestor de salas");
 

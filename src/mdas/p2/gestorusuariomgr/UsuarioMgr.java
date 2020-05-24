@@ -18,7 +18,7 @@ import java.util.StringTokenizer;
  *
  * @author		Unai Friscia Pérez (unaif)
  * @date		24/05/2020
- * @version		1.1.0
+ * @version		1.2.0
  *
  */
 
@@ -31,11 +31,15 @@ public class UsuarioMgr implements IUsuarioMgt {
 	/**
 	 * Constructor de clase
 	 * Privado, requisito del patrón Singleton
-	 * Inicializa las listas del gestor
+	 * Inicializa la lista del gestor
+	 *
+	 * @param		archivoUsuarios					String							Ruta del archivo donde se encuentran los usuarios
 	 */
 
-	private UsuarioMgr() {
+	private UsuarioMgr(String archivoUsuarios) {
 		this._usuarios	= new ArrayList<Usuario>();
+
+		this.cargar(archivoUsuarios);
 	}
 
 
@@ -45,9 +49,9 @@ public class UsuarioMgr implements IUsuarioMgt {
 	 * @return										UsuarioMgr						Instancia del gestor
 	 */
 
-	public static UsuarioMgr getInstance() {
+	public static UsuarioMgr getInstance(String archivoUsuarios) {
 		if(UsuarioMgr._instance == null) {
-			UsuarioMgr._instance = new UsuarioMgr();
+			UsuarioMgr._instance = new UsuarioMgr(archivoUsuarios);
 		}
 
 		return UsuarioMgr._instance;

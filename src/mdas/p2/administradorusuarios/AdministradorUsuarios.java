@@ -11,7 +11,7 @@ import mdas.p2.gestorusuariomgr.UsuarioMgr;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			24/05/2020
- * @version			1.1.0
+ * @version			1.2.0
  */
 
 public class AdministradorUsuarios implements IIniciarSesion {
@@ -21,10 +21,12 @@ public class AdministradorUsuarios implements IIniciarSesion {
 	/**
 	 * Constructor de clase
 	 * Inicializa el gestor de usuarios
+	 *
+	 * @param		archivoUsuarios					String							Ruta del archivo donde se encuentran los usuarios
 	 */
 
-	public AdministradorUsuarios() {
-		this._gu = UsuarioMgr.getInstance();
+	public AdministradorUsuarios(String archivoUsuarios) {
+		this._gu = UsuarioMgr.getInstance(archivoUsuarios);
 	}
 
 
