@@ -115,7 +115,7 @@ public class GestorSalas implements IReserva, ISala{
 
 		for(int sala : idSalas) {
 			if(aforo == this._reservaMgr.obtenerAforoSala(sala)) {
-				return sala;
+				return _reservaMgr.preReservarSala(sala);
 			}
 
 			else if (this._reservaMgr.obtenerAforoSala(sala) < this._reservaMgr.obtenerAforoSala(idSalaElegida)) {
@@ -123,7 +123,7 @@ public class GestorSalas implements IReserva, ISala{
 			}
 		}
 
-		return idSalaElegida;
+		return _reservaMgr.preReservarSala(idSalaElegida);;
 
 	}
 
@@ -141,19 +141,17 @@ public class GestorSalas implements IReserva, ISala{
 	 */
 
 	@Override
-	public Boolean validarDatos(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos) {
+	public int validarDatos(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos) {
 		if(aforo < 1) {
-			return false;
+			return -1;
 		}
 		else {
-			Boolean tipoEncontrado = false;
-			for(int tipoSala: this._reservaMgr.obtenerTiposSalas()) {
+			for(int tipoSala: IReservaMgt.obtenerTiposDeSala()) {
 				if(tipo==tipoSala) {
-					tipoEncontrado = true;
+					return _reservaMgr.preRegistrarSala(nombre,aforo,tipo,ubicacion,recursos);
 				}
 			}
-
-			return tipoEncontrado;
+			return -1;
 		}
 	}
 }

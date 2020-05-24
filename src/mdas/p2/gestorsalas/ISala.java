@@ -16,5 +16,5 @@ public interface ISala {
 	public abstract ArrayList<Integer>	buscarSala(int aforo, ArrayList<Integer> idRecursos);
 	public abstract Boolean				confirmarRegistro(int idSala);
 	public abstract int					elegirSala(int aforo, ArrayList<Integer> idSalas);
-	public abstract Boolean				validarDatos(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos);
+	public abstract int					validarDatos(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos);
 }
