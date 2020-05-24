@@ -3,14 +3,15 @@ package mdas.p2.administradorusuarios;
 
 import mdas.p2.gestorusuariomgr.UsuarioMgr;
 
+
 /**
  * Clase AdministradorUsuarios
  * Componente de gestión de usuarios del sistema
  * Implementa la interfaz IIniciarSesion
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			23/05/2020
- * @version			1.0.0
+ * @date			24/05/2020
+ * @version			1.1.0
  */
 
 public class AdministradorUsuarios implements IIniciarSesion {
@@ -28,6 +29,36 @@ public class AdministradorUsuarios implements IIniciarSesion {
 
 
 	/**
+	 * Comprobador de alumnos
+	 * Comprueba si la ID recibida es de un alumno
+	 *
+	 * @param		idUsuario						int								ID del usuario
+	 *
+	 * @return										boolean							Si es o no un alumno
+	 */
+
+	@Override
+	public boolean alumno(int idUsuario) {
+		return (this._gu.buscarAlumno(idUsuario) != null);
+	}
+
+
+	/**
+	 * Comprobador de empleados
+	 * Comprueba si la ID recibida es de un empleado
+	 *
+	 * @param		idUsuario						int								ID del usuario
+	 *
+	 * @return										boolean							Si es o no un empleado
+	 */
+
+	@Override
+	public boolean empleado(int idUsuario) {
+		return (this._gu.buscarEmpleado(idUsuario) != null);
+	}
+
+
+	/**
 	 * Método para iniciar la sesión
 	 * Se comunica con el servidor externo (RADIUS, por ejemplo) para iniciar la sesión
 	 *
@@ -39,6 +70,7 @@ public class AdministradorUsuarios implements IIniciarSesion {
 	public int iniciarSesion() {
 		return this._gu.iniciarSesion();
 	}
+
 
 	/**
 	 * Observador del nombre de un usuario

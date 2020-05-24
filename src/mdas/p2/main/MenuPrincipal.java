@@ -11,8 +11,8 @@ import mdas.p2.administradorusuarios.AdministradorUsuarios;
  * Clase MenuPrincipal del programa
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			23/05/2020
- * @version			0.1.0
+ * @date			24/05/2020
+ * @version			0.2.0
  */
 
 public class MenuPrincipal {
@@ -31,6 +31,8 @@ public class MenuPrincipal {
 		int						idUsuario	= -1;
 		AdministradorUsuarios	au			= new AdministradorUsuarios();
 
+		// TODO: Carga general
+
 		System.out.println("Bienvenido al Gestor de salas");
 
 		while(!salir && ((idUsuario = au.iniciarSesion()) == -1)) {
@@ -48,10 +50,19 @@ public class MenuPrincipal {
 			System.out.println("¡Bienvenido, " + au.nombre(idUsuario) + "!");
 			System.out.println("El menú de operaciones es el siguiente:");
 
-			// TODO: Seguir aquí
+			if(au.alumno(idUsuario)) {
+				// FIXME: Evitando, por ahora, un buclie infinito
+				salir = true;
+			}
+			else if(au.empleado(idUsuario)) {
+				// FIXME: Evitando, por ahora, un buclie infinito
+				salir = true;
+			}
+			else {
+				System.out.println("Lo sentimos, su perfil de usuario no le permite utilizar este servicio");
 
-			// FIXME: Evitando, por ahora, un buclie infinito
-			salir = true;
+				salir = true;
+			}
 		}
 
 		System.out.println("Gracias por utilizar nuestro sistema");

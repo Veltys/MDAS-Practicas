@@ -46,15 +46,46 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 	@Override
 	public Alumno buscarAlumno(int idAlumno) {
+		Usuario res = this.buscarUsuario(idAlumno);
+
+		if(res instanceof Alumno) {
+			return (Alumno) res;
+		}
+		else {
+			return null;
+		}
+	}
+
+
+	// TODO: Comentar
+
+	@Override
+	public Empleado buscarEmpleado(int idEmpleado) {
+		Usuario res = this.buscarUsuario(idEmpleado);
+
+		if(res instanceof Empleado) {
+			return (Empleado) res;
+		}
+		else {
+			return null;
+		}
+	}
+
+
+	// TODO: Comentar
+
+	private Usuario buscarUsuario(int idUsuario) {
 		Usuario res = null;
 
 		for(Usuario u : this._usuarios) {
-			if(u.id() == idAlumno) {
+			if(u.id() == idUsuario) {
 				res = u;
+
+				break;
 			}
 		}
 
-		return (Alumno) res;
+		return res;
 	}
 
 
@@ -82,12 +113,11 @@ public class UsuarioMgr implements IUsuarioMgt {
 						this._usuarios.add(new Empleado(Integer.parseInt(linea[0]), linea[1]));
 					}
 				}
+
+				fich.close();
 			}
 			catch(IOException e) {
 				System.out.println(e);
-			}
-			finally{
-				fich.close();
 			}
 		}
 
