@@ -12,7 +12,7 @@ import mdas.p2.administradorusuarios.AdministradorUsuarios;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			24/05/2020
- * @version			0.2.0
+ * @version			0.2.1
  */
 
 public class MenuPrincipal {
@@ -48,13 +48,16 @@ public class MenuPrincipal {
 
 		while(!salir) {
 			System.out.println("¡Bienvenido, " + au.nombre(idUsuario) + "!");
-			System.out.println("El menú de operaciones es el siguiente:");
 
 			if(au.alumno(idUsuario)) {
+				System.out.println("El menú de operaciones es el siguiente:");
+
 				// FIXME: Evitando, por ahora, un buclie infinito
 				salir = true;
 			}
 			else if(au.empleado(idUsuario)) {
+				System.out.println("El menú de operaciones es el siguiente:");
+
 				// FIXME: Evitando, por ahora, un buclie infinito
 				salir = true;
 			}
