@@ -1,6 +1,7 @@
 package mdas.p2.gestorsalas;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import mdas.p2.gestorreservamgr.IReservaMgt;
@@ -11,12 +12,12 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  * Clase GestorSalas
  *
  * @author			Javier Ortiz Aragones
- * @date			23/05/2020
- * @version			1.0.6
+ * @date			24/05/2020
+ * @version			1.0.7
  */
 
 public class GestorSalas implements IReserva, ISala{
-	
+
 	private ReservaMgr _reservaMgr;
 
 	/**
@@ -108,23 +109,31 @@ public class GestorSalas implements IReserva, ISala{
 	 */
 
 	@Override
-	public int elegirSala(int aforo, ArrayList<Integer> idSalas) {
-
-		int	idSalaElegida = idSalas.get(0);
-
+	public int elegirSala(int aforo, int idAlumno, String asignatura, int duracion, LocalDateTime fechaYHora, ArrayList<Integer> idSalas) {
+		int		maxAforo		= Integer.MAX_VALUE;
+		int		nuevoAforo;
+		int		idSalaElegida	= -1;
 
 		for(int sala : idSalas) {
-			if(aforo == this._reservaMgr.obtenerAforoSala(sala)) {
-				return _reservaMgr.preReservarSala(sala);
+			if(aforo == (nuevoAforo = this._reservaMgr.obtenerAforoSala(sala))) {
+				idSalaElegida = sala;
+
+				break;
 			}
 
-			else if (this._reservaMgr.obtenerAforoSala(sala) < this._reservaMgr.obtenerAforoSala(idSalaElegida)) {
+
+			else if(maxAforo > nuevoAforo) {
+				maxAforo = nuevoAforo;
 				idSalaElegida = sala;
 			}
 		}
 
-		return _reservaMgr.preReservarSala(idSalaElegida);;
-
+		if(idSalaElegida != -1) {
+			return this._reservaMgr.preReservarSala(idAlumno, idSalaElegida, aforo, asignatura, duracion, fechaYHora);
+		}
+		else {
+			return -1;
+		}
 	}
 
 
@@ -147,8 +156,8 @@ public class GestorSalas implements IReserva, ISala{
 		}
 		else {
 			for(int tipoSala: IReservaMgt.obtenerTiposDeSala()) {
-				if(tipo==tipoSala) {
-					return _reservaMgr.preRegistrarSala(nombre,aforo,tipo,ubicacion,recursos);
+				if(tipo == tipoSala) {
+					return this._reservaMgr.preRegistrarSala(nombre, aforo, tipo, ubicacion, recursos);
 				}
 			}
 			return -1;
