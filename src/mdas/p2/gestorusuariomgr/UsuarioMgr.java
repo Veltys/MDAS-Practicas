@@ -11,14 +11,14 @@ import java.util.Scanner;
  * Clase UsuarioMgr
  * Componente de gesti√≥n de usuarios del sistema
  * Implementa la interfaz IUsuarioMgt
- * 
- * @author unaif
+ *
+ * @author		Unai Friscia P√©rez (unaif)
+ * @date		24/05/2020
+ * @version		1.0.1
  *
  */
 
 public class UsuarioMgr implements IUsuarioMgt {
-	final private boolean		_DEBUG		= true;
-
 	static private UsuarioMgr	_instance	= null;
 	private ArrayList<Usuario>	_usuarios;
 
@@ -49,12 +49,14 @@ public class UsuarioMgr implements IUsuarioMgt {
 	}
 
 
-/**
- * Metodo estatico para obtener un Alumno de la lista de Usuarios a partir de su id
- * 
- * @param idAlumno: id del Alumno que buscamos
- * @return Alumno 	Objeto  Alumno que buscamos
- */
+	/**
+	 * Metodo estatico para obtener un Alumno de la lista de Usuarios a partir de su id
+	 *
+	 * @param		idAlumno						int								ID del Alumno que buscamos
+	 *
+	 * @return										Alumno							Objeto Alumno que buscamos
+	 */
+
 	@Override
 	public Alumno buscarAlumno(int idAlumno) {
 		Usuario res = this.buscarUsuario(idAlumno);
@@ -70,9 +72,10 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 	/**
 	 * Metodo estatico para obtener un Empleado de la lista de Usuarios a partir de su id
-	 * 
-	 * @param idAlumno: id del Empleado que buscamos
-	 * @return Empleado 	Objeto Empleado que buscamos
+	 *
+	 * @param		idAlumno						int								ID del Empleado que buscamos
+	 *
+	 * @return										Empleado						Objeto Empleado que buscamos
 	 */
 
 	@Override
@@ -90,9 +93,10 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 	/**
 	 * Metodo estatico para obtener un Usuario de la lista de Usuarios a partir de si id
-	 * 
-	 * @param idUsuario: id del usuario que buscamos en la lista de usuarios
-	 * @return Usuario	Objeto Usuario que buscamos
+	 *
+	 * @param		idUsuario						int								id del usuario que buscamos en la lista de usuarios
+	 *
+	 * @return										Usuario							Objeto Usuario que buscamos
 	 */
 
 	private Usuario buscarUsuario(int idUsuario) {
@@ -108,14 +112,15 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 		return res;
 	}
-	
+
 	/**
 	 * Metodo estatico para obtener un Alumno de la lista de usuarios a partir de su email
-	 * 
-	 * @param email: Email del Alumno que buscamos
-	 * @return Alumno 	Objeto Alumno que buscabamos
+	 *
+	 * @param		email							String							Email del Alumno que buscamos
+	 *
+	 * @return										Alumno							Objeto Alumno que buscabamos
 	 */
-	
+
 	private Alumno buscarAlumno(String email) {
 		Alumno res = null;
 
@@ -132,9 +137,10 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 	/**
 	 * Metodo estatico que carga en la lista de usuarios los usuarios que se encuentran guardados en un fichero
-	 * 
-	 * @param ficheroUsuarios: Ruta del fichero donde se encuentran los usuarios
-	 * @return Boolean 	InidicaciÛn si la carga de usuarios ha sido exitosa o erronea
+	 *
+	 * @param		ficheroUsuarios					String							Ruta del fichero donde se encuentran los usuarios
+	 *
+	 * @return										Boolean							Inidicaci√≥n si la carga de usuarios ha sido exitosa o erronea
 	 */
 
 	@Override
@@ -173,85 +179,86 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 	/**
 	 * Metodo estatico que envia un mensaje a un usuario, mostando el correo del usuario y el mensaje que se le envia
-	 * 
-	 * @param idUsuario: Identificador del usuario al que se le quiere enviar el mensaje
-	 * @param mensaje: Mensjae que se enviar· al usuario
+	 *
+	 * @param		idUsuario						String							Identificador del usuario al que se le quiere enviar el mensaje
+	 * @param		mensaje							String							Mensjae que se enviar√° al usuario
+	 *
+	 * @return										Boolean							Resultado de la operaci√≥n
 	 */
 
 	@Override
 	public boolean enviarNotificacion(int idUsuario, String mensaje) {
-		
+
 		Alumno aux = this.buscarAlumno(idUsuario);
-		
+
 		if(aux == null) {
-			System.out.println("Error en el envia del mensaje");
+			System.out.println("Error en el env√≠o del mensaje");
 			return false;
 		}
-		
+
 		System.out.println("Email: " + aux.correo());
-		
+
 		System.out.println("Mensaje: ");
-		
+
 		System.out.println(mensaje);
-		
+
 		System.out.println("Mensaje enviado con exito");
-		
+
 		return true;
-		
+
 	}
 
 
 	/**
-	 * Metodo estatico que permite al usuario iniciar su sesiÛn
-	 * 
-	 * @return int	Id del usuario que ha inicado sesion
+	 * Metodo que permite al usuario iniciar su sesi√≥n
+	 *
+	 * @return										int								Id del usuario que ha inicado sesion
 	 */
 
 	@Override
 	public int iniciarSesion() {
-		/*Scanner sc = new Scanner(System.in);
+		// FIXME: Scanner
+
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduzca su correo");
 		String us = sc.nextLine();
 		sc.nextLine();
-		System.out.println("Introduzca su contraseÒa");
-		String pass = sc.nextLine();
-		
+		System.out.println("Introduzca su contrase√±a");
+		/* String pass = */ sc.nextLine();
+
 		System.out.println("Enviando datos al gestor de sesiones de la UCO");
-		
+
 		try {
-            Thread.sleep(5*1000);
-         } catch (Exception e) {
-            System.out.println(e);
-         }
-		
+			Thread.sleep(5 * 1000);
+		} catch (InterruptedException e) {
+			// TODO: Estate quieto
+
+			System.out.println(e);
+		}
+
 		Alumno aux = this.buscarAlumno(us);
-		
+
 		if(aux.correo().equals(us)) {
-			System.out.println("Exito en el inicio de sesiÛn");
+			System.out.println("Exito en el inicio de sesi√≥n");
 			return aux.id();
 		}
-		
-		System.out.println("Error en el inicio de sesiÛn");
-		return -1;*/
-		return (int) Math.random();
+		else {
+			System.out.println("Error en el inicio de sesi√≥n");
+			return -1;
+		}
 	}
 
 
 	/**
-	 * Metodo estatico que muestra un mensaje por pantalla 
-	 * 
-	 * @param mensaje: Mensaje que se muestra por pantalla
-	 * 
+	 * Metodo que muestra un mensaje por pantalla
+	 *
+	 * @param		mensaje							String							Mensaje que se muestra por pantalla
+	 *
 	 */
 
 	@Override
 	public void mostrarMensaje(String mensaje) {
-		if(this._DEBUG) {
-			System.out.println(mensaje);
-		}
-		else {
-			//this.enviarNotificacion(, mensaje); A que usuario se lo envio
-		}
+		System.out.println(mensaje);
 	}
 
 
