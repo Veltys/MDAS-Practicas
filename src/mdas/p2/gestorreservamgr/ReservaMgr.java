@@ -2,9 +2,11 @@ package mdas.p2.gestorreservamgr;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,28 +14,32 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import mdas.p2.gestorreservamgr.Incidencia;
-import mdas.p2.gestorreservamgr.Reserva;
-import mdas.p2.gestorreservamgr.Sala;
-import mdas.p2.gestorreservamgr.TipoIncidencia;
+// import mdas.p2.gestorreservamgr.Incidencia;
+// import mdas.p2.gestorreservamgr.Reserva;
+// import mdas.p2.gestorreservamgr.Sala;
+// import mdas.p2.gestorreservamgr.SalaYRecurso;
+// import mdas.p2.gestorreservamgr.TipoIncidencia;
 
 
 /**
  * Clase GestorReservaMgr
  * Componente de gestión de reservas del sistema
  * Es implementado por medio del patrón Singleton, con el fin de prevenir la existencia de más de un gestor
+ * Implementa la interfaz IReservaMgt
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			20/05/2020
- * @version			0.5.1
+ * @date			23/05/2020
+ * @version			0.14.0
  */
 
 
 public class ReservaMgr implements IReservaMgt {
-	static private ReservaMgr		_instance		= null;
+	static private ReservaMgr		_instance			= null;
 	private ArrayList<Incidencia>	_incidencias;
+	private ArrayList<Recurso>		_recursos;
 	private ArrayList<Reserva>		_reservas;
 	private ArrayList<Sala>			_salas;
+	private ArrayList<SalaYRecurso>	_salasYRecursos;
 	private ArrayList<Sancion> 		_sanciones;
 
 
@@ -44,8 +50,12 @@ public class ReservaMgr implements IReservaMgt {
 	 */
 
 	private ReservaMgr() {
-		this._incidencias	= new ArrayList<Incidencia>();
-		this._reservas		= new ArrayList<Reserva>();
+		this._incidencias		= new ArrayList<Incidencia>();
+		this._recursos			= new ArrayList<Recurso>();
+		this._reservas			= new ArrayList<Reserva>();
+		this._salas				= new ArrayList<Sala>();
+		this._salasYRecursos	= new ArrayList<SalaYRecurso>();
+		this._sanciones			= new ArrayList<Sancion>();
 	}
 
 
@@ -92,6 +102,30 @@ public class ReservaMgr implements IReservaMgt {
 
 
 	/**
+	 * Método privado para buscar reservas
+	 * Busca una reserva por su ID
+	 *
+	 * @param		idReserva						int								ID de la reserva a buscar
+	 *
+	 * @return										int								Posición en la lista de reservas (-1 si no encontrada)
+	 */
+
+	private int buscarReserva(int idReserva) {
+		int	i;
+		int res			= -1;
+		int	tamLista	= this._reservas.size();
+
+		for(i = 0; i < tamLista; i++) {
+			if((this._reservas.get(i).id() >= idReserva)) {
+				res = i;
+			}
+		}
+
+		return res;
+	}
+
+
+	/**
 	 * Buscador de reservas
 	 * Busca una reserva a través de la ID del alumno que la ha reservado
 	 *
@@ -119,6 +153,30 @@ public class ReservaMgr implements IReservaMgt {
 
 
 	/**
+	 * Método privado para buscar salas
+	 * Busca una sala por su ID
+	 *
+	 * @param		idSala							int								ID de la sala a buscar
+	 *
+	 * @return										int								Posición en la lista de salas (-1 si no encontrada)
+	 */
+
+	private int buscarSala(int idSala) {
+		int	i;
+		int res			= -1;
+		int	tamLista	= this._salas.size();
+
+		for(i = 0; i < tamLista; i++) {
+			if((this._salas.get(i).id() >= idSala)) {
+				res = i;
+			}
+		}
+
+		return res;
+	}
+
+
+	/**
 	 * Buscador de salas
 	 * Busca una sala adecuada al aforo y a los recursos proporcionados
 	 *
@@ -130,11 +188,22 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public ArrayList<Integer> buscarSala(int aforo, ArrayList<Integer> idsRecursos) {
-		ArrayList<Integer>	res	= new ArrayList<Integer>();
+		int					recursosQueTengo	= 0;
+		ArrayList<Integer>	res					= new ArrayList<Integer>();
 
 		for(Sala s : this._salas) {
-			if((s.aforo() >= aforo) && s.tengoRecursos(idsRecursos)) {
-				res.add(s.id());
+			if((s.aforo() >= aforo)) {
+				for(SalaYRecurso syr : this._salasYRecursos) {
+					if((syr.idSala() == s.id()) && idsRecursos.contains(syr.idRecurso())) {
+						recursosQueTengo++;
+
+						break;
+					}
+				}
+
+				if(recursosQueTengo == idsRecursos.size()) {
+					res.add(s.id());
+				}
 			}
 		}
 
@@ -195,25 +264,51 @@ public class ReservaMgr implements IReservaMgt {
 
 
 	/**
+	 * Método privado para buscar el tipo de sala
+	 *
+	 * @param		int_TipoSala					int								ID de tipo de sala
+	 *
+	 * @return										TipoSala						El tipo de sala encontrado
+	 */
+
+	private TipoSala buscarTipoSala(int int_TipoSala) {
+		TipoSala tipoSala = null;
+
+		for(TipoSala ts : TipoSala.values()) {
+			if(int_TipoSala == ts.id()) {
+				tipoSala = ts;
+
+				break;
+			}
+		}
+
+		return tipoSala;
+	}
+
+
+	/**
 	 * Método de carga de archivos
 	 * Carga los archivos CSV solicitados en la memoria del gestor
 	 *
 	 * @param		archivoIncidencias				String							Archivo de incidencias
+	 * @param		archivoRecursos					String							Archivo de recursos
 	 * @param		archivoReservas					String							Archivo de reservas
 	 * @param		archivoSalas					String							Archivo de salas
+	 * @param		archivoSalasYRecursos			String							Archivo de salas y recursos
+	 * @param		archivoSanciones				String							Archivo de sanciones
 	 *
 	 * @return										boolean							Resultado de la operación
 	 */
 
 	@Override
-	public boolean cargar(String archivoIncidencias, String archivoReservas, String archivoSalas, String archivoSanciones) {
+	public boolean cargar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
 		int					i;
 		String				linea;
 		ArrayList<String>	campos;
 		BufferedReader		buffer;
 		StringTokenizer		stLinea;
 
-		for(i = 0; i < 4; i++) {
+		for(i = 0; i <= 5; i++) {
 			try {
 				switch(i) {
 				case 0:
@@ -221,15 +316,24 @@ public class ReservaMgr implements IReservaMgt {
 
 					break;
 				case 1:
-					buffer = new BufferedReader(new FileReader(new File(archivoReservas)));
+					buffer = new BufferedReader(new FileReader(new File(archivoRecursos)));
 
 					break;
 				case 2:
-					buffer = new BufferedReader(new FileReader(new File(archivoSalas)));
+					buffer = new BufferedReader(new FileReader(new File(archivoReservas)));
 
 					break;
 				case 3:
+					buffer = new BufferedReader(new FileReader(new File(archivoSalas)));
+
+					break;
+				case 4:
+					buffer = new BufferedReader(new FileReader(new File(archivoSalasYRecursos)));
+
+					break;
+				case 5:
 					buffer = new BufferedReader(new FileReader(new File(archivoSanciones)));
+
 					break;
 				default:
 					buffer = null;
@@ -252,21 +356,31 @@ public class ReservaMgr implements IReservaMgt {
 
 						break;
 					case 1:
-						this._reservas.add(new Reserva(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), campos.get(3), Integer.parseInt(campos.get(4)), Boolean.parseBoolean(campos.get(5)), LocalDateTime.parse(campos.get(6), DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+						this._recursos.add(new Recurso(Integer.parseInt(campos.get(0)), campos.get(1), campos.get(1)));
 
 						break;
 					case 2:
-						this._salas.add(new Sala());								// FIXME: Reformar
+						this._reservas.add(new Reserva(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), campos.get(3), Integer.parseInt(campos.get(4)), Boolean.parseBoolean(campos.get(5)), LocalDateTime.parse(campos.get(6), DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
 
 						break;
 					case 3:
+						this._salas.add(new Sala(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Boolean.parseBoolean(campos.get(2)), campos.get(3), this.buscarTipoSala(Integer.parseInt(campos.get(4))), campos.get(5)));
+
+						break;
+					case 4:
+						this._salasYRecursos.add(new SalaYRecurso(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1))));
+
+						break;
+					case 5:
 						this._sanciones.add(new Sancion(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), Integer.parseInt(campos.get(3)), LocalDate.parse(campos.get(6), DateTimeFormatter.ISO_LOCAL_DATE)));
 
 						break;
-					default:
-						break;														// Nunca se llegará aquí
+					default:														// Nunca se llegará aquí
+						break;
 					}
 				}
+
+				buffer.close();
 			}
 			catch(FileNotFoundException e) {
 				System.out.println("Error: " + e.getMessage());
@@ -284,83 +398,239 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Método de confirmación del registro de una sala
+	 * Marca como disponible una sala prerregistrada
+	 *
+	 * @param		idSala							int								ID de la sala a confirmar
+	 *
+	 * @return										boolean							Resultado de la operación
+	 */
 
 	@Override
-	public boolean confirmarRegistro(int idReserva) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean confirmarRegistro(int idSala) {
+		int posSala = this.buscarSala(idSala);
+
+		if(posSala != -1) {
+			this._salas.get(posSala).estado(true);
+
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Método de confirmación del registro de una reserva
+	 * Marca como reservada una reserva de sala en estado prerreservada
+	 *
+	 * @param		idReserva						int								ID de la reserva a confirmar
+	 *
+	 * @return										boolean							Resultado de la operación
+	 */
+
 
 	@Override
 	public boolean confirmarReserva(int idReserva) {
-		// TODO Auto-generated method stub
-		return false;
+		int posReserva = this.buscarReserva(idReserva);
+
+		if(posReserva != -1) {
+			this._reservas.get(posReserva).estado(true);
+
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Método de eliminación de una reserva
+	 * Elimina una reserva de sala de la lista
+	 *
+	 * @param		idReserva						int								ID de la reserva a eliminar
+	 *
+	 * @return										boolean							Resultado de la operación
+	 */
 
 	@Override
-	public String describirSancion(int codigo) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean eliminarReserva(int idReserva) {
+		int posReserva = this.buscarReserva(idReserva);
+
+		if(posReserva != -1) {
+			this._reservas.remove(posReserva);
+
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Método de guardado de archivos
+	 * Guarda la memoria del gestor en los archivos CSV solicitados
+	 *
+	 * @param		archivoIncidencias				String							Archivo de incidencias
+	 * @param		archivoRecursos					String							Archivo de recursos
+	 * @param		archivoReservas					String							Archivo de reservas
+	 * @param		archivoSalas					String							Archivo de salas
+	 * @param		archivoSalasYRecursos			String							Archivo de salas y recursos
+	 * @param		archivoSanciones				String							Archivo de sanciones
+	 *
+	 * @return										boolean							Resultado de la operación
+	 */
+
 
 	@Override
-	public boolean eliminarReserva(int id_reserva) {
-		// TODO Auto-generated method stub
+	public boolean guardar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
+		int					i;
+		ArrayList<String>	lineas	= new ArrayList<String>();
+		BufferedWriter		buffer	= null;
+
+		for(i = 0; i <= 5; i++) {
+			try {
+				switch(i) {
+				case 0:
+					buffer = new BufferedWriter(new FileWriter(new File(archivoIncidencias)));
+
+					for(Incidencia in: this._incidencias) {
+						lineas.add(in.toString());
+					}
+
+					break;
+				case 1:
+					buffer = new BufferedWriter(new FileWriter(new File(archivoRecursos)));
+
+					for(Recurso rec : this._recursos) {
+						lineas.add(rec.toString());
+					}
+
+					break;
+				case 2:
+					buffer = new BufferedWriter(new FileWriter(new File(archivoReservas)));
+
+					for(Reserva res : this._reservas) {
+						lineas.add(res.toString());
+					}
+
+					break;
+				case 3:
+					buffer = new BufferedWriter(new FileWriter(new File(archivoSalas)));
+
+					for(Sala sal : this._salas) {
+						lineas.add(sal.toString());
+					}
+
+					break;
+				case 4:
+					buffer = new BufferedWriter(new FileWriter(new File(archivoSalasYRecursos)));
+
+					for(SalaYRecurso syl : this._salasYRecursos) {
+						lineas.add(syl.toString());
+					}
+
+					break;
+				case 5:
+					buffer = new BufferedWriter(new FileWriter(new File(archivoSanciones)));
+
+					for(Sancion san : this._sanciones) {
+						lineas.add(san.toString());
+					}
+
+					break;
+				default:															// Nunca se llegará aquí
+					break;
+				}
+
+				for(String linea : lineas) {
+					buffer.write(linea + System.getProperty("line.separator"));
+				}
+
+				buffer.close();
+			}
+			catch(FileNotFoundException e) {
+				System.out.println("Error: " + e.getMessage());
+
+				return false;
+			}
+			catch(IOException e) {
+				System.out.println("Error: " + e.getMessage());
+
+				return false;
+			}
+		}
+
 		return true;
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Observador del aforo de una sala
+	 * Busca una sala por su ID y devuelve su aforo
+	 *
+	 * @param		idSala							int								ID de la sala
+	 *
+	 * @return										int								Aforo de la sala (-1 si no encontrada)
+	 */
 
 	@Override
-	public boolean guardar(String archivoIncidencias, String archivoReservas, String archivoSalas, String archivoSanciones) {
-		// TODO Auto-generated method stub
-		return true;
+	public int obtenerAforoSala(int idSala) {
+		int posSala = this.buscarSala(idSala);
+
+		if(posSala != -1) {
+			return this._salas.get(posSala).aforo();
+		}
+		else {
+			return -1;
+		}
 	}
 
 
-	// TODO: Comentar
-
-	@Override
-	public int obtenerAforoSala(int sala) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	// TODO: Comentar
+	/**
+	 * Observador de una reserva
+	 * Busca una reserva por su ID y la devuelve
+	 *
+	 * @param		idReserva						int								ID de la reserva
+	 *
+	 * @return										int								Reserva (null si no encontrada)
+	 */
 
 	@Override
 	public Reserva obtenerReserva(int idReserva) {
-		// TODO Auto-generated method stub
-		return null;
+		int posReserva = this.buscarSala(idReserva);
+
+		if(posReserva != -1) {
+			return this._reservas.get(posReserva);
+		}
+		else {
+			return null;
+		}
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Observador de una sala
+	 * Busca una sala por su ID y la devuelve
+	 *
+	 * @param		idSala							int								ID de la sala
+	 *
+	 * @return										int								Sala (null si no encontrada)
+	 */
 
 	@Override
-	public Sala obtenerSala(int id_sala) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Sala obtenerSala(int idSala) {
+		int posSala = this.buscarSala(idSala);
 
-
-	// TODO: Comentar
-
-	@Override
-	public ArrayList<Integer> obtenerTipos() {
-		// TODO Auto-generated method stub
-		return null;
+		if(posSala != -1) {
+			return this._salas.get(posSala);
+		}
+		else {
+			return null;
+		}
 	}
 }

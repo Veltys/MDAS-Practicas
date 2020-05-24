@@ -4,7 +4,6 @@ package mdas.p2.gestorusuariomgr;
 /**
  * Clase Usuario
  * Almacena datos de un usuario del sistema
- * Implementa la interfaz comparable, para facilitar su ordenación
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			17/05/2020
@@ -15,18 +14,7 @@ public class Usuario {
 	private int		_id;
 	private String	_nombre;
 
-/**
- * Constructor por defecto de la clase
- * Crea un usuario sin valores
- * 
- */
-	
-	
-	public Usuario() {
-		this._id = -1;
-		this._nombre = null;
-	}
-	
+
 	/**
 	 * Constructor de clase
 	 * Crea un usuario a partir de su id y su nombre

@@ -2,6 +2,7 @@ package mdas.p2.gestorreservamgr;
 
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -9,8 +10,8 @@ import java.time.LocalDateTime;
  * Almacena los datos de una reserva de una sala
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			20/05/2020
- * @version			1.0.0
+ * @date			22/05/2020
+ * @version			1.1.0
  */
 
 public class Reserva {
@@ -34,7 +35,6 @@ public class Reserva {
 	 * @param		duracion						int								Duración (en horas) de la reserva
 	 * @param		fechaYHora						LocalDateTime					Fecha y hora de la reserva
 	 */
-
 
 	public Reserva(int id, int idAlumno, int alumnos, String asignatura, int duracion, LocalDateTime fechaYHora) {
 		this._id			= id;
@@ -60,7 +60,6 @@ public class Reserva {
 	 * @param		fechaYHora						LocalDateTime					Fecha y hora de la reserva
 	 */
 
-
 	public Reserva(int id, int idAlumno, int alumnos, String asignatura, int duracion, boolean estado, LocalDateTime fechaYHora) {
 		this._id			= id;
 		this._idAlumno		= idAlumno;
@@ -70,6 +69,7 @@ public class Reserva {
 		this._estado		= estado;
 		this._fechaYHora	= fechaYHora;
 	}
+
 
 	/**
 	 * Observador de la variable privada _alumnos
@@ -156,5 +156,17 @@ public class Reserva {
 
 	public int idAlumno() {
 		return this._idAlumno;
+	}
+
+
+	/**
+	 * Método "mágico" cuando una clase es usada como String
+	 *
+	 * @return										String							Representación en texto de los datos de la reserva
+	 */
+
+	@Override
+	public String toString() {
+		return this._id + "," + this._idAlumno + "," + this._alumnos + "," + this._asignatura + "," + this._duracion + "," + this._estado + "," + this._fechaYHora.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 	}
 }

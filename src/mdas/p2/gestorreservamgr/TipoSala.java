@@ -6,16 +6,16 @@ package mdas.p2.gestorreservamgr;
  * Enumeración de tipos de incidencias
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			18/05/2020
+ * @date			21/05/2020
  * @version			1.0.0
  */
 
-public enum TipoIncidencia {
-	SIN_IMPORTANCIA(0, "Sin importancia"),
-	LEVE(1, "Leve"),
-	MEDIA(2, "Media"),
-	GRAVE(3, "Grave"),
-	MUY_GRAVE(4, "Muy grave");
+public enum TipoSala {
+	AULA(0, "Aula"),
+	SUM(1, "Sala de usos múltiples"),
+	Laboratorio(2, "Laboratorio"),
+	STG(3, "Sala de trabajo en grupo"),
+	DESPACHO(4, "Despacho");
 
 
 	private final int		_id;
@@ -30,7 +30,7 @@ public enum TipoIncidencia {
 	 * @param		descripcion						String							Descripción del tipo de incidencia
 	 */
 
-	TipoIncidencia(int id, String descripcion) {
+	TipoSala(int id, String descripcion) {
 		this._id			= id;
 		this._descripcion	= descripcion;
 	}
