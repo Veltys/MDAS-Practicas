@@ -15,8 +15,8 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  */
 
 public class GestorSalas implements IReserva, ISala{
+	
 	private ReservaMgr _reservaMgr;
-
 
 	/**
 	 * Constructor de clase
@@ -37,12 +37,10 @@ public class GestorSalas implements IReserva, ISala{
 	 * @return int[] Vector que contiene los IDs de las reservas del alumno
 	 */
 
-
 	@Override
 	public ArrayList<Integer> buscarReservas(int idAlumno) {
 		return this._reservaMgr.buscarReservas(idAlumno);
 	}
-
 
 	/**
 	 * Confirmar la reserva realizada por el alumno
@@ -52,12 +50,10 @@ public class GestorSalas implements IReserva, ISala{
 	 * @return boolean True en caso de que se haya realizado con exito, false en el caso contrario
 	 */
 
-
 	@Override
 	public Boolean confirmarReserva(int idReserva) {
 		return this._reservaMgr.confirmarReserva(idReserva);
 	}
-
 
 	/**
 	 * Eliminar una reserva a partir de su ID
@@ -66,7 +62,6 @@ public class GestorSalas implements IReserva, ISala{
 	 *
 	 * @return boolean True en caso de que se haya realizado con exito, false en el caso contrario
 	 */
-
 
 	@Override
 	public Boolean eliminarReserva(int idReserva) {
@@ -100,7 +95,6 @@ public class GestorSalas implements IReserva, ISala{
 		return this._reservaMgr.confirmarRegistro(idSala);
 	}
 
-
 	/**
 	 * Buscador de la sala optima entre las posibles
 	 *
@@ -109,7 +103,6 @@ public class GestorSalas implements IReserva, ISala{
 	 *
 	 * @return int ID de la sala optima
 	 */
-
 
 	@Override
 	public int elegirSala(int aforo, ArrayList<Integer> idSalas) {
@@ -127,7 +120,7 @@ public class GestorSalas implements IReserva, ISala{
 			}
 		}
 
-		return 0;
+		return idSalaElegida;
 	}
 
 	/**
@@ -149,7 +142,7 @@ public class GestorSalas implements IReserva, ISala{
 		}
 		else {
 			Boolean tipoEncontrado = false;
-			for(int tipoSala: this._reservaMgr.obtenerTipos()) {
+			for(int tipoSala: this._reservaMgr.obtenerTiposSalas()) {
 				if(tipo==tipoSala) {
 					tipoEncontrado = true;
 				}
