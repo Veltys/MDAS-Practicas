@@ -62,13 +62,13 @@ public class MenuPrincipal {
 			if(au.alumno(idUsuario)) {
 				System.out.println("El menú de operaciones es el siguiente:");
 
-				// FIXME: Evitando, por ahora, un buclie infinito
+				// FIXME: Evitando, por ahora, un bucle infinito
 				salir = true;
 			}
 			else if(au.empleado(idUsuario)) {
 				System.out.println("El menú de operaciones es el siguiente:");
 
-				// FIXME: Evitando, por ahora, un buclie infinito
+				// FIXME: Evitando, por ahora, un bucle infinito
 				salir = true;
 			}
 			else {

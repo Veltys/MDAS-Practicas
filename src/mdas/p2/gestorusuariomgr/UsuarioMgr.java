@@ -80,28 +80,6 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 
 	/**
-	 * Metodo para obtener un Alumno de la lista de usuarios a partir de su email
-	 *
-	 * @param		email							String							Email del alumno a buscar
-	 *
-	 * @return										Alumno							Alumno encontrado (null si no)
-	 */
-
-	private Alumno buscarAlumno(String email) {
-		Alumno res = null;
-
-		for(Usuario u : this._usuarios) {
-			if((u instanceof Alumno) && ((Alumno) u).correo().equals(email)) {
-				res = (Alumno) u;
-				break;
-			}
-		}
-
-		return res;
-	}
-
-
-	/**
 	 * Metodo para obtener un Empleado de la lista de Usuarios a partir de su ID
 	 *
 	 * @param		idAlumno						int								ID del empleado a buscar
@@ -137,6 +115,28 @@ public class UsuarioMgr implements IUsuarioMgt {
 			if(u.id() == idUsuario) {
 				res = u;
 
+				break;
+			}
+		}
+
+		return res;
+	}
+
+
+	/**
+	 * Metodo para obtener un Usuario de la lista a partir de su email
+	 *
+	 * @param		email							String							Email del usuario a buscar
+	 *
+	 * @return										Alumno							Usuario encontrado (null si no)
+	 */
+
+	private Usuario buscarUsuario(String email) {
+		Usuario res = null;
+
+		for(Usuario u : this._usuarios) {
+			if(u.correo().equals(email)) {
+				res = u;
 				break;
 			}
 		}
@@ -237,8 +237,9 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 	@Override
 	public int iniciarSesion() {
-		// String contrasenya;
-		String email;
+		// String	contrasenya;
+		String		email;
+		Usuario		aux;
 
 		System.out.print("Introduzca su correo electrónico: ");
 		email = UsuarioMgr._entrada.nextLine();
@@ -255,7 +256,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 			// No es necesario hacer nada
 		}
 
-		Alumno aux = this.buscarAlumno(email);
+		aux = this.buscarUsuario(email);
 
 		if((aux != null) && email.equals(aux.correo())) {
 			return aux.id();
