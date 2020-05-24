@@ -14,13 +14,14 @@ import java.util.Scanner;
  *
  * @author		Unai Friscia Pérez (unaif)
  * @date		24/05/2020
- * @version		1.0.1
+ * @version		1.0.3
  *
  */
 
 public class UsuarioMgr implements IUsuarioMgt {
 	static	private	Scanner				_entrada	= new Scanner(System.in);
 	static	private	UsuarioMgr			_instance	= null;
+	private			ArrayList<Usuario>	_usuarios;
 
 
 	/**
@@ -218,33 +219,30 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 	@Override
 	public int iniciarSesion() {
-		// FIXME: Scanner
+		String contrasenya;
+		String email;
 
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Introduzca su correo");
-		String us = sc.nextLine();
-		sc.nextLine();
-		System.out.println("Introduzca su contraseña");
-		/* String pass = */ sc.nextLine();
+		System.out.print("Introduzca su correo electrónico: ");
+		email = UsuarioMgr._entrada.nextLine();
+
+		System.out.print("Introduzca su contraseña: ");
+		contrasenya = UsuarioMgr._entrada.nextLine();
 
 		System.out.println("Enviando datos al gestor de sesiones de la UCO");
+		System.out.println("Espere, por favor...");
 
 		try {
 			Thread.sleep(5 * 1000);
 		} catch (InterruptedException e) {
-			// TODO: Estate quieto
-
-			System.out.println(e);
+			// No es necesario hacer nada
 		}
 
-		Alumno aux = this.buscarAlumno(us);
+		Alumno aux = this.buscarAlumno(email);
 
-		if(aux.correo().equals(us)) {
-			System.out.println("Exito en el inicio de sesión");
+		if((aux != null) && email.equals(aux.correo())) {
 			return aux.id();
 		}
 		else {
-			System.out.println("Error en el inicio de sesión");
 			return -1;
 		}
 	}
