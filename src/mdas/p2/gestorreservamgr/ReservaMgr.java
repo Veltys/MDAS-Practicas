@@ -28,8 +28,8 @@ import java.util.StringTokenizer;
  * Implementa la interfaz IReservaMgt
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			23/05/2020
- * @version			0.14.0
+ * @date			24/05/2020
+ * @version			0.14.1
  */
 
 
@@ -360,7 +360,7 @@ public class ReservaMgr implements IReservaMgt {
 
 						break;
 					case 2:
-						this._reservas.add(new Reserva(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), campos.get(3), Integer.parseInt(campos.get(4)), Boolean.parseBoolean(campos.get(5)), LocalDateTime.parse(campos.get(6), DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+						this._reservas.add(new Reserva(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), Integer.parseInt(campos.get(3)), campos.get(4), Integer.parseInt(campos.get(5)), Boolean.parseBoolean(campos.get(6)), LocalDateTime.parse(campos.get(7), DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
 
 						break;
 					case 3:
@@ -632,5 +632,25 @@ public class ReservaMgr implements IReservaMgt {
 		else {
 			return null;
 		}
+	}
+
+
+	// TODO: Comentar
+
+	@Override
+	public int preRegistrarSala(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos) {
+		// TODO: Por hacer
+
+		return -1;
+	}
+
+
+	// TODO: Comentar
+
+	@Override
+	public int preReservarSala(int idAlumno, int idSala, int alumos, String asignatura, int duracion, LocalDateTime fechaYHora) {
+		// TODO: Por hacer
+
+		return -1;
 	}
 }

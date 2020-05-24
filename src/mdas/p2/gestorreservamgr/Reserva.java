@@ -10,14 +10,15 @@ import java.time.format.DateTimeFormatter;
  * Almacena los datos de una reserva de una sala
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			22/05/2020
- * @version			1.1.0
+ * @date			24/05/2020
+ * @version			1.2.0
  */
 
 public class Reserva {
 	private boolean			_estado;
 	private int				_id;
 	private int				_idAlumno;
+	private int				_idSala;
 	private int				_alumnos;
 	private int				_duracion;
 	private String			_asignatura;
@@ -26,19 +27,21 @@ public class Reserva {
 
 	/**
 	 * Constructor de clase
-	 * Crea una reserva a partir de su ID, ID de alumno, alumnos, asignatura, duración, estado y fecha y hora
+	 * Crea una reserva a partir de su ID, ID de alumno, ID de sala, alumnos, asignatura, duración, estado y fecha y hora
 	 *
 	 * @param		id								int								ID de la reserva
 	 * @param		idAlumno						int								ID del alumno asociado a la reserva
+	 * @param		idSala							int								ID de la sala asociada a la reserva
 	 * @param		alumnos							int								Número de alumnos que disfrutarán la reserva
 	 * @param		asignatura						String							Asignatura para la que se ha realizado la reserva
 	 * @param		duracion						int								Duración (en horas) de la reserva
 	 * @param		fechaYHora						LocalDateTime					Fecha y hora de la reserva
 	 */
 
-	public Reserva(int id, int idAlumno, int alumnos, String asignatura, int duracion, LocalDateTime fechaYHora) {
+	public Reserva(int id, int idAlumno, int idSala, int alumnos, String asignatura, int duracion, LocalDateTime fechaYHora) {
 		this._id			= id;
 		this._idAlumno		= idAlumno;
+		this._idSala		= idSala;
 		this._alumnos		= alumnos;
 		this._asignatura	= asignatura;
 		this._duracion		= duracion;
@@ -49,10 +52,11 @@ public class Reserva {
 
 	/**
 	 * Constructor de clase
-	 * Crea una reserva a partir de su ID, ID de alumno, alumnos, asignatura, duración, estado y fecha y hora
+	 * Crea una reserva a partir de su ID, ID de alumno, ID de sala, alumnos, asignatura, duración, estado y fecha y hora
 	 *
 	 * @param		id								int								ID de la reserva
 	 * @param		idAlumno						int								ID del alumno asociado a la reserva
+	 * @param		idSala							int								ID de la sala asociada a la reserva
 	 * @param		alumnos							int								Número de alumnos que disfrutarán la reserva
 	 * @param		asignatura						String							Asignatura para la que se ha realizado la reserva
 	 * @param		duracion						int								Duración (en horas) de la reserva
@@ -60,7 +64,7 @@ public class Reserva {
 	 * @param		fechaYHora						LocalDateTime					Fecha y hora de la reserva
 	 */
 
-	public Reserva(int id, int idAlumno, int alumnos, String asignatura, int duracion, boolean estado, LocalDateTime fechaYHora) {
+	public Reserva(int id, int idAlumno, int idSala, int alumnos, String asignatura, int duracion, boolean estado, LocalDateTime fechaYHora) {
 		this._id			= id;
 		this._idAlumno		= idAlumno;
 		this._alumnos		= alumnos;
@@ -160,6 +164,17 @@ public class Reserva {
 
 
 	/**
+	 * Observador de la variable privada _idSala
+	 *
+	 * @return										int								ID de la sala asociada a la reserva
+	 */
+
+	public int idSala() {
+		return this._idSala;
+	}
+
+
+	/**
 	 * Método "mágico" cuando una clase es usada como String
 	 *
 	 * @return										String							Representación en texto de los datos de la reserva
@@ -167,6 +182,6 @@ public class Reserva {
 
 	@Override
 	public String toString() {
-		return this._id + "," + this._idAlumno + "," + this._alumnos + "," + this._asignatura + "," + this._duracion + "," + this._estado + "," + this._fechaYHora.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+		return this._id + "," + this._idAlumno + "," + this._idSala + "," + this._alumnos + "," + this._asignatura + "," + this._duracion + "," + this._estado + "," + this._fechaYHora.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 	}
 }
