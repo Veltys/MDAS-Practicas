@@ -13,8 +13,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 	final private boolean		_DEBUG		= true;
 
 	static private UsuarioMgr	_instance	= null;
-	private ArrayList<Alumno>	_alumnos;
-	private ArrayList<Empleado>	_empleados;
+	private ArrayList<Usuario>	_usuarios;
 
 
 	/**
@@ -24,8 +23,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 	 */
 
 	private UsuarioMgr() {
-		this._alumnos	= new ArrayList<Alumno>();
-		this._empleados	= new ArrayList<Empleado>();
+		this._usuarios	= new ArrayList<Usuario>();
 	}
 
 
@@ -48,15 +46,15 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 	@Override
 	public Alumno buscarAlumno(int idAlumno) {
-		Alumno res = null;
+		Usuario res = null;
 
-		for(Alumno a : this._alumnos) {
-			if(a.id() == idAlumno) {
-				res = a;
+		for(Usuario u : this._usuarios) {
+			if(u.id() == idAlumno) {
+				res = u;
 			}
 		}
 
-		return res;
+		return (Alumno) res;
 	}
 
 
@@ -78,10 +76,10 @@ public class UsuarioMgr implements IUsuarioMgt {
 					String[] linea = fich.nextLine().split(",");
 
 					if(linea.length != 2) {
-						this._alumnos.add(new Alumno(Integer.parseInt(linea[0]), linea[1], linea[2]));
+						this._usuarios.add(new Alumno(Integer.parseInt(linea[0]), linea[1], linea[2]));
 					}
 					else {
-						this._empleados.add(new Empleado(Integer.parseInt(linea[0]), linea[1]));
+						this._usuarios.add(new Empleado(Integer.parseInt(linea[0]), linea[1]));
 					}
 				}
 			}
@@ -93,7 +91,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 			}
 		}
 
-		return (this._alumnos.size() != 0);
+		return (this._usuarios.size() != 0);
 	}
 
 
@@ -142,21 +140,11 @@ public class UsuarioMgr implements IUsuarioMgt {
 	public String nombre(int idUsuario) {
 		String res = null;
 
-		for(Alumno a: this._alumnos) {
-			if(a.id() == idUsuario) {
-				res = a.nombre();
+		for(Usuario u: this._usuarios) {
+			if(u.id() == idUsuario) {
+				res = u.nombre();
 
 				break;
-			}
-		}
-
-		if(res == null) {
-			for(Empleado e: this._empleados) {
-				if(e.id() == idUsuario) {
-					res = e.nombre();
-
-					break;
-				}
 			}
 		}
 
