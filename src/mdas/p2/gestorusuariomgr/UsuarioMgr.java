@@ -18,7 +18,7 @@ import java.util.StringTokenizer;
  *
  * @author		Unai Friscia Pérez (unaif)
  * @date		24/05/2020
- * @version		1.2.0
+ * @version		1.2.1
  *
  */
 
@@ -91,9 +91,11 @@ public class UsuarioMgr implements IUsuarioMgt {
 		Alumno res = null;
 
 		for(Usuario u : this._usuarios) {
-			res = (Alumno) u;
-			if(email.equals(res.correo())) {
-				break;
+			if(u instanceof Alumno) {
+				if(((Alumno) u).correo().equals(email)) {
+					res = (Alumno) u;
+					break;
+				}
 			}
 		}
 
