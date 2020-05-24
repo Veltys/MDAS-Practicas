@@ -14,7 +14,7 @@ import java.util.Scanner;
  *
  * @author		Unai Friscia Pérez (unaif)
  * @date		24/05/2020
- * @version		1.0.3
+ * @version		1.0.4
  *
  */
 
@@ -219,14 +219,14 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 	@Override
 	public int iniciarSesion() {
-		String contrasenya;
+		// String contrasenya;
 		String email;
 
 		System.out.print("Introduzca su correo electrónico: ");
 		email = UsuarioMgr._entrada.nextLine();
 
 		System.out.print("Introduzca su contraseña: ");
-		contrasenya = UsuarioMgr._entrada.nextLine();
+		/* contrasenya = */ UsuarioMgr._entrada.nextLine();
 
 		System.out.println("Enviando datos al gestor de sesiones de la UCO");
 		System.out.println("Espere, por favor...");

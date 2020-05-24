@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			24/05/2020
- * @version			1.2.0
+ * @version			1.2.1
  */
 
 public class Reserva {
@@ -67,6 +67,7 @@ public class Reserva {
 	public Reserva(int id, int idAlumno, int idSala, int alumnos, String asignatura, int duracion, boolean estado, LocalDateTime fechaYHora) {
 		this._id			= id;
 		this._idAlumno		= idAlumno;
+		this._idSala		= idSala;
 		this._alumnos		= alumnos;
 		this._asignatura	= asignatura;
 		this._duracion		= duracion;
