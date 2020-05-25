@@ -28,8 +28,8 @@ import java.util.StringTokenizer;
  * Implementa la interfaz IReservaMgt
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			24/05/2020
- * @version			0.15.0
+ * @date			25/05/2020
+ * @version			0.16.0
  */
 
 
@@ -228,17 +228,22 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public int buscarSancion(int idIncidencia) {
-		int res = -1;
+		Sancion res = null;
 
 		for(Sancion s : this._sanciones) {
 			if(idIncidencia == s.idIncidencia()) {
-				res = s.idIncidencia();
+				res = s;
 
 				break;
 			}
 		}
 
-		return res;
+		if(res.fecha().plusDays(res.duracion()).compareTo(LocalDate.now()) >= 0) {
+			return res.id();
+		}
+		else {
+			return -1;
+		}
 	}
 
 
