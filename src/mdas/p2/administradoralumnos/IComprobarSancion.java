@@ -1,5 +1,6 @@
 package mdas.p2.administradoralumnos;
 
+
 /**
  * Interfaz IComprobarSancion
  * Interfaz del componente AdministradorAlumno

@@ -15,7 +15,7 @@ import mdas.p2.gestorusuariomgr.UsuarioMgr;
  */
 
 public class AdministradorUsuarios implements IIniciarSesion {
-	private UsuarioMgr	_gu;
+	private UsuarioMgr _gu;
 
 
 	/**

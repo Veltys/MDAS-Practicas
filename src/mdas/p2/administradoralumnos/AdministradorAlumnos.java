@@ -12,26 +12,29 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  * Contiene los métodos de AdministradorAlumnos
  *
  * @author			Herminio Rodríguez García (i72rogah)
- * @date			24/05/2020
- * @version			1.3.0
+ * @date			25/05/2020
+ * @version			1.3.1
  */
 
 public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion {
-	private ReservaMgr _gestorReservas;
+	private ReservaMgr _gr;
 
 	/**
 	 * Constructor de clase
 	 * Inicializa el objeto de la clase ReservaMgr
 	 */
 
-	AdministradorAlumnos(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
-		this._gestorReservas = ReservaMgr.getInstance(archivoIncidencias, archivoRecursos, archivoReservas, archivoSalas, archivoSalasYRecursos, archivoSanciones);
+
+	public AdministradorAlumnos(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
+		this._gr = ReservaMgr.getInstance(archivoIncidencias, archivoRecursos, archivoReservas, archivoSalas, archivoSalasYRecursos, archivoSanciones);
 	}
+
+
 	/**
 	 * Método de una interfaz
 	 * Recibe un mensaje y lo imprime por pantalla
 	 *
-	 *@param		mensaje						string											Mensaje
+	 *@param		mensaje						string								Mensaje
 	 */
 
 	@Override
@@ -45,8 +48,8 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 	 * Comprueba una sancion a traves del id de un alumno
 	 *
 
-	 * @param		idAlumno						int											Id del alumno supuestamente sancionado
-	 * @return		sancion							int											Tipo de sanción
+	 * @param		idAlumno						int								Id del alumno supuestamente sancionado
+	 * @return		sancion							int								Tipo de sanción
 	 */
 
 	@Override
@@ -55,13 +58,13 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 		ArrayList<Integer>	reservas;
 		ArrayList<Integer>	incidencias;
 
-		reservas = this._gestorReservas.buscarReservas(idAlumno);
+		reservas = this._gr.buscarReservas(idAlumno);
 
 		for(int reserva : reservas) {
-			incidencias = this._gestorReservas.buscarIncidencias(reserva);
+			incidencias = this._gr.buscarIncidencias(reserva);
 
 			for(int incidencia : incidencias) {
-				sancion = this._gestorReservas.buscarSancion(incidencia);
+				sancion = this._gr.buscarSancion(incidencia);
 			}
 
 		}
@@ -74,7 +77,7 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 	 * Método de una interfaz
 	 * Desvuelve la descripción de una sanción a traves del codigo de esta
 	 *
-	 * @param		codigo_sancion						int											Código de la sancion
+	 * @param		codigo_sancion						int							Código de la sancion
 	 */
 
 	public String describirSancion(int codigo_sancion) {
