@@ -15,7 +15,7 @@ import mdas.p2.administradorusuarios.AdministradorUsuarios;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			25/05/2020
- * @version			0.3.0
+ * @version			0.3.1
  */
 
 public class MenuPrincipal {
@@ -70,7 +70,7 @@ public class MenuPrincipal {
 					salir = true;
 				}
 				else {
-					System.out.println(aa.NotificarAlumnoSancionado(idUsuario, idSancion));
+					System.out.println(aa.notificarAlumnoSancionado(idUsuario, idSancion));
 
 					salir = true;
 				}

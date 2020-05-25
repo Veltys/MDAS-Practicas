@@ -16,7 +16,7 @@ import mdas.p2.gestorusuariomgr.UsuarioMgr;
  *
  * @author			Herminio Rodríguez García (i72rogah)
  * @date			25/05/2020
- * @version			2.0.0
+ * @version			2.0.1
  */
 
 public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion {
@@ -96,7 +96,7 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 	 */
 
 	@Override
-	public String NotificarAlumnoSancionado(int idAlumno, int idSancion) {
+	public String notificarAlumnoSancionado(int idAlumno, int idSancion) {
 		Sancion s = this._gr.obtenerSancion(idSancion);
 
 		return "Lo snetimos, el usuario " + this._gu.nombre(idAlumno) + " está sancionado hasta el día " + s.fecha().plusDays(s.duracion()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
