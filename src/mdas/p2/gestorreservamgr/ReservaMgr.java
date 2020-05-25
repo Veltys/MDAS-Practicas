@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			25/05/2020
- * @version			0.16.1
+ * @version			0.17.0
  */
 
 
@@ -607,7 +607,7 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public Reserva obtenerReserva(int idReserva) {
-		int posReserva = this.buscarSala(idReserva);
+		int posReserva = this.buscarReserva(idReserva);
 
 		if(posReserva != -1) {
 			return this._reservas.get(posReserva);
@@ -633,6 +633,27 @@ public class ReservaMgr implements IReservaMgt {
 
 		if(posSala != -1) {
 			return this._salas.get(posSala);
+		}
+		else {
+			return null;
+		}
+	}
+
+
+	@Override
+	public Sancion obtenerSancion(int idSancion) {
+		int	i;
+		int posSancion	= -1;
+		int	tamLista	= this._sanciones.size();
+
+		for(i = 0; i < tamLista; i++) {
+			if((this._sanciones.get(i).id() == idSancion)) {
+				posSancion = i;
+			}
+		}
+
+		if(posSancion != -1) {
+			return this._sanciones.get(posSancion);
 		}
 		else {
 			return null;
