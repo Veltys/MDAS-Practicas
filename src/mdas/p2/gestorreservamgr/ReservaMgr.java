@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			25/05/2020
- * @version			0.16.0
+ * @version			0.16.1
  */
 
 
@@ -169,7 +169,7 @@ public class ReservaMgr implements IReservaMgt {
 		int	tamLista	= this._salas.size();
 
 		for(i = 0; i < tamLista; i++) {
-			if((this._salas.get(i).id() >= idSala)) {
+			if((this._salas.get(i).id() == idSala)) {
 				res = i;
 			}
 		}
@@ -219,7 +219,7 @@ public class ReservaMgr implements IReservaMgt {
 
 	/**
 	 * Buscador de sanciones
-	 * Busca las sanción asociada a la incidencia dada
+	 * Busca la sanción asociada a la incidencia dada
 	 *
 	 * @param		idIncidencia					int								ID de la incidencia
 	 *
@@ -379,7 +379,7 @@ public class ReservaMgr implements IReservaMgt {
 
 						break;
 					case 5:
-						this._sanciones.add(new Sancion(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), Integer.parseInt(campos.get(3)), LocalDate.parse(campos.get(6), DateTimeFormatter.ISO_LOCAL_DATE)));
+						this._sanciones.add(new Sancion(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), Integer.parseInt(campos.get(3)), LocalDate.parse(campos.get(4), DateTimeFormatter.ISO_LOCAL_DATE)));
 
 						break;
 					default:														// Nunca se llegará aquí
@@ -391,8 +391,6 @@ public class ReservaMgr implements IReservaMgt {
 			}
 			catch(FileNotFoundException e) {
 				System.out.println("Error: " + e.getMessage());
-
-				return false;
 			}
 			catch(IOException e) {
 				System.out.println("Error: " + e.getMessage());
