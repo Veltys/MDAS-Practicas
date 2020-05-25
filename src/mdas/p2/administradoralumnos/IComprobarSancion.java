@@ -12,5 +12,5 @@ package mdas.p2.administradoralumnos;
  */
 
 public interface IComprobarSancion {
-	abstract public int comprobarSancion(int id_alumno);
+	abstract public int comprobarSancion(int idAlumno);
 }
