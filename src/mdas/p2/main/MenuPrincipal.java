@@ -4,6 +4,7 @@ package mdas.p2.main;
 import java.io.File;
 import java.util.Scanner;
 
+import mdas.p2.administradoralumnos.AdministradorAlumnos;
 import mdas.p2.administradorusuarios.AdministradorUsuarios;
 // import mdas.p2.gestorsalas.GestorSalas;
 
@@ -13,18 +14,18 @@ import mdas.p2.administradorusuarios.AdministradorUsuarios;
  * Clase MenuPrincipal del programa
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			24/05/2020
- * @version			0.2.1
+ * @date			25/05/2020
+ * @version			0.3.0
  */
 
 public class MenuPrincipal {
 	final static private	String		ARCHIVOUSUARIOS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "usuarios.csv";
-	// final static private	String		ARCHIVOINCIDENCIAS		= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "incidencias.csv";
-	// final static private	String		ARCHIVORECURSOS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "recursos.csv";
-	// final static private	String		ARCHIVORESERVAS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "reservas.csv";
-	// final static private	String		ARCHIVOSALAS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "salas.csv";
-	// final static private	String		ARCHIVOSALASYRECURSOS	= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "salasyrecursos.csv";
-	// final static private	String		ARCHIVOSANCIONES		= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "sanciones.csv";
+	final static private	String		ARCHIVOINCIDENCIAS		= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "incidencias.csv";
+	final static private	String		ARCHIVORECURSOS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "recursos.csv";
+	final static private	String		ARCHIVORESERVAS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "reservas.csv";
+	final static private	String		ARCHIVOSALAS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "salas.csv";
+	final static private	String		ARCHIVOSALASYRECURSOS	= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "salasyrecursos.csv";
+	final static private	String		ARCHIVOSANCIONES		= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "sanciones.csv";
 
 
 	private static			Scanner		_entrada		= new Scanner(System.in);
@@ -40,6 +41,8 @@ public class MenuPrincipal {
 		boolean					salir		= false;
 		char					operacion;
 		int						idUsuario	= -1;
+		int						idSancion;
+		AdministradorAlumnos	aa			= new AdministradorAlumnos(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES, MenuPrincipal.ARCHIVOUSUARIOS);
 		AdministradorUsuarios	au			= new AdministradorUsuarios(MenuPrincipal.ARCHIVOUSUARIOS);
 		// GestorSalas				gs			= new GestorSalas(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES);
 
@@ -60,10 +63,17 @@ public class MenuPrincipal {
 			System.out.println("¡Bienvenido, " + au.nombre(idUsuario) + "!");
 
 			if(au.alumno(idUsuario)) {
-				System.out.println("El menú de operaciones es el siguiente:");
+				if((idSancion = aa.comprobarSancion(idUsuario)) == -1) {
+					System.out.println("El menú de operaciones es el siguiente:");
 
-				// FIXME: Evitando, por ahora, un bucle infinito
-				salir = true;
+					// FIXME: Evitando, por ahora, un bucle infinito
+					salir = true;
+				}
+				else {
+					System.out.println(aa.NotificarAlumnoSancionado(idUsuario, idSancion));
+
+					salir = true;
+				}
 			}
 			else if(au.empleado(idUsuario)) {
 				System.out.println("El menú de operaciones es el siguiente:");
