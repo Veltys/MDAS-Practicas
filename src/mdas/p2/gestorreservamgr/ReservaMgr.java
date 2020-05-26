@@ -492,7 +492,7 @@ public class ReservaMgr implements IReservaMgt {
 	 */
 
 
-	private boolean guardar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
+	/* private boolean guardar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
 		int					i;
 		ArrayList<String>	lineas	= new ArrayList<String>();
 		BufferedWriter		buffer	= null;
@@ -571,7 +571,7 @@ public class ReservaMgr implements IReservaMgt {
 		}
 
 		return true;
-	}
+	} */
 
 
 	/**

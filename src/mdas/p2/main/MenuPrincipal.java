@@ -98,7 +98,7 @@ public class MenuPrincipal {
 
 					switch(operacion) {
 					case 'R':
-						MenuPrincipal.reserva(idUsuario);
+						MenuPrincipal.reserva(/* idUsuario */);
 
 						break;
 
@@ -124,7 +124,7 @@ public class MenuPrincipal {
 
 	// TODO: Comentar
 
-	static private void reserva(int idAlumno) {
+	static private void reserva(/* int idAlumno */) {
 		/*
 		private int				_idSala;
 		private int				_duracion;
