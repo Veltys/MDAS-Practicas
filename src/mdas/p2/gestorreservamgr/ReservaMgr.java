@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			26/05/2020
- * @version			0.18.0
+ * @version			0.18.1
  */
 
 
@@ -363,7 +363,7 @@ public class ReservaMgr implements IReservaMgt {
 
 						break;
 					case 1:
-						this._recursos.add(new Recurso(Integer.parseInt(campos.get(0)), campos.get(1), campos.get(1)));
+						this._recursos.add(new Recurso(Integer.parseInt(campos.get(0)), campos.get(1), campos.get(2)));
 
 						break;
 					case 2:
