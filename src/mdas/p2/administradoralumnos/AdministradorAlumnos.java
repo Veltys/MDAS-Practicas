@@ -15,8 +15,8 @@ import mdas.p2.gestorusuariomgr.UsuarioMgr;
  * Contiene los métodos de AdministradorAlumnos
  *
  * @author			Herminio Rodríguez García (i72rogah)
- * @date			25/05/2020
- * @version			2.0.1
+ * @date			26/05/2020
+ * @version			2.0.2
  */
 
 public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion {
@@ -99,6 +99,6 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 	public String notificarAlumnoSancionado(int idAlumno, int idSancion) {
 		Sancion s = this._gr.obtenerSancion(idSancion);
 
-		return "Lo snetimos, el usuario " + this._gu.nombre(idAlumno) + " está sancionado hasta el día " + s.fecha().plusDays(s.duracion()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		return "Lo sentimos, el usuario " + this._gu.nombre(idAlumno) + " está sancionado hasta el día " + s.fecha().plusDays(s.duracion()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 	}
 }
