@@ -16,8 +16,8 @@ import java.util.HashMap;
  * Interfaz del componente GestorReservaMgr
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			25/05/2020
- * @version			1.8.0
+ * @date			26/05/2020
+ * @version			1.9.0
  */
 
 public interface IReservaMgt {
@@ -31,6 +31,7 @@ public interface IReservaMgt {
 	abstract public boolean				eliminarReserva(int idReserva);
 	abstract public boolean				guardar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones);
 	abstract public int					obtenerAforoSala(int idSala);
+	abstract public ArrayList<Recurso>	obtenerRecursos();
 	abstract public Reserva				obtenerReserva(int idReserva);
 	abstract public Sancion				obtenerSancion(int idSancion);
 	abstract public Sala				obtenerSala(int idSala);

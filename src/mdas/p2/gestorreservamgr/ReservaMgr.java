@@ -28,8 +28,8 @@ import java.util.StringTokenizer;
  * Implementa la interfaz IReservaMgt
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			25/05/2020
- * @version			0.17.0
+ * @date			26/05/2020
+ * @version			0.18.0
  */
 
 
@@ -593,6 +593,18 @@ public class ReservaMgr implements IReservaMgt {
 		else {
 			return -1;
 		}
+	}
+
+
+	/**
+	 * Observador de la lista de recursos
+	 *
+	 * @return										ArrayList<Recurso>				Lista de recursos cargada en el gestor
+	 */
+
+	@Override
+	public ArrayList<Recurso> obtenerRecursos() {
+		return this._recursos;
 	}
 
 

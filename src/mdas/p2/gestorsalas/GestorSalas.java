@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import mdas.p2.gestorreservamgr.IReservaMgt;
+import mdas.p2.gestorreservamgr.Recurso;
 import mdas.p2.gestorreservamgr.ReservaMgr;
 
 
@@ -12,8 +13,8 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  * Clase GestorSalas
  *
  * @author			Javier Ortiz Aragones
- * @date			24/05/2020
- * @version			1.1.0
+ * @date			26/05/2020
+ * @version			1.2.0
  */
 
 public class GestorSalas implements IReserva, ISala{
@@ -138,6 +139,17 @@ public class GestorSalas implements IReserva, ISala{
 
 
 	/**
+	 * Observador de la lista de recursos
+	 *
+	 * @return										ArrayList<Recurso>				Lista de recursos cargada en el gestor
+	 */
+
+	@Override
+	public ArrayList<Recurso> obtenerRecursos() {
+		return this._reservaMgr.obtenerRecursos();
+	}
+
+	/**
 	 * Validador de los datos introducidos por el empleado para la nueva sala
 	 *
 	 * @param		nombre							String							Nombre de la nueva sala
@@ -146,7 +158,7 @@ public class GestorSalas implements IReserva, ISala{
 	 * @param		ubicacion						String							Ubicación de la nueva sala
 	 * @param		recursos						int[]							ID de los recursos disponibles en la nueva sala
 	 *
-	 * @return boolean True en caso de que los datos sean correctos, false en el caso contrario
+	 * @return										boolean							True en caso de que los datos sean correctos, false en el caso contrario
 	 */
 
 	@Override
