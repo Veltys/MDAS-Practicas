@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author			Rafael Carlos Méndez Rodríguez (i82meror)
  * @date			26/05/2020
- * @version			0.18.1
+ * @version			0.18.2
  */
 
 
@@ -58,6 +58,8 @@ public class ReservaMgr implements IReservaMgt {
 		this._sanciones			= new ArrayList<Sancion>();
 
 		this.cargar(archivoIncidencias, archivoRecursos, archivoReservas, archivoSalas, archivoSalasYRecursos, archivoSanciones);
+
+		// TODO: Timer de guardado
 	}
 
 
@@ -307,8 +309,7 @@ public class ReservaMgr implements IReservaMgt {
 	 * @return										boolean							Resultado de la operación
 	 */
 
-	@Override
-	public boolean cargar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
+	private boolean cargar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
 		int					i;
 		String				linea;
 		ArrayList<String>	campos;
@@ -491,8 +492,7 @@ public class ReservaMgr implements IReservaMgt {
 	 */
 
 
-	@Override
-	public boolean guardar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
+	private boolean guardar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
 		int					i;
 		ArrayList<String>	lineas	= new ArrayList<String>();
 		BufferedWriter		buffer	= null;

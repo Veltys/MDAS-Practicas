@@ -80,8 +80,9 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 	 * @param		codigo_sancion						int							Código de la sancion
 	 */
 
-	public String describirSancion(int codigo_sancion) {
-		return IReservaMgt.describirSancion(codigo_sancion);
+	@Override
+	public String describirSancion(int codigoSancion) {
+		return IReservaMgt.describirSancion(codigoSancion);
 	}
 
 

@@ -17,8 +17,8 @@ import java.util.StringTokenizer;
  * Implementa la interfaz IUsuarioMgt
  *
  * @author		Unai Friscia Pérez (unaif)
- * @date		24/05/2020
- * @version		1.3.0
+ * @date		26/05/2020
+ * @version		1.3.1
  *
  */
 
@@ -40,6 +40,8 @@ public class UsuarioMgr implements IUsuarioMgt {
 		this._usuarios	= new ArrayList<Usuario>();
 
 		this.cargar(archivoUsuarios);
+
+		// TODO: Timer de guardado
 	}
 
 
@@ -153,8 +155,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 	 * @return										Boolean							Inidicación si la carga de usuarios ha sido exitosa o erronea
 	 */
 
-	@Override
-	public boolean cargar(String archivoUsuarios) {
+	private boolean cargar(String archivoUsuarios) {
 		String				linea;
 		ArrayList<String>	campos;
 		BufferedReader		buffer;
