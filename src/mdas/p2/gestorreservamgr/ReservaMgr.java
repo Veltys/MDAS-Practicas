@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		27/05/2020
- * @version		0.18.3
+ * @version		0.19.0
  */
 
 
@@ -653,6 +653,15 @@ public class ReservaMgr implements IReservaMgt {
 
 
 	@Override
+	/**
+	 * Observador de una sanción
+	 * Busca una sanción por su ID y la devuelve
+	 *
+	 * @param		idSancion						int								ID de la sanción
+	 *
+	 * @return										int								Sanción (null si no encontrada)
+	 */
+
 	public Sancion obtenerSancion(int idSancion) {
 		int	i;
 		int posSancion	= -1;
@@ -690,5 +699,34 @@ public class ReservaMgr implements IReservaMgt {
 		// TODO: Por hacer
 
 		return -1;
+	}
+
+
+	/**
+	 * Método de comprobación de solapamiento de reservas
+	 *
+	 * @param		idSala							int								ID de la sala a comprobar
+	 * @param		fechaYHora						LocalDateTime					Fecha y hora para la que debe estar libre
+	 * @param		duracion						int								Duración mínima (en horas) que debe estar libre
+	 *
+	 * @return										boolean							Si la sala está libre o no
+	 */
+
+	@Override
+	public boolean salaLibre(int idSala, LocalDateTime fechaYHora, int duracion) {
+		ArrayList<Reserva>	reservas = new ArrayList<Reserva>();
+
+		for(Reserva r: this._reservas) {
+			if(
+					(idSala == r.idSala()) &&
+					LocalDateTime.now().isBefore(r.fechaYHora().plusHours(r.duracion())) &&
+					!(fechaYHora.isAfter(r.fechaYHora().plusHours(r.duracion()))) &&
+					!(fechaYHora.plusHours(duracion).isBefore(r.fechaYHora()))
+					) {
+				reservas.add(r);
+			}
+		}
+
+		return (reservas.size() == 0);
 	}
 }

@@ -14,7 +14,7 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  *
  * @author		Javier Ortiz Aragones
  * @date		26/05/2020
- * @version		1.2.0
+ * @version		1.3.0
  */
 
 public class GestorSalas implements IReserva, ISala{
@@ -125,7 +125,10 @@ public class GestorSalas implements IReserva, ISala{
 
 			else if(maxAforo > nuevoAforo) {
 				maxAforo = nuevoAforo;
-				idSalaElegida = sala;
+
+				if(this._reservaMgr.salaLibre(sala, fechaYHora, duracion)) {
+					idSalaElegida = sala;
+				}
 			}
 		}
 

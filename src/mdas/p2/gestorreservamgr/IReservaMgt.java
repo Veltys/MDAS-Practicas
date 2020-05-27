@@ -16,8 +16,8 @@ import java.util.HashMap;
  * Interfaz del componente GestorReservaMgr
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		26/05/2020
- * @version		1.9.1
+ * @date		27/05/2020
+ * @version		1.10.0
  */
 
 public interface IReservaMgt {
@@ -35,6 +35,7 @@ public interface IReservaMgt {
 	abstract public Sala				obtenerSala(int idSala);
 	abstract public int					preRegistrarSala(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos);
 	abstract public int					preReservarSala(int idAlumno, int idSala, int alumos, String asignatura, int duracion, LocalDateTime fechaYHora);
+	abstract public boolean				salaLibre(int idSala, LocalDateTime fechaYHora, int duracion);
 
 
 	/**
