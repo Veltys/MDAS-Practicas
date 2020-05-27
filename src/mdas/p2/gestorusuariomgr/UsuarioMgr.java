@@ -2,11 +2,11 @@ package mdas.p2.gestorusuariomgr;
 
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
+// import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
+// import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -218,6 +218,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 	 * @return										Boolean							Inidicación si el guardado de usuarios ha sido exitosa o erronea
 	 */
 
+	/*
 	private boolean guardar(String archivoUsuario) {
 		BufferedWriter		buffer;
 
@@ -243,6 +244,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 			return false;
 		}
 	}
+	 */
 
 
 	/**
