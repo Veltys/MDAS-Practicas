@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		27/05/2020
- * @version		0.19.0
+ * @version		0.20.0
  */
 
 
@@ -99,6 +99,30 @@ public class ReservaMgr implements IReservaMgt {
 
 		if(res.size() == 0) {
 			res = null;
+		}
+
+		return res;
+	}
+
+
+	/**
+	 * Método privado para buscar recursos
+	 * Busca un recurso por su ID
+	 *
+	 * @param		idRecurso						int								ID del recurso a buscar
+	 *
+	 * @return										int								Posición en la lista de recursos (-1 si no encontrado)
+	 */
+
+	private int buscarRecurso(int idRecurso) {
+		int	i;
+		int res			= -1;
+		int	tamLista	= this._recursos.size();
+
+		for(i = 0; i < tamLista; i++) {
+			if((this._recursos.get(i).id() >= idRecurso)) {
+				res = i;
+			}
 		}
 
 		return res;
@@ -573,6 +597,54 @@ public class ReservaMgr implements IReservaMgt {
 		return true;
 	}
 	 */
+
+	/**
+	 * Observador en texto de una reserva
+	 * Recoge los datos de una reversa y los convierte en un String en texto apto para mostrárselo al usuario
+	 *
+	 * @param		idReserva						int								ID de la reserva a mostrar
+	 *
+	 * @return										String							Texto con los datos de la reserva ("" si no encontrada)
+	 */
+
+	@Override
+	public String mostrarReserva(int idReserva) {
+		int		posReserva = this.buscarReserva(idReserva);
+		String	res;
+		Recurso	recurso;
+		Reserva	reserva;
+		Sala	sala;
+
+		if(posReserva != -1) {
+			reserva = this._reservas.get(posReserva);
+
+			sala = this._salas.get(this.buscarSala(reserva.idSala()));
+
+			res =
+					"Nombre de la sala: " + sala.nombre() + System.getProperty("line.separator") +
+					"Aforo de la sala: " + sala.aforo() + " personas" + System.getProperty("line.separator") +
+					"Ubicación de la sala: " + sala.ubicacion() + System.getProperty("line.separator") +
+					"Hora de entrada: " + reserva.fechaYHora().format(DateTimeFormatter.ofPattern("HH:mm")) + System.getProperty("line.separator") +
+					"Hora de salida: " + reserva.fechaYHora().plusHours(reserva.duracion()).format(DateTimeFormatter.ofPattern("HH:mm")) + System.getProperty("line.separator") +
+					"Tiempo total de ocupación: " + reserva.duracion() + " hora" + ((reserva.duracion() > 1) ? ("s") : ("")) + System.getProperty("line.separator") +
+					"Recursos disponibles: " + System.getProperty("line.separator")
+					;
+
+			for(SalaYRecurso syr: this._salasYRecursos) {
+				if(reserva.idSala() == syr.idSala()) {
+					recurso = this._recursos.get(this.buscarRecurso(syr.idRecurso()));
+
+					res += recurso.nombre() + " (" + recurso.descripcion() + ")" + System.getProperty("line.separator");
+				}
+			}
+
+			return res;
+		}
+		else {
+			return "";
+		}
+	}
+
 
 	/**
 	 * Observador del aforo de una sala

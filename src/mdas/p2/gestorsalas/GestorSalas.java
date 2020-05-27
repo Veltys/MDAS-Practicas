@@ -13,8 +13,8 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  * Clase GestorSalas
  *
  * @author		Javier Ortiz Aragones
- * @date		26/05/2020
- * @version		1.3.0
+ * @date		27/05/2020
+ * @version		1.4.0
  */
 
 public class GestorSalas implements IReserva, ISala{
@@ -151,6 +151,22 @@ public class GestorSalas implements IReserva, ISala{
 	public ArrayList<Recurso> obtenerRecursos() {
 		return this._reservaMgr.obtenerRecursos();
 	}
+
+
+	/**
+	 * Observador en texto de una reserva
+	 * Recoge los datos de una reversa y los convierte en un String en texto apto para mostrárselo al usuario
+	 *
+	 * @param		idReserva						int								ID de la reserva a mostrar
+	 *
+	 * @return										String							Texto con los datos de la reserva ("" si no encontrada)
+	 */
+
+	@Override
+	public String mostrarReserva(int idReserva) {
+		return this._reservaMgr.mostrarReserva(idReserva);
+	}
+
 
 	/**
 	 * Validador de los datos introducidos por el empleado para la nueva sala

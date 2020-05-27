@@ -2,6 +2,9 @@ package mdas.p2.main;
 
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -17,8 +20,8 @@ import mdas.p2.gestorsalas.GestorSalas;
  * Clase MenuPrincipal del programa
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		25/05/2020
- * @version		0.4.0 (alfa)
+ * @date		27/05/2020
+ * @version		0.4.0
  */
 
 public class MenuPrincipal {
@@ -98,7 +101,7 @@ public class MenuPrincipal {
 
 					switch(operacion) {
 					case 'R':
-						MenuPrincipal.reserva(/* idUsuario */);
+						MenuPrincipal.reserva(idUsuario);
 
 						break;
 
@@ -124,7 +127,7 @@ public class MenuPrincipal {
 
 	// TODO: Comentar
 
-	static private void reserva(/* int idAlumno */) {
+	static private void reserva(int idAlumno) {
 		/*
 		private int				_idSala;
 		private int				_duracion;
@@ -132,12 +135,19 @@ public class MenuPrincipal {
 		private LocalDateTime	_fechaYHora;
 		 */
 
-		// int					alumnos;
+		boolean				okFecha					= false;
+		int					alumnos;
+		int					duracion;
+		int					idReserva;
 		ArrayList<Integer>	idsRecursos				= new ArrayList<Integer>();
 		ArrayList<Integer>	idsRecursosIncorrectos	= new ArrayList<Integer>();
 		ArrayList<Integer>	idsRecursosPedidos		= new ArrayList<Integer>();
+		ArrayList<Integer>	idsSalasCandidatas;
 		ArrayList<Recurso>	recursos;
+		String				asignatura;
 		String				linea;
+		LocalDateTime		ahora;
+		LocalDateTime		fechaYHora				= null;
 		GestorSalas			gs						= new GestorSalas(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES);
 		StringTokenizer		stLinea;
 
@@ -145,7 +155,7 @@ public class MenuPrincipal {
 		System.out.println("Para realizar una reserva es necesario introducir datos que se le irán solicitando uno por uno");
 		System.out.print("En primer lugar, introduzca las personas que ocuparán la sala reservada: ");
 
-		/* alumnos = */ MenuPrincipal._entrada.nextInt();
+		alumnos = MenuPrincipal._entrada.nextInt();
 
 		System.out.println("A continuación se le presentarán una serie de recursos disponibles");
 
@@ -180,6 +190,61 @@ public class MenuPrincipal {
 			idsRecursosPedidos.remove(idRecursoIncorrecto);
 		}
 
-		// TODO: Seguir aquí
+		idsSalasCandidatas = gs.buscarSala(alumnos, idsRecursosPedidos);
+
+		if(idsSalasCandidatas != null) {
+			System.out.print("Introduzca la asignatura para la que será reservada la sala: ");
+
+			asignatura = MenuPrincipal._entrada.nextLine();
+
+			do {
+				try {
+					System.out.print("Introduzca la fecha y la hora de la reserva en formato \"HH:mm dd/MM/yyyy\": ");
+
+					fechaYHora = LocalDateTime.parse(MenuPrincipal._entrada.nextLine(), DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"));
+
+					okFecha = true;
+				}
+				catch (DateTimeParseException e) {
+					System.out.println("La fecha introducida es incorrecta");
+					System.out.println("Por favor inténtelo de nuevo");
+				}
+
+				ahora = LocalDateTime.now();
+				if(okFecha && !(fechaYHora.isAfter(ahora))) {
+					System.out.println("La fecha introducida es del pasado");
+					System.out.println("Por favor inténtelo de nuevo");
+					System.out.println("Ahora mismo son las " + ahora.format(DateTimeFormatter.ofPattern("HH:mm")) + " del " + ahora.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+					okFecha = false;
+				}
+			} while(!okFecha);
+
+			System.out.print("Para finalizar, introduzca la duración (en horas) de la reserva: ");
+
+			duracion = MenuPrincipal._entrada.nextInt();
+
+			if((idReserva = gs.elegirSala(alumnos, idAlumno, asignatura, duracion, fechaYHora, idsSalasCandidatas)) != -1) {
+				System.out.println("La sala más adecuada para sus requisitos es:" + System.getProperty("line.separator") + gs.mostrarReserva(idReserva));
+				System.out.print("¿Está de acuerdo? [S/n]: ");
+
+				if(Character.toUpperCase(MenuPrincipal._entrada.next().charAt(0)) != 'N') {
+					gs.confirmarReserva(idReserva);
+
+					System.out.println("La reserva se ha confirmado");
+				}
+				else {
+					gs.eliminarReserva(idReserva);
+
+					System.out.println("La reserva se ha cancelado");
+				}
+			}
+			else {
+				System.out.println("No ha sido posible encontrar una sala acorde a los requisitos solicitados");
+			}
+		}
+		else {
+			System.out.println("No ha sido posible encontrar una sala acorde a los requisitos solicitados");
+		}
 	}
 }
