@@ -2,9 +2,11 @@ package mdas.p2.gestorusuariomgr;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -196,8 +198,49 @@ public class UsuarioMgr implements IUsuarioMgt {
 			return false;
 		}
 	}
+	
+	/**
+	 * Metodo que guarda en el ficheor de usuarios los usuarios que se encuentran guardados en el vector de usuarios
+	 *
+	 * @param		archivoUsuarios					String							Ruta del archivo donde se guardar los usuarios
+	 *
+	 * @return										Boolean							Inidicación si el guardado de usuarios ha sido exitosa o erronea
+	 */
+	
+	/*  private boolean guardar(String archivoUsuario) {
+		int					i;
+		ArrayList<String>	lineas	= new ArrayList<String>();
+		BufferedWriter		buffer	= null;
 
+		
+			try {
+					buffer = new BufferedWriter(new FileWriter(new File(archivoUsuario)));
 
+					for(Usuario in: this._usuarios) {
+						lineas.add(in.toString());
+					}
+
+				for(String linea : lineas) {
+					buffer.write(linea + System.getProperty("line.separator"));
+				}
+
+				buffer.close();
+			}
+			catch(FileNotFoundException e) {
+				System.out.println("Error: " + e.getMessage());
+
+				return false;
+			}
+			catch(IOException e) {
+				System.out.println("Error: " + e.getMessage());
+
+				return false;
+			}
+
+		return true;
+	} 
+
+*/
 	/**
 	 * Metodo que envia un mensaje a un usuario, mostando el correo del usuario y el mensaje que se le envia
 	 *
