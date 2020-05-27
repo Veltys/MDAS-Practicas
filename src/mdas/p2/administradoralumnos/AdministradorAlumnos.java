@@ -52,10 +52,10 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 		ArrayList<Integer>	incidencias;
 
 		if((reservas = this._gr.buscarReservas(idAlumno)) != null) {
-			for(int reserva : reservas) {
+			for(int reserva: reservas) {
 				incidencias = this._gr.buscarIncidencias(reserva);
 
-				for(int incidencia : incidencias) {
+				for(int incidencia: incidencias) {
 					sancion = this._gr.buscarSancion(incidencia);
 
 					if(sancion != -1) {

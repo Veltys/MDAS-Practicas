@@ -115,7 +115,7 @@ public class GestorSalas implements IReserva, ISala{
 		int		nuevoAforo;
 		int		idSalaElegida	= -1;
 
-		for(int sala : idSalas) {
+		for(int sala: idSalas) {
 			if(aforo == (nuevoAforo = this._reservaMgr.obtenerAforoSala(sala))) {
 				idSalaElegida = sala;
 
@@ -158,7 +158,7 @@ public class GestorSalas implements IReserva, ISala{
 	 * @param		ubicacion						String							Ubicación de la nueva sala
 	 * @param		recursos						int[]							ID de los recursos disponibles en la nueva sala
 	 *
-	 * @return										int						Id de la sala preRegistrada
+	 * @return										int								Id de la sala preRegistrada
 	 */
 
 	@Override

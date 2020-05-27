@@ -12,7 +12,6 @@ import javax.mail.internet.MimeMessage;
 
 
 /**
- *
  * Clase EnviarMensajeEmail
  * Clase que define la estrategia para enviar un mensaje mostrándolo por email
  *
@@ -31,7 +30,6 @@ public class EnviarMensajeEmail extends EnviarMensaje {
 	 * Constructor de clase
 	 * Inicializa las variables de clase
 	 */
-
 
 	public EnviarMensajeEmail() {
 		this._asunto	= "Ha sido sancionado en la plataforma de reserva de salas de la UCO";

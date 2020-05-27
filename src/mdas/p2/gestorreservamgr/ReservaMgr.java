@@ -91,7 +91,7 @@ public class ReservaMgr implements IReservaMgt {
 	public ArrayList<Integer> buscarIncidencias(int idReserva) {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 
-		for(Incidencia i : this._incidencias) {
+		for(Incidencia i: this._incidencias) {
 			if(i.idReserva() == idReserva) {
 				res.add(i.id());
 			}
@@ -142,7 +142,7 @@ public class ReservaMgr implements IReservaMgt {
 	public ArrayList<Integer> buscarReservas(int idAlumno) {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 
-		for(Reserva r : this._reservas) {
+		for(Reserva r: this._reservas) {
 			if(r.idAlumno() == idAlumno) {
 				res.add(r.id());
 			}
@@ -195,9 +195,9 @@ public class ReservaMgr implements IReservaMgt {
 		int					recursosQueTengo	= 0;
 		ArrayList<Integer>	res					= new ArrayList<Integer>();
 
-		for(Sala s : this._salas) {
+		for(Sala s: this._salas) {
 			if((s.aforo() >= aforo)) {
-				for(SalaYRecurso syr : this._salasYRecursos) {
+				for(SalaYRecurso syr: this._salasYRecursos) {
 					if((syr.idSala() == s.id()) && idsRecursos.contains(syr.idRecurso())) {
 						recursosQueTengo++;
 
@@ -232,7 +232,7 @@ public class ReservaMgr implements IReservaMgt {
 	public int buscarSancion(int idIncidencia) {
 		Sancion res = null;
 
-		for(Sancion s : this._sanciones) {
+		for(Sancion s: this._sanciones) {
 			if(idIncidencia == s.idIncidencia()) {
 				res = s;
 
@@ -260,7 +260,7 @@ public class ReservaMgr implements IReservaMgt {
 	private TipoIncidencia buscarTipoIncidencia(int int_TipoIncidencia) {
 		TipoIncidencia tipoIncidencia = null;
 
-		for(TipoIncidencia ti : TipoIncidencia.values()) {
+		for(TipoIncidencia ti: TipoIncidencia.values()) {
 			if(int_TipoIncidencia == ti.id()) {
 				tipoIncidencia = ti;
 
@@ -283,7 +283,7 @@ public class ReservaMgr implements IReservaMgt {
 	private TipoSala buscarTipoSala(int int_TipoSala) {
 		TipoSala tipoSala = null;
 
-		for(TipoSala ts : TipoSala.values()) {
+		for(TipoSala ts: TipoSala.values()) {
 			if(int_TipoSala == ts.id()) {
 				tipoSala = ts;
 
@@ -491,8 +491,8 @@ public class ReservaMgr implements IReservaMgt {
 	 * @return										boolean							Resultado de la operación
 	 */
 
-
-	/* private boolean guardar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
+	/*
+	private boolean guardar(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
 		int					i;
 		ArrayList<String>	lineas	= new ArrayList<String>();
 		BufferedWriter		buffer	= null;
@@ -511,7 +511,7 @@ public class ReservaMgr implements IReservaMgt {
 				case 1:
 					buffer = new BufferedWriter(new FileWriter(new File(archivoRecursos)));
 
-					for(Recurso rec : this._recursos) {
+					for(Recurso rec: this._recursos) {
 						lineas.add(rec.toString());
 					}
 
@@ -519,7 +519,7 @@ public class ReservaMgr implements IReservaMgt {
 				case 2:
 					buffer = new BufferedWriter(new FileWriter(new File(archivoReservas)));
 
-					for(Reserva res : this._reservas) {
+					for(Reserva res: this._reservas) {
 						lineas.add(res.toString());
 					}
 
@@ -527,7 +527,7 @@ public class ReservaMgr implements IReservaMgt {
 				case 3:
 					buffer = new BufferedWriter(new FileWriter(new File(archivoSalas)));
 
-					for(Sala sal : this._salas) {
+					for(Sala sal: this._salas) {
 						lineas.add(sal.toString());
 					}
 
@@ -535,7 +535,7 @@ public class ReservaMgr implements IReservaMgt {
 				case 4:
 					buffer = new BufferedWriter(new FileWriter(new File(archivoSalasYRecursos)));
 
-					for(SalaYRecurso syl : this._salasYRecursos) {
+					for(SalaYRecurso syl: this._salasYRecursos) {
 						lineas.add(syl.toString());
 					}
 
@@ -543,7 +543,7 @@ public class ReservaMgr implements IReservaMgt {
 				case 5:
 					buffer = new BufferedWriter(new FileWriter(new File(archivoSanciones)));
 
-					for(Sancion san : this._sanciones) {
+					for(Sancion san: this._sanciones) {
 						lineas.add(san.toString());
 					}
 
@@ -552,7 +552,7 @@ public class ReservaMgr implements IReservaMgt {
 					break;
 				}
 
-				for(String linea : lineas) {
+				for(String linea: lineas) {
 					buffer.write(linea + System.getProperty("line.separator"));
 				}
 
@@ -571,8 +571,8 @@ public class ReservaMgr implements IReservaMgt {
 		}
 
 		return true;
-	} */
-
+	}
+	 */
 
 	/**
 	 * Observador del aforo de una sala

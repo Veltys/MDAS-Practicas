@@ -78,7 +78,7 @@ public interface IReservaMgt {
 	static public ArrayList<Integer> obtenerTiposDeIncidencia() {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 
-		for(TipoIncidencia ti : TipoIncidencia.values()) {
+		for(TipoIncidencia ti: TipoIncidencia.values()) {
 			res.add(ti.id());
 		}
 
@@ -96,7 +96,7 @@ public interface IReservaMgt {
 	static public ArrayList<Integer> obtenerTiposDeSala() {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 
-		for(TipoSala ts : TipoSala.values()) {
+		for(TipoSala ts: TipoSala.values()) {
 			res.add(ts.id());
 		}
 

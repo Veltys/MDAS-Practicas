@@ -125,7 +125,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 	private Usuario buscarUsuario(int idUsuario) {
 		Usuario res = null;
 
-		for(Usuario u : this._usuarios) {
+		for(Usuario u: this._usuarios) {
 			if(u.id() == idUsuario) {
 				res = u;
 
@@ -148,7 +148,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 	private Usuario buscarUsuario(String email) {
 		Usuario res = null;
 
-		for(Usuario u : this._usuarios) {
+		for(Usuario u: this._usuarios) {
 			if(u.correo().equals(email)) {
 				res = u;
 				break;
@@ -208,49 +208,43 @@ public class UsuarioMgr implements IUsuarioMgt {
 			return false;
 		}
 	}
-	
+
+
 	/**
-	 * Metodo que guarda en el ficheor de usuarios los usuarios que se encuentran guardados en el vector de usuarios
+	 * Metodo que guarda en un fichero de usuarios los usuarios que se encuentran almacenados en la lista de usuarios
 	 *
-	 * @param		archivoUsuarios					String							Ruta del archivo donde se guardar los usuarios
+	 * @param		archivoUsuarios					String							Ruta del archivo donde se guardan los usuarios
 	 *
 	 * @return										Boolean							Inidicación si el guardado de usuarios ha sido exitosa o erronea
 	 */
-	
-	/*  private boolean guardar(String archivoUsuario) {
-		int					i;
-		ArrayList<String>	lineas	= new ArrayList<String>();
-		BufferedWriter		buffer	= null;
 
-		
-			try {
-					buffer = new BufferedWriter(new FileWriter(new File(archivoUsuario)));
+	private boolean guardar(String archivoUsuario) {
+		BufferedWriter		buffer;
 
-					for(Usuario in: this._usuarios) {
-						lineas.add(in.toString());
-					}
+		try {
+			buffer = new BufferedWriter(new FileWriter(new File(archivoUsuario)));
 
-				for(String linea : lineas) {
-					buffer.write(linea + System.getProperty("line.separator"));
-				}
-
-				buffer.close();
-			}
-			catch(FileNotFoundException e) {
-				System.out.println("Error: " + e.getMessage());
-
-				return false;
-			}
-			catch(IOException e) {
-				System.out.println("Error: " + e.getMessage());
-
-				return false;
+			for(Usuario u: this._usuarios) {
+				buffer.write(u.toString() + System.getProperty("line.separator"));
 			}
 
-		return true;
-	} 
+			buffer.close();
 
-*/
+			return true;
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("Error: " + e.getMessage());
+
+			return false;
+		}
+		catch(IOException e) {
+			System.out.println("Error: " + e.getMessage());
+
+			return false;
+		}
+	}
+
+
 	/**
 	 * Metodo que envia un mensaje a un usuario, mostando el correo del usuario y el mensaje que se le envia
 	 * Implementa el patrón strategy para facilitar el cambio del sistema de envío de notificaciones
