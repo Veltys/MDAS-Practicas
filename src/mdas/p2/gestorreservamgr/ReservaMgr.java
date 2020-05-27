@@ -28,8 +28,8 @@ import java.util.StringTokenizer;
  * Implementa la interfaz IReservaMgt
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		26/05/2020
- * @version		0.18.2
+ * @date		27/05/2020
+ * @version		0.18.3
  */
 
 
@@ -192,20 +192,20 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public ArrayList<Integer> buscarSala(int aforo, ArrayList<Integer> idsRecursos) {
-		int					recursosQueTengo	= 0;
+		int					recursosQueTengo;
 		ArrayList<Integer>	res					= new ArrayList<Integer>();
 
 		for(Sala s: this._salas) {
 			if((s.aforo() >= aforo)) {
-				for(SalaYRecurso syr: this._salasYRecursos) {
-					if((syr.idSala() == s.id()) && idsRecursos.contains(syr.idRecurso())) {
-						recursosQueTengo++;
+				recursosQueTengo = 0;
 
-						break;
+				for(SalaYRecurso syr: this._salasYRecursos) {
+					if(((s.id() == syr.idSala()) && idsRecursos.contains(syr.idRecurso()))) {
+						recursosQueTengo++;
 					}
 				}
 
-				if(recursosQueTengo == idsRecursos.size()) {
+				if(recursosQueTengo >= idsRecursos.size()) {
 					res.add(s.id());
 				}
 			}
