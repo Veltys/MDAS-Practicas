@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		27/05/2020
- * @version		0.20.0
+ * @version		0.20.1
  */
 
 
@@ -120,8 +120,10 @@ public class ReservaMgr implements IReservaMgt {
 		int	tamLista	= this._recursos.size();
 
 		for(i = 0; i < tamLista; i++) {
-			if((this._recursos.get(i).id() >= idRecurso)) {
+			if((this._recursos.get(i).id() == idRecurso)) {
 				res = i;
+
+				break;
 			}
 		}
 
@@ -144,8 +146,10 @@ public class ReservaMgr implements IReservaMgt {
 		int	tamLista	= this._reservas.size();
 
 		for(i = 0; i < tamLista; i++) {
-			if((this._reservas.get(i).id() >= idReserva)) {
+			if((this._reservas.get(i).id() == idReserva)) {
 				res = i;
+
+				break;
 			}
 		}
 
@@ -155,7 +159,7 @@ public class ReservaMgr implements IReservaMgt {
 
 	/**
 	 * Buscador de reservas
-	 * Busca una reserva a través de la ID del alumno que la ha reservado
+	 * Busca las reservas de un alumno a través de la ID del alumno asociado a las mismas
 	 *
 	 * @param		idAlumno						int								ID del alumno
 	 *
@@ -197,6 +201,8 @@ public class ReservaMgr implements IReservaMgt {
 		for(i = 0; i < tamLista; i++) {
 			if((this._salas.get(i).id() == idSala)) {
 				res = i;
+
+				break;
 			}
 		}
 
@@ -764,13 +770,27 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Pre-reservador de salas
+	 * Crea una nueva reserva en estado de espera de confirmación
+	 *
+	 * @param		idAlumno						int								ID del alumno asociado a la reserva
+	 * @param		idSala							int								ID de la sala asociada a la reserva
+	 * @param		alumnos							int								Número de alumnos que disfrutarán la reserva
+	 * @param		asignatura						String							Asignatura para la que se ha realizado la reserva
+	 * @param		duracion						int								Duración (en horas) de la reserva
+	 * @param		fechaYHora						LocalDateTime					Fecha y hora de la reserva
+	 *
+	 * @return										int								ID de la reserva
+	 */
 
 	@Override
 	public int preReservarSala(int idAlumno, int idSala, int alumos, String asignatura, int duracion, LocalDateTime fechaYHora) {
-		// TODO: Por hacer
+		Reserva nueva = new Reserva(this._reservas.get(this._reservas.size() - 1).id() + 1, idAlumno, idSala, alumos, asignatura, duracion, fechaYHora);
 
-		return -1;
+		this._reservas.add(nueva);
+
+		return nueva.id();
 	}
 
 
