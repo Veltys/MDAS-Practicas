@@ -158,7 +158,7 @@ public class GestorSalas implements IReserva, ISala{
 	 * @param		ubicacion						String							Ubicación de la nueva sala
 	 * @param		recursos						int[]							ID de los recursos disponibles en la nueva sala
 	 *
-	 * @return										boolean							True en caso de que los datos sean correctos, false en el caso contrario
+	 * @return										int						Id de la sala preRegistrada
 	 */
 
 	@Override
