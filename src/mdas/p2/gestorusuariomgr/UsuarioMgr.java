@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  *
  * @author		Unai Friscia Pérez (unaif)
  * @date		27/05/2020
- * @version		2.0.0
+ * @version		2.0.1
  *
  */
 
@@ -296,10 +296,12 @@ public class UsuarioMgr implements IUsuarioMgt {
 		System.out.println("Enviando datos al gestor de sesiones de la UCO");
 		System.out.println("Espere, por favor...");
 
-		try {
-			Thread.sleep(5 * 1000);
-		} catch (InterruptedException e) {
-			// No es necesario hacer nada
+		if(!this._DEBUG) {
+			try {
+				Thread.sleep(5 * 1000);
+			} catch (InterruptedException e) {
+				// No es necesario hacer nada
+			}
 		}
 
 		aux = this.buscarUsuario(email);
