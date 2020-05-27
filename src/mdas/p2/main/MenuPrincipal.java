@@ -125,16 +125,15 @@ public class MenuPrincipal {
 	}
 
 
-	// TODO: Comentar
+	/**
+	 * Método privado para reservar una sala
+	 *
+	 * @param		idAlumno						int								ID del alumno que reserva la sala
+	 *
+	 * TODO: Reducir la complejidad N-Path
+	 */
 
 	static private void reserva(int idAlumno) {
-		/*
-		private int				_idSala;
-		private int				_duracion;
-		private String			_asignatura;
-		private LocalDateTime	_fechaYHora;
-		 */
-
 		boolean				okFecha					= false;
 		int					alumnos;
 		int					duracion;
