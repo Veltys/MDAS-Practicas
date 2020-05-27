@@ -17,15 +17,18 @@ import java.util.StringTokenizer;
  * Implementa la interfaz IUsuarioMgt
  *
  * @author		Unai Friscia Pérez (unaif)
- * @date		26/05/2020
- * @version		1.3.1
+ * @date		27/05/2020
+ * @version		2.0.0
  *
  */
 
 public class UsuarioMgr implements IUsuarioMgt {
+	final private	boolean				_DEBUG		= true;
+
 	static	private	Scanner				_entrada	= new Scanner(System.in);
 	static	private	UsuarioMgr			_instance	= null;
 	private			ArrayList<Usuario>	_usuarios;
+	private			EnviarMensaje		_mailer;
 
 
 	/**
@@ -40,6 +43,13 @@ public class UsuarioMgr implements IUsuarioMgt {
 		this._usuarios	= new ArrayList<Usuario>();
 
 		this.cargar(archivoUsuarios);
+
+		if(!this._DEBUG) {
+			this._mailer = new EnviarMensajeEmail();
+		}
+		else {
+			this._mailer = new EnviarMensajeConsola();
+		}
 
 		// TODO: Timer de guardado
 	}
@@ -200,6 +210,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 	/**
 	 * Metodo que envia un mensaje a un usuario, mostando el correo del usuario y el mensaje que se le envia
+	 * Implementa el patrón strategy para facilitar el cambio del sistema de envío de notificaciones
 	 *
 	 * @param		idUsuario						String							Identificador del usuario al que se le quiere enviar el mensaje
 	 * @param		mensaje							String							Mensjae que se enviará al usuario
@@ -210,23 +221,18 @@ public class UsuarioMgr implements IUsuarioMgt {
 	@Override
 	public boolean enviarNotificacion(int idUsuario, String mensaje) {
 
-		Alumno aux = this.buscarAlumno(idUsuario);
+		Alumno alumno = this.buscarAlumno(idUsuario);
 
-		if(aux == null) {
-			System.out.println("Error en el envío del mensaje");
+		if((alumno != null) && this._mailer.enviarMensaje(alumno.correo(), mensaje)) {
+			System.out.println("El mensaje ha sido enviado con exito");
+
+			return true;
+		}
+		else {
+			System.out.println("Ha habido algún error en el envío del mensaje");
+
 			return false;
 		}
-
-		System.out.println("Email: " + aux.correo());
-
-		System.out.println("Mensaje: ");
-
-		System.out.println(mensaje);
-
-		System.out.println("Mensaje enviado con exito");
-
-		return true;
-
 	}
 
 
