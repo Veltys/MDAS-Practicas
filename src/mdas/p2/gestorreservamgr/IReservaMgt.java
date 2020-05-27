@@ -15,9 +15,9 @@ import java.util.HashMap;
  * Interfaz IReservaMgt
  * Interfaz del componente GestorReservaMgr
  *
- * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			26/05/2020
- * @version			1.9.1
+ * @author		Rafael Carlos Méndez Rodríguez (i82meror)
+ * @date		26/05/2020
+ * @version		1.9.1
  */
 
 public interface IReservaMgt {

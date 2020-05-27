@@ -9,9 +9,9 @@ import java.time.format.DateTimeFormatter;
  * Clase Reserva
  * Almacena los datos de una reserva de una sala
  *
- * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			24/05/2020
- * @version			1.2.1
+ * @author		Rafael Carlos Méndez Rodríguez (i82meror)
+ * @date		24/05/2020
+ * @version		1.2.1
  */
 
 public class Reserva {

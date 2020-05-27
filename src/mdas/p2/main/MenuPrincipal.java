@@ -16,9 +16,9 @@ import mdas.p2.gestorsalas.GestorSalas;
  * Clase MenuPrincipal
  * Clase MenuPrincipal del programa
  *
- * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			25/05/2020
- * @version			0.4.0 (alfa)
+ * @author		Rafael Carlos Méndez Rodríguez (i82meror)
+ * @date		25/05/2020
+ * @version		0.4.0 (alfa)
  */
 
 public class MenuPrincipal {

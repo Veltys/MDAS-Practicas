@@ -5,9 +5,9 @@ package mdas.p2.gestorreservamgr;
  * Clase SalaYRecurso
  * Almacena los datos de la asociación de un recurso a una sala
  *
- * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			22/05/2020
- * @version			1.1.0
+ * @author		Rafael Carlos Méndez Rodríguez (i82meror)
+ * @date		22/05/2020
+ * @version		1.1.0
  */
 
 public class SalaYRecurso {

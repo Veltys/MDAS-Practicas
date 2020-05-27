@@ -9,9 +9,9 @@ import mdas.p2.gestorusuariomgr.UsuarioMgr;
  * Componente de gestión de usuarios del sistema
  * Implementa la interfaz IIniciarSesion
  *
- * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			24/05/2020
- * @version			1.2.0
+ * @author		Rafael Carlos Méndez Rodríguez (i82meror)
+ * @date		24/05/2020
+ * @version		1.2.0
  */
 
 public class AdministradorUsuarios implements IIniciarSesion {

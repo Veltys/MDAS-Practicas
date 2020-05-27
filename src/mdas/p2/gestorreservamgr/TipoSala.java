@@ -5,9 +5,9 @@ package mdas.p2.gestorreservamgr;
  * enum TipoIncidencia
  * Enumeración de tipos de incidencias
  *
- * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			21/05/2020
- * @version			1.0.0
+ * @author		Rafael Carlos Méndez Rodríguez (i82meror)
+ * @date		21/05/2020
+ * @version		1.0.0
  */
 
 public enum TipoSala {

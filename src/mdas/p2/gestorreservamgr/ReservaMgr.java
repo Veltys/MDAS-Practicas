@@ -27,9 +27,9 @@ import java.util.StringTokenizer;
  * Es implementado por medio del patrón Singleton, con el fin de prevenir la existencia de más de un gestor
  * Implementa la interfaz IReservaMgt
  *
- * @author			Rafael Carlos Méndez Rodríguez (i82meror)
- * @date			26/05/2020
- * @version			0.18.2
+ * @author		Rafael Carlos Méndez Rodríguez (i82meror)
+ * @date		26/05/2020
+ * @version		0.18.2
  */
 
 

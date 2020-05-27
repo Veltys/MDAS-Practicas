@@ -11,9 +11,9 @@ import mdas.p2.gestorreservamgr.Recurso;
  * Interfaz IReserva
  * Interfaz del componente GestorSalas
  *
- * @author			Javier Ortiz Aragones
- * @date			26/05/2020
- * @version			1.1.0
+ * @author		Javier Ortiz Aragones
+ * @date		26/05/2020
+ * @version		1.1.0
  */
 
 

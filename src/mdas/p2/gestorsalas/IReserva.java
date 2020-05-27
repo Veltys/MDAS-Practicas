@@ -6,9 +6,9 @@ import java.util.ArrayList;
  * Interfaz IReserva
  * Interfaz del componente GestorSalas
  *
- * @author			Javier Ortiz Aragones
- * @date			19/05/2020
- * @version			1.0.0
+ * @author		Javier Ortiz Aragones
+ * @date		19/05/2020
+ * @version		1.0.0
  */
 
 

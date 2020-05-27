@@ -12,9 +12,9 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
 /**
  * Clase GestorSalas
  *
- * @author			Javier Ortiz Aragones
- * @date			26/05/2020
- * @version			1.2.0
+ * @author		Javier Ortiz Aragones
+ * @date		26/05/2020
+ * @version		1.2.0
  */
 
 public class GestorSalas implements IReserva, ISala{

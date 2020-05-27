@@ -14,9 +14,9 @@ import mdas.p2.gestorusuariomgr.UsuarioMgr;
  * Clase AdministadorAlumnos
  * Contiene los métodos de AdministradorAlumnos
  *
- * @author			Herminio Rodríguez García (i72rogah)
- * @date			26/05/2020
- * @version			2.0.2
+ * @author		Herminio Rodríguez García (i72rogah)
+ * @date		26/05/2020
+ * @version		2.0.2
  */
 
 public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion {
