@@ -46,9 +46,13 @@ public class MenuPrincipal {
 		boolean					salir		= false;
 		char					operacion;
 		int						idUsuario	= -1;
+		int						idReserva;
 		int						idSancion;
+		String					operaciones;
+		ArrayList<Integer>		idsReservas	= null;
 		AdministradorAlumnos	aa			= new AdministradorAlumnos(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES, MenuPrincipal.ARCHIVOUSUARIOS);
 		AdministradorUsuarios	au			= new AdministradorUsuarios(MenuPrincipal.ARCHIVOUSUARIOS);
+		GestorSalas				gs			= new GestorSalas(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES);
 
 		System.out.println("Bienvenido al Gestor de salas");
 
@@ -67,14 +71,24 @@ public class MenuPrincipal {
 			System.out.println("¡Bienvenido, " + au.nombre(idUsuario) + "!");
 
 			while(!salir) {
+				operaciones	= "";
+
 				if(au.alumno(idUsuario)) {
 					if((idSancion = aa.comprobarSancion(idUsuario)) == -1) {
 						System.out.println("El menú de operaciones es el siguiente:");
-
 						System.out.println("Introduzca 'r' para realizar una reserva");
+
+						operaciones += 'r';
+
+						if((idsReservas = gs.buscarReservas(idUsuario, false)) != null) {
+							System.out.println("Introduzca 'm' para modificar una reserva ya existente");
+
+							operaciones += 'm';
+						}
+
 						System.out.println("Introduzca 's' para salir");
 
-						System.out.print("Por favor, seleccione una operación para continuar [rs]: ");
+						operaciones += 's';
 					}
 					else {
 						System.out.println(aa.notificarAlumnoSancionado(idUsuario, idSancion));
@@ -84,10 +98,9 @@ public class MenuPrincipal {
 				}
 				else if(au.empleado(idUsuario)) {
 					System.out.println("El menú de operaciones es el siguiente:");
-
 					System.out.println("Introduzca 's' para salir");
 
-					System.out.print("Por favor, seleccione una operación para continuar [s]: ");
+					operaciones += 's';
 				}
 				else {
 					System.out.println("Lo sentimos, su perfil de usuario no le permite utilizar este servicio");
@@ -96,31 +109,84 @@ public class MenuPrincipal {
 				}
 
 				if(!salir) {
+					System.out.print("Por favor, seleccione una operación para continuar [" + operaciones + "]: ");
+
 					operacion = Character.toUpperCase(MenuPrincipal._entrada.next().charAt(0));
 
-					switch(operacion) {
-					case 'R':
-						MenuPrincipal.reserva(idUsuario);
+					if(operaciones.indexOf(operacion) != -1) {
+						switch(operacion) {
+						case 'M':
+							if((idReserva = MenuPrincipal.seleccionarReserva(idsReservas)) != -1) {
+								gs.suspenderReserva(idReserva);
 
-						break;
+								if(MenuPrincipal.reservar(idUsuario)) {
+									gs.eliminarReserva(idReserva);
 
-					case 'S':
-						salir = true;
+									System.out.println("La reserva ha sido modificada satisfactoriamente");
+								}
+								else {
+									gs.reanudarReserva(idReserva);
 
-						break;
+									System.out.println("La reserva no ha sido modificada");
+								}
+							}
+							else {
+								System.out.println("Operación cancelada");
+							}
+						case 'R':
+							MenuPrincipal.reservar(idUsuario);
 
-					default:
-						System.out.println("La operación seleccionada (" + operacion + ") es incorrecta");
-						System.out.println("Por favor, seleccione una válida del menú");
+							break;
 
-						break;
+						case 'S':
+							salir = true;
+
+							break;
+						}
 					}
+					else {
+						System.out.println("La operación seleccionada (" + operacion + ") es incorrecta o no tiene permisos para realizarla");
+						System.out.println("Por favor, seleccione una válida del menú");
+					}
+
 				}
 			}
 		}
 
 		System.out.println("Gracias por utilizar nuestro sistema");
 		System.out.println("Saliendo...");
+	}
+
+
+	/**
+	 * Método privado para seleccionar una reserva
+	 *
+	 * @param		idsReservas						ArrayList<Integer>				Lista de IDs de reservas asociadas al alumno
+	 *
+	 * @return										int								ID de la reserva seleccionada (-1 si no)
+	 */
+
+	static private int seleccionarReserva(ArrayList<Integer> idsReservas) {
+		GestorSalas			gs						= new GestorSalas(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES);
+
+		String opcion;
+
+		System.out.println("A continuación se le presentarán todas las reservas pendientes que ha realizado");
+
+		for(int idReserva: idsReservas) {
+			System.out.println(gs.mostrarReserva(idReserva));
+		}
+
+		System.out.print("Seleccione la que desea modificar (no introduzca nada para cancelar): ");
+
+		opcion = MenuPrincipal._entrada.next();
+
+		if(!"".equals(opcion)) {
+			return Integer.parseInt(opcion);
+		}
+		else {
+			return -1;
+		}
 	}
 
 
@@ -132,7 +198,7 @@ public class MenuPrincipal {
 	 * TODO: Reducir la complejidad N-Path
 	 */
 
-	static private void reserva(int idAlumno) {
+	static private boolean reservar(int idAlumno) {
 		boolean				okFecha					= false;
 		int					alumnos;
 		int					duracion;
@@ -141,7 +207,6 @@ public class MenuPrincipal {
 		ArrayList<Integer>	idsRecursosIncorrectos	= new ArrayList<Integer>();
 		ArrayList<Integer>	idsRecursosPedidos		= new ArrayList<Integer>();
 		ArrayList<Integer>	idsSalasCandidatas;
-		ArrayList<Recurso>	recursos;
 		String				asignatura;
 		String				linea;
 		LocalDateTime		ahora;
@@ -228,19 +293,27 @@ public class MenuPrincipal {
 					gs.confirmarReserva(idReserva);
 
 					System.out.println("La reserva se ha confirmado");
+
+					return true;
 				}
 				else {
 					gs.eliminarReserva(idReserva);
 
 					System.out.println("La reserva se ha cancelado");
+
+					return false;
 				}
 			}
 			else {
 				System.out.println("No ha sido posible encontrar una sala acorde a los requisitos solicitados");
+
+				return false;
 			}
 		}
 		else {
 			System.out.println("No ha sido posible encontrar una sala acorde a los requisitos solicitados");
+
+			return false;
 		}
 	}
 }
