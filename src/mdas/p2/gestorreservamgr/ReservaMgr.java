@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		0.23.0
+ * @version		0.23.1
  */
 
 
@@ -273,7 +273,7 @@ public class ReservaMgr implements IReservaMgt {
 			}
 		}
 
-		if(res.fecha().plusDays(res.duracion()).compareTo(LocalDate.now()) >= 0) {
+		if((res != null) && (res.fecha().plusDays(res.duracion()).compareTo(LocalDate.now()) >= 0)) {
 			return res.id();
 		}
 		else {
@@ -850,13 +850,38 @@ public class ReservaMgr implements IReservaMgt {
 					(idSala == r.idSala()) &&
 					LocalDateTime.now().isBefore(r.fechaYHora().plusHours(r.duracion())) &&
 					!(fechaYHora.isAfter(r.fechaYHora().plusHours(r.duracion()))) &&
-					!(fechaYHora.plusHours(duracion).isBefore(r.fechaYHora()))
+					!(fechaYHora.plusHours(duracion).isBefore(r.fechaYHora())) &&
+					((idAlumno == r.idAlumno()) && !(r.suspendida()))
 					) {
 				reservas.add(r);
 			}
 		}
 
 		return (reservas.size() == 0);
+	}
+
+
+	/**
+	 * Método para reanudar una reserva en suspensión
+	 * Si la modificación de una reserva ha sido cancelada, es necesario revertirla a su estado normal
+	 *
+	 * @param		idReserva						int								ID de la reserva a reanudar
+	 *
+	 * @return										int								ID de la reserva a reanudada (-1 si no encontrada)
+	 */
+
+	@Override
+	public int reanudarReserva(int idReserva) {
+		int posReserva = this.buscarReserva(idReserva);
+
+		if(posReserva != -1) {
+			this._reservas.get(posReserva).suspendida(false);
+
+			return idReserva;
+		}
+		else {
+			return -1;
+		}
 	}
 
 
@@ -874,7 +899,7 @@ public class ReservaMgr implements IReservaMgt {
 		int posReserva = this.buscarReserva(idReserva);
 
 		if(posReserva != -1) {
-			this._reservas.get(posReserva).
+			this._reservas.get(posReserva).suspendida(true);
 
 			return idReserva;
 		}
