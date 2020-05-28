@@ -21,7 +21,7 @@ import mdas.p2.gestorsalas.GestorSalas;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		1.1.0
+ * @version		1.2.0
  */
 
 public class MenuPrincipal {
@@ -37,6 +37,105 @@ public class MenuPrincipal {
 	private static			AdministradorAlumnos	_aa							= new AdministradorAlumnos(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES, MenuPrincipal.ARCHIVOUSUARIOS);
 	private static			AdministradorUsuarios	_au							= new AdministradorUsuarios(MenuPrincipal.ARCHIVOUSUARIOS);
 	private static			GestorSalas				_gs							= new GestorSalas(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES);
+
+
+	/**
+	 * Método estático privado para dar de alta una nueva sala
+	 *
+	 * @return										boolean							Resultado de la operación
+	 */
+
+	private static boolean darDeAltaSala() {
+		boolean				okDato;
+		int					aforo					= 0;
+		int					idTipoDeSalaElegido		= 0;
+		String				nombre;
+		String				ubicacion;
+		ArrayList<Integer>	idsRecursos;
+		ArrayList<Integer>	idsTiposDeSala;
+
+		System.out.println("Para realizar un alta es necesario introducir datos que se le irán solicitando uno por uno");
+		System.out.print("En primer lugar, introduzca el nombre de la sala: ");
+
+		MenuPrincipal._entrada.nextLine();
+
+		nombre = MenuPrincipal._entrada.nextLine();
+
+		okDato = false;
+
+		do {
+			try {
+				System.out.print("Introduzca el aforo de la sala: ");
+
+				aforo = MenuPrincipal._entrada.nextInt();
+
+				if(aforo > 0) {
+					okDato = true;
+				}
+				else {
+					throw new InputMismatchException("El número debe ser positivo");
+				}
+			}
+			catch (InputMismatchException e) {
+				System.out.println("El número introducido es incorrecto");
+				System.out.println("Por favor, introduzca un número entero (sin decimales) y positivo e inténtelo de nuevo");
+
+				MenuPrincipal._entrada.nextLine();
+			}
+		} while(!okDato);
+
+		System.out.println("A continuación se le presentarán una serie de tipos de sala");
+
+		idsTiposDeSala = MenuPrincipal._gs.obtenerTiposDeSala();
+
+		for(int idTipoDeSala: idsTiposDeSala) {
+			System.out.println(MenuPrincipal._gs.mostrarTipoDeSala(idTipoDeSala));
+		}
+
+		okDato = false;
+
+		do {
+			System.out.print("Seleccione el más adecuado a la sala, introduciendo su número: ");
+
+			try {
+				idTipoDeSalaElegido = MenuPrincipal._entrada.nextInt();
+
+				if(idsTiposDeSala.contains(idTipoDeSalaElegido)) {
+					okDato = true;
+				}
+				else {
+					System.out.println("El tipo de sala introducido (" + idTipoDeSalaElegido + ") es incorrecto");
+					System.out.println("Por favor, introduzca un número que esté en la lista");
+				}
+			}
+			catch (InputMismatchException e) {
+				System.out.println("El tipo de sala introducido (" + e.getLocalizedMessage() + ") es incorrecto");
+				System.out.println("Por favor, recuerde introducir números solamente");
+
+				MenuPrincipal._entrada.nextLine();
+			}
+		} while(!okDato);
+
+		MenuPrincipal._entrada.nextLine();
+
+		System.out.print("Introduzca la ubicación de la sala: ");
+
+		ubicacion = MenuPrincipal._entrada.nextLine();
+
+		idsRecursos = MenuPrincipal.seleccionarRecursos();
+
+		if(MenuPrincipal._gs.validarDatos(nombre, aforo, idTipoDeSalaElegido, ubicacion, idsRecursos) != -1) {
+			System.out.println("La sala se ha creado");
+
+			return true;
+		}
+		else {
+			System.out.println("La sala no ha podido ser creada");
+
+			return false;
+		}
+
+	}
 
 
 	/**
@@ -93,6 +192,10 @@ public class MenuPrincipal {
 
 					if(operaciones.toUpperCase().indexOf(operacion) != -1) {
 						switch(operacion) {
+						case 'A':
+							MenuPrincipal.darDeAltaSala();
+
+							break;
 						case 'B':
 							MenuPrincipal.modificarReserva(idUsuario, false);
 
@@ -164,9 +267,10 @@ public class MenuPrincipal {
 		}
 		else if(MenuPrincipal._au.empleado(idUsuario)) {
 			System.out.println("El menú de operaciones es el siguiente:");
+			System.out.println("Introduzca 'a' para dar de alta una nueva sala de estudio");
 			System.out.println("Introduzca 's' para salir");
 
-			operaciones += 's';
+			operaciones += "as";
 		}
 		else {
 			System.out.println("Lo sentimos, su perfil de usuario no le permite utilizar este servicio");
@@ -272,22 +376,21 @@ public class MenuPrincipal {
 	 */
 
 	static private boolean reservar(int idAlumno) {
-		boolean				okDato					= false;
+		boolean				okDato;
 		int					alumnos					= 0;
 		int					duracion;
 		int					idReserva;
-		ArrayList<Integer>	idsRecursos				= new ArrayList<Integer>();
-		ArrayList<Integer>	idsRecursosIncorrectos	= new ArrayList<Integer>();
-		ArrayList<Integer>	idsRecursosPedidos		= new ArrayList<Integer>();
+		ArrayList<Integer>	idsRecursos;
 		ArrayList<Integer>	idsSalasCandidatas;
 		String				asignatura;
-		String				linea;
 		LocalDateTime		ahora;
 		LocalDateTime		fechaYHora				= null;
-		StringTokenizer		stLinea;
 
 
 		System.out.println("Para realizar una reserva es necesario introducir datos que se le irán solicitando uno por uno");
+
+		okDato = false;
+
 		do {
 			try {
 				System.out.print("En primer lugar, introduzca las personas que ocuparán la sala reservada: ");
@@ -303,56 +406,24 @@ public class MenuPrincipal {
 			}
 			catch (InputMismatchException e) {
 				System.out.println("El número introducido es incorrecto");
-				System.out.println("Por favor introduzca un número entero (sin decimales) y positivo e inténtelo de nuevo");
+				System.out.println("Por favor, introduzca un número entero (sin decimales) y positivo e inténtelo de nuevo");
 
 				MenuPrincipal._entrada.nextLine();
 			}
 		} while(!okDato);
 
-		okDato = false;
-
-		System.out.println("A continuación se le presentarán una serie de recursos disponibles");
-
-		idsRecursos = MenuPrincipal._gs.obtenerRecursos();
-
-		for(int idRecurso: idsRecursos) {
-			System.out.println(MenuPrincipal._gs.mostrarRecurso(idRecurso));
-		}
-
 		MenuPrincipal._entrada.nextLine();
 
-		System.out.print("Seleccione tantos como necesite, introduciendo sus números, separados por espacios: ");
-		linea = MenuPrincipal._entrada.nextLine();
+		idsRecursos = MenuPrincipal.seleccionarRecursos();
 
-		stLinea = new StringTokenizer(linea, " ");
-
-		while(stLinea.hasMoreTokens()) {
-			try {
-				idsRecursosPedidos.add(Integer.parseInt(stLinea.nextToken()));
-			} catch (NumberFormatException e) {
-				System.out.println("Uno de los recursos introducidos (" + e.getLocalizedMessage() + ") es incorrecto y no será tomado en cuenta");
-				System.out.println("Por favor, recuerde introducir números solamente");
-			}
-		}
-
-		for(Integer idRecursoPedido: idsRecursosPedidos) {
-			if(!idsRecursos.contains(idRecursoPedido)) {
-				System.out.println("El número de recurso " + idRecursoPedido + " es incorrecto y no será tomado en cuenta");
-
-				idsRecursosIncorrectos.add(idRecursoPedido);
-			}
-		}
-
-		for(Integer idRecursoIncorrecto: idsRecursosIncorrectos) {
-			idsRecursosPedidos.remove(idRecursoIncorrecto);
-		}
-
-		idsSalasCandidatas = MenuPrincipal._gs.buscarSala(alumnos, idsRecursosPedidos);
+		idsSalasCandidatas = MenuPrincipal._gs.buscarSala(alumnos, idsRecursos);
 
 		if(idsSalasCandidatas != null) {
 			System.out.print("Introduzca la asignatura para la que será reservada la sala: ");
 
 			asignatura = MenuPrincipal._entrada.nextLine();
+
+			okDato = false;
 
 			do {
 				try {
@@ -364,13 +435,13 @@ public class MenuPrincipal {
 				}
 				catch (DateTimeParseException e) {
 					System.out.println("La fecha introducida es incorrecta");
-					System.out.println("Por favor inténtelo de nuevo");
+					System.out.println("Por favor, inténtelo de nuevo");
 				}
 
 				ahora = LocalDateTime.now();
 				if(okDato && !(fechaYHora.isAfter(ahora))) {
 					System.out.println("La fecha introducida es del pasado");
-					System.out.println("Por favor inténtelo de nuevo");
+					System.out.println("Por favor, inténtelo de nuevo");
 					System.out.println("Ahora mismo son las " + ahora.format(DateTimeFormatter.ofPattern("HH:mm")) + " del " + ahora.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
 					okDato = false;
@@ -411,5 +482,56 @@ public class MenuPrincipal {
 
 			return false;
 		}
+	}
+
+
+	/**
+	 * Método estático privado para seleccionar recursos
+	 *
+	 * @return										ArrayList&lt;Integer&gt;		Lista de IDs de recursos seleccionados
+	 */
+
+	private static ArrayList<Integer> seleccionarRecursos() {
+		String				linea;
+		ArrayList<Integer>	idsRecursos;
+		ArrayList<Integer>	idsRecursosIncorrectos	= new ArrayList<Integer>();
+		ArrayList<Integer>	idsRecursosPedidos		= new ArrayList<Integer>();
+		StringTokenizer		stLinea;
+
+		System.out.println("A continuación se le presentarán una serie de recursos disponibles");
+
+		idsRecursos = MenuPrincipal._gs.obtenerRecursos();
+
+		for(int idRecurso: idsRecursos) {
+			System.out.println(MenuPrincipal._gs.mostrarRecurso(idRecurso));
+		}
+
+		System.out.print("Seleccione tantos como desee, introduciendo sus números, separados por espacios: ");
+		linea = MenuPrincipal._entrada.nextLine();
+
+		stLinea = new StringTokenizer(linea, " ");
+
+		while(stLinea.hasMoreTokens()) {
+			try {
+				idsRecursosPedidos.add(Integer.parseInt(stLinea.nextToken()));
+			} catch (NumberFormatException e) {
+				System.out.println("Uno de los recursos introducidos (" + e.getLocalizedMessage() + ") es incorrecto y no será tomado en cuenta");
+				System.out.println("Por favor, recuerde introducir números solamente");
+			}
+		}
+
+		for(Integer idRecursoPedido: idsRecursosPedidos) {
+			if(!idsRecursos.contains(idRecursoPedido)) {
+				System.out.println("El número de recurso " + idRecursoPedido + " es incorrecto y no será tomado en cuenta");
+
+				idsRecursosIncorrectos.add(idRecursoPedido);
+			}
+		}
+
+		for(Integer idRecursoIncorrecto: idsRecursosIncorrectos) {
+			idsRecursosPedidos.remove(idRecursoIncorrecto);
+		}
+
+		return idsRecursosPedidos;
 	}
 }

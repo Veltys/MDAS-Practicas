@@ -12,11 +12,11 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  * Clase GestorSalas
  *
  * @author		Javier Ortiz Aragones
- * @date		28/05/2020
- * @version		1.7.1
+ * @date		29/05/2020
+ * @version		1.9.0
  */
 
-public class GestorSalas implements IReserva, ISala{
+public class GestorSalas implements IReserva, ISala {
 
 	private ReservaMgr _reservaMgr;
 
@@ -95,19 +95,6 @@ public class GestorSalas implements IReserva, ISala{
 
 
 	/**
-	 * Confirmar la nueva sala registrada por el empleado
-	 *
-	 * @param		idSala							int								ID de la nueva sala
-	 *
-	 * @return										boolean							True en caso de que se haya realizado con exito, false en el caso contrario
-	 */
-
-	@Override
-	public Boolean confirmarRegistro(int idSala) {
-		return this._reservaMgr.confirmarRegistro(idSala);
-	}
-
-	/**
 	 * Buscador de la sala optima entre las posibles
 	 *
 	 * @param		aforo							int								Aforo minimo que solicita el alumno
@@ -162,6 +149,21 @@ public class GestorSalas implements IReserva, ISala{
 
 
 	/**
+	 * Observador en texto de un tipo de sala
+	 * Recoge los datos de un tipo de sala y los convierte en un String en texto apto para mostrárselo al usuario
+	 *
+	 * @param		idTipoDeSala					int								ID del tipo de sala a mostrar
+	 *
+	 * @return										String							Texto con los datos del tipo de sala ("" si no encontrada)
+	 */
+
+	@Override
+	public String mostrarTipoDeSala(int idTipoDeSala) {
+		return IReservaMgt.mostrarTipoDeSala(idTipoDeSala);
+	}
+
+
+	/**
 	 * Observador en texto de una reserva
 	 * Recoge los datos de una reserva y los convierte en un String en texto apto para mostrárselo al usuario
 	 *
@@ -185,6 +187,18 @@ public class GestorSalas implements IReserva, ISala{
 	@Override
 	public ArrayList<Integer> obtenerRecursos() {
 		return this._reservaMgr.obtenerRecursos();
+	}
+
+
+	/**
+	 * Observador de los tipos de sala
+	 *
+	 * @return										ArrayList&lt;Integer&gt;		Lista de IDs de los tipos de sala
+	 */
+
+	@Override
+	public ArrayList<Integer> obtenerTiposDeSala() {
+		return IReservaMgt.obtenerTiposDeSala();
 	}
 
 
@@ -240,7 +254,7 @@ public class GestorSalas implements IReserva, ISala{
 		else {
 			for(int tipoSala: IReservaMgt.obtenerTiposDeSala()) {
 				if(tipo == tipoSala) {
-					return this._reservaMgr.preRegistrarSala(nombre, aforo, tipo, ubicacion, recursos);
+					return this._reservaMgr.registrarSala(nombre, aforo, tipo, ubicacion, recursos);
 				}
 			}
 			return -1;

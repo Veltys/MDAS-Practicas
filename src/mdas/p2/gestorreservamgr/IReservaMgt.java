@@ -17,7 +17,7 @@ import java.util.HashMap;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		1.14.1
+ * @version		1.16.0
  */
 
 public interface IReservaMgt {
@@ -25,7 +25,6 @@ public interface IReservaMgt {
 	abstract public ArrayList<Integer>	buscarReservas(int idAlumno, boolean todas);
 	abstract public ArrayList<Integer>	buscarSala(int aforo, ArrayList<Integer> idsRecursos);
 	abstract public int					buscarSancion(int idIncidencia);
-	abstract public boolean				confirmarRegistro(int idSala);
 	abstract public boolean				confirmarReserva(int idReserva);
 	abstract public boolean				eliminarReserva(int idReserva);
 	abstract public String				mostrarRecurso(int idRecurso);
@@ -35,7 +34,7 @@ public interface IReservaMgt {
 	abstract public Reserva				obtenerReserva(int idReserva);
 	abstract public Sancion				obtenerSancion(int idSancion);
 	abstract public Sala				obtenerSala(int idSala);
-	abstract public int					preRegistrarSala(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos);
+	abstract public int					registrarSala(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos);
 	abstract public int					preReservarSala(int idAlumno, int idSala, int alumos, String asignatura, int duracion, LocalDateTime fechaYHora);
 	abstract public int					reanudarReserva(int idUsuario, int idReserva);
 	abstract public boolean				salaLibre(int idAlumno, int idSala, LocalDateTime fechaYHora, int duracion);
@@ -74,10 +73,35 @@ public interface IReservaMgt {
 
 
 	/**
+	 * Observador en texto de un tipo de sala
+	 * Recoge los datos de un tipo de sala y los convierte en un String en texto apto para mostrárselo al usuario
+	 *
+	 * @param		idTipoDeSala					int								ID del tipo de sala a mostrar
+	 *
+	 * @return										String							Texto con los datos del tipo de sala ("" si no encontrada)
+	 */
+
+
+	static public String mostrarTipoDeSala(int idTipoDeSala) {
+		String res = "";
+
+		for(TipoSala ts: TipoSala.values()) {
+			if(ts.id() == idTipoDeSala) {
+				res = ts.id() + ": " + ts.descripcion();
+
+				break;
+			}
+		}
+
+		return res;
+	}
+
+
+	/**
 	 * Observador de los tipos de incidencia
 	 * Itera los tipos de incidencia, recoge sus IDs y los devuelve
 	 *
-	 * @return										ArrayList&lt;Integer&gt;		Tipos de incidencias
+	 * @return										ArrayList&lt;Integer&gt;		Lista de IDs de los tipos de incidencias
 	 */
 
 	static public ArrayList<Integer> obtenerTiposDeIncidencia() {
@@ -95,7 +119,7 @@ public interface IReservaMgt {
 	 * Observador de los tipos de sala
 	 * Itera los tipos de sala, recoge sus IDs y los devuelve
 	 *
-	 * @return										ArrayList&lt;Integer&gt;		Tipos de salas
+	 * @return										ArrayList&lt;Integer&gt;		Lista de IDs de los tipos de salas
 	 */
 
 	static public ArrayList<Integer> obtenerTiposDeSala() {

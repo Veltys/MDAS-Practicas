@@ -9,12 +9,11 @@ package mdas.p2.gestorreservamgr;
  * Almacena los datos de una sala
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		27/05/2020
- * @version		1.1.1
+ * @date		29/05/2020
+ * @version		1.3.0
  */
 
 public class Sala {
-	private boolean		_estado;
 	private int			_id;
 	private int			_aforo;
 	private String		_nombre;
@@ -24,20 +23,18 @@ public class Sala {
 
 	/**
 	 * Constructor de clase
-	 * Crea una sala a partir de su ID, aforo, estado, nombre, tipo y ubicacion
+	 * Crea una sala a partir de su ID, aforo, nombre, tipo y ubicacion
 	 *
 	 * @param		id								int								ID de la sala
 	 * @param		aforo							int								Aforo de la sala
-	 * @param		estado							boolean							Estado de la sala
 	 * @param		nombre							String							Nombre de la sala
 	 * @param		tipo							TipoSala						Tipo de la sala
 	 * @param		ubicacion						String							Ubicación de la sala
 	 */
 
-	public Sala(int id, int aforo, boolean estado, String nombre, TipoSala tipo, String ubicacion) {
+	public Sala(int id, int aforo, String nombre, TipoSala tipo, String ubicacion) {
 		this._id			= id;
 		this._aforo			= aforo;
-		this._estado		= estado;
 		this._nombre		= nombre;
 		this._tipo			= tipo;
 		this._ubicacion		= ubicacion;
@@ -52,28 +49,6 @@ public class Sala {
 
 	public int aforo() {
 		return this._aforo;
-	}
-
-
-	/**
-	 * Observador de la variable privada _estado
-	 *
-	 * @return										boolean							Estado de la sala
-	 */
-
-	public boolean estado() {
-		return this._estado;
-	}
-
-
-	/**
-	 * Modificador de la variable privada _estado
-	 *
-	 * @param	estado								boolean							Estado de la sala
-	 */
-
-	public void estado(boolean estado) {
-		this._estado = estado;
 	}
 
 
@@ -131,6 +106,6 @@ public class Sala {
 
 	@Override
 	public String toString() {
-		return this._id + ", " + this._aforo + ", " + this._estado + ", " + this._nombre + ", " + this._tipo.id() + ", " + this._ubicacion;
+		return this._id + ", " + this._aforo + ", " + this._nombre + ", " + this._tipo.id() + ", " + this._ubicacion;
 	}
 }

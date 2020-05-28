@@ -3,7 +3,7 @@ package mdas.p2.gestorreservamgr;
 
 /**
  * enum TipoIncidencia
- * Enumeración de tipos de incidencias
+ * Enumeración de tipos de salas
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		21/05/2020
@@ -24,10 +24,10 @@ public enum TipoSala {
 
 	/**
 	 * Constructor de enumeración
-	 * Crea un tipo de incidencia a partir de su ID y descripción
+	 * Crea un tipo de sala a partir de su ID y descripción
 	 *
-	 * @param		id								int								ID del tipo de incidencia
-	 * @param		descripcion						String							Descripción del tipo de incidencia
+	 * @param		id								int								ID del tipo de sala
+	 * @param		descripcion						String							Descripción del tipo de sala
 	 */
 
 	TipoSala(int id, String descripcion) {
@@ -39,7 +39,7 @@ public enum TipoSala {
 	/**
 	 * Observador de la variable privada _id
 	 *
-	 * @return										int								ID del tipo de incidencia
+	 * @return										int								ID del tipo de sala
 	 */
 
 	public int id() {
@@ -50,7 +50,7 @@ public enum TipoSala {
 	/**
 	 * Observador de la variable privada _descripcion
 	 *
-	 * @return										String							Descripción del tipo de incidencia
+	 * @return										String							Descripción del tipo de sala
 	 */
 
 	public String descripcion() {

@@ -28,8 +28,8 @@ import java.util.StringTokenizer;
  * Implementa la interfaz IReservaMgt
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		28/05/2020
- * @version		0.23.4
+ * @date		29/05/2020
+ * @version		1.1.0
  */
 
 
@@ -423,7 +423,7 @@ public class ReservaMgr implements IReservaMgt {
 
 						break;
 					case 3:
-						this._salas.add(new Sala(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Boolean.parseBoolean(campos.get(2)), campos.get(3), this.buscarTipoSala(Integer.parseInt(campos.get(4))), campos.get(5)));
+						this._salas.add(new Sala(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), campos.get(2), this.buscarTipoSala(Integer.parseInt(campos.get(3))), campos.get(4)));
 
 						break;
 					case 4:
@@ -452,30 +452,6 @@ public class ReservaMgr implements IReservaMgt {
 		}
 
 		return true;
-	}
-
-
-	/**
-	 * Método de confirmación del registro de una sala
-	 * Marca como disponible una sala prerregistrada
-	 *
-	 * @param		idSala							int								ID de la sala a confirmar
-	 *
-	 * @return										boolean							Resultado de la operación
-	 */
-
-	@Override
-	public boolean confirmarRegistro(int idSala) {
-		int posSala = this.buscarSala(idSala);
-
-		if(posSala != -1) {
-			this._salas.get(posSala).estado(true);
-
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 
@@ -816,16 +792,6 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	// TODO: Comentar
-
-	@Override
-	public int preRegistrarSala(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos) {
-		// TODO: Por hacer
-
-		return -1;
-	}
-
-
 	/**
 	 * Pre-reservador de salas
 	 * Crea una nueva reserva en estado de espera de confirmación
@@ -847,6 +813,45 @@ public class ReservaMgr implements IReservaMgt {
 		this._reservas.add(nueva);
 
 		return nueva.id();
+	}
+
+
+	/**
+	 * Registrador de salas
+	 * Crea una nueva sala en estado de espera de confirmación y sus recursos asociados
+	 *
+	 * @param		aforo							int								Aforo de la sala
+	 * @param		nombre							String							Nombre de la sala
+	 * @param		tipo							TipoSala						Tipo de la sala
+	 * @param		ubicacion						String							Ubicación de la sala
+	 * @param		recursos						ArrayList&lt;Integer&gt;		Recursos de la sala
+	 *
+	 * @return										int								ID de la sala
+	 */
+
+	@Override
+	public int registrarSala(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos) {
+		int			idSala;
+		TipoSala	tipoSala = null;
+		Sala		nueva;
+
+		for(TipoSala ts: TipoSala.values()) {
+			if(tipo == ts.id()) {
+				tipoSala = ts;
+
+				break;
+			}
+		}
+
+		nueva = new Sala(this._salas.get(this._salas.size() - 1).id() + 1, aforo, nombre, tipoSala, ubicacion);
+
+		idSala = nueva.id();
+
+		for(int recurso: recursos) {
+			this._salasYRecursos.add(new SalaYRecurso(idSala, recurso));
+		}
+
+		return idSala;
 	}
 
 
