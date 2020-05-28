@@ -4,9 +4,6 @@ package mdas.p2.gestorsalas;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import mdas.p2.gestorreservamgr.Recurso;
-
-
 /**
  * Interfaz IReserva
  * Interfaz del componente GestorSalas
