@@ -21,7 +21,7 @@ import mdas.p2.gestorsalas.GestorSalas;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		1.0.0
+ * @version		1.0.1
  */
 
 public class MenuPrincipal {
@@ -132,7 +132,7 @@ public class MenuPrincipal {
 	 * @return										String							Operaciones disponibles para ese usuario ("" si ninguna)
 	 */
 
-	static String menu(int idUsuario) {
+	static private String menu(int idUsuario) {
 		int		idSancion;
 		String	operaciones	= "";
 
