@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -254,8 +255,8 @@ public class MenuPrincipal {
 	 */
 
 	static private boolean reservar(int idAlumno) {
-		boolean				okFecha					= false;
-		int					alumnos;
+		boolean				okDato					= false;
+		int					alumnos					= 0;
 		int					duracion;
 		int					idReserva;
 		ArrayList<Integer>	idsRecursos				= new ArrayList<Integer>();
@@ -270,9 +271,23 @@ public class MenuPrincipal {
 
 
 		System.out.println("Para realizar una reserva es necesario introducir datos que se le irán solicitando uno por uno");
-		System.out.print("En primer lugar, introduzca las personas que ocuparán la sala reservada: ");
+		do {
+			try {
+				System.out.print("En primer lugar, introduzca las personas que ocuparán la sala reservada: ");
 
-		alumnos = MenuPrincipal._entrada.nextInt();
+				alumnos = MenuPrincipal._entrada.nextInt();
+
+				okDato = true;
+			}
+			catch (InputMismatchException e) {
+				System.out.println("El número introducido es incorrecto");
+				System.out.println("Por favor introduzca un número entero (sin decimales) e inténtelo de nuevo");
+
+				MenuPrincipal._entrada.nextLine();
+			}
+		} while(!okDato);
+
+		okDato = false;
 
 		System.out.println("A continuación se le presentarán una serie de recursos disponibles");
 
@@ -290,7 +305,11 @@ public class MenuPrincipal {
 		stLinea = new StringTokenizer(linea, " ");
 
 		while(stLinea.hasMoreTokens()) {
-			idsRecursosPedidos.add(Integer.parseInt(stLinea.nextToken()));
+			try {
+				idsRecursosPedidos.add(Integer.parseInt(stLinea.nextToken()));
+			} catch (NumberFormatException e) {
+				System.out.println("Uno de los recursos introducidos (" + e.getLocalizedMessage() + ") es incorrecto y no será tomado en cuenta");
+			}
 		}
 
 		for(Integer idRecursoPedido: idsRecursosPedidos) {
@@ -318,7 +337,7 @@ public class MenuPrincipal {
 
 					fechaYHora = LocalDateTime.parse(MenuPrincipal._entrada.nextLine(), DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"));
 
-					okFecha = true;
+					okDato = true;
 				}
 				catch (DateTimeParseException e) {
 					System.out.println("La fecha introducida es incorrecta");
@@ -326,14 +345,14 @@ public class MenuPrincipal {
 				}
 
 				ahora = LocalDateTime.now();
-				if(okFecha && !(fechaYHora.isAfter(ahora))) {
+				if(okDato && !(fechaYHora.isAfter(ahora))) {
 					System.out.println("La fecha introducida es del pasado");
 					System.out.println("Por favor inténtelo de nuevo");
 					System.out.println("Ahora mismo son las " + ahora.format(DateTimeFormatter.ofPattern("HH:mm")) + " del " + ahora.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
-					okFecha = false;
+					okDato = false;
 				}
-			} while(!okFecha);
+			} while(!okDato);
 
 			System.out.print("Para finalizar, introduzca la duración (en horas) de la reserva: ");
 
