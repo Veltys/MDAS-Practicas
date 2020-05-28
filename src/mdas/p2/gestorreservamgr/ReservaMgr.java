@@ -28,8 +28,8 @@ import java.util.StringTokenizer;
  * Implementa la interfaz IReservaMgt
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		27/05/2020
- * @version		0.20.1
+ * @date		28/05/2020
+ * @version		0.21.0
  */
 
 
@@ -162,17 +162,20 @@ public class ReservaMgr implements IReservaMgt {
 	 * Busca las reservas de un alumno a través de la ID del alumno asociado a las mismas
 	 *
 	 * @param		idAlumno						int								ID del alumno
+	 * @param		todas							boolean							Buscar todas las reservas o sólo las futuras
 	 *
 	 * @return										ArrayList<Integer>				ArrayList de IDs de reservas asociadas al alumno (null si ninguna)
 	 */
 
 	@Override
-	public ArrayList<Integer> buscarReservas(int idAlumno) {
+	public ArrayList<Integer> buscarReservas(int idAlumno, boolean todas) {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 
 		for(Reserva r: this._reservas) {
 			if(r.idAlumno() == idAlumno) {
-				res.add(r.id());
+				if(todas || r.fechaYHora().isAfter(LocalDateTime.now())) {
+					res.add(r.id());
+				}
 			}
 		}
 

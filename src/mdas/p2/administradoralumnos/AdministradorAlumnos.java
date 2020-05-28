@@ -15,8 +15,8 @@ import mdas.p2.gestorusuariomgr.UsuarioMgr;
  * Contiene los métodos de AdministradorAlumnos
  *
  * @author		Herminio Rodríguez García (i72rogah)
- * @date		27/05/2020
- * @version		2.0.3
+ * @date		28/05/2020
+ * @version		2.1.0
  */
 
 public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion {
@@ -51,7 +51,7 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 		ArrayList<Integer>	reservas;
 		ArrayList<Integer>	incidencias;
 
-		if((reservas = this._gr.buscarReservas(idAlumno)) != null) {
+		if((reservas = this._gr.buscarReservas(idAlumno, true)) != null) {
 			for(int reserva: reservas) {
 				incidencias = this._gr.buscarIncidencias(reserva);
 

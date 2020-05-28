@@ -16,13 +16,13 @@ import java.util.HashMap;
  * Interfaz del componente GestorReservaMgr
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		27/05/2020
- * @version		1.11.0
+ * @date		28/05/2020
+ * @version		1.12.0
  */
 
 public interface IReservaMgt {
 	abstract public ArrayList<Integer>	buscarIncidencias(int idReserva);
-	abstract public ArrayList<Integer>	buscarReservas(int idAlumno);
+	abstract public ArrayList<Integer>	buscarReservas(int idAlumno, boolean todas);
 	abstract public ArrayList<Integer>	buscarSala(int aforo, ArrayList<Integer> idsRecursos);
 	abstract public int					buscarSancion(int idIncidencia);
 	abstract public boolean				confirmarRegistro(int idSala);

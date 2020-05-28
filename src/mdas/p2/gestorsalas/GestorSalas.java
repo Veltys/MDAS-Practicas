@@ -13,8 +13,8 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  * Clase GestorSalas
  *
  * @author		Javier Ortiz Aragones
- * @date		27/05/2020
- * @version		1.4.1
+ * @date		28/05/2020
+ * @version		1.5.0
  */
 
 public class GestorSalas implements IReserva, ISala{
@@ -36,13 +36,14 @@ public class GestorSalas implements IReserva, ISala{
 	 * Busca las reservas a través de un ID de alumno
 	 *
 	 * @param		idAlumno						int								ID del alumno para buscar sus reservas
+	 * @param		todas							boolean							Buscar todas las reservas o sólo las futuras
 	 *
 	 * @return										int[]							Vector que contiene los IDs de las reservas del alumno
 	 */
 
 	@Override
-	public ArrayList<Integer> buscarReservas(int idAlumno) {
-		return this._reservaMgr.buscarReservas(idAlumno);
+	public ArrayList<Integer> buscarReservas(int idAlumno, boolean todas) {
+		return this._reservaMgr.buscarReservas(idAlumno, todas);
 	}
 
 	/**
