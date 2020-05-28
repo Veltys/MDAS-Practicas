@@ -168,7 +168,7 @@ public class MenuPrincipal {
 	/**
 	 * Método privado para seleccionar una reserva
 	 *
-	 * @param		idsReservas						ArrayList<Integer>				Lista de IDs de reservas asociadas al alumno
+	 * @param		idsReservas						ArrayList&lt;Integer&gt;		Lista de IDs de reservas asociadas al alumno
 	 *
 	 * @return										int								ID de la reserva seleccionada (-1 si no)
 	 */
@@ -201,6 +201,8 @@ public class MenuPrincipal {
 	 * Método privado para reservar una sala
 	 *
 	 * @param		idAlumno						int								ID del alumno que reserva la sala
+	 *
+	 * @return										boolean							Resultado de la operación
 	 *
 	 * TODO: Reducir la complejidad N-Path
 	 */

@@ -47,6 +47,13 @@ public class ReservaMgr implements IReservaMgt {
 	 * Constructor de clase
 	 * Privado, requisito del patrón Singleton
 	 * Inicializa las listas del gestor
+	 *
+	 * @param		archivoIncidencias				String							Ruta del archivo donde incidencias
+	 * @param		archivoRecursos					String							Ruta del archivo donde recursos
+	 * @param		archivoReservas					String							Ruta del archivo donde reservas
+	 * @param		archivoSalas					String							Ruta del archivo donde salas
+	 * @param		archivoSalasYRecursos			String							Ruta del archivo donde salas y recursos
+	 * @param		archivoSanciones				String							Ruta del archivo donde sanciones
 	 */
 
 	private ReservaMgr(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
@@ -65,6 +72,13 @@ public class ReservaMgr implements IReservaMgt {
 
 	/**
 	 * Método estático para obtener la única instancia válida (o crearla si no existe) del gestor
+	 *
+	 * @param		archivoIncidencias				String							Ruta del archivo donde incidencias
+	 * @param		archivoRecursos					String							Ruta del archivo donde recursos
+	 * @param		archivoReservas					String							Ruta del archivo donde reservas
+	 * @param		archivoSalas					String							Ruta del archivo donde salas
+	 * @param		archivoSalasYRecursos			String							Ruta del archivo donde salas y recursos
+	 * @param		archivoSanciones				String							Ruta del archivo donde sanciones
 	 *
 	 * @return										ReservaMgr						Instancia del gestor
 	 */
@@ -136,6 +150,7 @@ public class ReservaMgr implements IReservaMgt {
 	 * Busca una reserva por su ID
 	 *
 	 * @param		idReserva						int								ID de la reserva a buscar
+	 * @param		todas							boolean							Buscar en todas las reservas o sólo las futuras
 	 *
 	 * @return										int								Posición en la lista de reservas (-1 si no encontrada)
 	 */
@@ -169,7 +184,7 @@ public class ReservaMgr implements IReservaMgt {
 	 * @param		idAlumno						int								ID del alumno
 	 * @param		todas							boolean							Buscar todas las reservas o sólo las futuras
 	 *
-	 * @return										ArrayList<Integer>				ArrayList de IDs de reservas asociadas al alumno (null si ninguna)
+	 * @return										ArrayList&lt;Integer&gt;		ArrayList de IDs de reservas asociadas al alumno (null si ninguna)
 	 */
 
 	@Override
@@ -221,9 +236,9 @@ public class ReservaMgr implements IReservaMgt {
 	 * Busca una sala adecuada al aforo y a los recursos proporcionados
 	 *
 	 * @param		aforo							int								Aforo mínimo requerido
-	 * @param		idsRecursos						ArrayList<Integer>				IDs de los recursos mínimos requeridos
+	 * @param		idsRecursos						ArrayList&lt;Integer&gt;		IDs de los recursos mínimos requeridos
 	 *
-	 * @return										ArrayList<Integer>				ArrayList de IDs de salas que cumplen los requisitos (null si ninguno)
+	 * @return										ArrayList&lt;Integer&gt;		ArrayList de IDs de salas que cumplen los requisitos (null si ninguno)
 	 */
 
 	@Override
@@ -335,12 +350,12 @@ public class ReservaMgr implements IReservaMgt {
 	 * Método de carga de archivos
 	 * Carga los archivos CSV solicitados en la memoria del gestor
 	 *
-	 * @param		archivoIncidencias				String							Archivo de incidencias
-	 * @param		archivoRecursos					String							Archivo de recursos
-	 * @param		archivoReservas					String							Archivo de reservas
-	 * @param		archivoSalas					String							Archivo de salas
-	 * @param		archivoSalasYRecursos			String							Archivo de salas y recursos
-	 * @param		archivoSanciones				String							Archivo de sanciones
+	 * @param		archivoIncidencias				String							Ruta del archivo donde incidencias
+	 * @param		archivoRecursos					String							Ruta del archivo donde recursos
+	 * @param		archivoReservas					String							Ruta del archivo donde reservas
+	 * @param		archivoSalas					String							Ruta del archivo donde salas
+	 * @param		archivoSalasYRecursos			String							Ruta del archivo donde salas y recursos
+	 * @param		archivoSanciones				String							Ruta del archivo donde sanciones
 	 *
 	 * @return										boolean							Resultado de la operación
 	 */
@@ -517,12 +532,12 @@ public class ReservaMgr implements IReservaMgt {
 	 * Método de guardado de archivos
 	 * Guarda la memoria del gestor en los archivos CSV solicitados
 	 *
-	 * @param		archivoIncidencias				String							Archivo de incidencias
-	 * @param		archivoRecursos					String							Archivo de recursos
-	 * @param		archivoReservas					String							Archivo de reservas
-	 * @param		archivoSalas					String							Archivo de salas
-	 * @param		archivoSalasYRecursos			String							Archivo de salas y recursos
-	 * @param		archivoSanciones				String							Archivo de sanciones
+	 * @param		archivoIncidencias				String							Ruta del archivo donde incidencias
+	 * @param		archivoRecursos					String							Ruta del archivo donde recursos
+	 * @param		archivoReservas					String							Ruta del archivo donde reservas
+	 * @param		archivoSalas					String							Ruta del archivo donde salas
+	 * @param		archivoSalasYRecursos			String							Ruta del archivo donde salas y recursos
+	 * @param		archivoSanciones				String							Ruta del archivo donde sanciones
 	 *
 	 * @return										boolean							Resultado de la operación
 	 */
@@ -614,7 +629,7 @@ public class ReservaMgr implements IReservaMgt {
 	 * Observador en texto de un recurso
 	 * Recoge los datos de un recurso y los convierte en un String en texto apto para mostrárselo al usuario
 	 *
-	 * @param		idReserva						int								ID del recurso a mostrar
+	 * @param		idRecurso						int								ID del recurso a mostrar
 	 *
 	 * @return										String							Texto con los datos del recurso ("" si no encontrada)
 	 */
@@ -711,7 +726,7 @@ public class ReservaMgr implements IReservaMgt {
 	/**
 	 * Observador de la lista de recursos
 	 *
-	 * @return										ArrayList<Integer>				Lista de IDs de los recursos cargada en el gestor
+	 * @return										ArrayList&lt;Integer&gt;		Lista de IDs de los recursos cargada en el gestor
 	 */
 
 	@Override
@@ -825,8 +840,8 @@ public class ReservaMgr implements IReservaMgt {
 	 */
 
 	@Override
-	public int preReservarSala(int idAlumno, int idSala, int alumos, String asignatura, int duracion, LocalDateTime fechaYHora) {
-		Reserva nueva = new Reserva(this._reservas.get(this._reservas.size() - 1).id() + 1, idAlumno, idSala, alumos, asignatura, duracion, fechaYHora);
+	public int preReservarSala(int idAlumno, int idSala, int alumnos, String asignatura, int duracion, LocalDateTime fechaYHora) {
+		Reserva nueva = new Reserva(this._reservas.get(this._reservas.size() - 1).id() + 1, idAlumno, idSala, alumnos, asignatura, duracion, fechaYHora);
 
 		this._reservas.add(nueva);
 

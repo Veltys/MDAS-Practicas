@@ -46,7 +46,7 @@ public interface IReservaMgt {
 	 * Descriptor de sanciones
 	 * Método estático para describir una sanción
 	 *
-	 * @param		codigo							int								Código de sanción a describir
+	 * @param		codigoSancion					int								Código de sanción a describir
 	 *
 	 * @return										String							Descripción en texto de la sanción
 	 */
@@ -77,7 +77,7 @@ public interface IReservaMgt {
 	 * Observador de los tipos de incidencia
 	 * Itera los tipos de incidencia, recoge sus IDs y los devuelve
 	 *
-	 * @return										ArrayList<Integer>				Tipos de incidencias
+	 * @return										ArrayList&lt;Integer&gt;		Tipos de incidencias
 	 */
 
 	static public ArrayList<Integer> obtenerTiposDeIncidencia() {
@@ -95,7 +95,7 @@ public interface IReservaMgt {
 	 * Observador de los tipos de sala
 	 * Itera los tipos de sala, recoge sus IDs y los devuelve
 	 *
-	 * @return										ArrayList<Integer>				Tipos de salas
+	 * @return										ArrayList&lt;Integer&gt;		Tipos de salas
 	 */
 
 	static public ArrayList<Integer> obtenerTiposDeSala() {

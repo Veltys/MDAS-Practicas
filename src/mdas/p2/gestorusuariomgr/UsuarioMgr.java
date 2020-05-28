@@ -60,6 +60,8 @@ public class UsuarioMgr implements IUsuarioMgt {
 	/**
 	 * Método estático para obtener la única instancia válida (o crearla si no existe) del gestor
 	 *
+	 * @param		archivoUsuarios					String							Ruta del archivo donde se encuentran los usuarios
+	 *
 	 * @return										UsuarioMgr						Instancia del gestor
 	 */
 
@@ -96,7 +98,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 	/**
 	 * Metodo para obtener un Empleado de la lista de Usuarios a partir de su ID
 	 *
-	 * @param		idAlumno						int								ID del empleado a buscar
+	 * @param		idEmpleado						int								ID del empleado a buscar
 	 *
 	 * @return										Empleado						Empleado encontrado (null si no)
 	 */
@@ -334,7 +336,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 	/**
 	 * Observador del nombre de un usuario
 	 *
-	 * @param		int								idUsuario						ID del usuario
+	 * @param		idUsuario						int								ID del usuario
 	 *
 	 * @return										String							Nombre del usuario (null si no encontrado)
 	 */

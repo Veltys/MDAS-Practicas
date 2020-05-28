@@ -26,6 +26,14 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 	/**
 	 * Constructor de clase
 	 * Inicializa el objeto de la clase ReservaMgr
+	 *
+	 * @param		archivoIncidencias				String							Ruta del archivo donde incidencias
+	 * @param		archivoRecursos					String							Ruta del archivo donde recursos
+	 * @param		archivoReservas					String							Ruta del archivo donde reservas
+	 * @param		archivoSalas					String							Ruta del archivo donde salas
+	 * @param		archivoSalasYRecursos			String							Ruta del archivo donde salas y recursos
+	 * @param		archivoSanciones				String							Ruta del archivo donde sanciones
+	 * @param		archivoUsuarios					String							Ruta del archivo donde se encuentran los usuarios
 	 */
 
 
@@ -79,7 +87,7 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 	 * Método descriptor de sanciones
 	 * Devuelve la descripción de una sanción a traves del codigo de esta
 	 *
-	 * @param		codigo_sancion						int							Código de la sancion
+	 * @param		codigoSancion						int							Código de la sancion
 	 */
 
 	@Override

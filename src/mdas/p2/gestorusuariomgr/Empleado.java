@@ -16,7 +16,7 @@ public class Empleado extends Usuario {
 	 * Constructor de clase
 	 * Crea un empleado a partir de su id y su nombre
 	 *
-	 * @param		id								int								Identificador del empleado
+	 * @param		idEmpleado						int								Identificador del empleado
 	 * @param		nombre							String							Nombre del empleado
 	 * @param		correo							String							Correo del empleado
 	 */

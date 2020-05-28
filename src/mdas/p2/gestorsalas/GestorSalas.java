@@ -23,6 +23,13 @@ public class GestorSalas implements IReserva, ISala{
 	/**
 	 * Constructor de clase
 	 * Inicializa el objeto de la clase ReservaMgr
+	 *
+	 * @param		archivoIncidencias				String							Ruta del archivo donde incidencias
+	 * @param		archivoRecursos					String							Ruta del archivo donde recursos
+	 * @param		archivoReservas					String							Ruta del archivo donde reservas
+	 * @param		archivoSalas					String							Ruta del archivo donde salas
+	 * @param		archivoSalasYRecursos			String							Ruta del archivo donde salas y recursos
+	 * @param		archivoSanciones				String							Ruta del archivo donde sanciones
 	 */
 
 	public GestorSalas(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
@@ -48,7 +55,7 @@ public class GestorSalas implements IReserva, ISala{
 	/**
 	 * Confirmar la reserva realizada por el alumno
 	 *
-	 * @param		idRserva						int								ID de la reserva para buscar sus incidencias
+	 * @param		idReserva						int								ID de la reserva para buscar sus incidencias
 	 *
 	 * @return										boolean							True en caso de que se haya realizado con exito, false en el caso contrario
 	 */
@@ -143,7 +150,7 @@ public class GestorSalas implements IReserva, ISala{
 	 * Observador en texto de un recurso
 	 * Recoge los datos de un recurso y los convierte en un String en texto apto para mostrárselo al usuario
 	 *
-	 * @param		idReserva						int								ID del recurso a mostrar
+	 * @param		idRecurso						int								ID del recurso a mostrar
 	 *
 	 * @return										String							Texto con los datos del recurso ("" si no encontrada)
 	 */
@@ -172,7 +179,7 @@ public class GestorSalas implements IReserva, ISala{
 	/**
 	 * Observador de la lista de recursos
 	 *
-	 * @return										ArrayList<Integer>				Lista de IDs de los recursos cargada en el gestor
+	 * @return										ArrayList&lt;Integer&gt;		Lista de IDs de los recursos cargada en el gestor
 	 */
 
 	@Override
