@@ -20,7 +20,7 @@ import mdas.p2.gestorsalas.GestorSalas;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		0.4.2
+ * @version		0.4.3
  */
 
 public class MenuPrincipal {
@@ -115,27 +115,37 @@ public class MenuPrincipal {
 
 					operacion = Character.toUpperCase(MenuPrincipal._entrada.next().charAt(0));
 
-					if(operaciones.indexOf(operacion) != -1) {
+					if(operaciones.toUpperCase().indexOf(operacion) != -1) {
 						switch(operacion) {
 						case 'M':
 							if((idReserva = MenuPrincipal.seleccionarReserva(idsReservas)) != -1) {
-								gs.suspenderReserva(idReserva);
+								switch(gs.suspenderReserva(idUsuario, idReserva)) {
+								default:
+									if(MenuPrincipal.reservar(idUsuario)) {
+										gs.eliminarReserva(idReserva);
 
-								if(MenuPrincipal.reservar(idUsuario)) {
-									gs.eliminarReserva(idReserva);
+										System.out.println("La reserva ha sido modificada satisfactoriamente");
+									}
+									else {
+										gs.reanudarReserva(idUsuario, idReserva);
 
-									System.out.println("La reserva ha sido modificada satisfactoriamente");
-								}
-								else {
-									gs.reanudarReserva(idReserva);
+										System.out.println("La reserva no ha sido modificada");
+									}
 
-									System.out.println("La reserva no ha sido modificada");
+									break;
+								case -1:
+									System.out.println("La reserva seleccionada (" + idReserva + ") no existe");
+
+									break;
+								case -2:
+									System.out.println("La reserva seleccionada (" + idReserva + ") no es de su propiedad");
+
+									break;
 								}
 							}
 							else {
 								System.out.println("Operación cancelada");
 							}
-
 							break;
 						case 'R':
 							MenuPrincipal.reservar(idUsuario);
@@ -174,19 +184,22 @@ public class MenuPrincipal {
 	 */
 
 	static private int seleccionarReserva(ArrayList<Integer> idsReservas) {
-		GestorSalas			gs						= new GestorSalas(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES);
+		GestorSalas gs = new GestorSalas(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES);
 
 		String opcion;
 
 		System.out.println("A continuación se le presentarán todas las reservas pendientes que ha realizado");
 
 		for(int idReserva: idsReservas) {
+			System.out.println("Reserva " + idReserva + ":");
 			System.out.println(gs.mostrarReserva(idReserva));
 		}
 
-		System.out.print("Seleccione la que desea modificar (no introduzca nada para cancelar): ");
+		System.out.print("Seleccione la que desea modificar (enter para cancelar): ");
 
-		opcion = MenuPrincipal._entrada.next();
+		MenuPrincipal._entrada.nextLine();
+
+		opcion = MenuPrincipal._entrada.nextLine();
 
 		if(!"".equals(opcion)) {
 			return Integer.parseInt(opcion);
