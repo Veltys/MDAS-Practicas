@@ -786,7 +786,6 @@ public class ReservaMgr implements IReservaMgt {
 	}
 
 
-	@Override
 	/**
 	 * Observador de una sanción
 	 * Busca una sanción por su ID y la devuelve
@@ -796,6 +795,7 @@ public class ReservaMgr implements IReservaMgt {
 	 * @return										int								Sanción (null si no encontrada)
 	 */
 
+	@Override
 	public Sancion obtenerSancion(int idSancion) {
 		int	i;
 		int posSancion	= -1;

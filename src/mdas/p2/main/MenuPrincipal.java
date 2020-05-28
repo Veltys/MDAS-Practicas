@@ -21,7 +21,7 @@ import mdas.p2.gestorsalas.GestorSalas;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		1.0.1
+ * @version		1.1.0
  */
 
 public class MenuPrincipal {
@@ -93,8 +93,12 @@ public class MenuPrincipal {
 
 					if(operaciones.toUpperCase().indexOf(operacion) != -1) {
 						switch(operacion) {
+						case 'B':
+							MenuPrincipal.modificarReserva(idUsuario, false);
+
+							break;
 						case 'M':
-							MenuPrincipal.modificarReserva(idUsuario);
+							MenuPrincipal.modificarReserva(idUsuario, true);
 
 							break;
 						case 'R':
@@ -144,9 +148,10 @@ public class MenuPrincipal {
 				operaciones += 'r';
 
 				if(MenuPrincipal._gs.buscarReservas(idUsuario, false) != null) {
+					System.out.println("Introduzca 'b' para borrar una reserva ya existente");
 					System.out.println("Introduzca 'm' para modificar una reserva ya existente");
 
-					operaciones += 'm';
+					operaciones += "bm";
 				}
 
 				System.out.println("Introduzca 's' para salir");
@@ -172,26 +177,34 @@ public class MenuPrincipal {
 
 
 	/**
-	 * Método estático privado para modificar una reserva
+	 * Método estático privado para modificar o eliminar una reserva
 	 *
 	 * @param		idAlumno						int								ID del alumno que solicita modificar la reserva
+	 * @param		modificar						boolean							<em>true</em> para modificaciones, <em>false</em> para borrados
 	 */
 
-	static private void modificarReserva(int idAlumno) {
+	static private void modificarReserva(int idAlumno, boolean modificar) {
 		int idReserva = MenuPrincipal.seleccionarReserva(MenuPrincipal._gs.buscarReservas(idAlumno, false));
 
-		if(idReserva != -1) {
+		if(idReserva >= 0) {
 			switch(MenuPrincipal._gs.suspenderReserva(idAlumno, idReserva)) {
 			default:
-				if(MenuPrincipal.reservar(idAlumno)) {
-					MenuPrincipal._gs.eliminarReserva(idReserva);
+				if(modificar) {
+					if(MenuPrincipal.reservar(idAlumno)) {
+						MenuPrincipal._gs.eliminarReserva(idReserva);
 
-					System.out.println("La reserva ha sido modificada satisfactoriamente");
+						System.out.println("La reserva ha sido modificada satisfactoriamente");
+					}
+					else {
+						MenuPrincipal._gs.reanudarReserva(idAlumno, idReserva);
+
+						System.out.println("La reserva no ha sido modificada");
+					}
 				}
 				else {
-					MenuPrincipal._gs.reanudarReserva(idAlumno, idReserva);
+					MenuPrincipal._gs.eliminarReserva(idReserva);
 
-					System.out.println("La reserva no ha sido modificada");
+					System.out.println("La reserva ha sido eliminada satisfactoriamente");
 				}
 
 				break;
@@ -205,8 +218,8 @@ public class MenuPrincipal {
 				break;
 			}
 		}
-		else {
-			System.out.println("Operación cancelada");
+		else /* if(idReserva == -1) */ {
+			System.out.println("La operación ha sido cancelada");
 		}
 	}
 
@@ -216,7 +229,7 @@ public class MenuPrincipal {
 	 *
 	 * @param		idsReservas						ArrayList&lt;Integer&gt;		Lista de IDs de reservas asociadas al alumno
 	 *
-	 * @return										int								ID de la reserva seleccionada (-1 si no)
+	 * @return										int								ID de la reserva seleccionada (-1 si no, -2 si el usuario introduce un valor no válido)
 	 */
 
 	static private int seleccionarReserva(ArrayList<Integer> idsReservas) {
@@ -229,14 +242,18 @@ public class MenuPrincipal {
 			System.out.println(MenuPrincipal._gs.mostrarReserva(idReserva));
 		}
 
-		System.out.print("Seleccione la que desea modificar (enter para cancelar): ");
+		System.out.print("Seleccione la reserva que desee (enter para cancelar): ");
 
 		MenuPrincipal._entrada.nextLine();
 
 		opcion = MenuPrincipal._entrada.nextLine();
 
 		if(!"".equals(opcion)) {
-			return Integer.parseInt(opcion);
+			try {
+				return Integer.parseInt(opcion);
+			} catch (NumberFormatException e) {
+				return -2;
+			}
 		}
 		else {
 			return -1;
@@ -277,11 +294,16 @@ public class MenuPrincipal {
 
 				alumnos = MenuPrincipal._entrada.nextInt();
 
-				okDato = true;
+				if(alumnos > 0) {
+					okDato = true;
+				}
+				else {
+					throw new InputMismatchException("El número debe ser positivo");
+				}
 			}
 			catch (InputMismatchException e) {
 				System.out.println("El número introducido es incorrecto");
-				System.out.println("Por favor introduzca un número entero (sin decimales) e inténtelo de nuevo");
+				System.out.println("Por favor introduzca un número entero (sin decimales) y positivo e inténtelo de nuevo");
 
 				MenuPrincipal._entrada.nextLine();
 			}
@@ -309,6 +331,7 @@ public class MenuPrincipal {
 				idsRecursosPedidos.add(Integer.parseInt(stLinea.nextToken()));
 			} catch (NumberFormatException e) {
 				System.out.println("Uno de los recursos introducidos (" + e.getLocalizedMessage() + ") es incorrecto y no será tomado en cuenta");
+				System.out.println("Por favor, recuerde introducir números solamente");
 			}
 		}
 
