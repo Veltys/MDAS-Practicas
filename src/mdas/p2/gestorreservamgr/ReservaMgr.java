@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		0.21.0
+ * @version		0.22.0
  */
 
 
@@ -608,6 +608,34 @@ public class ReservaMgr implements IReservaMgt {
 	 */
 
 	/**
+	 * Observador en texto de un recurso
+	 * Recoge los datos de un recurso y los convierte en un String en texto apto para mostrárselo al usuario
+	 *
+	 * @param		idReserva						int								ID del recurso a mostrar
+	 *
+	 * @return										String							Texto con los datos del recurso ("" si no encontrada)
+	 */
+
+	@Override
+	public String mostrarRecurso(int idRecurso) {
+		int		posRecurso = this.buscarRecurso(idRecurso);
+		String	res;
+		Recurso	recurso;
+
+		if(posRecurso != -1) {
+			recurso = this._recursos.get(posRecurso);
+
+			res = recurso.id() + ": " + recurso.nombre() + " (" + recurso.descripcion() + ")";
+
+			return res;
+		}
+		else {
+			return "";
+		}
+	}
+
+
+	/**
 	 * Observador en texto de una reserva
 	 * Recoge los datos de una reversa y los convierte en un String en texto apto para mostrárselo al usuario
 	 *
@@ -680,12 +708,18 @@ public class ReservaMgr implements IReservaMgt {
 	/**
 	 * Observador de la lista de recursos
 	 *
-	 * @return										ArrayList<Recurso>				Lista de recursos cargada en el gestor
+	 * @return										ArrayList<Integer>				Lista de IDs de los recursos cargada en el gestor
 	 */
 
 	@Override
-	public ArrayList<Recurso> obtenerRecursos() {
-		return this._recursos;
+	public ArrayList<Integer> obtenerRecursos() {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+
+		for(Recurso recurso: this._recursos) {
+			res.add(recurso.id());
+		}
+
+		return res;
 	}
 
 

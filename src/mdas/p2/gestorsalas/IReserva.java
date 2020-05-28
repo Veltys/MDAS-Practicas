@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 
 public interface IReserva {
-	public abstract ArrayList<Integer>	buscarReservas(int idAlumno, boolean todas);
-	public abstract Boolean				confirmarReserva(int idReserva);
-	public abstract Boolean				eliminarReserva(int idReserva);
-	public abstract String				mostrarReserva(int idReserva);
+	abstract public ArrayList<Integer>	buscarReservas(int idAlumno, boolean todas);
+	abstract public Boolean				confirmarReserva(int idReserva);
+	abstract public Boolean				eliminarReserva(int idReserva);
+	abstract public String				mostrarReserva(int idReserva);
 }

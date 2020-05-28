@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import mdas.p2.gestorreservamgr.IReservaMgt;
-import mdas.p2.gestorreservamgr.Recurso;
 import mdas.p2.gestorreservamgr.ReservaMgr;
 
 
@@ -14,7 +13,7 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  *
  * @author		Javier Ortiz Aragones
  * @date		28/05/2020
- * @version		1.5.0
+ * @version		1.6.0
  */
 
 public class GestorSalas implements IReserva, ISala{
@@ -141,20 +140,23 @@ public class GestorSalas implements IReserva, ISala{
 
 
 	/**
-	 * Observador de la lista de recursos
+	 * Observador en texto de un recurso
+	 * Recoge los datos de un recurso y los convierte en un String en texto apto para mostrárselo al usuario
 	 *
-	 * @return										ArrayList<Recurso>				Lista de recursos cargada en el gestor
+	 * @param		idReserva						int								ID del recurso a mostrar
+	 *
+	 * @return										String							Texto con los datos del recurso ("" si no encontrada)
 	 */
 
 	@Override
-	public ArrayList<Recurso> obtenerRecursos() {
-		return this._reservaMgr.obtenerRecursos();
+	public String mostrarRecurso(int idRecurso) {
+		return this._reservaMgr.mostrarRecurso(idRecurso);
 	}
 
 
 	/**
 	 * Observador en texto de una reserva
-	 * Recoge los datos de una reversa y los convierte en un String en texto apto para mostrárselo al usuario
+	 * Recoge los datos de una reserva y los convierte en un String en texto apto para mostrárselo al usuario
 	 *
 	 * @param		idReserva						int								ID de la reserva a mostrar
 	 *
@@ -164,6 +166,18 @@ public class GestorSalas implements IReserva, ISala{
 	@Override
 	public String mostrarReserva(int idReserva) {
 		return this._reservaMgr.mostrarReserva(idReserva);
+	}
+
+
+	/**
+	 * Observador de la lista de recursos
+	 *
+	 * @return										ArrayList<Integer>				Lista de IDs de los recursos cargada en el gestor
+	 */
+
+	@Override
+	public ArrayList<Integer> obtenerRecursos() {
+		return this._reservaMgr.obtenerRecursos();
 	}
 
 

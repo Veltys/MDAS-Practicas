@@ -11,7 +11,6 @@ import java.util.StringTokenizer;
 
 import mdas.p2.administradoralumnos.AdministradorAlumnos;
 import mdas.p2.administradorusuarios.AdministradorUsuarios;
-import mdas.p2.gestorreservamgr.Recurso;
 import mdas.p2.gestorsalas.GestorSalas;
 
 
@@ -20,8 +19,8 @@ import mdas.p2.gestorsalas.GestorSalas;
  * Clase MenuPrincipal del programa
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		27/05/2020
- * @version		0.4.0
+ * @date		28/05/2020
+ * @version		0.4.1
  */
 
 public class MenuPrincipal {
@@ -158,12 +157,10 @@ public class MenuPrincipal {
 
 		System.out.println("A continuación se le presentarán una serie de recursos disponibles");
 
-		recursos = gs.obtenerRecursos();
+		idsRecursos = gs.obtenerRecursos();
 
-		for(Recurso r: recursos) {
-			System.out.println(r.id() + ": " + r.nombre() + " (" + r.descripcion() + ")");
-
-			idsRecursos.add(r.id());
+		for(int idRecurso: idsRecursos) {
+			System.out.println(gs.mostrarRecurso(idRecurso));
 		}
 
 		MenuPrincipal._entrada.nextLine();
