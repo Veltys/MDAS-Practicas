@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		0.22.0
+ * @version		0.23.0
  */
 
 
@@ -842,7 +842,7 @@ public class ReservaMgr implements IReservaMgt {
 	 */
 
 	@Override
-	public boolean salaLibre(int idSala, LocalDateTime fechaYHora, int duracion) {
+	public boolean salaLibre(int idAlumno, int idSala, LocalDateTime fechaYHora, int duracion) {
 		ArrayList<Reserva>	reservas = new ArrayList<Reserva>();
 
 		for(Reserva r: this._reservas) {
@@ -857,5 +857,29 @@ public class ReservaMgr implements IReservaMgt {
 		}
 
 		return (reservas.size() == 0);
+	}
+
+
+	/**
+	 * Método para poner una reserva en suspensión
+	 * Cuando una reserva está siendo modificada, es necesario dejar el "hueco" de la misma libre, para poder crear otra en su lugar
+	 *
+	 * @param		idReserva						int								ID de la reserva a suspender
+	 *
+	 * @return										int								ID de la reserva a suspendida (-1 si no encontrada)
+	 */
+
+	@Override
+	public int suspenderReserva(int idReserva) {
+		int posReserva = this.buscarReserva(idReserva);
+
+		if(posReserva != -1) {
+			this._reservas.get(posReserva).
+
+			return idReserva;
+		}
+		else {
+			return -1;
+		}
 	}
 }

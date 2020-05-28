@@ -10,12 +10,13 @@ import java.time.format.DateTimeFormatter;
  * Almacena los datos de una reserva de una sala
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		24/05/2020
- * @version		1.2.1
+ * @date		28/05/2020
+ * @version		1.3.0
  */
 
 public class Reserva {
 	private boolean			_estado;
+	private boolean			_suspendida;
 	private int				_id;
 	private int				_idAlumno;
 	private int				_idSala;
@@ -47,6 +48,7 @@ public class Reserva {
 		this._duracion		= duracion;
 		this._estado		= false;
 		this._fechaYHora	= fechaYHora;
+		this._suspendida	= false;
 	}
 
 
@@ -73,6 +75,7 @@ public class Reserva {
 		this._duracion		= duracion;
 		this._estado		= estado;
 		this._fechaYHora	= fechaYHora;
+		this._suspendida	= false;
 	}
 
 
@@ -172,6 +175,28 @@ public class Reserva {
 
 	public int idSala() {
 		return this._idSala;
+	}
+
+
+	/**
+	 * Observador de la variable privada _suspendida
+	 *
+	 * @return										boolean							Estado de suspensión de la reserva
+	 */
+
+	public boolean suspendida() {
+		return this._suspendida;
+	}
+
+
+	/**
+	 * Modificador de la variable privada _suspendida
+	 *
+	 * @param		suspendida						boolean							Estado de suspensión de la reserva
+	 */
+
+	public void suspendida(boolean suspendida) {
+		this._suspendida = suspendida;
 	}
 
 

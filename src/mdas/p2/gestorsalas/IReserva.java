@@ -8,7 +8,7 @@ import java.util.ArrayList;
  *
  * @author		Javier Ortiz Aragones
  * @date		28/05/2020
- * @version		1.2.0
+ * @version		1.3.0
  */
 
 
@@ -17,4 +17,6 @@ public interface IReserva {
 	abstract public Boolean				confirmarReserva(int idReserva);
 	abstract public Boolean				eliminarReserva(int idReserva);
 	abstract public String				mostrarReserva(int idReserva);
+	abstract public int					reanudarReserva(int idReserva);
+	abstract public int					suspenderReserva(int idReserva);
 }

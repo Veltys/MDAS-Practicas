@@ -13,7 +13,7 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  *
  * @author		Javier Ortiz Aragones
  * @date		28/05/2020
- * @version		1.6.0
+ * @version		1.7.0
  */
 
 public class GestorSalas implements IReserva, ISala{
@@ -123,7 +123,7 @@ public class GestorSalas implements IReserva, ISala{
 			}
 
 
-			else if((maxAforo > nuevoAforo) && this._reservaMgr.salaLibre(sala, fechaYHora, duracion)) {
+			else if((maxAforo > nuevoAforo) && this._reservaMgr.salaLibre(idAlumno, sala, fechaYHora, duracion)) {
 				maxAforo = nuevoAforo;
 
 				idSalaElegida = sala;
@@ -178,6 +178,36 @@ public class GestorSalas implements IReserva, ISala{
 	@Override
 	public ArrayList<Integer> obtenerRecursos() {
 		return this._reservaMgr.obtenerRecursos();
+	}
+
+
+	/**
+	 * Método para reanudar una reserva en suspensión
+	 * Si la modificación de una reserva ha sido cancelada, es necesario revertirla a su estado normal
+	 *
+	 * @param		idReserva						int								ID de la reserva a reanudar
+	 *
+	 * @return										int								ID de la reserva a reanudada (-1 si no encontrada)
+	 */
+
+	@Override
+	public int reanudarReserva(int idReserva) {
+		return this._reservaMgr.reanudarReserva(idReserva);
+	}
+
+
+	/**
+	 * Método para poner una reserva en suspensión
+	 * Cuando una reserva está siendo modificada, es necesario dejar el "hueco" de la misma libre, para poder crear otra en su lugar
+	 *
+	 * @param		idReserva						int								ID de la reserva a suspender
+	 *
+	 * @return										int								ID de la reserva a suspendida (-1 si no encontrada)
+	 */
+
+	@Override
+	public int suspenderReserva(int idReserva) {
+		return this._reservaMgr.suspenderReserva(idReserva);
 	}
 
 
