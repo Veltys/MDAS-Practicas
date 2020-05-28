@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		0.23.2
+ * @version		0.23.3
  */
 
 
@@ -891,7 +891,7 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public int reanudarReserva(int idUsuario, int idReserva) {
-		int		posReserva = this.buscarReserva(idReserva, true);
+		int		posReserva = this.buscarReserva(idReserva, false);
 		Reserva	reserva;
 
 		if(posReserva != -1) {
@@ -924,7 +924,7 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public int suspenderReserva(int idUsuario, int idReserva) {
-		int		posReserva = this.buscarReserva(idReserva, true);
+		int		posReserva = this.buscarReserva(idReserva, false);
 		Reserva	reserva;
 
 		if(posReserva != -1) {
