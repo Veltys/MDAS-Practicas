@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		0.23.3
+ * @version		0.23.4
  */
 
 
@@ -679,6 +679,7 @@ public class ReservaMgr implements IReservaMgt {
 					"Nombre de la sala: " + sala.nombre() + System.getProperty("line.separator") +
 					"Aforo de la sala: " + sala.aforo() + " personas" + System.getProperty("line.separator") +
 					"Ubicación de la sala: " + sala.ubicacion() + System.getProperty("line.separator") +
+					"Fecha de la reserva: " + reserva.fechaYHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + System.getProperty("line.separator") +
 					"Hora de entrada: " + reserva.fechaYHora().format(DateTimeFormatter.ofPattern("HH:mm")) + System.getProperty("line.separator") +
 					"Hora de salida: " + reserva.fechaYHora().plusHours(reserva.duracion()).format(DateTimeFormatter.ofPattern("HH:mm")) + System.getProperty("line.separator") +
 					"Tiempo total de ocupación: " + reserva.duracion() + " hora" + ((reserva.duracion() > 1) ? ("s") : ("")) + System.getProperty("line.separator") +
