@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		0.23.1
+ * @version		0.23.2
  */
 
 
@@ -140,14 +140,19 @@ public class ReservaMgr implements IReservaMgt {
 	 * @return										int								Posición en la lista de reservas (-1 si no encontrada)
 	 */
 
-	private int buscarReserva(int idReserva) {
-		int	i;
-		int res			= -1;
-		int	tamLista	= this._reservas.size();
+	private int buscarReserva(int idReserva, boolean todas) {
+		int		i;
+		int		res			= -1;
+		int		tamLista	= this._reservas.size();
+		Reserva	reserva;
 
 		for(i = 0; i < tamLista; i++) {
-			if((this._reservas.get(i).id() == idReserva)) {
-				res = i;
+			reserva = this._reservas.get(i);
+
+			if(reserva.id() == idReserva) {
+				if(todas || reserva.fechaYHora().isAfter(LocalDateTime.now())) {
+					res = i;
+				}
 
 				break;
 			}
@@ -471,7 +476,7 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public boolean confirmarReserva(int idReserva) {
-		int posReserva = this.buscarReserva(idReserva);
+		int posReserva = this.buscarReserva(idReserva, false);
 
 		if(posReserva != -1) {
 			this._reservas.get(posReserva).estado(true);
@@ -495,7 +500,7 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public boolean eliminarReserva(int idReserva) {
-		int posReserva = this.buscarReserva(idReserva);
+		int posReserva = this.buscarReserva(idReserva, false);
 
 		if(posReserva != -1) {
 			this._reservas.remove(posReserva);
@@ -644,7 +649,7 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public String mostrarReserva(int idReserva) {
-		int		posReserva = this.buscarReserva(idReserva);
+		int		posReserva = this.buscarReserva(idReserva, true);
 		String	res;
 		Recurso	recurso;
 		Reserva	reserva;
@@ -732,7 +737,7 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public Reserva obtenerReserva(int idReserva) {
-		int posReserva = this.buscarReserva(idReserva);
+		int posReserva = this.buscarReserva(idReserva, false);
 
 		if(posReserva != -1) {
 			return this._reservas.get(posReserva);
@@ -863,19 +868,28 @@ public class ReservaMgr implements IReservaMgt {
 	 * Método para reanudar una reserva en suspensión
 	 * Si la modificación de una reserva ha sido cancelada, es necesario revertirla a su estado normal
 	 *
+	 * @param		idUsuario						int								ID del usuario que lo solicita
 	 * @param		idReserva						int								ID de la reserva a reanudar
 	 *
-	 * @return										int								ID de la reserva a reanudada (-1 si no encontrada)
+	 * @return										int								ID de la reserva a reanudada (-1 si no encontrada, -2 si la reserva no pertenece al usuario solicitado)
 	 */
 
 	@Override
-	public int reanudarReserva(int idReserva) {
-		int posReserva = this.buscarReserva(idReserva);
+	public int reanudarReserva(int idUsuario, int idReserva) {
+		int		posReserva = this.buscarReserva(idReserva, true);
+		Reserva	reserva;
 
 		if(posReserva != -1) {
-			this._reservas.get(posReserva).suspendida(false);
+			reserva = this._reservas.get(posReserva);
 
-			return idReserva;
+			if(reserva.idAlumno() == idUsuario) {
+				reserva.suspendida(false);
+
+				return idReserva;
+			}
+			else {
+				return -2;
+			}
 		}
 		else {
 			return -1;
@@ -887,19 +901,28 @@ public class ReservaMgr implements IReservaMgt {
 	 * Método para poner una reserva en suspensión
 	 * Cuando una reserva está siendo modificada, es necesario dejar el "hueco" de la misma libre, para poder crear otra en su lugar
 	 *
+	 * @param		idUsuario						int								ID del usuario que lo solicita
 	 * @param		idReserva						int								ID de la reserva a suspender
 	 *
-	 * @return										int								ID de la reserva a suspendida (-1 si no encontrada)
+	 * @return										int								ID de la reserva a suspendida (-1 si no encontrada, -2 si la reserva no pertenece al usuario solicitado)
 	 */
 
 	@Override
-	public int suspenderReserva(int idReserva) {
-		int posReserva = this.buscarReserva(idReserva);
+	public int suspenderReserva(int idUsuario, int idReserva) {
+		int		posReserva = this.buscarReserva(idReserva, true);
+		Reserva	reserva;
 
 		if(posReserva != -1) {
-			this._reservas.get(posReserva).suspendida(true);
+			reserva = this._reservas.get(posReserva);
 
-			return idReserva;
+			if(reserva.idAlumno() == idUsuario) {
+				reserva.suspendida(true);
+
+				return idReserva;
+			}
+			else {
+				return -2;
+			}
 		}
 		else {
 			return -1;

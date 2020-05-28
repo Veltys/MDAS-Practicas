@@ -17,6 +17,6 @@ public interface IReserva {
 	abstract public Boolean				confirmarReserva(int idReserva);
 	abstract public Boolean				eliminarReserva(int idReserva);
 	abstract public String				mostrarReserva(int idReserva);
-	abstract public int					reanudarReserva(int idReserva);
-	abstract public int					suspenderReserva(int idReserva);
+	abstract public int					reanudarReserva(int idUsuario, int idReserva);
+	abstract public int					suspenderReserva(int idUsuario, int idReserva);
 }

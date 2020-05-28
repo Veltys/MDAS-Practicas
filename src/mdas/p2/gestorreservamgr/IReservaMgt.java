@@ -17,7 +17,7 @@ import java.util.HashMap;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		1.14.0
+ * @version		1.14.1
  */
 
 public interface IReservaMgt {
@@ -37,9 +37,9 @@ public interface IReservaMgt {
 	abstract public Sala				obtenerSala(int idSala);
 	abstract public int					preRegistrarSala(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos);
 	abstract public int					preReservarSala(int idAlumno, int idSala, int alumos, String asignatura, int duracion, LocalDateTime fechaYHora);
-	abstract public int					reanudarReserva(int idReserva);
+	abstract public int					reanudarReserva(int idUsuario, int idReserva);
 	abstract public boolean				salaLibre(int idAlumno, int idSala, LocalDateTime fechaYHora, int duracion);
-	abstract public int					suspenderReserva(int idReserva);
+	abstract public int					suspenderReserva(int idUsuario, int idReserva);
 
 
 	/**

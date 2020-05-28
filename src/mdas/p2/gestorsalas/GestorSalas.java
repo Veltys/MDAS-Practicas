@@ -13,7 +13,7 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  *
  * @author		Javier Ortiz Aragones
  * @date		28/05/2020
- * @version		1.7.0
+ * @version		1.7.1
  */
 
 public class GestorSalas implements IReserva, ISala{
@@ -185,14 +185,15 @@ public class GestorSalas implements IReserva, ISala{
 	 * Método para reanudar una reserva en suspensión
 	 * Si la modificación de una reserva ha sido cancelada, es necesario revertirla a su estado normal
 	 *
+	 * @param		idUsuario						int								ID del usuario que lo solicita
 	 * @param		idReserva						int								ID de la reserva a reanudar
 	 *
-	 * @return										int								ID de la reserva a reanudada (-1 si no encontrada)
+	 * @return										int								ID de la reserva a reanudada (-1 si no encontrada, -2 si la reserva no pertenece al usuario solicitado)
 	 */
 
 	@Override
-	public int reanudarReserva(int idReserva) {
-		return this._reservaMgr.reanudarReserva(idReserva);
+	public int reanudarReserva(int idUsuario, int idReserva) {
+		return this._reservaMgr.reanudarReserva(idUsuario, idReserva);
 	}
 
 
@@ -200,14 +201,15 @@ public class GestorSalas implements IReserva, ISala{
 	 * Método para poner una reserva en suspensión
 	 * Cuando una reserva está siendo modificada, es necesario dejar el "hueco" de la misma libre, para poder crear otra en su lugar
 	 *
+	 * @param		idUsuario						int								ID del usuario que lo solicita
 	 * @param		idReserva						int								ID de la reserva a suspender
 	 *
-	 * @return										int								ID de la reserva a suspendida (-1 si no encontrada)
+	 * @return										int								ID de la reserva a suspendida (-1 si no encontrada, -2 si la reserva no pertenece al usuario solicitado)
 	 */
 
 	@Override
-	public int suspenderReserva(int idReserva) {
-		return this._reservaMgr.suspenderReserva(idReserva);
+	public int suspenderReserva(int idUsuario, int idReserva) {
+		return this._reservaMgr.suspenderReserva(idUsuario, idReserva);
 	}
 
 
