@@ -20,7 +20,7 @@ import mdas.p2.gestorsalas.GestorSalas;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		28/05/2020
- * @version		0.4.1
+ * @version		0.4.2
  */
 
 public class MenuPrincipal {
@@ -40,6 +40,8 @@ public class MenuPrincipal {
 	 * Método main de la clase (y del programa)
 	 *
 	 * @param		args							String							Argumentos recibidos por la línea de comandos
+	 *
+	 * TODO: Reducir longitud
 	 */
 
 	public static void main(String[] args) {
@@ -133,6 +135,8 @@ public class MenuPrincipal {
 							else {
 								System.out.println("Operación cancelada");
 							}
+
+							break;
 						case 'R':
 							MenuPrincipal.reservar(idUsuario);
 
@@ -141,6 +145,9 @@ public class MenuPrincipal {
 						case 'S':
 							salir = true;
 
+							break;
+
+						default:													// Nunca se llegará aquí
 							break;
 						}
 					}

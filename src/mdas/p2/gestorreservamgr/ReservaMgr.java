@@ -172,10 +172,8 @@ public class ReservaMgr implements IReservaMgt {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 
 		for(Reserva r: this._reservas) {
-			if(r.idAlumno() == idAlumno) {
-				if(todas || r.fechaYHora().isAfter(LocalDateTime.now())) {
-					res.add(r.id());
-				}
+			if((r.idAlumno() == idAlumno) && (todas || r.fechaYHora().isAfter(LocalDateTime.now()))) {
+				res.add(r.id());
 			}
 		}
 
