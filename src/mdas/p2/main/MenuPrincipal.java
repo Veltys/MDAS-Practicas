@@ -24,7 +24,7 @@ import mdas.p2.gestorsalas.GestorSalas;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		2.0.1
+ * @version		2.0.2
  */
 
 public class MenuPrincipal {
@@ -416,10 +416,10 @@ public class MenuPrincipal {
 				System.out.println(MenuPrincipal._gs.mostrarReserva(idsReservas.get(i)));
 			}
 
-			System.out.print("Seleccione una opción");
+			System.out.print("Seleccione una reserva");
 
 			if(tamLista > PAGINADO) {
-				System.out.print(" o pulse ");
+				System.out.print(" o introduzca ");
 
 				if(i >= 0) {
 					System.out.print("< ");
@@ -575,6 +575,8 @@ public class MenuPrincipal {
 			} while(!okDato);
 
 			okDato = false;
+
+			MenuPrincipal._entrada.nextLine();
 
 			do {
 				try {
