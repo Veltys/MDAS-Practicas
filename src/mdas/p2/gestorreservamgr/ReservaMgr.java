@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.5.1
+ * @version		1.5.2
  */
 
 
@@ -973,6 +973,8 @@ public class ReservaMgr implements IReservaMgt {
 		}
 
 		nueva = new Sala(this._salas.get(this._salas.size() - 1).id() + 1, aforo, nombre, tipoSala, ubicacion);
+
+		this._salas.add(nueva);
 
 		idSala = nueva.id();
 
