@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.5.2
+ * @version		1.6.0
  */
 
 
@@ -719,6 +719,15 @@ public class ReservaMgr implements IReservaMgt {
 		}
 	}
 
+
+
+
+	@Override
+	public String notificarAlumnoSancionado(int idSancion) {
+		Sancion sancion = this.obtenerSancion(idSancion);
+
+		return "Lo sentimos, usted está sancionado hasta el día " + sancion.fecha().plusDays(sancion.duracion()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " por el siguiente motivo: \"" + IReservaMgt.describirSancion(sancion.codigo()) + "\"";
+	}
 
 	/**
 	 * Observador del aforo de una sala

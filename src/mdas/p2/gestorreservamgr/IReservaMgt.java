@@ -18,7 +18,7 @@ import java.util.HashMap;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.19.0
+ * @version		1.20.0
  */
 
 public interface IReservaMgt {
@@ -30,6 +30,7 @@ public interface IReservaMgt {
 	abstract public boolean				eliminarReserva(int idReserva);
 	abstract public String				mostrarRecurso(int idRecurso);
 	abstract public String				mostrarReserva(int idReserva);
+	abstract public String				notificarAlumnoSancionado(int idSancion);
 	abstract public int					obtenerAforoSala(int idSala);
 	abstract public int					obtenerAlumno(int idReserva);
 	abstract public ArrayList<Integer>	obtenerRecursos();

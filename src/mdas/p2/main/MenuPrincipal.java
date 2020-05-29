@@ -37,7 +37,7 @@ public class MenuPrincipal {
 	final static private	String					ARCHIVOUSUARIOS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "usuarios.csv";
 
 	static private			Scanner					_entrada				= new Scanner(System.in);
-	static private			AdministradorAlumnos	_aa						= new AdministradorAlumnos(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES, MenuPrincipal.ARCHIVOUSUARIOS);
+	static private			AdministradorAlumnos	_aa						= new AdministradorAlumnos(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES);
 	static private			AdministradorUsuarios	_au						= new AdministradorUsuarios(MenuPrincipal.ARCHIVOUSUARIOS);
 	static private			GestorIncidencias		_gi						= new GestorIncidencias(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES, MenuPrincipal.ARCHIVOUSUARIOS);
 	static private			GestorSalas				_gs						= new GestorSalas(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES);
@@ -270,7 +270,7 @@ public class MenuPrincipal {
 				operaciones += 's';
 			}
 			else {
-				System.out.println(MenuPrincipal._aa.notificarAlumnoSancionado(idUsuario, idSancion));
+				System.out.println(MenuPrincipal._aa.notificarAlumnoSancionado(idSancion));
 			}
 		}
 		else if(MenuPrincipal._au.empleado(idUsuario)) {

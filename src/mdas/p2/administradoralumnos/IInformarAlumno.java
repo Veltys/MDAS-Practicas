@@ -12,5 +12,5 @@ package mdas.p2.administradoralumnos;
  */
 
 public interface IInformarAlumno {
-	public String notificarAlumnoSancionado(int idAlumno, int idSancion);
+	public String notificarAlumnoSancionado(int idSancion);
 }
