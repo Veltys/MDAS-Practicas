@@ -16,8 +16,8 @@ import javax.mail.internet.MimeMessage;
  * Clase que define la estrategia para enviar un mensaje mostrándolo por email
  *
  * @author		Rafael Carlos Méndez Rodríguez
- * @date		27/05/2020
- * @version		1.0.0
+ * @date		29/05/2020
+ * @version		1.0.1
  */
 
 public class EnviarMensajeEmail extends EnviarMensaje {
@@ -32,6 +32,8 @@ public class EnviarMensajeEmail extends EnviarMensaje {
 	 */
 
 	public EnviarMensajeEmail() {
+		super();
+
 		this._asunto	= "Ha sido sancionado en la plataforma de reserva de salas de la UCO";
 		this._emisor	= "i82meror@uco.es";
 		this._servidor	= "mandarcorreo.uco.es";

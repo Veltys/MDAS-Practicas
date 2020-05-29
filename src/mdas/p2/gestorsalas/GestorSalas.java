@@ -154,7 +154,7 @@ public class GestorSalas implements IReserva, ISala {
 	 *
 	 * @param		idTipoDeSala					int								ID del tipo de sala a mostrar
 	 *
-	 * @return										String							Texto con los datos del tipo de sala ("" si no encontrada)
+	 * @return										String							Texto con los datos del tipo de sala ("" si no encontrado)
 	 */
 
 	@Override

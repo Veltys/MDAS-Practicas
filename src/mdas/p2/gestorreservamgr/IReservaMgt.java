@@ -1,6 +1,7 @@
 package mdas.p2.gestorreservamgr;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.HashMap;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.17.0
+ * @version		1.18.0
  */
 
 public interface IReservaMgt {
@@ -35,10 +36,12 @@ public interface IReservaMgt {
 	abstract public ArrayList<Integer>	obtenerReservas(boolean todas);
 	abstract public Sancion				obtenerSancion(int idSancion);
 	abstract public Sala				obtenerSala(int idSala);
+	abstract public int					registrarIncidencia(int idReserva, String descripcion, int tipo);
 	abstract public int					registrarSala(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos);
 	abstract public int					preReservarSala(int idAlumno, int idSala, int alumos, String asignatura, int duracion, LocalDateTime fechaYHora);
 	abstract public int					reanudarReserva(int idUsuario, int idReserva);
 	abstract public boolean				salaLibre(int idAlumno, int idSala, LocalDateTime fechaYHora, int duracion);
+	abstract public int					sancionarAlumno(int idIncidencia, int idAlumno, int codigoSancion, LocalDate fecha, int duracion);
 	abstract public int					suspenderReserva(int idUsuario, int idReserva);
 
 
@@ -74,12 +77,37 @@ public interface IReservaMgt {
 
 
 	/**
+	 * Observador en texto de un tipo de incidencia
+	 * Recoge los datos de un tipo de incidencia y los convierte en un String en texto apto para mostrárselo al usuario
+	 *
+	 * @param		idTipoDeIncidencia				int								ID del tipo de incidencia a mostrar
+	 *
+	 * @return										String							Texto con los datos del tipo de incidencia ("" si no encontrado)
+	 */
+
+
+	static public String mostrarTipoDeIncidencia(int idTipoDeIncidencia) {
+		String res = "";
+
+		for(TipoIncidencia ti: TipoIncidencia.values()) {
+			if(ti.id() == idTipoDeIncidencia) {
+				res = ti.id() + ": " + ti.descripcion();
+
+				break;
+			}
+		}
+
+		return res;
+	}
+
+
+	/**
 	 * Observador en texto de un tipo de sala
 	 * Recoge los datos de un tipo de sala y los convierte en un String en texto apto para mostrárselo al usuario
 	 *
 	 * @param		idTipoDeSala					int								ID del tipo de sala a mostrar
 	 *
-	 * @return										String							Texto con los datos del tipo de sala ("" si no encontrada)
+	 * @return										String							Texto con los datos del tipo de sala ("" si no encontrado)
 	 */
 
 

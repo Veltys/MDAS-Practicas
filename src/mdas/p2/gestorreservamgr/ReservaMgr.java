@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.3.3
+ * @version		1.4.0
  */
 
 
@@ -66,16 +66,16 @@ public class ReservaMgr implements IReservaMgt {
 		this._archivoIncidencias		= archivoIncidencias;
 		this._archivoRecursos			= archivoRecursos;
 		this._archivoReservas			= archivoReservas;
-		this._archivoSalas			= archivoSalas;
-		this._archivoSalasYRecursos	= archivoSalasYRecursos;
-		this._archivoSanciones		= archivoSanciones;
+		this._archivoSalas				= archivoSalas;
+		this._archivoSalasYRecursos		= archivoSalasYRecursos;
+		this._archivoSanciones			= archivoSanciones;
 
-		this._incidencias					= new ArrayList<Incidencia>();
-		this._recursos						= new ArrayList<Recurso>();
-		this._reservas						= new ArrayList<Reserva>();
-		this._salas							= new ArrayList<Sala>();
-		this._salasYRecursos				= new ArrayList<SalaYRecurso>();
-		this._sanciones						= new ArrayList<Sancion>();
+		this._incidencias				= new ArrayList<Incidencia>();
+		this._recursos					= new ArrayList<Recurso>();
+		this._reservas					= new ArrayList<Reserva>();
+		this._salas						= new ArrayList<Sala>();
+		this._salasYRecursos			= new ArrayList<SalaYRecurso>();
+		this._sanciones					= new ArrayList<Sancion>();
 
 		this.cargar();
 	}
@@ -890,6 +890,41 @@ public class ReservaMgr implements IReservaMgt {
 
 
 	/**
+	 * Registrador de incidencias
+	 * Crea una nueva incidencia
+	 *
+	 * @param		idReserva						int								ID de la reserva asociada a la incidencia
+	 * @param		descripcion						String							Descripción de la incidencia
+	 * @param		tipoIncidencia					int								Tipo de incidencia
+	 *
+	 * @return										int								ID de la incidencia
+	 */
+
+	@Override
+	public int registrarIncidencia(int idReserva, String descripcion, int tipo) {
+		int				idIncidencia;
+		TipoIncidencia	tipoIncidencia = null;
+		Incidencia		nueva;
+
+		for(TipoIncidencia ti: TipoIncidencia.values()) {
+			if(tipo == ti.id()) {
+				tipoIncidencia = ti;
+
+				break;
+			}
+		}
+
+		nueva = new Incidencia(this._incidencias.get(this._incidencias.size() - 1).id() + 1, idReserva, descripcion, tipoIncidencia);
+
+		idIncidencia = nueva.id();
+
+		this.guardar();
+
+		return idIncidencia;
+	}
+
+
+	/**
 	 * Registrador de salas
 	 * Crea una nueva sala en estado de espera de confirmación y sus recursos asociados
 	 *
@@ -992,6 +1027,34 @@ public class ReservaMgr implements IReservaMgt {
 		else {
 			return -1;
 		}
+	}
+
+
+	/**
+	 * Sancionador de alumnos
+	 * Sanciona a un alumno
+	 *
+	 * @param		idIncidencia					int								ID de la incidencia asociada a la sanción
+	 * @param		idAlumno						int								ID del alumno sancionado
+	 * @param		codigoSancion					int								Código de la sanción
+	 * @param		fecha							LocalDate						Fecha de la sanción
+	 * @param		duracion						int								Duración (en días) de la sanción
+	 *
+	 * @return										int								ID de la sanción
+	 */
+
+	@Override
+	public int sancionarAlumno(int idIncidencia, int idAlumno, int codigoSancion, LocalDate fecha, int duracion) {
+		int		idSancion;
+		Sancion	nueva;
+
+		nueva = new Sancion(this._sanciones.get(this._sanciones.size() - 1).id() + 1, idIncidencia, codigoSancion, duracion, fecha);
+
+		idSancion = nueva.id();
+
+		this.guardar();
+
+		return idSancion;
 	}
 
 
