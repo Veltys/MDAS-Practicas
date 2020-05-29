@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  *
  * @author		Unai Friscia Pérez (unaif)
  * @date		29/05/2020
- * @version		2.1.1
+ * @version		2.1.2
  *
  */
 
@@ -229,7 +229,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 			buffer = new BufferedWriter(new FileWriter(new File(this._archivoUsuarios)));
 
 			for(Usuario u: this._usuarios) {
-				buffer.write(u.toString() + System.getProperty("line.separator"));
+				buffer.write(u.toCsv() + System.getProperty("line.separator"));
 			}
 
 			buffer.close();

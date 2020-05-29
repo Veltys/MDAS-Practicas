@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.6.0
+ * @version		1.6.1
  */
 
 
@@ -573,7 +573,7 @@ public class ReservaMgr implements IReservaMgt {
 					buffer = new BufferedWriter(new FileWriter(new File(this._archivoIncidencias)));
 
 					for(Incidencia in: this._incidencias) {
-						lineas.add(in.toString());
+						lineas.add(in.toCsv());
 					}
 
 					break;
@@ -581,7 +581,7 @@ public class ReservaMgr implements IReservaMgt {
 					buffer = new BufferedWriter(new FileWriter(new File(this._archivoRecursos)));
 
 					for(Recurso rec: this._recursos) {
-						lineas.add(rec.toString());
+						lineas.add(rec.toCsv());
 					}
 
 					break;
@@ -589,7 +589,7 @@ public class ReservaMgr implements IReservaMgt {
 					buffer = new BufferedWriter(new FileWriter(new File(this._archivoReservas)));
 
 					for(Reserva res: this._reservas) {
-						lineas.add(res.toString());
+						lineas.add(res.toCsv());
 					}
 
 					break;
@@ -597,7 +597,7 @@ public class ReservaMgr implements IReservaMgt {
 					buffer = new BufferedWriter(new FileWriter(new File(this._archivoSalas)));
 
 					for(Sala sal: this._salas) {
-						lineas.add(sal.toString());
+						lineas.add(sal.toCsv());
 					}
 
 					break;
