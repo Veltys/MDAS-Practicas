@@ -29,18 +29,18 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.3.0
+ * @version		1.3.1
  */
 
 
 public class ReservaMgr implements IReservaMgt {
-	static private	String					_archivoIncidencias;
-	static private	String					_archivoRecursos;
-	static private	String					_archivoReservas;
-	static private	String					_archivoSalas;
-	static private	String					_archivoSalasYRecursos;
-	static private	String					_archivoSanciones;
-	static private	ReservaMgr				_instance				= null;
+	private static	ReservaMgr				_instance				= null;
+	private			String					_archivoIncidencias;
+	private			String					_archivoRecursos;
+	private			String					_archivoReservas;
+	private			String					_archivoSalas;
+	private			String					_archivoSalasYRecursos;
+	private			String					_archivoSanciones;
 	private			ArrayList<Incidencia>	_incidencias;
 	private			ArrayList<Recurso>		_recursos;
 	private			ArrayList<Reserva>		_reservas;
@@ -63,12 +63,12 @@ public class ReservaMgr implements IReservaMgt {
 	 */
 
 	private ReservaMgr(String archivoIncidencias, String archivoRecursos, String archivoReservas, String archivoSalas, String archivoSalasYRecursos, String archivoSanciones) {
-		ReservaMgr._archivoIncidencias		= archivoIncidencias;
-		ReservaMgr._archivoRecursos			= archivoRecursos;
-		ReservaMgr._archivoReservas			= archivoReservas;
-		ReservaMgr._archivoSalas			= archivoSalas;
-		ReservaMgr._archivoSalasYRecursos	= archivoSalasYRecursos;
-		ReservaMgr._archivoSanciones		= archivoSanciones;
+		this._archivoIncidencias		= archivoIncidencias;
+		this._archivoRecursos			= archivoRecursos;
+		this._archivoReservas			= archivoReservas;
+		this._archivoSalas			= archivoSalas;
+		this._archivoSalasYRecursos	= archivoSalasYRecursos;
+		this._archivoSanciones		= archivoSanciones;
 
 		this._incidencias					= new ArrayList<Incidencia>();
 		this._recursos						= new ArrayList<Recurso>();
@@ -375,27 +375,27 @@ public class ReservaMgr implements IReservaMgt {
 			try {
 				switch(i) {
 				case 0:
-					buffer = new BufferedReader(new FileReader(new File(ReservaMgr._archivoIncidencias)));
+					buffer = new BufferedReader(new FileReader(new File(this._archivoIncidencias)));
 
 					break;
 				case 1:
-					buffer = new BufferedReader(new FileReader(new File(ReservaMgr._archivoRecursos)));
+					buffer = new BufferedReader(new FileReader(new File(this._archivoRecursos)));
 
 					break;
 				case 2:
-					buffer = new BufferedReader(new FileReader(new File(ReservaMgr._archivoReservas)));
+					buffer = new BufferedReader(new FileReader(new File(this._archivoReservas)));
 
 					break;
 				case 3:
-					buffer = new BufferedReader(new FileReader(new File(ReservaMgr._archivoSalas)));
+					buffer = new BufferedReader(new FileReader(new File(this._archivoSalas)));
 
 					break;
 				case 4:
-					buffer = new BufferedReader(new FileReader(new File(ReservaMgr._archivoSalasYRecursos)));
+					buffer = new BufferedReader(new FileReader(new File(this._archivoSalasYRecursos)));
 
 					break;
 				case 5:
-					buffer = new BufferedReader(new FileReader(new File(ReservaMgr._archivoSanciones)));
+					buffer = new BufferedReader(new FileReader(new File(this._archivoSanciones)));
 
 					break;
 				default:
@@ -538,7 +538,7 @@ public class ReservaMgr implements IReservaMgt {
 			try {
 				switch(i) {
 				case 0:
-					buffer = new BufferedWriter(new FileWriter(new File(ReservaMgr._archivoIncidencias)));
+					buffer = new BufferedWriter(new FileWriter(new File(this._archivoIncidencias)));
 
 					for(Incidencia in: this._incidencias) {
 						lineas.add(in.toString());
@@ -546,7 +546,7 @@ public class ReservaMgr implements IReservaMgt {
 
 					break;
 				case 1:
-					buffer = new BufferedWriter(new FileWriter(new File(ReservaMgr._archivoRecursos)));
+					buffer = new BufferedWriter(new FileWriter(new File(this._archivoRecursos)));
 
 					for(Recurso rec: this._recursos) {
 						lineas.add(rec.toString());
@@ -554,7 +554,7 @@ public class ReservaMgr implements IReservaMgt {
 
 					break;
 				case 2:
-					buffer = new BufferedWriter(new FileWriter(new File(ReservaMgr._archivoReservas)));
+					buffer = new BufferedWriter(new FileWriter(new File(this._archivoReservas)));
 
 					for(Reserva res: this._reservas) {
 						lineas.add(res.toString());
@@ -562,7 +562,7 @@ public class ReservaMgr implements IReservaMgt {
 
 					break;
 				case 3:
-					buffer = new BufferedWriter(new FileWriter(new File(ReservaMgr._archivoSalas)));
+					buffer = new BufferedWriter(new FileWriter(new File(this._archivoSalas)));
 
 					for(Sala sal: this._salas) {
 						lineas.add(sal.toString());
@@ -570,7 +570,7 @@ public class ReservaMgr implements IReservaMgt {
 
 					break;
 				case 4:
-					buffer = new BufferedWriter(new FileWriter(new File(ReservaMgr._archivoSalasYRecursos)));
+					buffer = new BufferedWriter(new FileWriter(new File(this._archivoSalasYRecursos)));
 
 					for(SalaYRecurso syl: this._salasYRecursos) {
 						lineas.add(syl.toString());
@@ -578,7 +578,7 @@ public class ReservaMgr implements IReservaMgt {
 
 					break;
 				case 5:
-					buffer = new BufferedWriter(new FileWriter(new File(ReservaMgr._archivoSanciones)));
+					buffer = new BufferedWriter(new FileWriter(new File(this._archivoSanciones)));
 
 					for(Sancion san: this._sanciones) {
 						lineas.add(san.toString());

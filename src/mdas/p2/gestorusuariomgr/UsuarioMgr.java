@@ -20,16 +20,16 @@ import java.util.StringTokenizer;
  *
  * @author		Unai Friscia Pérez (unaif)
  * @date		29/05/2020
- * @version		2.1.0
+ * @version		2.1.1
  *
  */
 
 public class UsuarioMgr implements IUsuarioMgt {
 	final private	boolean				_DEBUG				= true;
 
-	static private	String				_archivoUsuarios;
 	static private	Scanner				_entrada			= new Scanner(System.in);
 	static private	UsuarioMgr			_instance			= null;
+	private			String				_archivoUsuarios;
 	private			ArrayList<Usuario>	_usuarios;
 	private			EnviarMensaje		_mailer;
 
@@ -43,8 +43,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 	 */
 
 	private UsuarioMgr(String archivoUsuarios) {
-		UsuarioMgr._archivoUsuarios		= archivoUsuarios;
-
+		this._archivoUsuarios			= archivoUsuarios;
 		this._usuarios					= new ArrayList<Usuario>();
 
 		if(!this._DEBUG) {
@@ -177,7 +176,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 		StringTokenizer		stLinea;
 
 		try {
-			buffer = new BufferedReader(new FileReader(new File(UsuarioMgr._archivoUsuarios)));
+			buffer = new BufferedReader(new FileReader(new File(this._archivoUsuarios)));
 
 			while((linea = buffer.readLine()) != null) {
 				stLinea = new StringTokenizer(linea, ",");
@@ -227,7 +226,7 @@ public class UsuarioMgr implements IUsuarioMgt {
 		BufferedWriter		buffer;
 
 		try {
-			buffer = new BufferedWriter(new FileWriter(new File(UsuarioMgr._archivoUsuarios)));
+			buffer = new BufferedWriter(new FileWriter(new File(this._archivoUsuarios)));
 
 			for(Usuario u: this._usuarios) {
 				buffer.write(u.toString() + System.getProperty("line.separator"));
