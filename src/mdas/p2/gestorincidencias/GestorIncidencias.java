@@ -16,7 +16,7 @@ import mdas.p2.gestorusuariomgr.UsuarioMgr;
  *
  * @author		Rafael Carlos Méndez Rodríguez
  * @date		29/05/2020
- * @version		1.0.0
+ * @version		1.0.1
  */
 
 public class GestorIncidencias implements IIncidencia, ISancion {
@@ -115,7 +115,6 @@ public class GestorIncidencias implements IIncidencia, ISancion {
 	 * Sanciona a un alumno
 	 *
 	 * @param		idIncidencia					int								ID de la incidencia asociada a la sanción
-	 * @param		idAlumno						int								ID del alumno sancionado
 	 * @param		codigoSancion					int								Código de la sanción
 	 * @param		fecha							LocalDate						Fecha de la sanción
 	 * @param		duracion						int								Duración (en días) de la sanción
@@ -124,8 +123,8 @@ public class GestorIncidencias implements IIncidencia, ISancion {
 	 */
 
 	@Override
-	public int sancionarAlumno(int idIncidencia, int idAlumno, int codigoSancion, LocalDate fecha, int duracion) {
-		return this._reservaMgr.sancionarAlumno(idIncidencia, idAlumno, codigoSancion, fecha, duracion);
+	public int sancionarAlumno(int idIncidencia, int codigoSancion, LocalDate fecha, int duracion) {
+		return this._reservaMgr.sancionarAlumno(idIncidencia, codigoSancion, fecha, duracion);
 	}
 
 

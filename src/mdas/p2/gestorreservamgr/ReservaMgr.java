@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.4.0
+ * @version		1.5.0
  */
 
 
@@ -743,6 +743,28 @@ public class ReservaMgr implements IReservaMgt {
 
 
 	/**
+	 * Observador de la ID de un alumno asociado a una reserva
+	 * Devuelve la ID del alumno asociado a la reserva proporcionada
+	 *
+	 * @param		idReserva						int								ID de la reserva
+	 *
+	 * @return										int								ID del alumno asociado a la reserva (-1 si no encontrado)
+	 */
+
+	@Override
+	public int obtenerAlumno(int idReserva) {
+		int posReserva = this.buscarReserva(idReserva, true);
+
+		if(posReserva != -1) {
+			return this._reservas.get(posReserva).idAlumno();
+		}
+		else {
+			return -1;
+		}
+	}
+
+
+	/**
 	 * Observador de la lista de recursos
 	 *
 	 * @return										ArrayList&lt;Integer&gt;		Lista de IDs de los recursos cargada en el gestor
@@ -1044,7 +1066,7 @@ public class ReservaMgr implements IReservaMgt {
 	 */
 
 	@Override
-	public int sancionarAlumno(int idIncidencia, int idAlumno, int codigoSancion, LocalDate fecha, int duracion) {
+	public int sancionarAlumno(int idIncidencia, int codigoSancion, LocalDate fecha, int duracion) {
 		int		idSancion;
 		Sancion	nueva;
 

@@ -2,16 +2,19 @@ package mdas.p2.main;
 
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import mdas.p2.administradoralumnos.AdministradorAlumnos;
 import mdas.p2.administradorusuarios.AdministradorUsuarios;
+import mdas.p2.gestorincidencias.GestorIncidencias;
 import mdas.p2.gestorsalas.GestorSalas;
 
 
@@ -20,23 +23,24 @@ import mdas.p2.gestorsalas.GestorSalas;
  * Clase MenuPrincipal del programa
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		28/05/2020
- * @version		1.2.0
+ * @date		29/05/2020
+ * @version		2.0.0
  */
 
 public class MenuPrincipal {
-	final static private	String						ARCHIVOINCIDENCIAS		= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "incidencias.csv";
-	final static private	String						ARCHIVORECURSOS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "recursos.csv";
-	final static private	String						ARCHIVORESERVAS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "reservas.csv";
-	final static private	String						ARCHIVOSALAS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "salas.csv";
-	final static private	String						ARCHIVOSALASYRECURSOS	= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "salasyrecursos.csv";
-	final static private	String						ARCHIVOSANCIONES		= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "sanciones.csv";
-	final static private	String						ARCHIVOUSUARIOS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "usuarios.csv";
+	final static private	String					ARCHIVOINCIDENCIAS		= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "incidencias.csv";
+	final static private	String					ARCHIVORECURSOS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "recursos.csv";
+	final static private	String					ARCHIVORESERVAS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "reservas.csv";
+	final static private	String					ARCHIVOSALAS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "salas.csv";
+	final static private	String					ARCHIVOSALASYRECURSOS	= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "salasyrecursos.csv";
+	final static private	String					ARCHIVOSANCIONES		= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "sanciones.csv";
+	final static private	String					ARCHIVOUSUARIOS			= System.getProperty("user.dir") + File.separatorChar + "data" + File.separatorChar + "usuarios.csv";
 
-	private static			Scanner					_entrada					= new Scanner(System.in);
-	private static			AdministradorAlumnos	_aa							= new AdministradorAlumnos(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES, MenuPrincipal.ARCHIVOUSUARIOS);
-	private static			AdministradorUsuarios	_au							= new AdministradorUsuarios(MenuPrincipal.ARCHIVOUSUARIOS);
-	private static			GestorSalas				_gs							= new GestorSalas(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES);
+	static private			Scanner					_entrada				= new Scanner(System.in);
+	static private			AdministradorAlumnos	_aa						= new AdministradorAlumnos(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES, MenuPrincipal.ARCHIVOUSUARIOS);
+	static private			AdministradorUsuarios	_au						= new AdministradorUsuarios(MenuPrincipal.ARCHIVOUSUARIOS);
+	static private			GestorIncidencias		_gi						= new GestorIncidencias(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES, MenuPrincipal.ARCHIVOUSUARIOS);
+	static private			GestorSalas				_gs						= new GestorSalas(MenuPrincipal.ARCHIVOINCIDENCIAS, MenuPrincipal.ARCHIVORECURSOS, MenuPrincipal.ARCHIVORESERVAS, MenuPrincipal.ARCHIVOSALAS, MenuPrincipal.ARCHIVOSALASYRECURSOS, MenuPrincipal.ARCHIVOSANCIONES);
 
 
 	/**
@@ -200,6 +204,10 @@ public class MenuPrincipal {
 							MenuPrincipal.modificarReserva(idUsuario, false);
 
 							break;
+						case 'I':
+							MenuPrincipal.registrarIncidencia();
+
+							break;
 						case 'M':
 							MenuPrincipal.modificarReserva(idUsuario, true);
 
@@ -268,9 +276,10 @@ public class MenuPrincipal {
 		else if(MenuPrincipal._au.empleado(idUsuario)) {
 			System.out.println("El menú de operaciones es el siguiente:");
 			System.out.println("Introduzca 'a' para dar de alta una nueva sala de estudio");
+			System.out.println("Introduzca 'i' para registrar una nueva incidencia");
 			System.out.println("Introduzca 's' para salir");
 
-			operaciones += "as";
+			operaciones += "ais";
 		}
 		else {
 			System.out.println("Lo sentimos, su perfil de usuario no le permite utilizar este servicio");
@@ -361,6 +370,259 @@ public class MenuPrincipal {
 		}
 		else {
 			return -1;
+		}
+	}
+
+
+	/**
+	 * Método estático privado para mostrar la lista de IDs de reservas dada en formato paginado y así seleccionar una
+	 *
+	 * @param		idsReservas						ArrayList&lt;Integer&gt;		Lista de IDs de reservas
+	 *
+	 * @return										int								ID de reserva seleccionado (-1 si no)
+	 */
+
+	private static int paginadorReservas(ArrayList<Integer> idsReservas) {
+		final	int							PAGINADO	= 5;
+		final	HashMap<Integer, String>	intAString	= new HashMap<Integer, String>();
+
+		int									i			= 1;
+		int									idReserva	= -1;
+		int									offset		= 0;
+		int									tamLista;
+		String								opcion;
+		String								plural;
+
+		intAString.put(i++, ""			);
+		intAString.put(i++, "dos"		);
+		intAString.put(i++, "tres"		);
+		intAString.put(i++, "cuatro"	);
+		intAString.put(i++, "cinco"		);
+
+		tamLista = idsReservas.size();
+
+		plural = ((tamLista == 1) ? ("") : ("s"));
+
+		System.out.println("A continuación se mostrarán la" + plural + (("s".equals(plural)) ? (" ") : (""))
+				+ intAString.get((tamLista > PAGINADO) ? (PAGINADO) : (tamLista)) + " última" + plural + " reserva" + plural + " del sistema");
+
+		MenuPrincipal._entrada.nextLine();
+
+		do {
+			for (i = (tamLista + offset) - 1; (i >= 0) && (i > ((tamLista + offset) - PAGINADO - 1)); i--) {
+				System.out.println("Reserva " + idsReservas.get(i) + ":");
+				System.out.println(MenuPrincipal._gs.mostrarReserva(idsReservas.get(i)));
+			}
+
+			System.out.print("Seleccione una opción");
+
+			if(tamLista > PAGINADO) {
+				System.out.print(" o pulse ");
+
+				if(i >= 0) {
+					System.out.print("< ");
+				}
+
+				if((i >= 0) && (offset < 0)) {
+					System.out.print("o ");
+				}
+
+				if(offset < 0) {
+					System.out.print("> ");
+				}
+
+				System.out.print("para desplazarse por los registros (enter para cancelar)");
+			}
+
+			System.out.print(": ");
+
+			opcion = MenuPrincipal._entrada.nextLine();
+
+			try {
+				idReserva = Integer.parseInt(opcion);
+
+				if(!(idsReservas.contains(idReserva))) {
+					idReserva = -1;
+
+					System.out.println("Identificador de reserva no válido");
+					System.out.println("Por favor, inténtelo de nuevo");
+				}
+			}
+			catch (NumberFormatException e) {
+				if("<".equals(opcion) && (i >= 0)) {
+					offset -= PAGINADO;
+				}
+				else if(">".equals(opcion) && (offset < 0)) {
+					offset += PAGINADO;
+				}
+				else if("".equals(opcion)) {
+					System.out.println("Operación cancelada");
+
+					break;
+				}
+				else {
+					System.out.println("Entrada no reconocida");
+					System.out.println("Por favor, inténtelo de nuevo");
+				}
+			}
+		} while (idReserva == -1);
+
+		return idReserva;
+	}
+
+
+	/**
+	 * Método estátito privado para registrar una incidencia
+	 */
+
+	private static void registrarIncidencia() {
+		boolean				okDato;
+		int					idIncidencia;
+		int					idReserva;
+		int					idTipoDeIncidenciaElegido	= -1;
+		String				descripcion;
+		ArrayList<Integer>	idsTiposDeIncidencia;
+
+		if((idReserva = MenuPrincipal.paginadorReservas(MenuPrincipal._gs.obtenerReservas(false))) != -1) {
+			System.out.print("Describa lo mejor posible lo sucedido: ");
+
+			descripcion = MenuPrincipal._entrada.nextLine();
+
+			System.out.println("A continuación se le presentarán una serie de tipos de incidencias");
+
+			idsTiposDeIncidencia = MenuPrincipal._gi.obtenerTiposDeIncidencia();
+
+			for(int idTipoDeIncidencia: idsTiposDeIncidencia) {
+				System.out.println(MenuPrincipal._gi.mostrarTipoDeIncidencia(idTipoDeIncidencia));
+			}
+
+			okDato = false;
+
+			do {
+				System.out.print("Seleccione el más adecuado a la incidencia, introduciendo su número: ");
+
+				try {
+					idTipoDeIncidenciaElegido = MenuPrincipal._entrada.nextInt();
+
+					if(idsTiposDeIncidencia.contains(idTipoDeIncidenciaElegido)) {
+						okDato = true;
+					}
+					else {
+						System.out.println("El tipo de incidencia introducido (" + idTipoDeIncidenciaElegido + ") es incorrecto");
+						System.out.println("Por favor, introduzca un número que esté en la lista");
+					}
+				}
+				catch (InputMismatchException e) {
+					System.out.println("El tipo de incidencia introducido (" + e.getLocalizedMessage() + ") es incorrecto");
+					System.out.println("Por favor, recuerde introducir números solamente");
+
+					MenuPrincipal._entrada.nextLine();
+				}
+			} while(!okDato);
+
+			if((idIncidencia = MenuPrincipal._gi.registrarIncidencia(idReserva, descripcion, idTipoDeIncidenciaElegido)) != -1) {
+				System.out.println("La incidencia ha sido registrada");
+				MenuPrincipal.sancionarAlumno(MenuPrincipal._gs.obtenerAlumno(idReserva), idIncidencia, descripcion);
+			}
+			else {
+				System.out.println("La incidencia no ha podido ser registrada");
+			}
+		}
+	}
+
+
+	/**
+	 * Método estático privado para sancionar a un alumno
+	 *
+	 * @param		idAlumno						int								ID del alumno a sancionar
+	 * @param		idIncidencia					int								ID de la incidencia asociada a la sanción
+	 * @param		descripcion						String							Descripción de la incidencia
+	 */
+
+	private static void sancionarAlumno(int idAlumno, int idIncidencia, String descripcion) {
+		boolean		okDato;
+		int			codigoSancion	= -1;
+		int			duracion		= 0;
+		LocalDate	ahora;
+		LocalDate	fecha			= null;
+
+		System.out.print("¿Es necesario aplicar una sanción al alumno? [s/N]: ");
+
+		okDato = false;
+
+		if(Character.toUpperCase(MenuPrincipal._entrada.next().charAt(0)) == 'S') {
+			do {
+				try {
+					System.out.print("En primer lugar, introduzca el código de sanción: ");
+
+					codigoSancion = MenuPrincipal._entrada.nextInt();
+
+					if(codigoSancion >= 0) {
+						okDato = true;
+					}
+					else {
+						throw new InputMismatchException("El número no debe ser negativo");
+					}
+				}
+				catch (InputMismatchException e) {
+					System.out.println("El número introducido es incorrecto");
+					System.out.println("Por favor, introduzca un número entero (sin decimales) y no negativo e inténtelo de nuevo");
+
+					MenuPrincipal._entrada.nextLine();
+				}
+			} while(!okDato);
+
+			okDato = false;
+
+			do {
+				try {
+					System.out.print("Introduzca la fecha de comienzo de la sanción en formato \"dd/MM/yyyy\": ");
+
+					fecha = LocalDate.parse(MenuPrincipal._entrada.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+					okDato = true;
+				}
+				catch (DateTimeParseException e) {
+					System.out.println("La fecha introducida es incorrecta");
+					System.out.println("Por favor, inténtelo de nuevo");
+				}
+
+				ahora = LocalDate.now();
+				if(okDato && !(fecha.isAfter(ahora))) {
+					System.out.println("La fecha introducida es del pasado");
+					System.out.println("Por favor, inténtelo de nuevo");
+					System.out.println("Hoy es " + ahora.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+					okDato = false;
+				}
+			} while(!okDato);
+
+			okDato = false;
+
+			do {
+				try {
+					System.out.print("Introduzca la duración (en días) de sanción: ");
+
+					duracion = MenuPrincipal._entrada.nextInt();
+
+					if(duracion > 0) {
+						okDato = true;
+					}
+					else {
+						throw new InputMismatchException("El número debe ser positivo");
+					}
+				}
+				catch (InputMismatchException e) {
+					System.out.println("El número introducido es incorrecto");
+					System.out.println("Por favor, introduzca un número entero (sin decimales) y positivo e inténtelo de nuevo");
+
+					MenuPrincipal._entrada.nextLine();
+				}
+			} while(!okDato);
+
+			MenuPrincipal._gi.sancionarAlumno(idIncidencia, codigoSancion, fecha, duracion);
+
+			MenuPrincipal._gi.enviarNotificacion(idAlumno, descripcion, codigoSancion, fecha, duracion);
 		}
 	}
 

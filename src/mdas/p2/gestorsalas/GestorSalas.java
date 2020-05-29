@@ -13,7 +13,7 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  *
  * @author		Javier Ortiz Aragones
  * @date		29/05/2020
- * @version		1.10.0
+ * @version		1.11.0
  */
 
 public class GestorSalas implements IReserva, ISala {
@@ -175,6 +175,21 @@ public class GestorSalas implements IReserva, ISala {
 	@Override
 	public String mostrarReserva(int idReserva) {
 		return this._reservaMgr.mostrarReserva(idReserva);
+	}
+
+
+	/**
+	 * Observador de la ID de un alumno asociado a una reserva
+	 * Devuelve la ID del alumno asociado a la reserva proporcionada
+	 *
+	 * @param		idReserva						int								ID de la reserva
+	 *
+	 * @return										int								ID del alumno asociado a la reserva (-1 si no encontrado)
+	 */
+
+	@Override
+	public int obtenerAlumno(int idReserva) {
+		return this._reservaMgr.obtenerAlumno(idReserva);
 	}
 
 

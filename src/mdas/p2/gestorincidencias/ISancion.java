@@ -10,11 +10,11 @@ import java.time.LocalDate;
  *
  * @author		Rafael Carlos Méndez Rodríguez
  * @date		29/05/2020
- * @version		1.0.0
+ * @version		1.0.1
  */
 
 
 public interface ISancion {
 	abstract public boolean				enviarNotificacion(int idAlumno, String descipcion, int codigoSancion, LocalDate fecha, int duracion);
-	abstract public int					sancionarAlumno(int idIncidencia, int idAlumno, int codigoSancion, LocalDate fecha, int duracion);
+	abstract public int					sancionarAlumno(int idIncidencia, int codigoSancion, LocalDate fecha, int duracion);
 }
