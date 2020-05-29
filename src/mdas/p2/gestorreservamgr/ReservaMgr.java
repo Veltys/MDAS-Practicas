@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.3.2
+ * @version		1.3.3
  */
 
 
@@ -950,9 +950,11 @@ public class ReservaMgr implements IReservaMgt {
 					LocalDateTime.now().isBefore(r.fechaYHora().plusHours(r.duracion())) &&
 					!(fechaYHora.isAfter(r.fechaYHora().plusHours(r.duracion()))) &&
 					!(fechaYHora.plusHours(duracion).isBefore(r.fechaYHora())) &&
-					((idAlumno == r.idAlumno()) && !(r.suspendida()))
+					((idAlumno != r.idAlumno()) || !(r.suspendida()))
 					) {
 				reservas.add(r);
+
+				break;
 			}
 		}
 
