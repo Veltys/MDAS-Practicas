@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.5.0
+ * @version		1.5.1
  */
 
 
@@ -924,7 +924,6 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public int registrarIncidencia(int idReserva, String descripcion, int tipo) {
-		int				idIncidencia;
 		TipoIncidencia	tipoIncidencia = null;
 		Incidencia		nueva;
 
@@ -938,11 +937,11 @@ public class ReservaMgr implements IReservaMgt {
 
 		nueva = new Incidencia(this._incidencias.get(this._incidencias.size() - 1).id() + 1, idReserva, descripcion, tipoIncidencia);
 
-		idIncidencia = nueva.id();
+		this._incidencias.add(nueva);
 
 		this.guardar();
 
-		return idIncidencia;
+		return nueva.id();
 	}
 
 
@@ -1067,16 +1066,15 @@ public class ReservaMgr implements IReservaMgt {
 
 	@Override
 	public int sancionarAlumno(int idIncidencia, int codigoSancion, LocalDate fecha, int duracion) {
-		int		idSancion;
 		Sancion	nueva;
 
 		nueva = new Sancion(this._sanciones.get(this._sanciones.size() - 1).id() + 1, idIncidencia, codigoSancion, duracion, fecha);
 
-		idSancion = nueva.id();
+		this._sanciones.add(nueva);
 
 		this.guardar();
 
-		return idSancion;
+		return nueva.id();
 	}
 
 
