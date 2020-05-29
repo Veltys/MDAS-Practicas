@@ -10,8 +10,8 @@ import java.time.format.DateTimeFormatter;
  * Almacena los datos de una reserva de una sala
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		28/05/2020
- * @version		1.3.0
+ * @date		29/05/2020
+ * @version		1.4.0
  */
 
 public class Reserva {
@@ -197,6 +197,17 @@ public class Reserva {
 
 	public void suspendida(boolean suspendida) {
 		this._suspendida = suspendida;
+	}
+
+
+	/**
+	 * Método para exportar los datos de la clase en formato CSV
+	 *
+	 * @return										String							Representación en texto CSV de los datos de la reserva
+	 */
+
+	public String toCsv() {
+		return this._id + "," + String.format("%08d", this._idAlumno) + "," + this._idSala + "," + this._alumnos + "," + this._asignatura.replace(",", "") + "," + this._duracion + "," + this._estado + "," + this._fechaYHora.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 	}
 
 

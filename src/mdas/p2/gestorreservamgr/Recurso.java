@@ -7,7 +7,7 @@ package mdas.p2.gestorreservamgr;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.1.1
+ * @version		1.2.0
  */
 
 public class Recurso {
@@ -62,6 +62,17 @@ public class Recurso {
 
 	public String nombre() {
 		return this._nombre;
+	}
+
+
+	/**
+	 * Método para exportar los datos de la clase en formato CSV
+	 *
+	 * @return										String							Representación en texto CSV de los datos del recurso
+	 */
+
+	public String toCsv() {
+		return this._id + "," + this._nombre.replace(",", "") + "," + this._descripcion.replace(",", "");
 	}
 
 

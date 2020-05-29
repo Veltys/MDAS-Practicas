@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.3.1
+ * @version		1.3.2
  */
 
 
@@ -415,27 +415,59 @@ public class ReservaMgr implements IReservaMgt {
 
 					switch(i) {
 					case 0:
-						this._incidencias.add(new Incidencia(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), campos.get(2), this.buscarTipoIncidencia(Integer.parseInt(campos.get(3)))));
+						this._incidencias.add(new Incidencia(
+								Integer.parseInt(campos.get(0)),
+								Integer.parseInt(campos.get(1)),
+								campos.get(2),										// FIXME: Lidiar con las comas "extra"
+								this.buscarTipoIncidencia(Integer.parseInt(campos.get(campos.size() - 1)))
+								));
 
 						break;
 					case 1:
-						this._recursos.add(new Recurso(Integer.parseInt(campos.get(0)), campos.get(1), campos.get(2)));
+						this._recursos.add(new Recurso(
+								Integer.parseInt(campos.get(0)),
+								campos.get(1),										// FIXME: Lidiar con las comas "extra"
+								campos.get(2)										// FIXME: Lidiar con las comas "extra"
+								));
 
 						break;
 					case 2:
-						this._reservas.add(new Reserva(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), Integer.parseInt(campos.get(3)), campos.get(4), Integer.parseInt(campos.get(5)), Boolean.parseBoolean(campos.get(6)), LocalDateTime.parse(campos.get(7), DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+						this._reservas.add(new Reserva(
+								Integer.parseInt(campos.get(0)),
+								Integer.parseInt(campos.get(1)),
+								Integer.parseInt(campos.get(2)),
+								Integer.parseInt(campos.get(3)),
+								campos.get(4),										// FIXME: Lidiar con las comas "extra"
+								Integer.parseInt(campos.get(campos.size() - 3)),
+								Boolean.parseBoolean(campos.get(campos.size() - 2)),
+								LocalDateTime.parse(campos.get(campos.size() - 1), DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+								));
 
 						break;
 					case 3:
-						this._salas.add(new Sala(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), campos.get(2), this.buscarTipoSala(Integer.parseInt(campos.get(3))), campos.get(4)));
+						this._salas.add(new Sala(Integer.parseInt(campos.get(0)),
+								Integer.parseInt(campos.get(1)),
+								campos.get(2),										// FIXME: Lidiar con las comas "extra"
+								this.buscarTipoSala(Integer.parseInt(campos.get(3))),
+								campos.get(4)										// FIXME: Lidiar con las comas "extra"
+								));
 
 						break;
 					case 4:
-						this._salasYRecursos.add(new SalaYRecurso(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1))));
+						this._salasYRecursos.add(new SalaYRecurso(
+								Integer.parseInt(campos.get(0)),
+								Integer.parseInt(campos.get(1))
+								));
 
 						break;
 					case 5:
-						this._sanciones.add(new Sancion(Integer.parseInt(campos.get(0)), Integer.parseInt(campos.get(1)), Integer.parseInt(campos.get(2)), Integer.parseInt(campos.get(3)), LocalDate.parse(campos.get(4), DateTimeFormatter.ISO_LOCAL_DATE)));
+						this._sanciones.add(new Sancion(
+								Integer.parseInt(campos.get(0)),
+								Integer.parseInt(campos.get(1)),
+								Integer.parseInt(campos.get(2)),
+								Integer.parseInt(campos.get(3)),
+								LocalDate.parse(campos.get(4), DateTimeFormatter.ISO_LOCAL_DATE)
+								));
 
 						break;
 					default:														// Nunca se llegará aquí

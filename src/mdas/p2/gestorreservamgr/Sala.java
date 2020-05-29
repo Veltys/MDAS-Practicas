@@ -10,7 +10,7 @@ package mdas.p2.gestorreservamgr;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.3.1
+ * @version		1.4.0
  */
 
 public class Sala {
@@ -95,6 +95,17 @@ public class Sala {
 
 	public String ubicacion() {
 		return this._ubicacion;
+	}
+
+
+	/**
+	 * Método para exportar los datos de la clase en formato CSV
+	 *
+	 * @return										String							Representación en texto CSV de los datos de la sala
+	 */
+
+	public String toCsv() {
+		return this._id + "," + this._aforo + "," + this._nombre.replace(",", "") + "," + this._tipo.id() + "," + this._ubicacion.replace(",", "");
 	}
 
 

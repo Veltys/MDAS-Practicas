@@ -7,7 +7,7 @@ package mdas.p2.gestorusuariomgr;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.2.0
+ * @version		1.3.0
  */
 
 public class Usuario {
@@ -84,6 +84,17 @@ public class Usuario {
 
 	public void nombre(String nombre) {
 		this._nombre = nombre;
+	}
+
+
+	/**
+	 * Método para exportar los datos de la clase en formato CSV
+	 *
+	 * @return										String							Representación en texto CSV de los datos del usuario
+	 */
+
+	public String toCsv() {
+		return this._id + "," + this._nombre.replace(",", "") + "," + this._correo;
 	}
 
 
