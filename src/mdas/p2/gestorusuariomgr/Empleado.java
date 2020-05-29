@@ -6,8 +6,8 @@ package mdas.p2.gestorusuariomgr;
  * Extiende a la clase Usuario para almacenar datos concretos de un empleado
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		24/05/2020
- * @version		1.1.0
+ * @date		29/05/2020
+ * @version		1.2.0
  */
 
 public class Empleado extends Usuario {
@@ -25,4 +25,15 @@ public class Empleado extends Usuario {
 		super(idEmpleado, nombre, correo);
 	}
 
+
+	/**
+	 * Método "mágico" cuando una clase es usada como String
+	 *
+	 * @return										String							Representación en texto de los datos del alumno
+	 */
+
+	@Override
+	public String toString() {
+		return "true," + super.toString();
+	}
 }

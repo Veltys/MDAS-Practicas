@@ -208,6 +208,6 @@ public class Reserva {
 
 	@Override
 	public String toString() {
-		return this._id + "," + this._idAlumno + "," + this._idSala + "," + this._alumnos + "," + this._asignatura + "," + this._duracion + "," + this._estado + "," + this._fechaYHora.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+		return this._id + "," + String.format("%08d", this._idAlumno) + "," + this._idSala + "," + this._alumnos + "," + this._asignatura + "," + this._duracion + "," + this._estado + "," + this._fechaYHora.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 	}
 }

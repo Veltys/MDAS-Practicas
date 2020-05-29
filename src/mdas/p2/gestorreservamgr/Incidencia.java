@@ -9,8 +9,8 @@ package mdas.p2.gestorreservamgr;
  * Contiene los datos de una incidencia
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		22/05/2020
- * @version		1.1.0
+ * @date		29/05/2020
+ * @version		1.1.1
  */
 
 public class Incidencia {
@@ -90,6 +90,6 @@ public class Incidencia {
 
 	@Override
 	public String toString() {
-		return this._id + ", " + this._idReserva + "," + this._descripcion + "," + this._tipo.id();
+		return this._id + "," + this._idReserva + "," + this._descripcion + "," + this._tipo.id();
 	}
 }

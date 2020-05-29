@@ -9,8 +9,8 @@ import mdas.p2.gestorusuariomgr.Usuario;
  * Extiende a la clase Usuario para almacenar datos concretos de un alumno
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		24/05/2020
- * @version		1.1.0
+ * @date		29/05/2020
+ * @version		1.2.0
  */
 
 
@@ -26,5 +26,17 @@ public class Alumno extends Usuario {
 
 	public Alumno(int id, String nombre, String correo) {
 		super(id, nombre, correo);
+	}
+
+
+	/**
+	 * Método "mágico" cuando una clase es usada como String
+	 *
+	 * @return										String							Representación en texto de los datos del alumno
+	 */
+
+	@Override
+	public String toString() {
+		return "false," + super.toString();
 	}
 }

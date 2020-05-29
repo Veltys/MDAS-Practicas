@@ -2,11 +2,11 @@ package mdas.p2.gestorusuariomgr;
 
 
 import java.io.BufferedReader;
-// import java.io.BufferedWriter;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-// import java.io.FileWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,16 +19,17 @@ import java.util.StringTokenizer;
  * Implementa la interfaz IUsuarioMgt
  *
  * @author		Unai Friscia Pérez (unaif)
- * @date		27/05/2020
- * @version		2.0.1
+ * @date		29/05/2020
+ * @version		2.1.0
  *
  */
 
 public class UsuarioMgr implements IUsuarioMgt {
-	final private	boolean				_DEBUG		= true;
+	final private	boolean				_DEBUG				= true;
 
-	static	private	Scanner				_entrada	= new Scanner(System.in);
-	static	private	UsuarioMgr			_instance	= null;
+	static private	String				_archivoUsuarios;
+	static private	Scanner				_entrada			= new Scanner(System.in);
+	static private	UsuarioMgr			_instance			= null;
 	private			ArrayList<Usuario>	_usuarios;
 	private			EnviarMensaje		_mailer;
 
@@ -42,18 +43,18 @@ public class UsuarioMgr implements IUsuarioMgt {
 	 */
 
 	private UsuarioMgr(String archivoUsuarios) {
-		this._usuarios	= new ArrayList<Usuario>();
+		UsuarioMgr._archivoUsuarios		= archivoUsuarios;
 
-		this.cargar(archivoUsuarios);
+		this._usuarios					= new ArrayList<Usuario>();
 
 		if(!this._DEBUG) {
-			this._mailer = new EnviarMensajeEmail();
+			this._mailer				= new EnviarMensajeEmail();
 		}
 		else {
-			this._mailer = new EnviarMensajeConsola();
+			this._mailer				= new EnviarMensajeConsola();
 		}
 
-		// TODO: Timer de guardado
+		this.cargar();
 	}
 
 
@@ -169,14 +170,14 @@ public class UsuarioMgr implements IUsuarioMgt {
 	 * @return										Boolean							Inidicación si la carga de usuarios ha sido exitosa o erronea
 	 */
 
-	private boolean cargar(String archivoUsuarios) {
+	private boolean cargar() {
 		String				linea;
 		ArrayList<String>	campos;
 		BufferedReader		buffer;
 		StringTokenizer		stLinea;
 
 		try {
-			buffer = new BufferedReader(new FileReader(new File(archivoUsuarios)));
+			buffer = new BufferedReader(new FileReader(new File(UsuarioMgr._archivoUsuarios)));
 
 			while((linea = buffer.readLine()) != null) {
 				stLinea = new StringTokenizer(linea, ",");
@@ -220,12 +221,13 @@ public class UsuarioMgr implements IUsuarioMgt {
 	 * @return										Boolean							Inidicación si el guardado de usuarios ha sido exitosa o erronea
 	 */
 
-	/*
-	private boolean guardar(String archivoUsuario) {
+
+	@SuppressWarnings("unused")														// Nunca es usado, pero se incluye como posibilidad de futuro
+	private boolean guardar() {
 		BufferedWriter		buffer;
 
 		try {
-			buffer = new BufferedWriter(new FileWriter(new File(archivoUsuario)));
+			buffer = new BufferedWriter(new FileWriter(new File(UsuarioMgr._archivoUsuarios)));
 
 			for(Usuario u: this._usuarios) {
 				buffer.write(u.toString() + System.getProperty("line.separator"));
@@ -246,7 +248,6 @@ public class UsuarioMgr implements IUsuarioMgt {
 			return false;
 		}
 	}
-	 */
 
 
 	/**

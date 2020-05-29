@@ -10,8 +10,8 @@ import java.time.format.DateTimeFormatter;
  * Almacena los datos de una sanción asociada a una reserva y a un alumno
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		22/05/2020
- * @version		1.1.0
+ * @date		29/05/2020
+ * @version		1.1.1
  */
 
 public class Sancion {
@@ -105,6 +105,6 @@ public class Sancion {
 
 	@Override
 	public String toString() {
-		return this._id + ", " + this._idIncidencia + ", " + this._codigo + ", " + this._duracion + ", " + this._fecha.format(DateTimeFormatter.ISO_LOCAL_DATE);
+		return this._id + "," + this._idIncidencia + "," + this._codigo + "," + this._duracion + "," + this._fecha.format(DateTimeFormatter.ISO_LOCAL_DATE);
 	}
 }

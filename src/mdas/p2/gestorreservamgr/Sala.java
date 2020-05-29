@@ -10,7 +10,7 @@ package mdas.p2.gestorreservamgr;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.3.0
+ * @version		1.3.1
  */
 
 public class Sala {
@@ -106,6 +106,6 @@ public class Sala {
 
 	@Override
 	public String toString() {
-		return this._id + ", " + this._aforo + ", " + this._nombre + ", " + this._tipo.id() + ", " + this._ubicacion;
+		return this._id + "," + this._aforo + "," + this._nombre + "," + this._tipo.id() + "," + this._ubicacion;
 	}
 }
