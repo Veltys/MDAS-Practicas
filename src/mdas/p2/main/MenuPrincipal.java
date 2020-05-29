@@ -24,7 +24,7 @@ import mdas.p2.gestorsalas.GestorSalas;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		2.0.0
+ * @version		2.0.1
  */
 
 public class MenuPrincipal {
@@ -380,6 +380,8 @@ public class MenuPrincipal {
 	 * @param		idsReservas						ArrayList&lt;Integer&gt;		Lista de IDs de reservas
 	 *
 	 * @return										int								ID de reserva seleccionado (-1 si no)
+	 *
+	 * TODO: Reducir la complejidad N-Path
 	 */
 
 	private static int paginadorReservas(ArrayList<Integer> idsReservas) {
@@ -640,7 +642,7 @@ public class MenuPrincipal {
 	static private boolean reservar(int idAlumno) {
 		boolean				okDato;
 		int					alumnos					= 0;
-		int					duracion;
+		int					duracion				= 0;
 		int					idReserva;
 		ArrayList<Integer>	idsRecursos;
 		ArrayList<Integer>	idsSalasCandidatas;
@@ -710,9 +712,28 @@ public class MenuPrincipal {
 				}
 			} while(!okDato);
 
-			System.out.print("Para finalizar, introduzca la duración (en horas) de la reserva: ");
+			okDato = false;
 
-			duracion = MenuPrincipal._entrada.nextInt();
+			do {
+				try {
+					System.out.print("Para finalizar, introduzca la duración (en horas) de la reserva: ");
+
+					duracion = MenuPrincipal._entrada.nextInt();
+
+					if(duracion > 0) {
+						okDato = true;
+					}
+					else {
+						throw new InputMismatchException("El número debe ser positivo");
+					}
+				}
+				catch (InputMismatchException e) {
+					System.out.println("El número introducido es incorrecto");
+					System.out.println("Por favor, introduzca un número entero (sin decimales) y positivo e inténtelo de nuevo");
+
+					MenuPrincipal._entrada.nextLine();
+				}
+			} while(!okDato);
 
 			if((idReserva = MenuPrincipal._gs.elegirSala(alumnos, idAlumno, asignatura, duracion, fechaYHora, idsSalasCandidatas)) != -1) {
 				System.out.println("La sala más adecuada para sus requisitos es:" + System.getProperty("line.separator") + MenuPrincipal._gs.mostrarReserva(idReserva));
