@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		29/05/2020
- * @version		1.1.0
+ * @version		1.2.0
  */
 
 
@@ -733,6 +733,35 @@ public class ReservaMgr implements IReservaMgt {
 
 		if(posReserva != -1) {
 			return this._reservas.get(posReserva);
+		}
+		else {
+			return null;
+		}
+	}
+
+
+	/**
+	 * Observador de la lista de reservas
+	 * Devuelve los IDs de todas o sólo de las ya pasadas reservas de la lista
+	 *
+	 * @param		todas							boolean							Devolver todas las reservas o sólo las pasadas
+	 *
+	 * @return										int								Lista de reservas
+	 */
+
+	@Override
+	public ArrayList<Integer> obtenerReservas(boolean todas) {
+		ArrayList<Integer>	res		= new ArrayList<Integer>();
+		LocalDateTime		ahora	= LocalDateTime.now();
+
+		for(Reserva reserva: this._reservas) {
+			if(todas || ahora.isAfter(reserva.fechaYHora())) {
+				res.add(reserva.id());
+			}
+		}
+
+		if(res.size() > 0) {
+			return res;
 		}
 		else {
 			return null;

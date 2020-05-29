@@ -13,7 +13,7 @@ import mdas.p2.gestorreservamgr.ReservaMgr;
  *
  * @author		Javier Ortiz Aragones
  * @date		29/05/2020
- * @version		1.9.0
+ * @version		1.10.0
  */
 
 public class GestorSalas implements IReserva, ISala {
@@ -175,6 +175,21 @@ public class GestorSalas implements IReserva, ISala {
 	@Override
 	public String mostrarReserva(int idReserva) {
 		return this._reservaMgr.mostrarReserva(idReserva);
+	}
+
+
+	/**
+	 * Observador de la lista de reservas
+	 * Devuelve los IDs de todas o sólo de las ya pasadas reservas de la lista
+	 *
+	 * @param		todas							boolean							Devolver todas las reservas o sólo las pasadas
+	 *
+	 * @return										int								Lista de reservas
+	 */
+
+	@Override
+	public ArrayList<Integer> obtenerReservas(boolean todas) {
+		return this._reservaMgr.obtenerReservas(todas);
 	}
 
 
