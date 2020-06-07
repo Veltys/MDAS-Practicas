@@ -28,8 +28,10 @@ import java.util.StringTokenizer;
  * Implementa la interfaz IReservaMgt
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		29/05/2020
- * @version		1.6.1
+ * @date		09/06/2020
+ * @version		1.8.0
+ *
+ * TODO: Reducir longitud
  */
 
 
@@ -362,6 +364,8 @@ public class ReservaMgr implements IReservaMgt {
 	 * Carga los archivos CSV solicitados en la memoria del gestor
 	 *
 	 * @return										boolean							Resultado de la operación
+	 *
+	 * TODO: Reducir longitud
 	 */
 
 	private boolean cargar() {
@@ -785,28 +789,6 @@ public class ReservaMgr implements IReservaMgt {
 
 
 	/**
-	 * Observador de una reserva
-	 * Busca una reserva por su ID y la devuelve
-	 *
-	 * @param		idReserva						int								ID de la reserva
-	 *
-	 * @return										int								Reserva (null si no encontrada)
-	 */
-
-	@Override
-	public Reserva obtenerReserva(int idReserva) {
-		int posReserva = this.buscarReserva(idReserva, false);
-
-		if(posReserva != -1) {
-			return this._reservas.get(posReserva);
-		}
-		else {
-			return null;
-		}
-	}
-
-
-	/**
 	 * Observador de la lista de reservas
 	 * Devuelve los IDs de todas o sólo de las ya pasadas reservas de la lista
 	 *
@@ -836,28 +818,6 @@ public class ReservaMgr implements IReservaMgt {
 
 
 	/**
-	 * Observador de una sala
-	 * Busca una sala por su ID y la devuelve
-	 *
-	 * @param		idSala							int								ID de la sala
-	 *
-	 * @return										int								Sala (null si no encontrada)
-	 */
-
-	@Override
-	public Sala obtenerSala(int idSala) {
-		int posSala = this.buscarSala(idSala);
-
-		if(posSala != -1) {
-			return this._salas.get(posSala);
-		}
-		else {
-			return null;
-		}
-	}
-
-
-	/**
 	 * Observador de una sanción
 	 * Busca una sanción por su ID y la devuelve
 	 *
@@ -866,8 +826,7 @@ public class ReservaMgr implements IReservaMgt {
 	 * @return										int								Sanción (null si no encontrada)
 	 */
 
-	@Override
-	public Sancion obtenerSancion(int idSancion) {
+	private Sancion obtenerSancion(int idSancion) {
 		int	i;
 		int posSancion	= -1;
 		int	tamLista	= this._sanciones.size();

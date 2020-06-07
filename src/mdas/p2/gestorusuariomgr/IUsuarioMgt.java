@@ -7,8 +7,8 @@ package mdas.p2.gestorusuariomgr;
  * Interfaz del componente UsuarioMgr
  *
  * @author		Unai Friscia Pérez (unaif)
- * @date		26/05/2020
- * @version		1.2.1
+ * @date		07/06/2020
+ * @version		1.3.0
  */
 
 public interface IUsuarioMgt {
@@ -16,6 +16,5 @@ public interface IUsuarioMgt {
 	abstract public Empleado	buscarEmpleado(int idEmpleado);
 	abstract public boolean		enviarNotificacion(int idUsuario, String Mensaje);
 	abstract public int			iniciarSesion();
-	abstract public void		mostrarMensaje(String mensaje);
 	abstract public String		nombre(int idUsuario);
 }

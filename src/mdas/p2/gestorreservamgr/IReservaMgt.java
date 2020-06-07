@@ -6,8 +6,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// import mdas.p2.gestorreservamgr.Reserva;
-// import mdas.p2.gestorreservamgr.Sala;
 // import mdas.p2.gestorreservamgr.TipoIncidencia;
 // import mdas.p2.gestorreservamgr.TipoSala;
 
@@ -17,8 +15,8 @@ import java.util.HashMap;
  * Interfaz del componente GestorReservaMgr
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		29/05/2020
- * @version		1.20.0
+ * @date		09/06/2020
+ * @version		1.22.0
  */
 
 public interface IReservaMgt {
@@ -34,10 +32,7 @@ public interface IReservaMgt {
 	abstract public int					obtenerAforoSala(int idSala);
 	abstract public int					obtenerAlumno(int idReserva);
 	abstract public ArrayList<Integer>	obtenerRecursos();
-	abstract public Reserva				obtenerReserva(int idReserva);
 	abstract public ArrayList<Integer>	obtenerReservas(boolean todas);
-	abstract public Sancion				obtenerSancion(int idSancion);
-	abstract public Sala				obtenerSala(int idSala);
 	abstract public int					registrarIncidencia(int idReserva, String descripcion, int tipo);
 	abstract public int					registrarSala(String nombre, int aforo, int tipo, String ubicacion, ArrayList<Integer> recursos);
 	abstract public int					preReservarSala(int idAlumno, int idSala, int alumos, String asignatura, int duracion, LocalDateTime fechaYHora);

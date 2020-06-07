@@ -19,13 +19,13 @@ import java.util.StringTokenizer;
  * Implementa la interfaz IUsuarioMgt
  *
  * @author		Unai Friscia Pérez (unaif)
- * @date		29/05/2020
- * @version		2.1.2
+ * @date		07/06/2020
+ * @version		2.2.0
  *
  */
 
 public class UsuarioMgr implements IUsuarioMgt {
-	final private	boolean				_DEBUG				= true;
+	final private	boolean				_DEBUG				= false;
 
 	static private	Scanner				_entrada			= new Scanner(System.in);
 	static private	UsuarioMgr			_instance			= null;
@@ -310,22 +310,6 @@ public class UsuarioMgr implements IUsuarioMgt {
 		else {
 			return -1;
 		}
-	}
-
-
-	// TODO: Método de guardado
-
-
-	/**
-	 * Metodo que muestra un mensaje por pantalla
-	 *
-	 * @param		mensaje							String							Mensaje que se muestra por pantalla
-	 *
-	 */
-
-	@Override
-	public void mostrarMensaje(String mensaje) {
-		System.out.println(mensaje);
 	}
 
 
