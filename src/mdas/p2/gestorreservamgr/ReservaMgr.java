@@ -548,13 +548,6 @@ public class ReservaMgr implements IReservaMgt {
 	 * Método de guardado de archivos
 	 * Guarda la memoria del gestor en los archivos CSV solicitados
 	 *
-	 * @param		archivoIncidencias				String							Ruta del archivo donde incidencias
-	 * @param		archivoRecursos					String							Ruta del archivo donde recursos
-	 * @param		archivoReservas					String							Ruta del archivo donde reservas
-	 * @param		archivoSalas					String							Ruta del archivo donde salas
-	 * @param		archivoSalasYRecursos			String							Ruta del archivo donde salas y recursos
-	 * @param		archivoSanciones				String							Ruta del archivo donde sanciones
-	 *
 	 * @return										boolean							Resultado de la operación
 	 */
 
@@ -926,7 +919,7 @@ public class ReservaMgr implements IReservaMgt {
 	 *
 	 * @param		idReserva						int								ID de la reserva asociada a la incidencia
 	 * @param		descripcion						String							Descripción de la incidencia
-	 * @param		tipoIncidencia					int								Tipo de incidencia
+	 * @param		tipo							int								Tipo de incidencia
 	 *
 	 * @return										int								ID de la incidencia
 	 */
@@ -1067,7 +1060,6 @@ public class ReservaMgr implements IReservaMgt {
 	 * Sanciona a un alumno
 	 *
 	 * @param		idIncidencia					int								ID de la incidencia asociada a la sanción
-	 * @param		idAlumno						int								ID del alumno sancionado
 	 * @param		codigoSancion					int								Código de la sanción
 	 * @param		fecha							LocalDate						Fecha de la sanción
 	 * @param		duracion						int								Duración (en días) de la sanción

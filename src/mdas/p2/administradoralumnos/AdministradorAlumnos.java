@@ -80,7 +80,6 @@ public class AdministradorAlumnos implements IInformarAlumno, IComprobarSancion 
 	 * Notificador de alumnos sancionados
 	 * Genera una notificación texto de notificación para un usuario y la sanción de éste
 	 *
-	 *@param		idAlumno					int									ID del alumno
 	 *@param		idSancion					int									ID de la sanción
 	 *
 	 *@return									String								Mensaje de notificación

@@ -164,8 +164,6 @@ public class UsuarioMgr implements IUsuarioMgt {
 	/**
 	 * Metodo que carga en la lista de usuarios los usuarios que se encuentran guardados en un fichero
 	 *
-	 * @param		archivoUsuarios					String							Ruta del archivo donde se encuentran los usuarios
-	 *
 	 * @return										Boolean							Inidicación si la carga de usuarios ha sido exitosa o erronea
 	 */
 
@@ -214,8 +212,6 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 	/**
 	 * Metodo que guarda en un fichero de usuarios los usuarios que se encuentran almacenados en la lista de usuarios
-	 *
-	 * @param		archivoUsuarios					String							Ruta del archivo donde se guardan los usuarios
 	 *
 	 * @return										Boolean							Inidicación si el guardado de usuarios ha sido exitosa o erronea
 	 */

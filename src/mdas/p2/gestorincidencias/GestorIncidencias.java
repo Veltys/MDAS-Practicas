@@ -99,7 +99,7 @@ public class GestorIncidencias implements IIncidencia, ISancion {
 	 *
 	 * @param		idReserva						int								ID de la reserva asociada a la incidencia
 	 * @param		descripcion						String							Descripción de la incidencia
-	 * @param		tipoIncidencia					int								Tipo de incidencia
+	 * @param		tipo							int								Tipo de incidencia
 	 *
 	 * @return										int								ID de la incidencia
 	 */
