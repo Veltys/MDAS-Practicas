@@ -2,6 +2,7 @@ package mdas.p2.gestorincidencias;
 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import mdas.p2.gestorincidencias.IIncidencia;
@@ -15,8 +16,8 @@ import mdas.p2.gestorusuariomgr.UsuarioMgr;
  * Clase GestorIncidencias
  *
  * @author		Rafael Carlos Méndez Rodríguez
- * @date		29/05/2020
- * @version		1.0.1
+ * @date		07/06/2020
+ * @version		1.0.2
  */
 
 public class GestorIncidencias implements IIncidencia, ISancion {
@@ -58,11 +59,23 @@ public class GestorIncidencias implements IIncidencia, ISancion {
 
 	@Override
 	public boolean enviarNotificacion(int idAlumno, String descripcion, int codigoSancion, LocalDate fecha, int duracion) {
-		String mensaje = "";
+		String mensaje;
+		String nombre	= this._usuarioMgr.nombre(idAlumno);
 
-		// TODO: Redactar el mensaje
+		if(nombre != null) {
+			mensaje	= "Estimado " + nombre + ":" + System.getProperty("line.separator") +
+					"Lamentamos informarle de que ha sido sancionado en la plataforma de reserva de salas de la UCO." + System.getProperty("line.separator") +
+					"La incidencia ocurrida ha sido: \"" + descripcion + "\"." + System.getProperty("line.separator") +
+					"Eso conllevará la siguiente sanción: \"" + IReservaMgt.describirSancion(codigoSancion) + "\"." + System.getProperty("line.separator") +
+					"La sanción empezará el día " + fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " y terminará el día " + fecha.plusDays(duracion).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
+					", es decir, será de " + duracion + " dia" + ((duracion != 1) ? ("s") : ("")) + " de duración." + System.getProperty("line.separator") +
+					"Reciba un cordial saludo.";
 
-		return this._usuarioMgr.enviarNotificacion(idAlumno, mensaje);
+			return this._usuarioMgr.enviarNotificacion(idAlumno, mensaje);
+		}
+		else {
+			return false;
+		}
 	}
 
 
