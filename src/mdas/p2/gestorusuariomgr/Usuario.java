@@ -6,8 +6,8 @@ package mdas.p2.gestorusuariomgr;
  * Almacena datos de un usuario del sistema
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		29/05/2020
- * @version		1.3.0
+ * @date		09/06/2020
+ * @version		1.3.1
  */
 
 public class Usuario {
@@ -94,7 +94,7 @@ public class Usuario {
 	 */
 
 	public String toCsv() {
-		return this._id + "," + this._nombre.replace(",", "") + "," + this._correo;
+		return String.format("%08d", this._id) + "," + this._nombre.replace(",", "") + "," + this._correo;
 	}
 
 
@@ -106,6 +106,6 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return this._id + "," + this._nombre + "," + this._correo;
+		return String.format("%08d", this._id) + "," + this._nombre + "," + this._correo;
 	}
 }

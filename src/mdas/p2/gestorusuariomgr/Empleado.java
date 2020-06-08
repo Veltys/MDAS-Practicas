@@ -9,8 +9,8 @@ import mdas.p2.gestorusuariomgr.Usuario;
  * Extiende a la clase Usuario para almacenar datos concretos de un empleado
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
- * @date		29/05/2020
- * @version		1.3.0
+ * @date		09/06/2020
+ * @version		1.3.1
  */
 
 public class Empleado extends Usuario {
@@ -37,7 +37,7 @@ public class Empleado extends Usuario {
 
 	@Override
 	public String toCsv() {
-		return "true," + super.toString();
+		return "true," + super.toCsv();
 	}
 
 

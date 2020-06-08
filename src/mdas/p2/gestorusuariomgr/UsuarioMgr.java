@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  *
  * @author		Unai Friscia Pérez (unaif)
  * @date		08/06/2020
- * @version		2.3.0
+ * @version		2.3.1
  *
  */
 
@@ -224,7 +224,6 @@ public class UsuarioMgr implements IUsuarioMgt {
 	 */
 
 
-	@SuppressWarnings("unused")														// Nunca es usado, pero se incluye como posibilidad de futuro
 	private boolean guardar() {
 		BufferedWriter		buffer;
 
@@ -300,6 +299,10 @@ public class UsuarioMgr implements IUsuarioMgt {
 
 		System.out.println("Enviando datos al gestor de sesiones de la UCO");
 		System.out.println("Espere, por favor...");
+
+		// TODO: Contactar con el servidor de la UCO... algún día... el 15 de nunca seguramente...
+
+		this.guardar();
 
 		if(!this._DEBUG) {
 			try {
