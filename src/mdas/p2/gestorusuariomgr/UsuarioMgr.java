@@ -19,8 +19,8 @@ import java.util.StringTokenizer;
  * Implementa la interfaz IUsuarioMgt
  *
  * @author		Unai Friscia Pérez (unaif)
- * @date		07/06/2020
- * @version		2.2.0
+ * @date		08/06/2020
+ * @version		2.3.0
  *
  */
 
@@ -47,7 +47,14 @@ public class UsuarioMgr implements IUsuarioMgt {
 		this._usuarios					= new ArrayList<Usuario>();
 
 		if(!this._DEBUG) {
-			this._mailer				= new EnviarMensajeEmail();
+			try {
+				this._mailer				= new EnviarMensajeEmail();
+			}
+			catch (IOException e) {
+				System.out.println("Error: " + e.getMessage());
+
+				this._mailer				= new EnviarMensajeConsola();
+			}
 		}
 		else {
 			this._mailer				= new EnviarMensajeConsola();
