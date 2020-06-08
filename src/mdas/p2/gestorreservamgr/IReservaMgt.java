@@ -16,7 +16,7 @@ import java.util.HashMap;
  *
  * @author		Rafael Carlos Méndez Rodríguez (i82meror)
  * @date		09/06/2020
- * @version		1.22.0
+ * @version		1.22.1
  */
 
 public interface IReservaMgt {
@@ -54,6 +54,7 @@ public interface IReservaMgt {
 
 	static public String describirSancion(int codigoSancion) {
 		int							i			= 0;
+		String						res;
 		HashMap<Integer, String>	descripcion	= new HashMap<Integer, String>();
 
 		descripcion.put(i++, "El alumno responsable de la reserva no se ha presentado a la hora de ésta");
@@ -63,13 +64,15 @@ public interface IReservaMgt {
 		descripcion.put(i++, "Se ha extraviado o deteriorado material prestado de poco valor (papeleras, rotuladores, lápices, borrador, etc.)");
 		descripcion.put(i++, "Se ha extraviado o deteriorado material o recursos de medio valor (lámparas, mobiliario, pintura, cableado, etc.)");
 		descripcion.put(i++, "Se ha extraviado o deteriorado material o recursos de mucho valor (equipos electrónicos especiales, proyectores, etc.)");
-		// TODO: Añadir más si se me ocurren
+		// TODO: Añadir más, si se me ocurren
 
-		try {
-			return descripcion.get(codigoSancion);
-		} catch (IndexOutOfBoundsException e) {
-			return "Otro suceso no contemplado (véase descripción)";
+		res = descripcion.get(codigoSancion);
+
+		if(res == null) {
+			res = "Otro suceso no contemplado (véase descripción)";
 		}
+
+		return res;
 	}
 
 
