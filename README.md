@@ -1,5 +1,5 @@
 # MDAS-Practicas
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/06d9d638abea4a1699a893f6782fd349)](https://app.codacy.com/gh/MDAS-P2/MDAS-Practicas?utm_source=github.com&utm_medium=referral&utm_content=MDAS-P2/MDAS-Practicas&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/beb5ecc007c4452ab5582ae0df538f44)](https://www.codacy.com/gh/Veltys/MDAS-Practicas/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Veltys/MDAS-Practicas&amp;utm_campaign=Badge_Grade)
 
 ## Descripción
 Trabajo práctico de la asignatura Modelado y Diseño Avanzado de Software (en adelante MDAS), de la Universidad de Córdoba (UCO)
